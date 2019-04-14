@@ -1,13 +1,13 @@
-## LE-FINAL-DESIGN
+# LE-FINAL-DESIGN
 毕业设计代码部分
 
 
-## git instruction
+# git instruction
 
-# pull
+## pull
 git clone <project>
 
-# update
+## update
 git pull --rebase  # Update local repository 
 
 git checkout -b <branch-name> origin/master

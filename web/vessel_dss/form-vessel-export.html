@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>船舶结构信息</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type='text/css' href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type='text/css' href="css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" type='text/css' href="css/matrix-style2.css" />
+    <link rel="stylesheet" type='text/css' href="css/matrix-media.css" />
+    <link rel="stylesheet" type='text/css' href="font-awesome/css/font-awesome.css"/>
+    <link rel='stylesheet' type='text/css' href='css/fonts.googleapis.OpenSans.400.700.800.css'/>
+    <style>
+        .control-group .controls label{
+            display:inline-block;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+    <div id="content-header">
+        <h1>出口箱配载计划</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span8">
+                <div class="widget-box">
+                    <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>基本信息输入</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form action="#" method="get" class="form-horizontal">
+                            <div class="control-group">
+                                <label class="control-label">船名 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="vessel-name" placeholder="Vessel name" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">航次 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="voyage" placeholder="voyage" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">航箱位 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="voyage" placeholder="voyage" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">列号 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="voyage" placeholder="voyage" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">甲板 or 舱内 :</label>
+                                <div class="controls">
+                                    <label>
+                                        <input type="radio" name="deck" />
+                                        甲板</label>
+                                    <label>
+                                        <input type="radio" name="cabin" />
+                                        舱内</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">箱号 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="container-number" placeholder="number of container" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">箱型 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="container-type" placeholder="type of container" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">尺寸 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="container-size" placeholder="size of container" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">状态 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="status" placeholder="status" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">箱重 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="container-weight" placeholder="weight of container" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">货特要求 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="require-cargo" placeholder="requirement of cargo" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">起运港 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="starting-port" placeholder="port of start" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">卸货港 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="unloading-port" placeholder="port of unload" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">目的港 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="destination-port" placeholder="port of destination" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">箱作业状态 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="container-operation-status" placeholder="status of container-operation" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">堆场箱位 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="yardCell-plannedContainer" placeholder="yard cell of planned container" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">描述 :</label>
+                                <div class="controls">
+                                    <textarea class="span11" ></textarea>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script src="js/jquery.ui.custom.js"></script>
+<script src="js/bootstrap_2.2.2/bootstrap.min.js"></script>
+</body>
+</html>

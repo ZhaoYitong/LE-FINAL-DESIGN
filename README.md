@@ -6,7 +6,7 @@
 
 git clone <project>
 
-<option> git checkout -b <branch-name> origin/master
+git checkout -b <branch-name> origin/master
 
 git status
 

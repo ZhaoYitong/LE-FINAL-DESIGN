@@ -10,7 +10,7 @@ git clone <project>
 ## update
 git pull --rebase  # Update local repository 
 
-git checkout -b <branch-name> origin/master
+git checkout -b '<branch-name>' origin/master
 
 git status
 

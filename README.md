@@ -2,23 +2,30 @@
 毕业设计代码部分
 
 
-# git instruction
+## git instruction
 
-## pull
+### pull
+
+```bash
 git clone <project>
+```
 
-## update
+### update
+
+```bash
 git pull --rebase  # Update local repository 
 
-git checkout -b 'branch-name' origin/master
+git checkout -b <branch-name> origin/master
 
 git status
 
-git add . | git add 'file-name'
+git add . | git add <file-name>
 
 git commit 
 
 git push origin HEAD:master
+```
 
 
-
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

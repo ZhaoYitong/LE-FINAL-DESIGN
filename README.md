@@ -10,12 +10,15 @@
 git clone <project>
 ```
 
+### establish new branch
+```bash
+git checkout -b <branch-name> origin/master
+```
+
 ### update
 
 ```bash
 git pull --rebase  # Update local repository 
-
-git checkout -b <branch-name> origin/master
 
 git status
 
@@ -25,7 +28,6 @@ git commit
 
 git push origin HEAD:master
 ```
-
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

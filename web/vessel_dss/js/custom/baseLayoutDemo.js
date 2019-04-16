@@ -3,6 +3,46 @@
  */
 const NUMBER_BAY_TYPE = 2;
 
+// 水平方向侧视 支持一条船
+let VIEW_SIDE = {
+    watchType: "sideViewing",
+    containerOnBoard: [
+      // distribution depend on bay, layer
+        {
+            bayID: "01",
+            bayType: "20inch",
+            maxNumOfCon: 6,
+        },
+        {
+            bayID: "04",
+            bayType:"40inch",
+        }
+
+    ],
+    containerBelowBoard: [
+        // distribution depend on bay, layer
+        {
+            bayID: "01",
+            bayType: "20inch",
+            maxNumOfCon: 6,
+        },
+        {
+            bayID: "04",
+            bayType:"40inch",
+        }
+
+    ],
+    // 舱盖板
+    typeOfBoard: "",
+    numOfBoard: 1,
+
+};
+
+
+let VIEW_UP = {
+    
+};
+
 let CONTAINER_LIST = {
     pic_type:"侧视图", // 俯视图  剖面图
     vessel_id:"001",

@@ -4,10 +4,29 @@
 const NUMBER_BAY_TYPE = 2;
 
 // 水平方向侧视 支持一条船
+
+/*
+    01   03   05   07   09   11   13   15   17    19    21    // 20 inch
+       02   04   06   08   10   12   14   16   18    20   // 40 inch
+
+ */
 let VIEW_SIDE = {
     watchType: "sideViewing",
+    vessel_id:"001",
+    vessel_IMO:"KuiYa123",
+    vessel_name:"亚历山大",
+    vessel_width:"30m",
+    vessel_frontLength:"100m",
+    vessel_length:"300m",
+    max_bay_number: 25,
+    max_layer_above_number: 10, // all above
+    max_layer_below_number: 8,  // all below
+    num_bay_type: 2, // 20inch  + 40inch inline
+    hatCover_kind:"自开式", // 自开式  堆叠式
+    hatCover_number: 1,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
     containerOnBoard: [
       // distribution depend on bay, layer
+        // 01 04  07 09
         {
             bayID: "01",
             bayType: "20inch",
@@ -16,8 +35,18 @@ let VIEW_SIDE = {
         {
             bayID: "04",
             bayType:"40inch",
-        }
-
+            maxNumOfCon: 7,
+        },
+        {
+            bayID:"07",
+            bayType:"20inch",
+            maxNumOfCon:5,
+        },
+        {
+            bayID:"09",
+            bayType:"20inch",
+            maxNumOfCon:6,
+        },
     ],
     containerBelowBoard: [
         // distribution depend on bay, layer
@@ -29,6 +58,10 @@ let VIEW_SIDE = {
         {
             bayID: "04",
             bayType:"40inch",
+            maxNumOfCon:4,
+        },
+        {
+
         }
 
     ],
@@ -40,7 +73,9 @@ let VIEW_SIDE = {
 
 
 let VIEW_UP = {
-    
+    watchType: "upViewing",
+
+
 };
 
 let CONTAINER_LIST = {
@@ -52,19 +87,11 @@ let CONTAINER_LIST = {
     vessel_frontLength:"100m",
     vessel_length:"300m",
     max_bay_number: 25,
-    max_layer_above_number: 10,
-    max_layer_below_number: 8,
+    max_layer_above_number: 10, // all above
+    max_layer_below_number: 8,  // all below
     num_bay_type: 2, // 20inch  + 40inch inline
     hatCover_kind:"自开式", // 自开式  堆叠式
     hatCover_number: 1,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
-    // container info list
-    data:
-    [
-        {
-
-        },
-
-    ],
 };
 
 /**

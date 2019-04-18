@@ -198,26 +198,25 @@ function createVesselSide(){
     for(let i=con_bay_num-1;i>=0;i--){
         let conBayId = bayLists.inch20[i].id;
         $(".onBoardSide").append("<div id='"+conBayId+"' class=\"conZoneAbove_inch20\"" +
-            "style= 'width:30px;" +
+            "style= 'width:38px;" +
             "display: table-cell;"+
             "vertical-align: bottom;"+
             "height:80px;" +
-            "padding:0.5em;" +
-            "float:left;" +
+            // "padding:0;" +
+            // "float:left;" +
             "background-color:#d0ddf2;" +
             "margin:2px;'>" +
             "</div>")
     }
     // test container on board
+    // length : width : height   2.5:1:1
     let areaId = 2;
     let conId = 5;
     $(".onBoardSide div[id='2']").append("<div id='"+conId+"' class=\"conBayAbove_inch20\"" +
-        "style= 'width:26px;" +
-        "height:10px;" +
-        "padding:0.5em;" +
-        "float:left;" +
-        "background-color:darkred;" +
-        "margin:2px;'>" +
+        "style= 'width:36px;" +
+        "height:12px;" +
+        "margin:1px 1px 0 0;" +
+        "background-color:darkred;'>" +
         "</div>");
 
 
@@ -230,14 +229,13 @@ function createVesselSide(){
     for(let i=con_bay_num-1;i>=0;i--){
         let conBayId = bayLists.inch20[i].id;
         $(".belowBoardSide").append("<div id='"+conBayId+"' class=\"conZoneBelow_inch20\"" +
-            "style= 'width:30px;" +
+            "style= 'width:38px;" +
             "display: table-cell;"+
             "vertical-align: bottom;"+
             "height:50px;" +
-            "padding:0.5em;" +
+            // "padding:0.5em;" +
             "float:left;" +
-            "background-color:#d0ddf2;" +
-            "margin:2px;'>" +
+            "background-color:#d0ddf2;margin:2px;'>" +
             "</div>")
     }
 }

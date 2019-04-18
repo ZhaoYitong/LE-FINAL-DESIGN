@@ -23,7 +23,7 @@ let VIEW_SIDE = {
     max_layer_below_number: 8,  // all below
     num_bay_type: 2, // 20inch  + 40inch inline
     hatCover_kind:"自开式", // 自开式  堆叠式
-    hatCover_number: 1,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
+    hatCover_number: 2,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
     containerOnBoard: [
       // distribution depend on bay, layer
         // 01 04  07 09
@@ -192,6 +192,57 @@ function reCombination(){
 }
 
 function createVesselSide(){
+    // above
+    let bayLists = BayNumToRealIndexList(numOfBay);
+    let con_bay_num = bayLists.inch20.length;
+    for(let i=con_bay_num-1;i>=0;i--){
+        let conBayId = bayLists.inch20[i].id;
+        $(".onBoardSide").append("<div id='"+conBayId+"' class=\"conZoneAbove_inch20\"" +
+            "style= 'width:30px;" +
+            "display: table-cell;"+
+            "vertical-align: bottom;"+
+            "height:80px;" +
+            "padding:0.5em;" +
+            "float:left;" +
+            "background-color:#d0ddf2;" +
+            "margin:2px;'>" +
+            "</div>")
+    }
+    // test container on board
+    let areaId = 2;
+    let conId = 5;
+    $(".onBoardSide div[id='2']").append("<div id='"+conId+"' class=\"conBayAbove_inch20\"" +
+        "style= 'width:26px;" +
+        "height:10px;" +
+        "padding:0.5em;" +
+        "float:left;" +
+        "background-color:darkred;" +
+        "margin:2px;'>" +
+        "</div>");
+
+
+    // board
+    let boardNum = numOfBoard;
+    for(let i=0;i<boardNum;i++){
+        $(".boardSide").append("<div style='height:5px;background-color: grey; margin:2px 2px;'></div>")
+    }
+    // below
+    for(let i=con_bay_num-1;i>=0;i--){
+        let conBayId = bayLists.inch20[i].id;
+        $(".belowBoardSide").append("<div id='"+conBayId+"' class=\"conZoneBelow_inch20\"" +
+            "style= 'width:30px;" +
+            "display: table-cell;"+
+            "vertical-align: bottom;"+
+            "height:50px;" +
+            "padding:0.5em;" +
+            "float:left;" +
+            "background-color:#d0ddf2;" +
+            "margin:2px;'>" +
+            "</div>")
+    }
+}
+
+function createVesselUp(){
 
 }
 
@@ -200,8 +251,9 @@ function createVesselSide(){
  *
  * main
  */
-let numOfType = CONTAINER_LIST.num_bay_type;
-let numOfBay = CONTAINER_LIST.max_bay_number;
+let numOfType = VIEW_SIDE.num_bay_type;
+let numOfBay = VIEW_SIDE.max_bay_number;
+let numOfBoard = VIEW_SIDE.hatCover_number;
 
 initAreaForInline(numOfType);
 let bayList = BayNumToRealIndexList(numOfBay);

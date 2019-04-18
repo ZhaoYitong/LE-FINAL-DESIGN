@@ -11,13 +11,14 @@
     <style rel="stylesheet" href="css/custom/vesselLayout.css"></style>
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
-    <!--<style>-->
-        <!--#feedback { font-size: 1.4em; }-->
-        <!--#selectable .ui-selecting { background: #FECA40; }-->
-        <!--#selectable .ui-selected { background: #F39814; color: white; }-->
-        <!--#selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }-->
-        <!--#selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }-->
-    <!--</style>-->
+    <style>
+        #feedback { font-size: 1.4em; }
+        .bayZone_inch20 { background:#2f96b4}
+        #selectable .ui-selecting { background: #FECA40; }
+        #selectable .ui-selected { background: #F39814; color: white; }
+        /*#selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }*/
+        /*#selectable .bayZone_inch20 { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }*/
+    </style>
 </head>
 <body>
 <div id="content">
@@ -27,10 +28,31 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span12">
-                <div class="mainArea" style="border: 4mm ridge #939DA8;margin-top: 100px;">
+                <div style="display: inline-block;float: right;margin-top: 20px;">
+                    <button class="btn btn-success" onclick="createVesselSide()">生成船舶--侧视</button>
+                    <button class="btn btn-success" onclick="createVesselUp()">生成船舶--俯视</button>
+                </div>
+                <!--<p id="feedback">-->
+                    <!--<span>You've selected:</span> <span id="select-result">none</span>.-->
+                <!--</p>-->
+                <div style="border: 4mm ridge #939DA8;margin-top: 100px;">
+                    <div class="bayArea" style="border-bottom: 2mm ridge #939DA8;">
                     <!--
                     add BAY....
                     -->
+                    </div>
+                    <br>
+                    <div class="vesselArea" style="border: 2mm ridge #90111A; margin-top: 25px;">
+                        <div class="onBoard">
+
+                        </div>
+                        <div class="board">
+
+                        </div>
+                        <div class="belowBoard">
+
+                        </div>
+                    </div>
                 </div>
             </div>
 

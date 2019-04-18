@@ -77,7 +77,7 @@ let VIEW_UP = {
 
 
 };
-
+// TODO: support more number of bay with scroll bar
 let CONTAINER_LIST = {
     pic_type:"侧视图", // 俯视图  剖面图
     vessel_id:"001",
@@ -103,13 +103,8 @@ let CONTAINER_LIST = {
 
 // 初始化生成 多条贝位区域  默认 20inch  40inch
 function initAreaForInline(numOfBayType) {
-    // let aa = col_sea;
-    // for(let i=0;i<numOfBayType;i++){
-    //     $('.mainArea').append("<div id='"+i+"' style='display:inline-flex' class=\"bayArea_20\">" + "</div>");
-    // }
-    $('.mainArea').append("<div style='display:inline-flex' class=\"bayArea_20\">" + "</div>");
-    $('.mainArea').append("<div style='display:inline-flex' class=\"bayArea_40\">" + "</div>");
-
+    $('.bayArea').append("<div style='display:inline-flex' id='selectable' class=\"bayArea_20\">" + "</div>");
+    $('.bayArea').append("<div style='display:inline-flex' class=\"bayArea_40\">" + "</div>");
 }
 
 // id number to string
@@ -117,8 +112,10 @@ function initAreaForInline(numOfBayType) {
 function numToidString(num) {
     return num < 10 ? "0" + num.toString() : num.toString();
 }
+function createBay40Num() {
 
-//
+}
+
 function BayNumToRealIndexList(bayNum) {
     //let bay = [];
     let bay = {};
@@ -127,18 +124,17 @@ function BayNumToRealIndexList(bayNum) {
     for (let i=0;i<bayNum;i++){
         bay.inch20[i] = {
             "id":i+1,
-            "bayRealIndex":numToidString(i+1)
+            "bayRealIndex":numToidString(i*2+1)
         };
         if(i<bayNum-1){
             bay.inch40[i] = {
                 "id":(i+1)*2,
-                "bayRealIndex":numToidString((i+1)*2)
-            }
+                // "bayRealIndex":numToidString((i+1)*2)
+            };
         }
     }
     return bay;
 }
-
 
 function insertBay(bayLists){
     let bay_num = bayLists.inch20.length;
@@ -150,7 +146,7 @@ function insertBay(bayLists){
             "height:30px;" +
             "padding:0.5em;" +
             "float:left;" +
-            "background-color:grey;" +
+            // "background-color:grey;" +
             "margin:2px;'>" +
             "<span>'"+ bayIndex + "'</span>"+
             "</div>");
@@ -161,24 +157,44 @@ function insertBay(bayLists){
             "float:left;" +
             //"background-color:lightgrey;" +
             "margin:2px;'>" +
-          //  "<span>'"+ bayIndex + "'</span>"+
             "</div>")
     }
 }
-//
-// let testId = "0402";
-// //$('.lineArea div[id='+testId+']').addClass("next-to-sea");
-// $('.lineArea div[id='+testId+']').css("background-color", "#0077be");
 
-let testIDLeft = "24";
-let testIDRight = "23";
-function selectToInch40(){
-    // test
-    //$('.bayArea_40 div[id='+testID+']').css("background-color", "#0077be");
-    $('.bayArea_40 div[id='+testIDLeft+']').css({"border-left": "5px solid red","border-bottom":"3px solid red","border-top":"3px solid red","width":"25px","height":"24px"});
-    $('.bayArea_40 div[id='+testIDRight+']').css({"border-right": "5px solid red","border-bottom":"3px solid red","border-top":"3px solid red","width":"25px","height":"24px"});
+function selectToInch40(leftBay,rightBay,comBayIndex){
+    $('.bayArea_40 div[id='+leftBay+']').css({"border-left": "5px solid red","border-bottom":"3px solid red","border-top":"3px solid red","width":"25px","height":"24px"});
+    $('.bayArea_40 div[id='+rightBay+']').css({"border-right": "5px solid red","border-bottom":"3px solid red","border-top":"3px solid red","width":"25px","height":"24px"});
+    //TODO: display index with one
+    $('.bayArea_40 div[id='+leftBay+']').append("<span>'"+ comBayIndex + "'</span>");
+    $('.bayArea_40 div[id='+rightBay+']').append("<span>'"+ comBayIndex + "'</span>");
+}
+function selectToInch20(leftBay,rightBay){
+    $('.bayArea_20 div[id='+leftBay+']').css({"border-left": "5px solid red","border-bottom":"3px solid red","border-top":"3px solid red","width":"25px","height":"24px"});
+    $('.bayArea_20 div[id='+rightBay+']').css({"border-right": "5px solid red","border-bottom":"3px solid red","border-top":"3px solid red","width":"25px","height":"24px"});
+    
+}
+
+function clearSelected(){
+    $(".bayZone_inch20.ui-selected").children().removeClass("ui-selected");
+    $(".bayZone_inch20.ui-selected").removeClass("ui-selected");
+}
+
+function disabledSelectFunc(){
+//ui-selectee
+    $(".bayZone_inch20.ui-selected").children().removeClass("ui-selected","ui-selectee");
+    // $(".bayZone_inch20.ui-selected").removeClass("ui-selected","ui-selectee");
+    $(".bayZone_inch20.ui-selected").hide();
 
 }
+function reCombination(){
+
+    console.log("reCombination correct");
+}
+
+function createVesselSide(){
+
+}
+
 
 /**
  *
@@ -192,9 +208,61 @@ let bayList = BayNumToRealIndexList(numOfBay);
 insertBay(bayList);
 
 
-selectToInch40();
+let BayInch20 = [];
+let BayInch40 = [];
 
+// selectToInch40();
+$( function() {
+    $( "#selectable" ).selectable({
+        stop: function() {
+            let selectedBay = $(".bayZone_inch20.ui-selected");
+            // 判断当前选择数目是否合法
+            if(selectedBay.length!==2) {
+                alert("请重新选择");
+                clearSelected();
+            }
+            // disable select left end or right end
+            else if(selectedBay[1].id ==1 || selectedBay[0].id == numOfBay){
+                alert("请重新选择");
+                clearSelected();
+            }
+            else {
+                // TODO: to disable reSelect after first selection
+                let leftBayId = selectedBay[0].id;
+                let rightBayId = selectedBay[1].id;
+                let combinedBayIndex = numToidString((leftBayId*2-1+rightBayId*2-1)/2);
+                console.log(combinedBayIndex);
+                selectToInch40(leftBayId,rightBayId,combinedBayIndex);
+                // disabledSelectFunc();
+                // console.log("correct");
+            }
+        }
+    });
 
+} );
 
+/**
+ *
+ *  USAGE
+ */
+// TODO: append the item from bottom to floor in div
+/*
+$('button').click(function() {
+    $('#parent').append('<div>element</div>');
+});
 
+#parent {
+    height: 200px;
+    width: 100px;
+    border: 1px solid #ccc;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script><div id="parent"></div>
+<button>
+Add
+</button>
+
+*/
 

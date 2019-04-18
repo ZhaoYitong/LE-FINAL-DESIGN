@@ -208,6 +208,7 @@ function createVesselSide(){
             "margin:2px;'>" +
             "</div>")
     }
+    //  
     // test container on board
     // length : width : height   2.5:1:1
     let areaId = 2;

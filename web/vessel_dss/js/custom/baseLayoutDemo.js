@@ -23,7 +23,7 @@ let VIEW_SIDE = {
     max_layer_below_number: 8,  // all below
     num_bay_type: 2, // 20inch  + 40inch inline
     hatCover_kind:"自开式", // 自开式  堆叠式
-    hatCover_number: 2,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
+    hatCover_number: 4,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
     containerOnBoard: [
       // distribution depend on bay, layer
         // 01 04  07 09

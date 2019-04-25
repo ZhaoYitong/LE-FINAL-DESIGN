@@ -96,11 +96,14 @@
 /* selected bay control when selecting  */
 
 .bayArea {
-    border-bottom: 2mm ridge #939DA8;
+    border-left: 2mm ridge;
+    border-right: 2mm ridge;
 }
 
 .newBayArea {
     display:flex;
+    border-left: 2mm ridge;
+    border-right: 2mm ridge;
     border-bottom: 2mm ridge #939DA8;
 }
 

@@ -489,7 +489,7 @@ function createVesselSide(){
  * selectable
  */
 let combinedBay20inch = [];
-function enableSelectable() {
+function setStopOfSelectable() {
     $( "#selectable" ).selectable({
         stop: function() {
             let selectedBay = $(".bayZone_inch20.ui-selected");
@@ -523,12 +523,22 @@ function disableSelectable() {
         disabled: true
     });
 }
+function enableSelectable() {
+    $("#selectable").selectable({
+       disabled: false
+    });
+}
+
 /**
  *  combination buttons
  */
 function combineToStart (){
+    // initial bay
+    initAreaForInline();
+    insertBay(BayNumToRealIndexList(numOfBay));
+
     $(".startCombine")[0].disabled = true;
-    enableSelectable();
+    setStopOfSelectable();
     $(".confirmCombine")[0].disabled = false;
 }
 function combineToConfirm (){
@@ -546,9 +556,18 @@ function combineToConfirm (){
 }
 function combineReset (){
     //TODO: delete last vessel's combination
-
+    //TODO: get response after delete
     alert("确认重新组贝?");
-    enableSelectable();
+    combinedBay20inch = [];
+    // enableSelectable();
+    // setStopOfSelectable();
+    // // get new info of vessel from server
+    // $(".newBayArea")[0].style.display = 'none'; // hide combined bayArea
+    //TODO: reInitial the bayArea
+    // $(".bayArea")[0].style.display = '';
+    // $(".bayArea").remove(".bayArea_20");
+    // $(".bayArea").remove(".bayArea_40");
+
 }
 /**
  * main
@@ -556,9 +575,6 @@ function combineReset (){
 let numOfBay = VIEW_SIDE.max_bay_number;
 let numOfBoard = VIEW_SIDE.hatCover_number;
 
-initAreaForInline();
-let bayList = BayNumToRealIndexList(numOfBay);
-insertBay(bayList);
 
 /**
  *  USAGE

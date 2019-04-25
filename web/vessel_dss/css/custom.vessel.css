@@ -9,7 +9,7 @@
 
 .bayZone_inch20 {
     background:#2f96b4;
-    width:30px;
+    width:38px;
     height:30px;
     float:left;
     margin:2px;
@@ -20,7 +20,7 @@
 
 /* combined bay area */
 .bayZone_inch40 {
-    width:30px;
+    width:38px;
     height:30px;
     float:left;
     background-color:lightgrey;
@@ -30,7 +30,7 @@
 
 .newBay20 {
     background:#2f96b4;
-    width: 30px;
+    width: 38px;
     height: 60px;
     float:left;
     margin:2px;
@@ -40,14 +40,14 @@
 }
 
 .comBay20_40 {
-    width: 60px;
+    width: 76px;
     height:60px;
     float: left;
     margin: 2px;
 }
 
 .newBay20InComLeft {
-    width: 30px;
+    width: 38px;
     height: 30px;
     float:left;
     display:flex;
@@ -57,7 +57,7 @@
 }
 
 .newBay20InComRight {
-    width: 30px;
+    width: 38px;
     height: 30px;
     float:left;
     display:flex;
@@ -67,14 +67,14 @@
 }
 
 .newBay20InComParent {
-    width: 60px;
+    width: 76px;
     height: 30px;
     display:flex;
     background:#2f96b4;
 }
 
 .newBay40InCom {
-    width: 60px;
+    width: 76px;
     height: 30px;
     float:left;
     display:flex;
@@ -98,11 +98,13 @@
 /* selected bay control when selecting  */
 
 .bayArea {
+    overflow-x: scroll;
     border-left: 2mm ridge;
     border-right: 2mm ridge;
 }
 
 .newBayArea {
+    overflow-x: scroll;
     display:flex;
     border-left: 2mm ridge;
     border-right: 2mm ridge;
@@ -118,8 +120,21 @@
 }
 
 .vesselAreaSide {
+    overflow-x: scroll;
     border: 2mm ridge #90111A;
     margin-top: 10px;
+}
+/* what is display inline ? */
+.vesselAreaSide.onBoardSide {
+    display: inline;
+}
+
+.vesselAreaSide.belowBoardSide {
+    display: inline;
+}
+
+.vesselAreaSide.boardSide {
+    display: inline;
 }
 
 .conZoneAbove_inch20 {

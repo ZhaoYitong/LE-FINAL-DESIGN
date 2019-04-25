@@ -69,11 +69,6 @@ let VIEW_SIDE = {
     numOfBoard: 1,
 
 };
-
-let VIEW_UP = {
-    watchType: "upViewing",
-
-};
 let CONTAINER_LIST = {
     pic_type:"侧视图", // 俯视图  剖面图
     vessel_id:"001",
@@ -89,7 +84,6 @@ let CONTAINER_LIST = {
     hatCover_kind:"自开式", // 自开式  堆叠式
     hatCover_number: 1,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
 };
-
 let newBayList = {
     vessel_IMO: "001",
     data: [
@@ -357,6 +351,79 @@ let newBayList = {
             ],
         },
     ],
+};
+let conListViewSide = {
+    vessel_IMO:"KuiYa123",
+    data: {
+        containerAbove:[
+            // layer > cons
+            // down to up : 82, 84, 86, 88
+            {
+                layerIndex: "82",
+                cons: [
+                    {
+                        isContainer: true,
+                        type: "single",
+                        bayIndex: "01",
+                    },
+                    {
+                        isContainer: true,
+                        type: "single",
+                        bayIndex: "03",
+                    },
+
+
+                ],
+
+            },
+            {
+                layerIndex: "84",
+                cons: [
+
+                ],
+            },
+            {
+                layerIndex: "86",
+                cons: [
+
+                ],
+
+            },
+            {
+                layerIndex: "88",
+                cons: [
+
+                ],
+            },
+        ],
+        containerBelow:[
+            // layer > cons
+            {
+                layerIndex: "02",
+                cons: [
+
+                ],
+            },
+            {
+                layerIndex: "04",
+                cons: [
+
+                ],
+            },
+            {
+                layerIndex: "06",
+                cons: [
+
+                ],
+            },
+            {
+                layerIndex: "08",
+                cons: [
+
+                ],
+            },
+        ],
+    },
 };
 
 /**

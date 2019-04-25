@@ -1,0 +1,170 @@
+#vessel-buttons {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+#vessel-buttons > button {
+    margin: 5px;
+}
+
+.bayZone_inch20 {
+    background:#2f96b4;
+    width:30px;
+    height:30px;
+    float:left;
+    margin:2px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* combined bay area */
+.bayZone_inch40 {
+    width:30px;
+    height:30px;
+    float:left;
+    background-color:lightgrey;
+    margin:2px;
+    position: relative;
+}
+
+.newBay20 {
+    width: 30px;
+    height: 60px;
+    float:left;
+    margin:2px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.comBay20_40 {
+    width: 60px;
+    height:60px;
+    float: left;
+    margin: 2px;
+}
+
+.newBay20InCom {
+    width: 30px;
+    height: 30px;
+    float:left;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.newBay40InCom {
+    width: 60px;
+    height: 30px;
+    float:left;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+/* combined bay area */
+
+/* selected bay control when selecting  */
+.leftBaySelected {
+    border-left:5px solid red;
+    border-bottom: 3px solid red;
+    border-top: 3px solid red;
+}
+
+.rightBaySelected {
+    border-right:5px solid red;
+    border-bottom: 3px solid red;
+    border-top: 3px solid red;
+}
+/* selected bay control when selecting  */
+
+.bayArea {
+    border-bottom: 2mm ridge #939DA8;
+}
+
+.newBayArea {
+    border-bottom: 2mm ridge #939DA8;
+}
+
+.bayArea_20 {
+    display: inline-flex;
+}
+
+.bayArea_40 {
+    display: inline-flex;
+}
+
+.vesselAreaSide {
+    border: 2mm ridge #90111A;
+    margin-top: 10px;
+}
+
+.conZoneAbove_inch20 {
+    width:38px;
+    display: table-cell;
+    vertical-align: bottom;
+    height:80px;
+    background-color:#d0ddf2;
+    margin:2px;
+}
+.conZoneBelow_inch20 {
+    width:38px;
+    display: table-cell;
+    vertical-align: bottom;
+    height:50px;
+    float:left;
+    background-color:#d0ddf2;
+    margin:2px;
+}
+
+.conBayAbove_inch20 {
+    width:36px;
+    height:12px;
+    margin:1px 1px 0 0;
+    background-color:darkred;
+}
+
+.cabinCover {
+    height:5px;
+    background-color: grey;
+    margin:2px 2px;
+}
+
+.boardSide {
+    display: inline-flex;
+}
+
+.belowBoardSide {
+    display: inline-flex;
+}
+
+
+/* jquery ui-select */
+#feedback {
+    font-size: 1.4em;
+}
+
+#selectable .ui-selecting {
+    background: #FECA40;
+}
+
+#selectable .ui-selected {
+    background: #F39814;
+    color: white;
+}
+/* jquery ui-select */
+
+.bay20Index {
+    height: 25px;
+    width: 25px;
+    color: #cdd8f6;
+}
+
+.leftBaySelected .bay40Index  {
+    float: right;
+    margin-right: 2px;
+}
+
+.rightBaySelected .bay40Index  {
+    float: left;
+    margin-left: 2px;
+}

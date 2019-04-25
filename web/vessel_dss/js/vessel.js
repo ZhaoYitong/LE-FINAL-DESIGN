@@ -358,6 +358,7 @@ let newBayList = {
         },
     ],
 };
+
 /**
  * custom function
  */
@@ -378,7 +379,6 @@ function isExist(array,value){
 function toAbsent(value) {
     return value>0?value:-value;
 }
-
 /**
  *  initialize bay area
  */
@@ -443,21 +443,16 @@ function selectToInch40(leftBay,rightBay,comBayIndex){
     $('.bayArea_40 div[id='+leftBay+']').addClass("combined");
     $('.bayArea_40 div[id='+rightBay+']').addClass("rightBaySelected");
     $('.bayArea_40 div[id='+rightBay+']').addClass("combined");
-    //TODO: display index with one
+    // TODO: display index with one
     $('.bayArea_40 div[id='+leftBay+']').append(`<span class="bay40Index">${comBayIndex}</span>`);
     $('.bayArea_40 div[id='+rightBay+']').append(`<span class="bay40Index">${comBayIndex}</span>`);
-}
-function selectToInch20(leftBay,rightBay){
-    $('.bayArea_20 div[id='+leftBay+']').addClass("leftBaySelected","combined");
-    $('.bayArea_20 div[id='+rightBay+']').addClass("rightBaySelected","combined");
-    
 }
 function clearSelected(){
     $(".bayZone_inch20.ui-selected").children().removeClass("ui-selected");
     $(".bayZone_inch20.ui-selected").removeClass("ui-selected");
 }
 /**
- *  vessel
+ *  vessel creation
  */
 function createVesselSide(){
     // above
@@ -469,7 +464,6 @@ function createVesselSide(){
     }
     // test container on board
     // length : width : height   2.5:1:1
-    let areaId = 2;
     let conId = 5;
     $(".onBoardSide div[id='2']").append(`<div id=${conId} class="conBayAbove_inch20"></div>`);
 
@@ -523,12 +517,12 @@ function disableSelectable() {
         disabled: true
     });
 }
+// TODO: enable after reset combination
 function enableSelectable() {
     $("#selectable").selectable({
        disabled: false
     });
 }
-
 /**
  *  combination buttons
  */
@@ -555,15 +549,15 @@ function combineToConfirm (){
     $(".confirmCombine")[0].disabled = true;
 }
 function combineReset (){
-    //TODO: delete last vessel's combination
-    //TODO: get response after delete
+    // TODO: delete last vessel's combination
+    // TODO: get response after delete
     alert("确认重新组贝?");
     combinedBay20inch = [];
     // enableSelectable();
     // setStopOfSelectable();
     // // get new info of vessel from server
     // $(".newBayArea")[0].style.display = 'none'; // hide combined bayArea
-    //TODO: reInitial the bayArea
+    // TODO: reInitial the bayArea
     // $(".bayArea")[0].style.display = '';
     // $(".bayArea").remove(".bayArea_20");
     // $(".bayArea").remove(".bayArea_40");
@@ -574,8 +568,6 @@ function combineReset (){
  */
 let numOfBay = VIEW_SIDE.max_bay_number;
 let numOfBoard = VIEW_SIDE.hatCover_number;
-
-
 /**
  *  USAGE
  */

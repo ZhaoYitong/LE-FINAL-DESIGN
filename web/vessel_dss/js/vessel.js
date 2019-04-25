@@ -74,7 +74,6 @@ let VIEW_UP = {
     watchType: "upViewing",
 
 };
-// TODO: support more number of bay with scroll bar
 let CONTAINER_LIST = {
     pic_type:"侧视图", // 俯视图  剖面图
     vessel_id:"001",
@@ -421,11 +420,20 @@ function createBayAfterOperation(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
     for(let i=newBay_num-1;i>=0;i--) {
+        let itemId = dataList[i].id;
         if(dataList[i].type == "single"){
-            $(".newBayArea").append(`<div></div>`);
+            $(".newBayArea").append(`<div id= ${itemId} class="newBay20"><span class="newBay20Index">${dataList[i].bayInch20[0].index}</span></div>`);
+        }
+        else {
+            $(".newBayArea").append(`<div id= ${itemId} class="comBay20_40">`+
+                `<div class="newBay20InComParent">`+
+                    `<div class="newBay20InComLeft"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
+                    `<div class="newBay20InComRight"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
+                `</div>`+
+                `<div class="newBay40InCom"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
+                `</div>`);
         }
     }
-
 }
 /**
  *  select bay
@@ -534,6 +542,7 @@ function combineToConfirm (){
     console.log(combinedBay20inch);
     $(".bayArea")[0].style.display = 'none'; // hide last bayArea
     createBayAfterOperation(newBayList); // get data from server
+    $(".confirmCombine")[0].disabled = true;
 }
 function combineReset (){
     //TODO: delete last vessel's combination

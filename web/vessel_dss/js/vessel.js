@@ -398,6 +398,7 @@ let conListViewSide = {
         ],
         containerBelow:[
             // layer > cons
+
             {
                 layerIndex: "02",
                 cons: [
@@ -449,6 +450,7 @@ function toAbsent(value) {
 /**
  *  initialize bay area
  */
+// TODO: change size of div according to the number of bay and container!!
 function initAreaForInline() {
     $('.bayArea').append(`<div id="selectable" class="bayArea_20"></div>`);
     $('.bayArea').append(`<div class="bayArea_40"></div>`);
@@ -510,7 +512,6 @@ function selectToInch40(leftBay,rightBay,comBayIndex){
     $('.bayArea_40 div[id='+leftBay+']').addClass("combined");
     $('.bayArea_40 div[id='+rightBay+']').addClass("rightBaySelected");
     $('.bayArea_40 div[id='+rightBay+']').addClass("combined");
-    // TODO: display index with one
     $('.bayArea_40 div[id='+leftBay+']').append(`<span class="bay40Index">${comBayIndex}</span>`);
     $('.bayArea_40 div[id='+rightBay+']').append(`<span class="bay40Index">${comBayIndex}</span>`);
 }
@@ -630,6 +631,37 @@ function combineReset (){
     // $(".bayArea").remove(".bayArea_40");
 
 }
+
+/**
+ *
+ *  zoom in and zoom out
+ */
+function setZoom(zoom,el) {
+
+    let transformOrigin = [0,0];
+    el = el || instance.getContainer();
+    let p = ["webkit", "moz", "ms", "o"],
+        s = "scale(" + zoom + ")",
+        oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
+
+    for (let i = 0; i < p.length; i++) {
+        el.style[p[i] + "Transform"] = s;
+        el.style[p[i] + "TransformOrigin"] = oString;
+    }
+
+    el.style["transform"] = s;
+    el.style["transformOrigin"] = oString;
+
+}
+
+//setZoom(5,document.getElementsByClassName('container')[0]);
+
+function showVal(a){
+    let zoomScale = Number(a)/10;
+    setZoom(zoomScale,document.getElementsByClassName('mainArea')[0])
+}
+
+
 /**
  * main
  */

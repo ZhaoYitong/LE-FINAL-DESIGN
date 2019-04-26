@@ -18,22 +18,28 @@
         <button type="button" class="btn btn-outline-primary reStartCombine" onclick="combineReset()">重新组贝</button>
         <button type="button" class="btn btn-outline-success" onclick="createVesselSide()">生成船舶</button>
     </div>
-    <div class="bayArea">
-        <!--  add BAY.... -->
+    <div class="zoomToggle d-flex flex-row">
+        <input id="test" min="1" max="10" value='10' step="1" onchange="showVal(this.value)" type="range"/>
     </div>
-    <div class="newBayArea">
-        <!-- Bay after combination -->
-    </div>
-    <br>
-    <div class="vesselAreaSide">
-        <div class="onBoardSide">
-            <!-- -->
+
+    <div class="mainArea">
+        <div class="bayArea">
+            <!--  add BAY.... -->
         </div>
-        <div class="boardSide">
-            <!--  -->
+        <div class="newBayArea">
+            <!-- Bay after combination -->
         </div>
-        <div class="belowBoardSide">
-            <!-- -->
+        <br>
+        <div class="vesselAreaSide">
+            <div class="onBoardSide">
+                <!-- -->
+            </div>
+            <div class="boardSide">
+                <!--  -->
+            </div>
+            <div class="belowBoardSide">
+                <!-- -->
+            </div>
         </div>
     </div>
 </div>

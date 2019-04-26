@@ -104,13 +104,13 @@
 /* selected bay control when selecting  */
 
 .bayArea {
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
     border-left: 2mm ridge;
     border-right: 2mm ridge;
 }
 
 .newBayArea {
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
     display:flex;
     border-left: 2mm ridge;
     border-right: 2mm ridge;

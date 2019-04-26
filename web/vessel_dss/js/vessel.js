@@ -937,6 +937,12 @@ let conListViewSide = {
         ],
     },
 };
+let vesselViewSide = {
+    vessel_IMO:"KuiYa123",
+    data: {
+
+    }
+};
 
 /**
  * custom function
@@ -1048,7 +1054,6 @@ function createVesselSide(){
     let conId = 5;
     $(".onBoardSide div[id='2']").append(`<div id=${conId} class="conBayAbove_inch20"></div>`);
 
-
     // board
     let boardNum = numOfBoard;
     for(let i=0;i<boardNum;i++){
@@ -1060,6 +1065,13 @@ function createVesselSide(){
         $(".belowBoardSide").append(`<div id=${conBayId} class="conZoneBelow_inch20"></div>`);
     }
 }
+/**
+ *  stowage info
+ */
+function createStowageInfo() {
+    // TODO: disable according to relevant func before click
+}
+
 /**
  * selectable
  */
@@ -1145,7 +1157,6 @@ function combineReset (){
 }
 
 /**
- *
  *  zoom in and zoom out
  */
 function setZoom(zoom,el) {

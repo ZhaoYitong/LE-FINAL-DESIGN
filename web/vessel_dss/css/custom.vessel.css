@@ -7,6 +7,11 @@
     margin: 5px;
 }
 
+.zoomToggle {
+    margin-top:10px;
+    margin-bottom: 40px;
+}
+
 .bayZone_inch20 {
     background:#2f96b4;
     width:38px;
@@ -80,6 +85,7 @@
     display:flex;
     justify-content:center;
     align-items:center;
+    background-color: yellow;
 }
 /* combined bay area */
 
@@ -225,3 +231,4 @@
     float: left;
     margin-left: 2px;
 }
+

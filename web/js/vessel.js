@@ -21,11 +21,11 @@ let VIEW_SIDE = {
     vessel_frontLength:"100m",
     vessel_length:"300m",
     max_bay_number: 30,
-    max_layer_above_number: 10, // all above
-    max_layer_below_number: 8,  // all below
+    max_layer_above_number: 8, // all above
+    max_layer_below_number: 4,  // all below
     num_bay_type: 2, // 20inch  + 40inch inline
     hatCover_kind:"自开式", // 自开式  堆叠式
-    hatCover_number: 4,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
+    hatCover_number: 1,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
     containerOnBoard: [
       // distribution depend on bay, layer
         // 01 04  07 09
@@ -949,7 +949,7 @@ let vesselViewSide = {
  */
 // id number to string
 // 1 -> 01; 12->12
-function numToidString(num) {
+function numToIdString(num) {
     return num < 10 ? "0" + num.toString() : num.toString();
 }
 // is exist in array
@@ -980,12 +980,12 @@ function BayNumToRealIndexList(bayNum) {
     for (let i=0;i<bayNum;i++){
         bay.inch20[i] = {
             "id":i+1,
-            "bayRealIndex":numToidString(i*2+1)
+            "bayRealIndex":numToIdString(i*2+1)
         };
         if(i<bayNum-1){
             bay.inch40[i] = {
                 "id":(i+1)*2,
-                // "bayRealIndex":numToidString((i+1)*2)
+                // "bayRealIndex":numToIdString((i+1)*2)
             };
         }
     }
@@ -1084,6 +1084,7 @@ function setStopOfSelectable() {
             if(isNumSelectRight){
                 let isReselect = (isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id))? true:false;
                 let isNextTo = toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) == 1?true:false;
+                // TODO: add left to right constraint
                 if(isReselect || !isNextTo) {
                     alert("请重新选择");
                     clearSelected();
@@ -1093,7 +1094,7 @@ function setStopOfSelectable() {
                     let rightBayId = selectedBay[1].id;
                     combinedBay20inch.push(leftBayId);
                     combinedBay20inch.push(rightBayId);
-                    let combinedBayiInch40Index = numToidString((leftBayId*2-1+rightBayId*2-1)/2);
+                    let combinedBayiInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
                     selectToInch40(leftBayId,rightBayId,combinedBayiInch40Index);
                 }
             }

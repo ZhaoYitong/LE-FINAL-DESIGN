@@ -1055,10 +1055,10 @@ function createVesselSide(){
     $(".onBoardSide div[id='2']").append(`<div id=${conId} class="conBayAbove_inch20"></div>`);
 
     // board
-    let boardNum = numOfBoard;
-    for(let i=0;i<boardNum;i++){
-        $(".boardSide").append(`<div class="cabinCover"></div>`);
-    }
+    // let boardNum = numOfBoard;
+    // for(let i=0;i<boardNum;i++){
+    //     $(".boardSide").append(`<div class="cabinCover"></div>`);
+    // }
     // below
     for(let i=con_bay_num-1;i>=0;i--){
         let conBayId = bayLists.inch20[i].id;

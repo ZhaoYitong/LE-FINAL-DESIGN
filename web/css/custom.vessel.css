@@ -50,14 +50,14 @@ body {
 }
 
 .comBay20_40 {
-    width: 76px;
+    width: 80px;
     height:60px;
     float: left;
     margin: 2px;
 }
 
 .newBay20InComLeft {
-    width: 38px;
+    width: 40px;
     height: 30px;
     float:left;
     display:flex;
@@ -67,7 +67,7 @@ body {
 }
 
 .newBay20InComRight {
-    width: 38px;
+    width: 40px;
     height: 30px;
     float:left;
     display:flex;
@@ -77,14 +77,14 @@ body {
 }
 
 .newBay20InComParent {
-    width: 76px;
+    width: 80px;
     height: 30px;
     display:flex;
     background:#2f96b4;
 }
 
 .newBay40InCom {
-    width: 76px;
+    width: 80px;
     height: 30px;
     float:left;
     display:flex;
@@ -108,22 +108,13 @@ body {
 }
 
 .mainArea {
-    /*flex-direction: column;*/
+    width: 100%;
 }
 /* selected bay control when selecting  */
 
 .bayArea {
+    /*width: 100%;*/
     /*overflow-x: scroll;*/
-    border-left: 2mm ridge;
-    border-right: 2mm ridge;
-}
-
-.newBayArea {
-    /*overflow-x: scroll;*/
-    display:flex;
-    border-left: 2mm ridge;
-    border-right: 2mm ridge;
-    border-bottom: 2mm ridge #939DA8;
 }
 
 .bayArea_20 {
@@ -134,28 +125,32 @@ body {
     display: inline-flex;
 }
 
+.newBayArea {
+    /*overflow-x: scroll;*/
+    /*width: 100%;*/
+    display: inline-flex;
+}
+
 .vesselAreaSide {
-    overflow-x: scroll;
-    border: 2mm ridge #90111A;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 /* what is display inline ? */
 .vesselAreaSide.onBoardSide {
-    display: inline;
+    display: inline-flex;
 }
 
 .vesselAreaSide.belowBoardSide {
-    display: inline;
+    display: inline-flex;
 }
 
 .vesselAreaSide.boardSide {
-    display: inline;
+    display: inline-flex;
 }
 
 .conZoneAbove_inch20 {
     width:38px;
-    display: table-cell;
-    vertical-align: bottom;
+    /*display: table-cell;*/
+    /*vertical-align: bottom;*/
     height:80px;
     float: left;
     background-color:#d0ddf2;
@@ -164,8 +159,8 @@ body {
 
 .conZoneBelow_inch20 {
     width:38px;
-    display: table-cell;
-    vertical-align: bottom;
+    /*display: table-cell;*/
+    /*vertical-align: bottom;*/
     height:50px;
     float:left;
     background-color:#d0ddf2;
@@ -173,7 +168,7 @@ body {
 }
 
 .conBayAbove_inch20 {
-    width:36px;
+    width:38px;
     height:12px;
     margin:1px 1px 0 0;
     background-color:darkred;
@@ -181,15 +176,21 @@ body {
 
 .cabinCover {
     height:5px;
-    background-color: grey;
-    margin:2px 2px;
+    background-color: silver;
+}
+
+.onBoardSide {
+    width: 100%;
+    display: inline-flex;
 }
 
 .boardSide {
+    width: 100%;
     display: inline-flex;
 }
 
 .belowBoardSide {
+    width: 100%;
     display: inline-flex;
 }
 

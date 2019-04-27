@@ -12,6 +12,17 @@
          38    36    34    32    30    28    26     24    22    20    18    16    14    12    10    08    06    04    02
  */
 
+/*
+
+            point-x : bayIndex
+            point-y : rowIndex
+            point-z : layerIndex
+
+
+ */
+
+
+
 let VIEW_SIDE = {
     watchType: "sideViewing",
     vessel_id:"001",
@@ -22,7 +33,7 @@ let VIEW_SIDE = {
     vessel_length:"300m",
     max_bay_number: 30,
     max_layer_above_number: 8, // all above
-    max_layer_below_number: 4,  // all below
+    max_layer_below_number: 5,  // all below
     num_bay_type: 2, // 20inch  + 40inch inline
     hatCover_kind:"自开式", // 自开式  堆叠式
     hatCover_number: 1,  // 自开式这里默认一层 显示颜色特殊  堆叠式:分为 1、2、3、4层
@@ -950,6 +961,9 @@ let vesselViewSide = {
 // id number to string
 // 1 -> 01; 12->12
 function numToIdString(num) {
+    if(num>=100){
+        console.log("all index only support num below 100!");
+    }
     return num < 10 ? "0" + num.toString() : num.toString();
 }
 // is exist in array
@@ -976,20 +990,33 @@ function initAreaForInline() {
 function BayNumToRealIndexList(bayNum) {
     let bay = {};
     bay.inch20 = [];
-    bay.inch40 = [];
     for (let i=0;i<bayNum;i++){
         bay.inch20[i] = {
             "id":i+1,
             "bayRealIndex":numToIdString(i*2+1)
         };
-        if(i<bayNum-1){
-            bay.inch40[i] = {
-                "id":(i+1)*2,
-                // "bayRealIndex":numToIdString((i+1)*2)
-            };
-        }
     }
     return bay;
+}
+// layer above
+// layer below
+function layerNumToRealIndexList(layerNumAbove,layerNumBelow) {
+    let layer = {};
+    layer.above = [];
+    layer.below = [];
+    for (let i=0; i<layerNumAbove; i++){
+        layer.above[i] = {
+            id: i+1,
+            layerRealIndex: numToIdString((i+41)*2),
+        }
+    }
+    for (let j=0; j<layerNumBelow; j++){
+        layer.below[j] = {
+            id: j+1,
+            layerRealIndex: numToIdString((j+1)*2),
+        }
+    }
+    return layer;
 }
 function insertBay(bayLists){
     let bay_num = bayLists.inch20.length;
@@ -1009,13 +1036,16 @@ function createBayAfterOperation(newList) {
     for(let i=newBay_num-1;i>=0;i--) {
         let itemId = dataList[i].id;
         if(dataList[i].type == "single"){
-            $(".newBayArea").append(`<div id= ${itemId} class="newBay20"><span class="newBay20Index">${dataList[i].bayInch20[0].index}</span></div>`);
+            $(".newBayArea").append(
+                `<div id= ${itemId} class="newBay20">`+
+                    `<span class="newBay20Index">${dataList[i].bayInch20[0].index}</span>`+
+                `</div>`);
         }
         else {
             $(".newBayArea").append(
                 `<div id= ${itemId} class="comBay20_40">`+
-                `<div class="newBay40InCom"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
-                `<div class="newBay20InComParent">`+
+                    `<div class="newBay40InCom"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
+                    `<div class="newBay20InComParent">`+
                         `<div class="newBay20InComLeft"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
                         `<div class="newBay20InComRight"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
                     `</div>`+
@@ -1031,8 +1061,13 @@ function selectToInch40(leftBay,rightBay,comBayIndex){
     $('.bayArea_40 div[id='+leftBay+']').addClass("combined");
     $('.bayArea_40 div[id='+rightBay+']').addClass("rightBaySelected");
     $('.bayArea_40 div[id='+rightBay+']').addClass("combined");
-    $('.bayArea_40 div[id='+leftBay+']').append(`<span class="bay40Index">${comBayIndex}</span>`);
-    $('.bayArea_40 div[id='+rightBay+']').append(`<span class="bay40Index">${comBayIndex}</span>`);
+
+    $('.bayArea_40 div[id='+leftBay+']').append(
+        `<span class="bay40Index">${comBayIndex}</span>`
+    );
+    $('.bayArea_40 div[id='+rightBay+']').append(
+        `<span class="bay40Index">${comBayIndex}</span>`
+    );
 }
 function clearSelected(){
     $(".bayZone_inch20.ui-selected").children().removeClass("ui-selected");
@@ -1042,34 +1077,51 @@ function clearSelected(){
  *  vessel creation
  */
 function createVesselSide(){
-    // above
     let bayLists = BayNumToRealIndexList(numOfBay);
-    let con_bay_num = bayLists.inch20.length;
-    for(let i=con_bay_num-1;i>=0;i--){
-        let conBayId = bayLists.inch20[i].id;
-        $(".onBoardSide").append(`<div id=${conBayId} class="conZoneAbove_inch20"></div>`);
+    let layerLists = layerNumToRealIndexList(layerNumAbove,layerNumBelow);
+    let conZone_bay_num = bayLists.inch20.length;
+    let conZone_layerAbove_num = layerLists.above.length;
+    let conZone_layerBelow_num = layerLists.below.length;
+    // TODO: change conZoneAbove_inch20 according maxLayer input
+    // TODO: tip1: set fixed height according maxLayer input
+    for(let i=conZone_bay_num-1;i>=0;i--){
+        let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
+        $(".onBoardSide").append(
+            `<div point-x=${conZoneBayIndex} class="conZoneAbove_inch20"></div>`
+        );
     }
+    // below
+    for(let i=conZone_bay_num-1;i>=0;i--){
+        let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
+        $(".belowBoardSide").append(
+            `<div point-x=${conZoneBayIndex} class="conZoneBelow_inch20"></div>`
+        );
+    }
+
     // test container on board
     // length : width : height   2.5:1:1
-    let conId = 5;
-    $(".onBoardSide div[id='2']").append(`<div id=${conId} class="conBayAbove_inch20"></div>`);
-
-    // board
-    // let boardNum = numOfBoard;
-    // for(let i=0;i<boardNum;i++){
-    //     $(".boardSide").append(`<div class="cabinCover"></div>`);
-    // }
-    // below
-    for(let i=con_bay_num-1;i>=0;i--){
-        let conBayId = bayLists.inch20[i].id;
-        $(".belowBoardSide").append(`<div id=${conBayId} class="conZoneBelow_inch20"></div>`);
+    // TODO: css control main area !!
+    for(let j=0;j<conZone_bay_num;j++){
+        let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
+        for(let k=conZone_layerAbove_num-1;k>=0;k--){
+            let conZoneLayerIndex = layerLists.above[k].layerRealIndex;
+            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" point-z=${conZoneLayerIndex}></div>`);
+        }
+        for(let m=conZone_layerBelow_num-1;m>=0;m--){
+            let conZoneLayerIndex = layerLists.below[m].layerRealIndex;
+            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" point-z=${conZoneLayerIndex}></div>`);
+        }
     }
+
+    // disable reCreate vessel
+    $(".createVessel")[0].disabled = true;
 }
 /**
  *  stowage info
  */
 function createStowageInfo() {
     // TODO: disable according to relevant func before click
+
 }
 
 /**
@@ -1191,6 +1243,8 @@ function showVal(a){
  */
 let numOfBay = VIEW_SIDE.max_bay_number;
 let numOfBoard = VIEW_SIDE.hatCover_number;
+let layerNumAbove = VIEW_SIDE.max_layer_above_number;
+let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 /**
  *  USAGE
  */

@@ -21,7 +21,7 @@
 
  */
 
-
+// TODO: change all "" or '' or '"+ +"'  to es6  ` ` and ${ }
 
 let VIEW_SIDE = {
     watchType: "sideViewing",
@@ -1105,16 +1105,16 @@ function createVesselSide(){
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
         for(let k=conZone_layerAbove_num-1;k>=0;k--){
             let conZoneLayerIndex = layerLists.above[k].layerRealIndex;
-            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" point-z=${conZoneLayerIndex}></div>`);
+            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
-        for(let m=conZone_layerBelow_num-1;m>=0;m--){
+        for(let m=0;m<conZone_layerBelow_num;m++){
             let conZoneLayerIndex = layerLists.below[m].layerRealIndex;
-            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" point-z=${conZoneLayerIndex}></div>`);
+            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
     }
 
     // disable reCreate vessel
-    $(".createVessel")[0].disabled = true;
+    $(`.createVessel`)[0].disabled = true;
 }
 /**
  *  stowage info

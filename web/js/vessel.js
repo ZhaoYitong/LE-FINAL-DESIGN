@@ -13,11 +13,9 @@
  */
 
 /*
-
             point-x : bayIndex
             point-y : rowIndex
             point-z : layerIndex
-
 
  */
 
@@ -77,6 +75,14 @@ let VIEW_SIDE = {
 
         }
 
+    ],
+    vesselBody: [
+        {
+
+        },
+        {
+
+        },
     ],
     // 舱盖板
     typeOfBoard: "",
@@ -984,8 +990,8 @@ function toAbsent(value) {
 // TODO: change size of div according to the number of bay and container!!
 // TODO: delete scroll bar
 function initAreaForInline() {
-    $('.bayArea').append(`<div id="selectable" class="bayArea_20"></div>`);
-    $('.bayArea').append(`<div class="bayArea_40"></div>`);
+    $(`.bayArea`).append(`<div id="selectable" class="bayArea_20"></div>`);
+    $(`.bayArea`).append(`<div class="bayArea_40"></div>`);
 }
 function BayNumToRealIndexList(bayNum) {
     let bay = {};
@@ -1036,13 +1042,13 @@ function createBayAfterOperation(newList) {
     for(let i=newBay_num-1;i>=0;i--) {
         let itemId = dataList[i].id;
         if(dataList[i].type == "single"){
-            $(".newBayArea").append(
+            $(`.newBayArea`).append(
                 `<div id= ${itemId} class="newBay20">`+
                     `<span class="newBay20Index">${dataList[i].bayInch20[0].index}</span>`+
                 `</div>`);
         }
         else {
-            $(".newBayArea").append(
+            $(`.newBayArea`).append(
                 `<div id= ${itemId} class="comBay20_40">`+
                     `<div class="newBay40InCom"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
                     `<div class="newBay20InComParent">`+
@@ -1057,21 +1063,17 @@ function createBayAfterOperation(newList) {
  *  select bay
  */
 function selectToInch40(leftBay,rightBay,comBayIndex){
-    $('.bayArea_40 div[id='+leftBay+']').addClass("leftBaySelected");
-    $('.bayArea_40 div[id='+leftBay+']').addClass("combined");
-    $('.bayArea_40 div[id='+rightBay+']').addClass("rightBaySelected");
-    $('.bayArea_40 div[id='+rightBay+']').addClass("combined");
+    $(`.bayArea_40 div[id=${leftBay}]`).addClass("leftBaySelected");
+    $(`.bayArea_40 div[id=${leftBay}]`).addClass("combined");
+    $(`.bayArea_40 div[id=${rightBay}]`).addClass("rightBaySelected");
+    $(`.bayArea_40 div[id=${rightBay}]`).addClass("combined");
 
-    $('.bayArea_40 div[id='+leftBay+']').append(
-        `<span class="bay40Index">${comBayIndex}</span>`
-    );
-    $('.bayArea_40 div[id='+rightBay+']').append(
-        `<span class="bay40Index">${comBayIndex}</span>`
-    );
+    $(`.bayArea_40 div[id=${leftBay}]`).append(`<span class="bay40Index">${comBayIndex}</span>`);
+    $(`.bayArea_40 div[id=${rightBay}]`).append(`<span class="bay40Index">${comBayIndex}</span>`);
 }
 function clearSelected(){
-    $(".bayZone_inch20.ui-selected").children().removeClass("ui-selected");
-    $(".bayZone_inch20.ui-selected").removeClass("ui-selected");
+    $(`.bayZone_inch20.ui-selected`).children().removeClass("ui-selected");
+    $(`.bayZone_inch20.ui-selected`).removeClass("ui-selected");
 }
 /**
  *  vessel creation
@@ -1086,16 +1088,14 @@ function createVesselSide(){
     // TODO: tip1: set fixed height according maxLayer input
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
-        $(".onBoardSide").append(
+        $(`.onBoardSide`).append(
             `<div point-x=${conZoneBayIndex} class="conZoneAbove_inch20"></div>`
         );
     }
     // below
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
-        $(".belowBoardSide").append(
-            `<div point-x=${conZoneBayIndex} class="conZoneBelow_inch20"></div>`
-        );
+        $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBelow_inch20"></div>`);
     }
 
     // test container on board
@@ -1129,9 +1129,9 @@ function createStowageInfo() {
  */
 let combinedBay20inch = [];
 function setStopOfSelectable() {
-    $( "#selectable" ).selectable({
+    $(`#selectable`).selectable({
         stop: function() {
-            let selectedBay = $(".bayZone_inch20.ui-selected");
+            let selectedBay = $(`.bayZone_inch20.ui-selected`);
             let isNumSelectRight = selectedBay.length===2 ? true : false;
             if(isNumSelectRight){
                 let isReselect = (isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id))? true:false;
@@ -1146,8 +1146,8 @@ function setStopOfSelectable() {
                     let rightBayId = selectedBay[1].id;
                     combinedBay20inch.push(leftBayId);
                     combinedBay20inch.push(rightBayId);
-                    let combinedBayiInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
-                    selectToInch40(leftBayId,rightBayId,combinedBayiInch40Index);
+                    let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
+                    selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
                 }
             }
             else {
@@ -1158,13 +1158,13 @@ function setStopOfSelectable() {
     });
 }
 function disableSelectable() {
-    $( "#selectable" ).selectable({
+    $(`#selectable`).selectable({
         disabled: true
     });
 }
 // TODO: enable after reset combination
 function enableSelectable() {
-    $("#selectable").selectable({
+    $(`#selectable`).selectable({
        disabled: false
     });
 }
@@ -1176,22 +1176,21 @@ function combineToStart (){
     initAreaForInline();
     insertBay(BayNumToRealIndexList(numOfBay));
 
-    $(".startCombine")[0].disabled = true;
+    $(`.startCombine`)[0].disabled = true;
     setStopOfSelectable();
-    $(".confirmCombine")[0].disabled = false;
+    $(`.confirmCombine`)[0].disabled = false;
 }
 function combineToConfirm (){
     disableSelectable();
     //TODO: post new info of bay, refresh bayArea
     // TODO: get response from server
 
-    $(".startCombine")[0].disabled = false;
-    $(".confirmCombine")[0].disabled = true;
+    $(`.startCombine`)[0].disabled = false;
+    $(`.confirmCombine`)[0].disabled = true;
     clearSelected();
-    console.log(combinedBay20inch);
-    $(".bayArea")[0].style.display = 'none'; // hide last bayArea
+    $(`.bayArea`)[0].style.display = 'none'; // hide last bayArea
     createBayAfterOperation(newBayList); // get data from server
-    $(".confirmCombine")[0].disabled = true;
+    $(`.confirmCombine`)[0].disabled = true;
 }
 function combineReset (){
     // TODO: delete last vessel's combination

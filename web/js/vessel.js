@@ -79,18 +79,22 @@ let VIEW_SIDE = {
         bodyAbove: [
             {
                 bayIndex: 17,
-                layerIndexList: ["82","84","86","88",],
+                layerIndexList: ["82","84","86","88","90","92",],
             },
             {
                 bayIndex: 19,
-                layerIndexList: ["82","84","86",],
+                layerIndexList: ["82","84","86","88",],
             },
         ],
         bodyBelow: [
             {
                 bayIndex: 17,
-                layerIndexList: ["02","04","06","08","10"]
-            }
+                layerIndexList: ["02","04","06","08","10",],
+            },
+            {
+                bayIndex: 19,
+                layerIndexList: ["02","04","06","08","10",],
+            },
         ],
     },
     // 舱盖板
@@ -1115,7 +1119,7 @@ function createVesselSide(){
             let conZoneLayerIndex = layerLists.above[k].layerRealIndex;
             $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
-        for(let m=0;m<conZone_layerBelow_num;m++){
+        for(let m=conZone_layerBelow_num-1;m>=0;m--){
             let conZoneLayerIndex = layerLists.below[m].layerRealIndex;
             $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
@@ -1123,7 +1127,22 @@ function createVesselSide(){
 
     // test for vessel body color
     //vesselBody_inch20
-    $(`[class="conZoneBayLayerAbove_inch20"][pointx="35"][pointz="90"]`).addClass("vesselBody_inch20");
+    // above
+    let tempNumOfBay = VIEW_SIDE.vesselBody.bodyAbove.length;
+    let tempBelow = VIEW_SIDE.vesselBody.bodyBelow.length;
+    for (let n=0;n<tempNumOfBay;n++){
+        let testBay = VIEW_SIDE.vesselBody.bodyAbove[n];
+        for(let p=0;p<testBay.layerIndexList.length;p++){
+            $(`[class="conZoneBayLayerAbove_inch20"][pointx=${testBay.bayIndex}][pointz=${testBay.layerIndexList[p]}]`).addClass("vesselBody_inch20");
+        }
+    }
+    // below
+    for(let q=0;q<tempBelow;q++){
+        let testBayBelow = VIEW_SIDE.vesselBody.bodyBelow[q];
+        for(let s=0;s<testBayBelow.layerIndexList.length;s++){
+            $(`[class="conZoneBayLayerBelow_inch20"][pointx=${testBayBelow.bayIndex}][pointz=${testBayBelow.layerIndexList[s]}]`).addClass("vesselBody_inch20");
+        }
+    }
 
     // disable reCreate vessel
     $(`.createVessel`)[0].disabled = true;

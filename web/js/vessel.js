@@ -16,7 +16,6 @@
             point-x : bayIndex
             point-y : rowIndex
             point-z : layerIndex
-
  */
 
 // TODO: change all "" or '' or '"+ +"'  to es6  ` ` and ${ }
@@ -76,19 +75,30 @@ let VIEW_SIDE = {
         }
 
     ],
-    vesselBody: [
-        {
-
-        },
-        {
-
-        },
-    ],
+    vesselBody: {
+        bodyAbove: [
+            {
+                bayIndex: 17,
+                layerIndexList: ["82","84","86","88",],
+            },
+            {
+                bayIndex: 19,
+                layerIndexList: ["82","84","86",],
+            },
+        ],
+        bodyBelow: [
+            {
+                bayIndex: 17,
+                layerIndexList: ["02","04","06","08","10"]
+            }
+        ],
+    },
     // 舱盖板
     typeOfBoard: "",
     numOfBoard: 1,
 
 };
+console.log(VIEW_SIDE.vesselBody.bodyBelow[0].layerIndexList);
 // TODO: table -- vessel
 let newBayList = {
     vessel_IMO: "001",
@@ -1088,14 +1098,12 @@ function createVesselSide(){
     // TODO: tip1: set fixed height according maxLayer input
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
-        $(`.onBoardSide`).append(
-            `<div point-x=${conZoneBayIndex} class="conZoneAbove_inch20"></div>`
-        );
+        $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
     }
     // below
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
-        $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBelow_inch20"></div>`);
+        $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayBelow_inch20"></div>`);
     }
 
     // test container on board
@@ -1105,13 +1113,17 @@ function createVesselSide(){
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
         for(let k=conZone_layerAbove_num-1;k>=0;k--){
             let conZoneLayerIndex = layerLists.above[k].layerRealIndex;
-            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
+            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
         for(let m=0;m<conZone_layerBelow_num;m++){
             let conZoneLayerIndex = layerLists.below[m].layerRealIndex;
-            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conBayAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
+            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
     }
+
+    // test for vessel body color
+    //vesselBody_inch20
+    $(`[class="conZoneBayLayerAbove_inch20"][pointx="35"][pointz="90"]`).addClass("vesselBody_inch20");
 
     // disable reCreate vessel
     $(`.createVessel`)[0].disabled = true;
@@ -1241,7 +1253,6 @@ function showVal(a){
  * main
  */
 let numOfBay = VIEW_SIDE.max_bay_number;
-let numOfBoard = VIEW_SIDE.hatCover_number;
 let layerNumAbove = VIEW_SIDE.max_layer_above_number;
 let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 /**

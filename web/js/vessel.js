@@ -17,9 +17,6 @@
             point-y : rowIndex
             point-z : layerIndex
  */
-
-// TODO: change all "" or '' or '"+ +"'  to es6  ` ` and ${ }
-
 let VIEW_SIDE = {
     watchType: "sideViewing",
     vessel_id:"001",
@@ -28,7 +25,7 @@ let VIEW_SIDE = {
     vessel_width:"30m",
     vessel_frontLength:"100m",
     vessel_length:"300m",
-    max_bay_number: 30,
+    max_bay_number: 30, // TODO: set max number
     max_layer_above_number: 8, // all above
     max_layer_below_number: 5,  // all below
     hatCover_kind:"自开式",
@@ -74,35 +71,78 @@ let VIEW_SIDE = {
         }
 
     ],
-    vesselBody: {
-        bodyAbove: [
-            {
-                bayIndex: 17,
-                layerIndexList: ["82","84","86","88","90","92",],
-            },
-            {
-                bayIndex: 19,
-                layerIndexList: ["82","84","86","88",],
-            },
-        ],
-        bodyBelow: [
-            {
-                bayIndex: 17,
-                layerIndexList: ["02","04","06","08","10",],
-            },
-            {
-                bayIndex: 19,
-                layerIndexList: ["02","04","06","08","10",],
-            },
-        ],
-    },
+    Vessel: [
+           //  down to up
+           // below: 02 04 06 08 10
+           // above: 82 84 86 88 90 92 94 96 98
+           // all: ["01", "03", "05", "07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+           // TODO: create a function to solve the value creation:
+            // Todo: layer: set left end and right end. Then create bayIndexList and conIndexList
+           {
+               layerIndex: "02",
+               bayIndexList: ["07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29",
+                   "31", "33", "39", "41", "43", "45", "47", "49", "51",],
+               conZoneIndexList: ["35","37"],
+           },
+           {
+               layerIndex: "04",
+               bayIndexList: ["05", "07", "17","19", "49", "51", "53",],
+               conZoneIndexList: ["09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47"],
+           },
+           {
+                layerIndex: "06",
+                bayIndexList: ["03","05", "17","19","53","59"],
+                conZoneIndexList: ["07","09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47","49","51", "55", "57",],
+
+           },
+           {
+               layerIndex: "08",
+               bayIndexList: ["01", "03", "05", "17","19", "53", "55", "57", "59",],
+               conZoneIndexList: ["07","09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47","49","51",],
+           },
+           {
+               layerIndex: "10",
+               bayIndexList: ["01", "03", "17","19", "57", "59",],
+           },
+           {
+               layerIndex: "82",
+               bayIndexList: ["17","19"],
+           },
+           {
+               layerIndex: "84",
+               bayIndexList: [ "17","19",],
+           },
+           {
+               layerIndex: "86",
+               bayIndexList: [ "17","19",],
+           },
+           {
+               layerIndex: "88",
+               bayIndexList: [ "17","19",],
+           },
+           {
+               layerIndex: "90",
+               bayIndexList: [ "17","19",],
+           },
+           {
+               layerIndex: "92",
+               bayIndexList: [ "17",],
+           },
+           {
+               layerIndex: "94",
+               bayIndexList: [],
+           },
+           {
+               layerIndex: "96",
+               bayIndexList: [],
+           },
+
+    ],
     // 舱盖板
     typeOfBoard: "",
     numOfBoard: 1,
 
 };
-console.log(VIEW_SIDE.vesselBody.bodyBelow[0].layerIndexList);
-// TODO: table -- vessel
 let newBayList = {
     vessel_IMO: "001",
     data: [
@@ -980,9 +1020,6 @@ let vesselViewSide = {
 // id number to string
 // 1 -> 01; 12->12
 function numToIdString(num) {
-    if(num>=100){
-        console.log("all index only support num below 100!");
-    }
     return num < 10 ? "0" + num.toString() : num.toString();
 }
 // is exist in array
@@ -1000,11 +1037,9 @@ function toAbsent(value) {
 /**
  *  initialize bay area
  */
-// TODO: change size of div according to the number of bay and container!!
-// TODO: delete scroll bar
 function initAreaForInline() {
-    $(`.bayArea`).append(`<div id="selectable" class="bayArea_20"></div>`);
     $(`.bayArea`).append(`<div class="bayArea_40"></div>`);
+    $(`.bayArea`).append(`<div id="selectable" class="bayArea_20"></div>`);
 }
 function BayNumToRealIndexList(bayNum) {
     let bay = {};
@@ -1042,8 +1077,8 @@ function insertBay(bayLists){
     for(let i=bay_num-1;i>=0;i--){
         let bayIndex = bayLists.inch20[i].bayRealIndex;
         let bayId = bayLists.inch20[i].id;
+        $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
         $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} class="bayZone_inch20"><span class="bay20Index">${bayIndex}</span></div>`);
-        $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`)
     }
 }
 /**
@@ -1123,25 +1158,12 @@ function createVesselSide(){
             $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
     }
+    for(let t=0;t<VIEW_SIDE.Vessel.length;t++){
+        for(let u=0;u<VIEW_SIDE.Vessel[t].bayIndexList.length;u++){
+            $(`[pointx=${VIEW_SIDE.Vessel[t].bayIndexList[u]}][pointz=${VIEW_SIDE.Vessel[t].layerIndex}]`).addClass("vesselBody_inch20");
+        }
+    }
 
-    // test for vessel body color
-    //vesselBody_inch20
-    // above
-    let tempNumOfBay = VIEW_SIDE.vesselBody.bodyAbove.length;
-    let tempBelow = VIEW_SIDE.vesselBody.bodyBelow.length;
-    for (let n=0;n<tempNumOfBay;n++){
-        let testBay = VIEW_SIDE.vesselBody.bodyAbove[n];
-        for(let p=0;p<testBay.layerIndexList.length;p++){
-            $(`[class="conZoneBayLayerAbove_inch20"][pointx=${testBay.bayIndex}][pointz=${testBay.layerIndexList[p]}]`).addClass("vesselBody_inch20");
-        }
-    }
-    // below
-    for(let q=0;q<tempBelow;q++){
-        let testBayBelow = VIEW_SIDE.vesselBody.bodyBelow[q];
-        for(let s=0;s<testBayBelow.layerIndexList.length;s++){
-            $(`[class="conZoneBayLayerBelow_inch20"][pointx=${testBayBelow.bayIndex}][pointz=${testBayBelow.layerIndexList[s]}]`).addClass("vesselBody_inch20");
-        }
-    }
 
     // disable reCreate vessel
     $(`.createVessel`)[0].disabled = true;
@@ -1278,4 +1300,13 @@ let layerNumBelow = VIEW_SIDE.max_layer_below_number;
  */
 // TODO: append the item from bottom to floor in div
 
+/**
+ *  test area
+ */
+let temp =[];
+let testA = BayNumToRealIndexList(30).inch20;
+for(let i=0;i<testA.length;i++){
+    temp[i] = testA[i].bayRealIndex;
+}
+console.log(temp);
 

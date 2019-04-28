@@ -148,8 +148,6 @@ body {
 
 .conZoneBayAbove_inch20 {
     width:38px;
-    /*display: table-cell;*/
-    /*vertical-align: bottom;*/
     height:80px; /*  */
     float: left;
     background-color:#d0ddf2;
@@ -158,8 +156,6 @@ body {
 
 .conZoneBayBelow_inch20 {
     width:38px;
-    /*display: table-cell;*/
-    /*vertical-align: bottom;*/
     height:50px; /*  */
     float:left;
     background-color:#d0ddf2;
@@ -169,20 +165,30 @@ body {
 .conZoneBayLayerAbove_inch20 {
     width:38px;
     height:10px;
-    border-bottom: 0.5px solid black;
-    border-top: 0.5px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 0.5px solid white;
+    border-top: 0.5px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
     background-color: white;
 }
+
+/*.conZoneBayLayerBelow_inch20 {*/
+/*    width:38px;*/
+/*    height:10px;*/
+/*    border-bottom: 0.5px solid black;*/
+/*    border-top: 0.5px solid black;*/
+/*    border-left: 1px solid black;*/
+/*    border-right: 1px solid black;*/
+/*    background-color: white;*/
+/*}*/
 
 .conZoneBayLayerBelow_inch20 {
     width:38px;
     height:10px;
-    border-bottom: 0.5px solid black;
-    border-top: 0.5px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 0.5px solid white;
+    border-top: 0.5px solid white;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
     background-color: white;
 }
 

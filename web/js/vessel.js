@@ -785,7 +785,6 @@ function clearSelected(){
  */
 function createVesselSide(){
     $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`);
-    $(`.vesselAreaSide`).append(`<div class="boardSide"></div>`);
     $(`.vesselAreaSide`).append(`<div class="belowBoardSide"></div>`);
     let bayLists = BayNumToRealIndexList(numOfBay);
     let layerLists = layerNumToRealIndexList(layerNumAbove,layerNumBelow);
@@ -797,11 +796,6 @@ function createVesselSide(){
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
         $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
-    }
-    // board
-    for(let i=conZone_bay_num-1;i>=0;i--){
-        let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
-        $(`.boardSide`).append(`<div point-x=${conZoneBayIndex} class="boardSide_inch20"></div>`);
     }
     // below
     for(let i=conZone_bay_num-1;i>=0;i--){
@@ -831,8 +825,6 @@ function createVesselSide(){
             $(`[pointx=${VIEW_SIDE.vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselConZone_inch20");
         }
     }
-
-
     // disable reCreate vessel
     $(`.createVessel`)[0].disabled = true;
 }

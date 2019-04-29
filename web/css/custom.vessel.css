@@ -145,6 +145,9 @@ body {
     height: 20px;
     float: left;
     margin: 2px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .loadInch40 {
@@ -153,12 +156,19 @@ body {
     height: 20px;
     float: left;
     margin: 2px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.loadOrUnloadNum {
+    color: #cdd8f6;
 }
 
 .board {
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    height: 15px;
+    /*background-color: #775614;*/
 }
 
 /* vesselOperation */
@@ -199,14 +209,6 @@ body {
     margin-top: 25px;
 }
 /* what is display inline ? */
-.mainArea .vesselAreaSide .onBoardSide {
-    display: inline-flex;
-}
-
-.mainArea .vesselAreaSide .belowBoardSide {
-    display: inline-flex;
-}
-
 /*.mainArea .vesselAreaSide .boardSide {*/
 /*    display: inline-flex;*/
 /*}*/
@@ -217,6 +219,13 @@ body {
     float: left;
     background-color:#d0ddf2;
     margin:2px;
+}
+
+.boardSide_inch20 {
+    width:42px;
+    height:10px;
+    float: left;
+    background-color:#775614;
 }
 
 .conZoneBayBelow_inch20 {
@@ -267,20 +276,16 @@ body {
     background-color: white;
 }
 
-/*.cabinCover {*/
-/*    height:5px;*/
-/*    background-color: silver;*/
-/*}*/
-
 .onBoardSide {
     width: 100%;
     display: inline-flex;
+    vertical-align: bottom; /* https://stackoverflow.com/questions/38872653/why-inline-flex-element-with-clearfix-has-a-weird-white-space  */
 }
 
 .boardSide {
+    height: 10px;
     width: 100%;
-    /*height: 10px;*/
-    /*margin-top:5px;*/
+    /*background-color: #775614;*/
 }
 
 .belowBoardSide {
@@ -304,26 +309,18 @@ body {
 /* jquery ui-select */
 
 .bay20Index {
-    height: 25px;
-    width: 25px;
     color: #cdd8f6;
 }
 
 .newBay20Index {
-    height: 25px;
-    width: 25px;
     color: #cdd8f6;
 }
 
 .newBay20IndexInCom {
-    height: 25px;
-    width: 25px;
     color: #cdd8f6;
 }
 
 .newBay40IndexInCom {
-    height: 25px;
-    width: 25px;
     color: black;
 }
 

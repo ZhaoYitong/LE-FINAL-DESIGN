@@ -784,6 +784,9 @@ function clearSelected(){
  *  vessel creation
  */
 function createVesselSide(){
+    $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`);
+    $(`.vesselAreaSide`).append(`<div class="boardSide"></div>`);
+    $(`.vesselAreaSide`).append(`<div class="belowBoardSide"></div>`);
     let bayLists = BayNumToRealIndexList(numOfBay);
     let layerLists = layerNumToRealIndexList(layerNumAbove,layerNumBelow);
     let conZone_bay_num = bayLists.inch20.length;
@@ -794,6 +797,11 @@ function createVesselSide(){
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
         $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
+    }
+    // board
+    for(let i=conZone_bay_num-1;i>=0;i--){
+        let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
+        $(`.boardSide`).append(`<div point-x=${conZoneBayIndex} class="boardSide_inch20"></div>`);
     }
     // below
     for(let i=conZone_bay_num-1;i>=0;i--){
@@ -837,6 +845,7 @@ function createStowageInfo() {
 }
 
 function createLoadOrUnloadInfo() {
+    $(`.createLoadOrUnload`)[0].disabled = true;
     console.log("created load info!");
     // TODO: ajax  get
     let bayList = vesselOperationInfo.data.List;
@@ -846,39 +855,39 @@ function createLoadOrUnloadInfo() {
     for(let i=bayListNum-1;i>=0;i--){
         if(bayList[i].type == "single"){
             let bayIndex20 = bayList[i].bayInch20[0].index;
-            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
-            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
-            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
-            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
+            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">25</span></div>`);
+            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
         }
         else {
             let bayIndex40 = bayList[i].bayInch40[0].index;
-            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"></div>`);
-            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"></div>`);
-            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"></div>`);
-            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"></div>`);
+            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"><span class="loadOrUnloadNum">25</span></div></div>`);
         }
     }
     for(let j=bayListNum-1;j>=0;j--){
         if(bayList[j].type == "single"){
             let bayIndex20 = bayList[j].bayInch20[0].index;
-            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
-            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
-            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
-            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
+            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">30</span></div></div>`);
+            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">30</span></div></div>`);
+            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
         }
         else {
             let bayIndex20_first = bayList[j].bayInch20s[1].index;
             let bayIndex20_second = bayList[j].bayInch20s[0].index;
-            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"></div>`);
-            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"></div>`);
-            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"></div>`);
-            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"></div>`);
+            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
 
-            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"></div>`);
-            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"></div>`);
-            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"></div>`);
-            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"></div>`);
+            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
+            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"><span class="loadOrUnloadNum">25</span></div></div>`);
         }
     }
 

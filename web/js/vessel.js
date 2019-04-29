@@ -17,6 +17,7 @@
             point-y : rowIndex
             point-z : layerIndex
  */
+// TODO: uniform the bay direction !!!!
 let VIEW_SIDE = {
     dataType: "",
     bayDirection: "",
@@ -32,47 +33,6 @@ let VIEW_SIDE = {
     max_layer_below_number: 5,  // all below
     hatCover_kind:"自开式",
     hatCover_number: 1,
-    containerOnBoard: [
-      // distribution depend on bay, layer
-        // 01 04  07 09
-        {
-            bayID: "01",
-            bayType: "20inch",
-            maxNumOfCon: 6,
-        },
-        {
-            bayID: "04",
-            bayType:"40inch",
-            maxNumOfCon: 7,
-        },
-        {
-            bayID:"07",
-            bayType:"20inch",
-            maxNumOfCon:5,
-        },
-        {
-            bayID:"09",
-            bayType:"20inch",
-            maxNumOfCon:6,
-        },
-    ],
-    containerBelowBoard: [
-        // distribution depend on bay, layer
-        {
-            bayID: "01",
-            bayType: "20inch",
-            maxNumOfCon: 6,
-        },
-        {
-            bayID: "04",
-            bayType:"40inch",
-            maxNumOfCon:4,
-        },
-        {
-
-        }
-
-    ],
     // create vessel
     vessel: [
            //  down to up
@@ -80,7 +40,7 @@ let VIEW_SIDE = {
            // above: 82 84 86 88 90 92 94 96 98
            // all: ["01", "03", "05", "07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
            // TODO: create a function to solve the value creation:
-            // Todo: layer: set left end and right end. Then create bayIndexList and conIndexList
+           // TODO: layer: set left end and right end. Then create bayIndexList and conIndexList
            {
                layerIndex: "02",
                bayIndexList: ["07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "39", "41", "43", "45", "47", "49", "51",],
@@ -167,6 +127,7 @@ let VIEW_SIDE = {
 let newBayList = {
     dataType: "RESPONSE_AFTER_CONFIRM_COMBINATION",
     vessel_IMO: "001",
+    //TODO: update sql select function
     data: [
         {
             id: 1,
@@ -438,31 +399,276 @@ let vesselOperationInfo = {
     vessel_id:"001",
     vessel_IMO:"KuiYa123",
     // according to current combined bay
+    //TODO: same as newBayList.data WILL BE BETTER
     data: {
-        above: {
-            load: {
-                inch40List:[],
-                //TODO: set inch20List null or set it to other value ?
-                inch20List:[],
+        List:[
+            // TODO: set direction !!
+            {
+                id: 1,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "01",
+                    }
+                ],
             },
-            unload: {
-                inch40List:[],
-                //TODO: set inch20List null or set it to other value ?
-                inch20List:[],
+            {
+                id: 2,
+                type: "combine",
+                bayInch20s:[
+                    {
+                        index: "03",
+                    },
+                    {
+                        index: "05",
+                    },
+                ],
+                bayInch40: [
+                    {
+                        index: "04",
+                    },
+                ],
             },
-        },
-        below: {
-            load: {
-                inch40List:[],
-                //TODO: set inch20List null or set it to other value ?
-                inch20List:[],
+            {
+                id: 3,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "07",
+                    }
+                ],
             },
-            unload: {
-                inch40List:[],
-                //TODO: set inch20List null or set it to other value ?
-                inch20List:[],
+            {
+                id: 4,
+                type: "combine",
+                bayInch20s:[
+                    {
+                        index: "09",
+                    },
+                    {
+                        index: "11",
+                    },
+                ],
+                bayInch40: [
+                    {
+                        index: "10",
+                    },
+                ],
             },
-        },
+            {
+                id: 5,
+                type: "combine",
+                bayInch20s:[
+                    {
+                        index: "13",
+                    },
+                    {
+                        index: "15",
+                    },
+                ],
+                bayInch40: [
+                    {
+                        index: "14",
+                    },
+                ],
+            },
+            {
+                id: 6,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "17",
+                    }
+                ],
+            },
+            {
+                id: 7,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "19",
+                    }
+                ],
+            },
+            {
+                id: 8,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "21",
+                    }
+                ],
+            },
+            {
+                id: 9,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "23",
+                    }
+                ],
+            },
+            {
+                id: 10,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "25",
+                    }
+                ],
+            },
+            {
+                id: 11,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "27",
+                    }
+                ],
+            },
+            {
+                id: 12,
+                type: "combine",
+                bayInch20s:[
+                    {
+                        index: "29",
+                    },
+                    {
+                        index: "31",
+                    },
+                ],
+                bayInch40: [
+                    {
+                        index: "30",
+                    },
+                ],
+            },
+            {
+                id: 13,
+                type: "combine",
+                bayInch20s:[
+                    {
+                        index: "33",
+                    },
+                    {
+                        index: "35",
+                    },
+                ],
+                bayInch40: [
+                    {
+                        index: "34",
+                    },
+                ],
+            },
+            {
+                id: 14,
+                type: "combine",
+                bayInch20s:[
+                    {
+                        index: "37",
+                    },
+                    {
+                        index: "39",
+                    },
+                ],
+                bayInch40: [
+                    {
+                        index: "38",
+                    },
+                ],
+            },
+            {
+                id: 15,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "41",
+                    }
+                ],
+            },
+            {
+                id: 16,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "43",
+                    }
+                ],
+            },
+            {
+                id: 17,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "45",
+                    }
+                ],
+            },
+            {
+                id: 18,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "47",
+                    }
+                ],
+            },
+            {
+                id: 19,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "49",
+                    }
+                ],
+            },
+            {
+                id: 20,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "51",
+                    }
+                ],
+            },
+            {
+                id: 21,
+                type: "combine",
+                bayInch20s:[
+                    {
+                        index: "53",
+                    },
+                    {
+                        index: "55",
+                    },
+                ],
+                bayInch40: [
+                    {
+                        index: "54",
+                    },
+                ],
+            },
+            {
+                id: 22,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "57",
+                    }
+                ],
+            },
+            {
+                id: 23,
+                type: "single",
+                bayInch20:[
+                    {
+                        index: "59",
+                    }
+                ],
+            },
+        ],
+        //TODO: set inch20List null or set it to other value ?
+        inch20List:[],
     },
 };
 /**
@@ -631,27 +837,51 @@ function createStowageInfo() {
 }
 
 function createLoadOrUnloadInfo() {
-    // let newBay_num = newList.data.length;
-    // let dataList = newList.data;
-    // for(let i=newBay_num-1;i>=0;i--) {
-    //     let itemId = dataList[i].id;
-    //     if(dataList[i].type == "single"){
-    //         $(`.newBayArea`).append(
-    //             `<div id= ${itemId} class="newBay20">`+
-    //                 `<span class="newBay20Index">${dataList[i].bayInch20[0].index}</span>`+
-    //             `</div>`);
-    //     }
-    //     else {
-    //         $(`.newBayArea`).append(
-    //             `<div id= ${itemId} class="comBay20_40">`+
-    //                 `<div class="newBay40InCom"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
-    //                     `<div class="newBay20InComParent">`+
-    //                     `<div class="newBay20InComLeft"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
-    //                     `<div class="newBay20InComRight"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
-    //                 `</div>`+
-    //             `</div>`);
-    //     }
-    // }
+    console.log("created load info!");
+    // TODO: ajax  get
+    let bayList = vesselOperationInfo.data.List;
+    let bayListNum = vesselOperationInfo.data.List.length;
+    // onBoard load 40inch
+    // TODO: make bay direction uniform
+    for(let i=bayListNum-1;i>=0;i--){
+        if(bayList[i].type == "single"){
+            let bayIndex20 = bayList[i].bayInch20[0].index;
+            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
+            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
+            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
+            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
+        }
+        else {
+            let bayIndex40 = bayList[i].bayInch40[0].index;
+            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"></div>`);
+            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"></div>`);
+            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"></div>`);
+            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"></div>`);
+        }
+    }
+    for(let j=bayListNum-1;j>=0;j--){
+        if(bayList[j].type == "single"){
+            let bayIndex20 = bayList[j].bayInch20[0].index;
+            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
+            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"></div>`);
+            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
+            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"></div>`);
+        }
+        else {
+            let bayIndex20_first = bayList[j].bayInch20s[1].index;
+            let bayIndex20_second = bayList[j].bayInch20s[0].index;
+            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"></div>`);
+            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"></div>`);
+            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"></div>`);
+            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"></div>`);
+
+            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"></div>`);
+            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"></div>`);
+            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"></div>`);
+            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"></div>`);
+        }
+    }
+
 }
 
 /**
@@ -784,14 +1014,14 @@ let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 let temp =[];
 let tempB = [];
 let testA = BayNumToRealIndexList(30).inch20;
-console.log("testA",testA);
 for(let i=0;i<testA.length;i++){
     temp[i] = testA[i].bayRealIndex;
 }
 for(let j=testA.length-1,k=0;j>=0;j--,k++){
     tempB[k] = testA[j].bayRealIndex;
 }
+// console.log(temp);
+// console.log(tempB);
 
-console.log(temp);
-console.log(tempB);
+// test for
 

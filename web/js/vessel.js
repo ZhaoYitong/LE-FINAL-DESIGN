@@ -18,6 +18,8 @@
             point-z : layerIndex
  */
 let VIEW_SIDE = {
+    dataType: "",
+    bayDirection: "",
     watchType: "sideViewing",
     vessel_id:"001",
     vessel_IMO:"KuiYa123",
@@ -71,7 +73,8 @@ let VIEW_SIDE = {
         }
 
     ],
-    Vessel: [
+    // create vessel
+    vessel: [
            //  down to up
            // below: 02 04 06 08 10
            // above: 82 84 86 88 90 92 94 96 98
@@ -80,8 +83,7 @@ let VIEW_SIDE = {
             // Todo: layer: set left end and right end. Then create bayIndexList and conIndexList
            {
                layerIndex: "02",
-               bayIndexList: ["07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29",
-                   "31", "33", "39", "41", "43", "45", "47", "49", "51",],
+               bayIndexList: ["07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "39", "41", "43", "45", "47", "49", "51",],
                conZoneIndexList: ["35","37"],
            },
            {
@@ -161,7 +163,9 @@ let VIEW_SIDE = {
     numOfBoard: 1,
 
 };
+// TODO: sql select!
 let newBayList = {
+    dataType: "RESPONSE_AFTER_CONFIRM_COMBINATION",
     vessel_IMO: "001",
     data: [
         {
@@ -429,609 +433,38 @@ let newBayList = {
         },
     ],
 };
-// TODO: to make sure container's location absolutely correct
-// TODO: down to up !! no blank in middle
-// TODO: table -- box
-// TODO: control correctness of load or unload setting
-let conListViewSide = {
+let vesselOperationInfo = {
+    dataType:"VESSEL_OPERATION_INFO",
+    vessel_id:"001",
     vessel_IMO:"KuiYa123",
+    // according to current combined bay
     data: {
-        containerAbove:[
-            // layer > cons
-            // down to up : 82, 84, 86, 88
-            {
-                layerIndex: "82",
-                cons: [
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "01",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "03",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "05",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "08",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "12",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "15",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "17",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "19",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "21",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "24",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "28",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "31",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "33",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "35",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "37",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "39",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "41",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "44",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "48",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "52",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "55",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "57",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "59",
-                    },
-                ],
+        above: {
+            load: {
+                inch40List:[],
+                //TODO: set inch20List null or set it to other value ?
+                inch20List:[],
             },
-            {
-                layerIndex: "84",
-                cons: [
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "01",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "04",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "08",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "12",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "15",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "17",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "20",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "24",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "28",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "31",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "33",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "36",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "39",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "41",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "44",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "47",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "50",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "54",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "57",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "59",
-                    },
-                ],
+            unload: {
+                inch40List:[],
+                //TODO: set inch20List null or set it to other value ?
+                inch20List:[],
             },
-            {
-                layerIndex: "86",
-                cons: [
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "01",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "03",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "05",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "08",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "12",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "15",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "17",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "19",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "21",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "24",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "28",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "31",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "33",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "35",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "37",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "39",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "41",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "44",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "48",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "52",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "55",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "57",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "59",
-                    },
-                ],
-
+        },
+        below: {
+            load: {
+                inch40List:[],
+                //TODO: set inch20List null or set it to other value ?
+                inch20List:[],
             },
-            {
-                layerIndex: "88",
-                cons: [
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "01",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "03",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "05",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "08",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "12",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "15",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "17",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "19",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "21",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "24",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "28",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "31",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "33",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "35",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "37",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "39",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "41",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "44",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: false,
-                        type: "combine",
-                        bayIndex: "48",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "combine",
-                        bayIndex: "52",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "55",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "57",
-                    },
-                    {
-                        isContainerZone: true,
-                        isContainerExist: true,
-                        type: "single",
-                        bayIndex: "59",
-                    },
-                ],
+            unload: {
+                inch40List:[],
+                //TODO: set inch20List null or set it to other value ?
+                inch20List:[],
             },
-        ],
-        containerBelow:[
-            // layer > cons
-            // down to up
-            {
-                layerIndex: "02",
-                cons: [
-
-                ],
-            },
-            {
-                layerIndex: "04",
-                cons: [
-
-                ],
-            },
-            {
-                layerIndex: "06",
-                cons: [
-
-                ],
-            },
-            {
-                layerIndex: "08",
-                cons: [
-
-                ],
-            },
-        ],
+        },
     },
 };
-let vesselViewSide = {
-    vessel_IMO:"KuiYa123",
-    data: {
-
-    }
-};
-
 /**
  * custom function
  */
@@ -1176,12 +609,12 @@ function createVesselSide(){
             $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
     }
-    for(let t=0;t<VIEW_SIDE.Vessel.length;t++){
-        for(let u=0;u<VIEW_SIDE.Vessel[t].bayIndexList.length;u++){
-            $(`[pointx=${VIEW_SIDE.Vessel[t].bayIndexList[u]}][pointz=${VIEW_SIDE.Vessel[t].layerIndex}]`).addClass("vesselBody_inch20");
+    for(let t=0;t<VIEW_SIDE.vessel.length;t++){
+        for(let u=0;u<VIEW_SIDE.vessel[t].bayIndexList.length;u++){
+            $(`[pointx=${VIEW_SIDE.vessel[t].bayIndexList[u]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselBody_inch20");
         }
-        for(let v=0;v<VIEW_SIDE.Vessel[t].conZoneIndexList.length;v++){
-            $(`[pointx=${VIEW_SIDE.Vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.Vessel[t].layerIndex}]`).addClass("vesselConZone_inch20");
+        for(let v=0;v<VIEW_SIDE.vessel[t].conZoneIndexList.length;v++){
+            $(`[pointx=${VIEW_SIDE.vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselConZone_inch20");
         }
     }
 
@@ -1198,7 +631,27 @@ function createStowageInfo() {
 }
 
 function createLoadOrUnloadInfo() {
-
+    // let newBay_num = newList.data.length;
+    // let dataList = newList.data;
+    // for(let i=newBay_num-1;i>=0;i--) {
+    //     let itemId = dataList[i].id;
+    //     if(dataList[i].type == "single"){
+    //         $(`.newBayArea`).append(
+    //             `<div id= ${itemId} class="newBay20">`+
+    //                 `<span class="newBay20Index">${dataList[i].bayInch20[0].index}</span>`+
+    //             `</div>`);
+    //     }
+    //     else {
+    //         $(`.newBayArea`).append(
+    //             `<div id= ${itemId} class="comBay20_40">`+
+    //                 `<div class="newBay40InCom"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
+    //                     `<div class="newBay20InComParent">`+
+    //                     `<div class="newBay20InComLeft"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
+    //                     `<div class="newBay20InComRight"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
+    //                 `</div>`+
+    //             `</div>`);
+    //     }
+    // }
 }
 
 /**
@@ -1329,9 +782,16 @@ let layerNumBelow = VIEW_SIDE.max_layer_below_number;
  *  test area
  */
 let temp =[];
+let tempB = [];
 let testA = BayNumToRealIndexList(30).inch20;
+console.log("testA",testA);
 for(let i=0;i<testA.length;i++){
     temp[i] = testA[i].bayRealIndex;
 }
+for(let j=testA.length-1,k=0;j>=0;j--,k++){
+    tempB[k] = testA[j].bayRealIndex;
+}
+
 console.log(temp);
+console.log(tempB);
 

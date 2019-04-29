@@ -149,6 +149,10 @@ body {
     justify-content:center;
     align-items:center;
 }
+
+.vesselBodyInLoading {
+    background:black;
+}
 /* vesselOperation */
 
 /* selected bay control when selecting  */
@@ -258,7 +262,8 @@ body {
     color: #cdd8f6;
 }
 /* character in span  */
-.newBay40IndexInCom {
+.newBay40IndexInCom,
+.vesselBodyBayIndex{
     color: black;
 }
 

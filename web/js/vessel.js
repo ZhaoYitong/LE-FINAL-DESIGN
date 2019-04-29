@@ -92,7 +92,7 @@ let VIEW_SIDE = {
            {
                 layerIndex: "06",
                 bayIndexList: ["03","05", "17","19","53","59"],
-                conZoneIndexList: ["07","09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47","49","51", "55", "57",],
+                conZoneIndexList: ["07","09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47","49","51",],
 
            },
            {
@@ -145,14 +145,14 @@ let VIEW_SIDE = {
            {
                layerIndex: "94",
                bayIndexList: [],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
-
+               // conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+               conZoneIndexList:[],
            },
            {
                layerIndex: "96",
                bayIndexList: [],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
-
+               // conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+               conZoneIndexList:[],
            },
 
     ],
@@ -1180,9 +1180,9 @@ function createVesselSide(){
         for(let u=0;u<VIEW_SIDE.Vessel[t].bayIndexList.length;u++){
             $(`[pointx=${VIEW_SIDE.Vessel[t].bayIndexList[u]}][pointz=${VIEW_SIDE.Vessel[t].layerIndex}]`).addClass("vesselBody_inch20");
         }
-        // for(let v=0;v<VIEW_SIDE.Vessel[t].conZoneIndexList.length;v++){
-        //     $(`[pointx=${VIEW_SIDE.Vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.Vessel[t].layerIndex}]`).addClass(".conZone_inch20");
-        // }
+        for(let v=0;v<VIEW_SIDE.Vessel[t].conZoneIndexList.length;v++){
+            $(`[pointx=${VIEW_SIDE.Vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.Vessel[t].layerIndex}]`).addClass("vesselConZone_inch20");
+        }
     }
 
 
@@ -1194,6 +1194,10 @@ function createVesselSide(){
  */
 function createStowageInfo() {
     // TODO: disable according to relevant func before click
+
+}
+
+function createLoadOrUnloadInfo() {
 
 }
 

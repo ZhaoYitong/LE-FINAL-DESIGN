@@ -18,6 +18,7 @@
         <button type="button" class="btn btn-outline-primary reStartCombine" onclick="combineReset()">重新组贝</button>
         <button type="button" class="btn btn-outline-success createVessel" onclick="createVesselSide()">生成船舶</button>
         <button type="button" class="btn btn-outline-success createStowage" onclick="createStowageInfo()">配载信息</button>
+        <button type="button" class="btn btn-outline-success createLoadOrUnload" onclick="createLoadOrUnloadInfo()">箱量分布</button>
     </div>
     <div class="zoomToggle d-flex flex-row">
         <input id="test" min="1" max="10" value='10' step="1" onchange="showVal(this.value)" type="range"/>
@@ -29,6 +30,17 @@
             <div class="onBoardSide"></div>
 <!--            <div class="boardSide"></div>-->
             <div class="belowBoardSide"></div>
+        </div>
+        <div class="vesselLoadOrUnloadAreaSide">
+            <div class="above">
+                <div class="unload"></div>
+                <div class="load"></div>
+            </div>
+            <div class="board"></div>
+            <div class="below">
+                <div class="unload"></div>
+                <div class="load"></div>
+            </div>
         </div>
     </div>
 </div>

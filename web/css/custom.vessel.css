@@ -3,12 +3,12 @@ body {
     padding:0;
 }
 
-#vessel-buttons {
+#control-buttons {
     margin-top: 20px;
     margin-bottom: 40px;
 }
 
-#vessel-buttons > button {
+#control-buttons > div > button {
     margin: 5px;
 }
 
@@ -31,7 +31,6 @@ body {
     justify-content:center;
     align-items:center;
 }
-
 /* combined bay area */
 .bayArea .bayZone_inch40 {
     width:38px;
@@ -69,6 +68,7 @@ body {
     align-items:center;
     background-color: yellow;
 }
+
 .newBayArea .comBay20_40 .newBay20InComParent {
     width: 80px;
     height: 30px;
@@ -96,24 +96,13 @@ body {
     border-left: 1px solid silver;
 }
 /* combined bay area */
-
 /* vesselOperation */
-.vesOperationInfo .above .unload {
-
-}
-
-.vesOperationInfo .above .load {
-
-}
 .vesOperationInfo {
     margin-top: 30px;
 }
 
-.unload>div {
-    display: flex;
-}
-
-.load>div {
+.unload > div,
+.load > div {
     display: flex;
 }
 
@@ -160,10 +149,6 @@ body {
     justify-content:center;
     align-items:center;
 }
-
-.loadOrUnloadNum {
-    color: #cdd8f6;
-}
 /* vesselOperation */
 
 /* selected bay control when selecting  */
@@ -180,14 +165,8 @@ body {
 }
 
 /* selected bay control when selecting  */
-.bayArea .bayArea_20 {
-    display: inline-flex;
-}
-
-.bayArea .bayArea_40 {
-    display: inline-flex;
-}
-
+.bayArea .bayArea_20,
+.bayArea .bayArea_40,
 .mainArea .newBayArea {
     display: inline-flex;
 }
@@ -219,16 +198,7 @@ body {
     margin:2px;
 }
 
-.conZoneBayLayerAbove_inch20 {
-    width:38px;
-    height:10px;
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-    background-color: white;
-}
-
+.conZoneBayLayerAbove_inch20,
 .conZoneBayLayerBelow_inch20 {
     width:38px;
     height:10px;
@@ -259,18 +229,13 @@ body {
     background-color: white;
 }
 
-.onBoardSide {
+.onBoardSide,
+.belowBoardSide{
     width: 100%;
     display: inline-flex;
     /*vertical-align: bottom; */
     /* https://stackoverflow.com/questions/38872653/why-inline-flex-element-with-clearfix-has-a-weird-white-space  */
 }
-
-.belowBoardSide {
-    width: 100%;
-    display: inline-flex;
-}
-
 /* jquery ui-select */
 #feedback {
     font-size: 1.4em;
@@ -285,19 +250,14 @@ body {
     color: white;
 }
 /* jquery ui-select */
-
-.bay20Index {
+/* character in span  */
+.bay20Index,
+.newBay20Index,
+.newBay20IndexInCom,
+.loadOrUnloadNum {
     color: #cdd8f6;
 }
-
-.newBay20Index {
-    color: #cdd8f6;
-}
-
-.newBay20IndexInCom {
-    color: #cdd8f6;
-}
-
+/* character in span  */
 .newBay40IndexInCom {
     color: black;
 }

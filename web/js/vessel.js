@@ -784,6 +784,8 @@ function clearSelected(){
  *  vessel creation
  */
 function createVesselSide(){
+    // TODO: vessel board in creating vessel: not supported !!
+    // TODO： as inline-flex conflicts with vertical-align
     $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`);
     $(`.vesselAreaSide`).append(`<div class="belowBoardSide"></div>`);
     let bayLists = BayNumToRealIndexList(numOfBay);
@@ -835,7 +837,6 @@ function createStowageInfo() {
     // TODO: disable according to relevant func before click
 
 }
-
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
     console.log("created load info!");
@@ -844,6 +845,7 @@ function createLoadOrUnloadInfo() {
     let bayListNum = vesselOperationInfo.data.List.length;
     // onBoard load 40inch
     // TODO: make bay direction uniform
+    // TODO: change value in span according to the number of LOAD or UNLOAD!
     for(let i=bayListNum-1;i>=0;i--){
         if(bayList[i].type == "single"){
             let bayIndex20 = bayList[i].bayInch20[0].index;

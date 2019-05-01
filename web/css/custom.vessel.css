@@ -100,6 +100,10 @@ body {
 .vesOperationInfo {
     margin-top: 30px;
 }
+.vesOperationInfo .above {
+    margin-bottom: 20px;
+}
+
 
 .unload > div,
 .load > div {
@@ -111,7 +115,10 @@ body {
     width: 38px;
     height: 20px;
     float:left;
-    margin:2px;
+    /*margin:2px;*/
+    margin-left: 2px;
+    margin-right: 2px;
+    border: 1px solid black;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -122,7 +129,10 @@ body {
     width: 38px;
     height: 20px;
     float:left;
-    margin:2px;
+    /*margin:2px;*/
+    margin-left: 2px;
+    margin-right: 2px;
+    border: 1px solid black;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -133,7 +143,10 @@ body {
     width: 80px;
     height: 20px;
     float: left;
-    margin: 2px;
+    /*margin:2px;*/
+    margin-left: 2px;
+    margin-right: 2px;
+    border: 1px solid black;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -144,7 +157,10 @@ body {
     width: 80px;
     height: 20px;
     float: left;
-    margin: 2px;
+    /*margin:2px;*/
+    margin-left: 2px;
+    margin-right: 2px;
+    border: 1px solid black;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -276,4 +292,16 @@ body {
     float: left;
     margin-left: 2px;
 }
-
+/* custom */
+@-webkit-keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+}
+/*.blink{*/
+/*    text-decoration: blink;*/
+/*    -webkit-animation-name: blinker;*/
+/*    -webkit-animation-duration: 0.6s;*/
+/*    -webkit-animation-iteration-count:infinite;*/
+/*    -webkit-animation-timing-function:ease-in-out;*/
+/*    -webkit-animation-direction: alternate;*/
+/*}*/

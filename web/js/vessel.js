@@ -1,3 +1,4 @@
+// TODO: set jshint config
 /**
  * @type {number}
  */
@@ -1025,21 +1026,29 @@ function createBayAfterOperation(newList) {
         let itemId = dataList[i].id;
         if(dataList[i].type == "single"){
             $(`.newBayArea`).append(
-                `<div id= ${itemId} class="newBay20">`+
+                `<div id= ${itemId} class="newBay20 bayInfo">`+
                     `<span class="newBay20Index">${dataList[i].bayInch20[0].index}</span>`+
                 `</div>`);
         }
         else {
             $(`.newBayArea`).append(
                 `<div id= ${itemId} class="comBay20_40">`+
-                    `<div class="newBay40InCom"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
+                    `<div class="newBay40InCom bayInfo"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
                     `<div class="newBay20InComParent">`+
-                        `<div class="newBay20InComLeft"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
-                        `<div class="newBay20InComRight"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
+                        `<div class="newBay20InComLeft bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
+                        `<div class="newBay20InComRight bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
                     `</div>`+
                 `</div>`);
         }
     }
+    $(`[class="newBay20"][id="6"]`).addClass("blink");
+    $(`[class="newBay20"][id="7"]`).addClass("blink");
+    $(`.bayInfo`).click(function () {
+        //TODO: ajax get, show with response
+        let bayIndex = this.childNodes[0].innerText;
+        console.log(bayIndex);
+
+    });
 }
 /**
  *  select bay
@@ -1101,10 +1110,13 @@ function createVesselSide(){
             $(`[pointx=${VIEW_SIDE.vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselConZone_inch20");
         }
     }
+    // TODO: CUSTOM BLINK TRICK
+    $(`[point-x="19"],[point-x="17"]`).addClass("blink");
 }
 /**
  *  stowage info
  */
+
 function createStowageInfo() {
     // TODO: disable according to relevant func before click
     $(`.createStowage`)[0].disabled = true;
@@ -1119,6 +1131,8 @@ function createLoadOrUnloadInfo() {
     // onBoard load 40inch
     // TODO: make bay direction uniform
     // TODO: change value in span according to the number of LOAD or UNLOAD!
+
+    // TODO: inch40 and inch20 for not continued, show?
     for(let i=bayListNum-1;i>=0;i--){
         if(bayList[i].type == "single"){
             let bayIndex20 = bayList[i].bayInch20[0].index;
@@ -1166,6 +1180,8 @@ function createLoadOrUnloadInfo() {
         $(`div[bayIndex=${vesselBodyBayList[i]}] span`).addClass("vesselBodyBayIndex");
     }
     // TODO: loadOrUnloadNum value setting by jQuery
+    // TODO: CUSTOM BLINK TRICK
+    $(`[bayindex="19"],[bayindex="17"]`).addClass("blink");
 }
 /**
  * selectable
@@ -1296,6 +1312,11 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 }
 // console.log(temp);
 // console.log(tempB);
+/**
+ *
+ *  add css style
+ */
+
 /**
  *
  *  layui: https://www.layui.com/doc/modules/layer.html

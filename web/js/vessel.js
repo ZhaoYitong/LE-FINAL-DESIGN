@@ -11,7 +11,6 @@
       39    37    35    33    31    29    27    25     23    21    19    17    15    13    11    09    07    05    03    01
          38    36    34    32    30    28    26     24    22    20    18    16    14    12    10    08    06    04    02
  */
-
 /*
             point-x : bayIndex
             point-y : rowIndex
@@ -798,13 +797,8 @@ function createVesselSide(){
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
         $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
-    }
-    // below
-    for(let i=conZone_bay_num-1;i>=0;i--){
-        let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
         $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayBelow_inch20"></div>`);
     }
-
     // test container on board
     // length : width : height   2.5:1:1
     // TODO: css control main area !!
@@ -835,6 +829,7 @@ function createVesselSide(){
  */
 function createStowageInfo() {
     // TODO: disable according to relevant func before click
+    $(`.createStowage`)[0].disabled = true;
 
 }
 function createLoadOrUnloadInfo() {
@@ -997,7 +992,6 @@ function setZoom(zoom,el) {
     el.style["transformOrigin"] = oString;
 
 }
-
 //setZoom(5,document.getElementsByClassName('container')[0]);
 
 function showVal(a){
@@ -1030,6 +1024,4 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 }
 // console.log(temp);
 // console.log(tempB);
-
-// test for
 

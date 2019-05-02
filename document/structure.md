@@ -1,31 +1,30 @@
-一、 绪论
+# 一、 绪论
 
-1. 研究背景
+## 1. 研究背景
     船舶配载问题，一直以来，是港口码头作业研究的热点问题。决策支持系统，又是当前。。。。。
 
 
-2. 研究意义
+## 2. 研究意义
     通过对船舶配载问题的决策支持系统的研究，在人机交互层面，实现船舶配载信息监控以及船舶装配的手工指定； 在算法模型层面，引入方法库、模型库，生成配载调度的决策信息，方便仿真系统的仿真实施； 在数据库存储层面，引入关系模型，关联存储船舶配载相关信息，并及时进行增删该查，有利于港口码头调度作业中其他子系统的信息获取，以及该系统内部信息的关联变化。
-3. 研究现状 
+## 3. 研究现状 
     通过查阅相关文献，阐述研究现状， 这里要假如引用参考文献的部分。。。。。。
 
-二、 相关技术理论阐述
+# 二、 相关技术理论阐述
 
-1. 决策支持系统解释
+## 1. 决策支持系统解释
     决策支持系统（Decision Support Systems，简称DSS），是协助进行商业级或组织级决策活动的信息系统。DSSs一般面向中高层面管理，服务于组织机构内部管理、操作和规划级的决策，帮助决策者对快速变化并且很难提前确定的问题进行决策，通常是非结构化（Non-structured）和半结构化（Semi-structured）的决策问题。决策支持系统既可以是完全自动化决策，也可以是完全人工决策，或者两者兼有。[refs:https://zh.wikipedia.org/wiki/决策支持系统 ]
-2. 自动化集装箱码头
+## 2. 自动化集装箱码头
     通常，我们把基于自主装卸系统的集装箱码头简称为自动化集装箱码头，英文缩写为ACT。
-自动化集装箱码头的发展迄今为止已有30年左右的历史。早在80年代中期，英国、日本和荷兰首先提出了自动化集装箱码头的建设规划，但是后来日本的川崎港没钱了，所以日本的建设计划就因此搁浅了。
-直到1993年，荷兰鹿特丹建成了世界上第一个自动化集装箱码头。在总结了Delta Sealand码头建设和使用经验的基础上, ECT的Delta Dedicated East (DDE)和Delta Dedicated West (DDW)也分别于1997和2000年建成投产。
+自动化集装箱码头的发展迄今为止已有30年左右的历史。早在80年代中期，英国、日本和荷兰首先提出了自动化集装箱码头的建设规划，但是后来日本的川崎港没钱了，所以日本的建设计划就因此搁浅了。直到1993年，荷兰鹿特丹建成了世界上第一个自动化集装箱码头。在总结了Delta Sealand码头建设和使用经验的基础上, ECT的Delta Dedicated East (DDE)和Delta Dedicated West (DDW)也分别于1997和2000年建成投产。
 与此同时，新加坡PSA（Pasir Panjang码头）在1997年建成了远程操控的高架行车系统，实现了堆场的半自动操作，但由于防摇效果不尽如人意，操作效果不理想。香港HIT国际货柜码头则在1999年实现了堆场的半自动化作业。
 进入21世纪后，尤其是码头实现了自动化后的优势得到了充分发挥，自动化码头如雨后春笋般出现。德国汉堡CTA码头一期于2002年10月投产，荷兰ECT Euromax码头于2008年投入试运营。
 截止到目前，已运营的自动化码头有荷兰ECT码头、德国汉堡HHLA-CTA码头、荷兰Euromax码头、法国SETO-MSC码头、韩进西班牙TTI码头、DPW 比利时泽布勒赫码头；堆场自动化运营的码头有美国弗吉尼亚码头、香港HIT码头、新加坡码头、韩国釜山码头、台湾台北港、台湾阳明码头、澳大利亚Patrick码头。
-3. 协同
+## 3. 协同
 “协同”概念有着更深的含义，不仅包括人与人之间的协作，也包括不同应用系统之间、不同数据资源之间、不同终端设备之间、不同应用情景之间、人与机器之间、科技与传统之间等全方位的协同。
 协同是指元素对元素的相干能力，表现了元素在整体发展运行过程中协调与合作的性质。结构元素各自之间的协调、协作形成拉动效应，推动事物共同前进，对事物双方或多方而言，协同的结果使个个获益，整体加强，共同发展。导致事物间属性互相增强、向积极方向发展的相干性即为协同性。 研究事物的协同性，便形成协同理论。
 
 1971年德国科学家哈肯提出了统一的系统协同学思想，认为自然界和人类社会的各种事物普遍存在有序、无序的现象，一定的条件下，有序和无序之间会相互转化，无序就是混沌，有序就是协同，这是一个普遍规律。协同现象在宇宙间一切领域中都普遍存在，没有协同，人类就不能生存，生产就不能发展，社会就不能前进。在一个系统内，若各种子系统（要素）不能很好协同，甚至互相拆台，这样的系统必然呈现无序状态，发挥不了整体性功能而终至瓦解。相反，若系统中各子系统（要素）能很好配合、协同，多种力量就能集聚成一个总力量，形成大大超越原各自功能总和的新功能。
-4. 集装箱码头的配载
+## 4. 集装箱码头的配载
     集装箱码头的配载（实配）是指把预定装载出口的集装箱，按照船舶适航要求以及码头作业要求而制定的具体装载计划。码头配载员需根据船公司的预配要求以及实际收箱状况来确定集装箱在船舶中具体的装载位置和装载顺序。    
     配载所需资料： 
     船舶资料
@@ -43,15 +42,15 @@
     (4)特种箱清单
     (5)危险品箱清单和危险品准备单
     (6)进场出口箱资料
-5. 系统技术工具
-    5.1 前端
+## 5. 系统技术工具
+### 5.1 前端
         基于原生的 Html， css，javascript， 在浏览器内部实现船舶配载的功能操作。
         html（HyperText Markup Language），它的中文名叫超文本标记语言， 它是一种可以用来动态化创建出网页页面的标记语言。 网页浏览器可以去读取服务端发送的html文件，之后把该文件渲染生成相应的可视化网页。它描述的是一个网站的结构化语义，使之成为一种标记语言，但不是编程语言。 Html 元素是构建网站的基础。开发者可以把图像，视频，音频等需要的对象嵌入其中，同时也可以利用其去构建交互式的表单信息，这样便于去结构化信息处理，具体例如列表，标题，段落等
 
         CSS(Cascading Style Sheets)，它的中文翻译为层叠样式表，它是一种可以为结构化的文档添加样式（包括颜色，边距，间距，字体等）的一门计算机语言。具体由World Wide Web 进行维护升级。
 
         Js(Javascript)， 它通常写作缩写形式，JS， 它是比较高级的，解释性语言的编程语言。 这门语言基于原型（prototype）、函数先行（function），它也是一门多范式（multi Norm Forms）的语言。 可以支持命令式（Imperative）编程， 面向对象（object oriented）编程， 以及函数式(Functional)编程。 该编程语言通过语法来操控数组、字符串、浮点数、日期以及正则表达式等形式。 但不能够直接支持输入输出（I/O），具体如存储、网络和图形等操作， 但实际处理上可以通过该语言的宿主环境，来进行功能上的支持。与此同时，该语言已经被 欧洲计算机制造商协会（ECMA）通过ECMAScript实现语言的标准化。其中，它已经被主流浏览器（Safari、IE、Chrome、Opera、Firefox）支持。在客户端中，传统意义上，JavaScript被实现为一种解释语言。如今，它可以被即时编译。同时，最新的HTML5和CSS3语言标准让Js适应不同的应用程序的开发，以及不同的服务端网络运行环境。
-    5.2 后端
+### 5.2 后端
         后端框架详述， Django.
         Django 是一个由python编写的开源的Web应用框架。其软件设计模式采用了模型层Model，视图层View和模板层Template即MVT的软件设计模式。该框架创立的主要目标是为了简化由数据库驱动的，复杂的网站的开发流程。其中，该框架特别注重以下原则：Don't Repeat Yourself（DRY），敏捷开发原则，组件的可以复用性，组件的可插拔。
         
@@ -66,7 +65,7 @@
         mysql 连接方式。
         python有一套开源的连接mysql的驱动程序：mysqlclient。
 
-    5.3 版本控制
+###    5.3 版本控制
         平台 github
         github 通过git bash 操作，实现代码的版本控制服务。
         
@@ -92,8 +91,8 @@
 
 
 
-三、 实体分析
-1. 船舶实体分析
+# 三、 实体分析
+## 1. 船舶实体分析
     集装箱船舶的属性包括了航次信息、船舶结构信息、积载信息。
     船舶航次信息： 
     序号	英文名称	中文名称	类型
@@ -236,14 +235,14 @@
 16	YardCel	堆场箱位	String
 
 
-2. 岸桥实体分析
+## 2. 岸桥实体分析
 岸桥的设备类型分很多种，主要有单小车、双小车、三小车岸吊，同时吊具有双吊和双四十尺吊，所以总共有六种岸桥，需要对岸桥建立统一的类型分析。
 
 
 
-四、 系统规划
-1. 船舶结构
-2. 船舶配载过程
+# 四、 系统规划
+## 1. 船舶结构
+## 2. 船舶配载过程
 
    码头配载依据——预配船图：
     预配是指由船公司确定的各港口集装箱在船舶上的装载区域。
@@ -302,59 +301,60 @@
 
                        ----  大副确认
 
-五、 系统界限
-1. 船舶相关的信息分析
-2. 船舶配载业务功能调查
-3. 船舶配载业务流程调查
-4. 数据汇总
-    4.1 ER模型
-    4.2 数据项
-    4.3 U/C 矩阵
-5. 数据流程图
-6. 数据字典
-    6.1 数据结构
-    6.2 数据流
-    6.3 数据存储
-    6.4 外部实体
-    6.5 逻辑处理
+# 五、 系统界限
+## 1. 船舶相关的信息分析
+## 2. 船舶配载业务功能调查
+## 3. 船舶配载业务流程调查
+## 4. 数据汇总
+### 4.1 ER模型
+### 4.2 数据项
+### 4.3 U/C 矩阵
+## 5. 数据流程图
+## 6. 数据字典
+### 6.1 数据结构
+### 6.2 数据流
+### 6.3 数据存储
+### 6.4 外部实体
+### 6.5 逻辑处理
 
 
-六、 数学模型
-1. 方法库 
-2. 模型库
+# 六、 数学模型
+## 1. 方法库 
+## 2. 模型库
 
-七、 系统设计
-1. 功能结构图设计
-    1.1 层次模块结构图
-    1.2 H图
-    1.3 IPO 图
+# 七、 系统设计
+## 1. 功能结构图设计
+### 1.1 层次模块结构图
+### 1.2 H图
+### 1.3 IPO 图
 
-2. 系统流程图
+## 2. 系统流程图
 
 
-3. 数据存储设计
+## 3. 数据存储设计
     3.1 关系模型
 
-4. 处理流程图
+## 4. 处理流程图
     4.1 处理流程--
     4.2 处理流程--
 
-5. 程序设计
+## 5. 程序设计
     5.1 配载程序设计
     5.2 输出设计
     5.3 输入设计
 
-八、 结论和展望
+# 八、 结论和展望
 
-参考文献
-
-
-致谢
+# 参考文献
 
 
-附录
+# 致谢
+
+
+# 附录
 # code repository: https://github.com/ZhaoYitong/LE-FINAL-DESIGN
 # 文件结构
+```bash
 LE-FINAL-DESIGN
     ├─.idea
     ├─document
@@ -388,9 +388,9 @@ LE-FINAL-DESIGN
                 └─yard
                     ├─yardSheet
                     └─yardView
+```
 
-# core:
-<script>
+```JavaScript
 function numToIdString(num) {
     return num < 10 ? "0" + num.toString() : num.toString();
 }
@@ -498,8 +498,6 @@ function clearSelected(){
  *  vessel creation
  */
 function createVesselSide(){
-    // TODO: vessel board in creating vessel: not supported !!
-    // TODO： as inline-flex conflicts with vertical-align
     $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`);
     $(`.vesselAreaSide`).append(`<div class="belowBoardSide"></div>`);
     let bayLists = BayNumToRealIndexList(numOfBay);
@@ -507,16 +505,11 @@ function createVesselSide(){
     let conZone_bay_num = bayLists.inch20.length;
     let conZone_layerAbove_num = layerLists.above.length;
     let conZone_layerBelow_num = layerLists.below.length;
-    // TODO: change conZoneAbove_inch20 according maxLayer input
-    // TODO: tip1: set fixed height according maxLayer input
     for(let i=conZone_bay_num-1;i>=0;i--){
         let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
         $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
         $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayBelow_inch20"></div>`);
     }
-    // test container on board
-    // length : width : height   2.5:1:1
-    // TODO: css control main area !!
     for(let j=0;j<conZone_bay_num;j++){
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
         for(let k=conZone_layerAbove_num-1;k>=0;k--){
@@ -536,26 +529,19 @@ function createVesselSide(){
             $(`[pointx=${VIEW_SIDE.vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselConZone_inch20");
         }
     }
-    // disable reCreate vessel
     $(`.createVessel`)[0].disabled = true;
 }
 /**
  *  stowage info
  */
 function createStowageInfo() {
-    // TODO: disable according to relevant func before click
     $(`.createStowage`)[0].disabled = true;
 
 }
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
-    console.log("created load info!");
-    // TODO: ajax  get
     let bayList = vesselOperationInfo.data.List;
     let bayListNum = vesselOperationInfo.data.List.length;
-    // onBoard load 40inch
-    // TODO: make bay direction uniform
-    // TODO: change value in span according to the number of LOAD or UNLOAD!
     for(let i=bayListNum-1;i>=0;i--){
         if(bayList[i].type == "single"){
             let bayIndex20 = bayList[i].bayInch20[0].index;
@@ -581,7 +567,6 @@ function createLoadOrUnloadInfo() {
             $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
         }
         else {
-            //TODO: from left to right?
             let bayIndex20_first = bayList[j].bayInch20s[1].index;
             let bayIndex20_second = bayList[j].bayInch20s[0].index;
             $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
@@ -595,8 +580,6 @@ function createLoadOrUnloadInfo() {
             $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
         }
     }
-    // vessel body
-    // test
     let vesselBodyBayList = ["17","19",];
     for(let i=0;i<vesselBodyBayList.length;i++){
         $(`div[bayIndex=${vesselBodyBayList[i]}]`).addClass("vesselBodyInLoading");
@@ -615,7 +598,6 @@ function setStopOfSelectable() {
             if(isNumSelectRight){
                 let isReselect = (isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id))? true:false;
                 let isNextTo = toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) == 1?true:false;
-                // TODO: add left to right constraint
                 if(isReselect || !isNextTo) {
                     alert("请重新选择");
                     clearSelected();
@@ -663,26 +645,14 @@ function combineToConfirm (){
     $(`.startCombine`)[0].disabled = false;
     $(`.confirmCombine`)[0].disabled = true;
     clearSelected();
-    $(`.bayArea`)[0].style.display = 'none'; // hide last bayArea
-    createBayAfterOperation(newBayList); // get data from server
+    $(`.bayArea`)[0].style.display = 'none';
+    createBayAfterOperation(newBayList);
     $(`.confirmCombine`)[0].disabled = true;
 }
 function combineReset (){
-    // TODO: delete last vessel's combination
-    // TODO: get response after delete
     alert("确认重新组贝?");
     combinedBay20inch = [];
-    // enableSelectable();
-    // setStopOfSelectable();
-    // // get new info of vessel from server
-    // $(".newBayArea")[0].style.display = 'none'; // hide combined bayArea
-    // TODO: reInitial the bayArea
-    // $(".bayArea")[0].style.display = '';
-    // $(".bayArea").remove(".bayArea_20");
-    // $(".bayArea").remove(".bayArea_40");
-
 }
-
 /**
  *  zoom in and zoom out
  */
@@ -716,9 +686,8 @@ function showVal(a){
 let numOfBay = VIEW_SIDE.max_bay_number;
 let layerNumAbove = VIEW_SIDE.max_layer_above_number;
 let layerNumBelow = VIEW_SIDE.max_layer_below_number;
-
-</script>
-
+```
+```css
 <style>
     body {
     margin:0;
@@ -1027,9 +996,9 @@ let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 /*    -webkit-animation-timing-function:ease-in-out;*/
 /*    -webkit-animation-direction: alternate;*/
 /*}*/
+```
 
-</style>
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1103,4 +1072,4 @@ let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 <script src="../../../../js/vessel.js"></script>
 </body>
 </html>
-
+```

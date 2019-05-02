@@ -64,8 +64,7 @@
 
         mysql 连接方式。
         python有一套开源的连接mysql的驱动程序：mysqlclient。
-
-###    5.3 版本控制
+### 5.3 版本控制
         平台 github
         github 通过git bash 操作，实现代码的版本控制服务。
         
@@ -89,12 +88,11 @@
 
 
 
-
-
 # 三、 实体分析
 ## 1. 船舶实体分析
     集装箱船舶的属性包括了航次信息、船舶结构信息、积载信息。
     船舶航次信息： 
+    ```bash
     序号	英文名称	中文名称	类型
     1	Vessel	船名	String
     2	ImpVoy	进口航次	String
@@ -126,6 +124,7 @@
     28	PlaUloGPCtnFotFivNum	计划出重45	Integer
     29	PlaUloEmpCtnFotFivNum	计划出空45	Integer
     30	PlaUloDraCtnFotFivNum	计划出危45	Integer
+    ```
     备注：背景色为黄色，表示为关键字（主键）。
     备注：“作业完成情况”：表示装卸船情况，1表示正在卸船（未装船），2表示正在装船（未卸船）、3表示正在装卸船(两者同时开展)，4表示卸船完成，正在装船；5表示装卸船都完成；
     备注：“离泊情况”：1表示装卸船已经完成，正在离泊准备；2表示正在离泊作业，3表示离泊完成；
@@ -332,16 +331,16 @@
 
 
 ## 3. 数据存储设计
-    3.1 关系模型
+### 3.1 关系模型
 
 ## 4. 处理流程图
-    4.1 处理流程--
-    4.2 处理流程--
+### 4.1 处理流程--
+### 4.2 处理流程--
 
 ## 5. 程序设计
-    5.1 配载程序设计
-    5.2 输出设计
-    5.3 输入设计
+### 5.1 配载程序设计
+### 5.2 输出设计
+### 5.3 输入设计
 
 # 八、 结论和展望
 
@@ -352,8 +351,9 @@
 
 
 # 附录
-# code repository: https://github.com/ZhaoYitong/LE-FINAL-DESIGN
-# 文件结构
+## 代码仓库: 
+https://github.com/ZhaoYitong/LE-FINAL-DESIGN
+## 文件结构
 ```bash
 LE-FINAL-DESIGN
     ├─.idea
@@ -389,7 +389,7 @@ LE-FINAL-DESIGN
                     ├─yardSheet
                     └─yardView
 ```
-
+## javacript
 ```JavaScript
 function numToIdString(num) {
     return num < 10 ? "0" + num.toString() : num.toString();
@@ -687,6 +687,7 @@ let numOfBay = VIEW_SIDE.max_bay_number;
 let layerNumAbove = VIEW_SIDE.max_layer_above_number;
 let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 ```
+## css
 ```css
 <style>
     body {
@@ -997,7 +998,7 @@ let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 /*    -webkit-animation-direction: alternate;*/
 /*}*/
 ```
-
+## html
 ```html
 <!DOCTYPE html>
 <html lang="en">

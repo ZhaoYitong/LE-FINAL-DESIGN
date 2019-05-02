@@ -401,13 +401,9 @@ python有一套开源的连接mysql的驱动程序：mysqlclient。
 
 ### 代码仓库：
 
-[github repository] (https://github.com/ZhaoYitong/LE-FINAL-DESIGN)
-我使用 [Google][1] 进行学术搜索多一些,使用 [百度][2]进行日常搜索多一些，很少使用[Bing][3] .
-我不能一边使用 [百度搜索][2] 一边骂他不如 [Google][1]，我们需要学会的是利用资源。
+[存储位置][1]
 
-[1]: https://www.google.com/ "Google"
-[2]: https://www.baidu.com/ "Baidu Search"
-[3]: https://cn.bing.com/ "Bing Search"
+[1]: https://github.com/ZhaoYitong/LE-FINAL-DESIGN/ "Kerouac Repository"
 
 ### 文件结构
 

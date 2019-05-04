@@ -123,7 +123,7 @@ mysql 连接方式。
 python有一套开源的连接mysql的驱动程序：mysqlclient。
 
 关系模型：
-关系模型的产生，源自上个世纪，最初数据库的设计，主要是数据结构层面。层次模型是数据库系统中最早使用的数据模型。层次模型通过一种“有向树”的数据结构表示系统内各个实体以及各个实体之间的关系。[ref-数据库原理及开发应用](数据库原理及开发应用（第二版）-李艳娟-周)网状模型在20世纪70年代由CODASYL（数据系统语言研究会）下属的机构提出，它用来表达无法用层次模型表达的非层次关系的模型。但这两种模型的诞生，具有很多不足，如对数据插入和删除的操作限制，DDL（数据定义语言）的过度复杂等，于是，1970年IBM公司提出的基于实体--属性的关系模型，进一步完善了上面的不足，每一个关系模型，都由“二维表”组成的集合组成。同时，关系模型的设立，是基于严格的数学关系推导。关系模型涉及关系（Relation），元组（Tuple），属性（Attribute），关键字（Key），域（Domain），分量，关系模式这些基本概念。实际操作运用上，它涉及ER模型的建立，ER模型的转换， 完整性约束，如一对一、一对多、多对一、多对多的关系模型，
+关系模型的产生，源自上个世纪，最初数据库的设计，主要是数据结构层面。层次模型是数据库系统中最早使用的数据模型。层次模型通过一种“有向树”的数据结构表示系统内各个实体以及各个实体之间的关系。[ref-数据库原理及开发应用](数据库原理及开发应用（第二版）-李艳娟-周)网状模型在20世纪70年代由CODASYL（数据系统语言研究会）下属的机构提出，它用来表达无法用层次模型表达的非层次关系的模型。但这两种模型的诞生，具有很多不足，如对数据插入和删除的操作限制，DDL（数据定义语言）的过度复杂等，于是，1970年IBM公司提出的基于实体--属性的关系模型，进一步完善了上面的不足，每一个关系模型，都由“二维表”组成的集合组成。同时，关系模型的设立，是基于严格的数学关系推导。关系模型涉及关系（Relation），元组（Tuple），属性（Attribute），关键字（Key），域（Domain），分量，关系模式这些基本概念。实际操作运用上，它涉及ER模型的建立，ER模型的转换， 完整性约束，如一对一、一对多、多对一、多对多的关系模型。。。。。待完善
 
 #### 5.3 版本控制
 
@@ -264,25 +264,25 @@ python有一套开源的连接mysql的驱动程序：mysqlclient。
 备注：上述三张表应该可以完整表示船舶结构。
 
     表4-1-5船舶积载（进口箱的积载）：
-    序号	英文名称	中文名称	类型
-    1	Vessel	船名	String
-    2	Voyage	航次	String
-    3	VesCellNo	船箱位	String
-    4	ColNo	列号	tinyint
-    5	DeckCagSig	甲板or舱内	String
-    6	CtnNo	箱号	String
-    7	CtnTyp	箱型	String
-    8	Size	尺寸	String
-    9	Status	状态	String
-    10	CtnWegt	箱重	Real
-    11	Owner	持箱人	String
-    12	GForce	货特要求	String
-    13	StaPort	起运港	String
-    14	UnloadPort	卸货港	String
-    15	DesPort	目的港	String
-    16	StrPickAwayCtn	直提箱	String
-    17	CtnOpeSta	箱作业状态	String
-    18	PlaCtnCel	计划箱位	String
+    序号    英文名称        中文名称	    类型
+    1       Vessel          船名	    String
+    2       Voyage          航次	    String
+    3       VesCellNo       船箱位	    String
+    4       ColNo           列号	    tinyint
+    5       DeckCagSig      甲板or舱内	String
+    6       CtnNo           箱号	    String
+    7       CtnTyp          箱型	    String
+    8       Size            尺寸	    String
+    9       Status          状态	    String
+    10      CtnWegt         箱重	    Real
+    11      Owner           持箱人	    String
+    12      GForce          货特要求	String
+    13      StaPort         起运港	    String
+    14      UnloadPort      卸货港	    String
+    15      DesPort         目的港	    String
+    16      StrPickAwayCtn  直提箱	    String
+    17      CtnOpeSta       箱作业状态	String
+    18      PlaCtnCel       计划箱位	String
 
 
     表4-1-6出口箱配载计划：

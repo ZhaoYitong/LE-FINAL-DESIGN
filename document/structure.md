@@ -2,9 +2,16 @@
 
 ## 摘要
 
-200~300 各字符
+通过研究船舶配载决策支持系统的实现，基于B/S架构实现一套基本的船舶配载决策支持系统，系统支持船舶配载信息的监控，堆场箱位信息的实时监控，
+船舶预配载信息的监控，船舶调度计划的实时更新，不同类型船舶结构信息的适配显示，堆场到船舶集装箱出场的手工配载，船舶贝位调整，船舶配载问题中新调度算法或决策模型的导入，基于遗传算法和模拟退火算法的初始模型库。通过人机友好界面设计以及模型库的引入辅助决策船舶配载问题。
+
+### 关键词： B/S架构、模型库、辅助决策
 
 ## ABSTRACT
+
+By studying the implementation of the ship's stowage decision support system, we implement a basic ship's stowage decision support system based on Browser/Server architecture. The system supports the monitoring of ship stowage information, real-time monitoring of the containers' position in the yard, monitoring of ship pre-loading information, real-time updating of ship sheduling plan, adaptable display of different types of ship, manual loading of container from yard to ship, ship shell adjusting, the import of new scheduling algorithm or new decision model in ship scheduling problem, the initial model library based on genetic algorithms and simulated annealing algoritms. Through the Graphic User Interface design and the introduction of the model library to assist decision-making ship loading problem.
+
+### Key words: B/S architecture，model library, decision support
 
 ## 一、 绪论
 
@@ -38,6 +45,8 @@
 ### 3. 研究现状
 
 基于船舶配载的相关决策支持系统建设，国内外已经进行了好多研究。国内方面，主要以上海海事大学，大连海事大学，武汉理工大学为主，其中，大连海事大学杜嘉立曾提出以专家系统为基础去产生智能化控制船舶配载的策略，该方案可以提供船舶在装卸的每一个子进程中，集装箱数量的多少，装入船舱的时间先后，顺序等性能指标。[ref-基于专家系统的船舶配载智能控制策略](http://www.cnki.com.cn/Article/CJFD2005-JYGC200503013.htm)。计明军通过对集装箱船舶配载策略展开并进行比较分析，以四种配载方式划分，通过对比不同模式下船舶的倒箱率大小、稳定性、强度、吃水深度差，分析出不同配载方式的优势和不足，从而为减少实际船舶倒箱率问题提供辅助决策支持。[ref-集装箱船舶配载策略的比较分析](http://www.cnki.com.cn/Article/CJFDTotal-HHJS201201012.htm)。近几年的研究中，上海海事大学的物流研究中心的丁一等人，以堆场箱区的作业均衡性为前提，去研究港口码头的船舶配载问题， 减少了总装船时间的平均值，翻箱数量，以及不均衡程度，同时可以满足箱区作业的最大程度的均衡。[ref-考虑箱区作业均衡的ACT船舶配载研究](http://kns.cnki.net/KCMS/detail/detail.aspx?dbcode=CJFQ&dbname=CJFDLAST2018&filename=JYRJ201809003&v=MDAwNDFyQ1VSTE9mWXVac0ZDamxVNzdCTHpUWlpMRzRIOW5NcG85Rlo0UjhlWDFMdXhZUzdEaDFUM3FUcldNMUY=)。杨蔚等人在研究集装箱班轮运输的配载优化时，把船舶的稳定性作为条件约束，求解目标设定为整条航线最小倒箱量之和，数学模型的构建是基于0-1整数规划，并通过改进遗传算法，从而提升了配载计划的稳定性，以及船舶运营的安全性。[ref-集装箱班轮运输配载优化问题](http://kns.cnki.net/kcms/detail/detail.aspx?filename=DLHS201801011&dbcode=CJFQ&dbname=CJFD2018&v=)
+
+### 4. 文章内容及结构
 
 ## 二、 相关技术理论阐述
 
@@ -334,7 +343,6 @@ python有一套开源的连接mysql的驱动程序：mysqlclient。
 ### 1. 船舶结构
 
 船舶结构具体包含以下：
-
 
 ### 2. 船舶配载过程
 

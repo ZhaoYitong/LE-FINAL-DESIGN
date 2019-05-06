@@ -120,7 +120,7 @@ By studying the implementation of the ship's stowage decision support system, we
     　　(2)遵守船舶装载作业计划要求
     保证机械合理有序地移动
 
-### 2.4 系统技术工具
+### 2.4 系统技术概念
 
 #### 2.4.1 前端
 
@@ -191,8 +191,6 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 求解过程上，可以用零和壹表示解。从完全随机的个体的种群启动进化程序，每一代都发生变化，同时评估当前种群的适应度，之后基于当前种群的适应度随机地选择多个个体，通过程序中的自然选择和突变处理产生新的生命种群，下一次算法开始迭代运算时，该新生命种群成为当前种群[9]。
 
 #### 2.5.2 模拟退火算法
-
-
 
 ### 2.6 船舶配载规范
 
@@ -359,6 +357,204 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 岸桥的设备类型分很多种，主要有单小车、双小车、三小车岸吊，同时吊具有双吊和双四十尺吊，所以总共有六种岸桥，需要对岸桥建立统一的类型分析。
 
+岸桥的实体信息包括：岸桥的结构信息，岸桥的当前状态信息，岸桥的作业计划信息，岸桥的作业统计信息。
+
+岸桥的结构信息主要用来描述岸桥的类型，岸桥的作业效率，岸桥大车的移动速度等信息。
+
+岸桥信息主要用来确定岸桥的当前状态信息。
+
+
+
+```markdown
+表4-2-1 岸桥信息
+序号	英文名称	中文名称	类型
+1	QCNo	岸桥编号	String
+2	CellSpeSig	类别	String
+3	QcPos	岸桥位置	Real
+4	QCSta	岸桥状态	String
+5	OpVes	作业船舶	String
+6	BegBayPoi	起贝定位	Real
+7	OpBerthPos	当前作业岸边位置	String
+8	NowOpVesCel	当前作业船箱位	String
+9	OpCtnNo	当前作业箱号	String
+10	OpAgvFir	当前作业AGV一	String
+11	OpAgvSec	当前作业AGV二	String
+12	OpAgvThr	当前作业AGV三	String
+13	BetLegTraBlk	故障胯下阻断	String
+14	OpAgvFou	当前作业AGV四	String
+15	QcNoLeft	左侧岸桥编号	String
+16	QcNoRight	右侧岸桥编号	String
+17	VesOPTimFir	船上第一时间	datetime
+18	VesOPTimSec	船上第二时间	datetime
+19	AgvTimFir	AGV第一时间	datetime
+20	AgvTimSec	AGV第二时间	datetime
+21	PlfOpTimFir	平台第一时间	datetime
+22	PlfOpTimSec	平台第二时间	datetime
+23	PlfOpTimThr	平台第三时间	datetime
+24	PlfOpTimFou	平台第四时间	datetime
+25	PlaQcMtnFiniTim	岸吊预期修复时间	datetime
+26	FauTailBreak	故障尾部阻断	String
+
+```
+
+
+
+备注：岸桥状态：0、空闲；1、卸船；2、装船；3、大车移动；4、故障；5、起大梁；6、起大梁大车移动；
+
+备注：起贝定位：是指岸吊小车到船上作业时，最靠近岸边的第一贝的中心离开泊位垂直面的距离；
+
+备注：第一时间是吊具着箱或放箱落地时间，第二时间是吊具起吊时间；平台是考虑到岸桥可能是多小车，往往上面有中转平台，所以设定该参数；平台第三时间是在平台上的第二吊箱的着箱或放箱落地时间，平台第四时间是第二次吊具起吊时间。
+
+备注：当前作业岸边位置，是指AGV所在的车道，当前作业AGV是该集装箱要指派给的AGV编号。
+
+备注：岸桥预期修复时间：是用来确定岸桥故障后，最大可能的修复时间，该数据项可能影响到船舶的靠泊，AGV的作业等情况。
+
+备注：故障胯下阻断：是为了后续AGV的路径，或者外部集卡的行走路径。胯下是指岸桥轨道中间的空间，数据项类型为char，长度为车道数量，比如车道为5，那char的长度为5位，每一位用0表示畅通，1表示阻断。
+
+备注：故障尾部阻断：同故障胯下阻断，长度也是后续的车道数。
+
+
+
+岸桥结构类别信息主要是用来为了后续画出岸桥的图示，这些信息保存在表中，在落实到具体岸桥后，可以把这些信息直接写入到岸桥的实体中。
+
+```markdown
+表4-2-2 岸桥结构类别信息
+序号	英文名称	中文名称	类型
+1	Qckind	类别	String
+2	QcLengFr	外伸距	Real
+3	QcOpLengFr	外伸作业距	Real
+4	QcHeg	岸桥高度	Real
+5	OpHeg	作业高度	Real
+6	QcLengTr	后伸距	Real
+7	OpLengTr	后伸作业距	Real
+8	PlfPos	平台位置	Real
+9	BetLegLeng	大车轨道跨距	Real
+10	BetLegLanNum	大车跨下车道数	Integer
+11	LifSpdDolFr	前置小车起升速度	Object
+12	DowVelDolFro	前置小车下降速度	Object
+13	HorSpdDolFr	前置小车水平速度	Object
+14	OpStyDolFro	前置小车作业方式	Integer
+15	LifSpdDolTr	后置小车起升速度	Object
+16	DowVelDolTr	后置小车下降速度	Object
+17	HorSpdDolTr	后置小车水平速度	Object
+18	OpKindDolTr	后置小车作业方式	Integer
+
+```
+
+备注：类别：1、单小车双吊；2、单小车双四十次吊；3、双小车双吊；4、双小车双四十尺吊；5、三小车双吊；6、三小车双四十尺吊；
+
+备注：外伸距：从泊位垂直面到最前面的距离；后伸距，从内侧轨道到最后距离；
+
+备注：外伸作业距：从泊位垂直到最外侧可以作业的距离；后伸作业距：从内侧轨道到最后可以作业的距离；
+
+备注：前置小车作业方式：是门字形作业还是抛物线形作业；
+
+备注：小车**速度是分布函数，主要体现该活动服从什么分布。
+
+
+
+根据上述信息能确定岸桥的外形动画以及已经当前作业状态，另外还需要为每一台岸桥做装卸任务列表。首先是岸桥的作业计划，该计划说明了每一台岸桥需要作业的贝位及其先后关系。然后是每一个贝位内的每一个具体作业任务。
+
+```markdown
+表4-2-3 岸桥作业计划（该计划是岸桥调度模型的输出结果）
+序号	英文名称	中文名称	类型
+1	QCNo	岸桥编号	String
+2	OpVes	作业船舶	String
+3	OpBay	作业贝位	String
+4	OpKind	作业类别	String
+5	OpPos	作业位置	Real
+6	PreOpVes	紧前作业船舶	String
+7	PreOpBay	紧前作业贝位	String
+8	PreOpPos	作业紧前位置	String
+9	PreOpKind	作业紧前类别	String
+
+```
+
+
+
+备注：作业紧前贝位：就是岸桥在当前作业贝位紧前的作业贝位，其需要与作业紧前船舶联合才能确定；
+
+备注：作业类别（同“作业紧前类别”）：1表示甲板卸；2表示卸舱盖板；3表示舱内卸；4表示舱内装；5表示装舱盖板；6表示甲板装。
+
+
+
+```markdown
+表4-2-4 岸桥作业贝位计划（是在岸桥作业计划的基础上，为岸桥分配集装箱）
+序号	英文名称	中文名称	类型
+1	QCNo	岸桥编号	String
+2	OpSta	作业状态	String
+3	OpVes	作业船舶	String
+4	OpBay	作业贝位	String
+5	OpKind	作业类别	String
+6	NowOpVesCelFir	当前作业船箱位一	String
+7	CtnNoFir	箱号一	String
+8	CtnSizFir	箱一尺寸	String
+9	BerPosFir	岸边位一	String
+10	NowOpVesCelSec	当前作业船箱位二	String
+11	CtnNoSec	箱号二	String
+12	CtnSizSec	箱二尺寸	String
+13	BerPosSec	岸边位二	String
+14	NowOpVesCelThr	当前作业船箱位三	String
+15	CtnNoThr	箱号三	String
+16	CtnSizThr	箱三尺寸	String
+17	BerPosThr	岸边位三	String
+18	NowOpVesCelFou	当前作业船箱位四	String
+19	CtnNoFou	箱号四	String
+20	CtnSizFou	箱四尺寸	String
+21	BerPosFou	岸边位四	String
+22	PreVesCelFir	紧前作业船箱位一	String
+23	PreVesCelSec	紧前作业船箱位二	String
+24	PreVesCelThr	紧前作业船箱位三	String
+25	PreVesCelFou	紧前作业船箱位四	String
+26	PreOpVes	紧前作业船舶	String
+27	PreOpBay	紧前作业贝位	String
+28	NowOpBay	当前作业贝	String
+29	DesBay	目标贝位	String
+
+```
+
+
+
+备注：这里的箱号从一到四，是考虑到双四十尺吊具。
+
+备注：作业状态：见表4-2-7
+
+备注：作业类别：根据表4-2-7,4-2-8,4-2-9来确定，卸船一类该数据项为11，卸船二类为12，第一个数表示作业大类，比如卸船就为1，第二数表示具体明细类。作业类别A：表示大车移动。
+
+备注：当前作业贝，目标贝位：表示岸吊大车移动的指令。
+
+
+
+```markdown
+表4-2-5 岸桥作业历史数据（岸桥实际作业的历史数据，根据时间排序即可得先后）
+序号	英文名称	中文名称	类型
+1	QCNo	岸桥编号	String
+2	OpVes	作业船舶	String
+3	OpBay	作业贝位	String
+4	OpKind	作业类别	String
+5	OpTime	作业时间	datetime
+6	OpVesCelFir	作业船箱位一	String
+7	CtnNoFir	箱号一	String
+8	CtnSizFir	箱一尺寸	String
+9	OpVesCelSec	作业船箱位二	String
+10	CtnNoSec	箱号二	String
+11	CtnSizSec	箱二尺寸	String
+12	OpVesCelThr	作业船箱位三	String
+13	CtnNoThr	箱号三	String
+14	CtnSizThr	箱三尺寸	String
+15	OpVesCelFou	作业船箱位四	String
+16	CtnNoFou	箱号四	String
+17	CtnSizFou	箱四尺寸	String
+18	AgvNoFir	AGV一	String
+19	AgvNoSec	AGV二	String
+20	AgvNoThr	AGV三	String
+21	AgvNoFou	AGV四	String
+备注：Dt表示datetime类别。
+
+```
+
+
+
 ## 第四章、 系统规划
 
 ### 4.1 船舶结构
@@ -372,26 +568,32 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 #### a. 配载原则和作业流程
 
-    （1）收集并核对配载单证资料
-    （2）制作配载船图
-    （3）配载图的审核
-    （4）配载图的签发
-    （5）退关箱复关的处理
+```markdown
+（1）收集并核对配载单证资料
+（2）制作配载船图
+（3）配载图的审核
+（4）配载图的签发
+（5）退关箱复关的处理
+```
 
 #### b. 配载的数据准备
 
-    （1）制作船舶规范
-    （2）确定航次挂靠港
-    （3）场站收据放关确认
-    （4）退关箱、复关箱处理
-    （5）出口箱整船换装
+```markdown
+（1）制作船舶规范
+（2）确定航次挂靠港
+（3）场站收据放关确认
+（4）退关箱、复关箱处理
+（5）出口箱整船换装
+```
 
 #### c. 制作船舶规范
 
-    （1）船舶轮廓尺寸参数
-    （2）倍内单元设定
-    （3）特殊箱位设定
-    （4）组倍设定
+```markdown
+（1）船舶轮廓尺寸参数
+（2）倍内单元设定
+（3）特殊箱位设定
+（4）组倍设定
+```
 
 #### d. 船舶配载的一般步骤
 
@@ -405,17 +607,19 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 #### e. 配载应遵循的原则
 
-    满足船舶的运输稳性要求：
-    （1）保证船舶良好的稳性
-    （2）保持船舶适当的吃水差
-    （3）满足船体强度要求
-    （4）避免配载不当造成沿线挂港作业困难
-    （5）满足特种箱的配载要求
-    
-    符合码头的作业要求：
-    （1）符合堆场取箱规则
-    （2）符合单船作业计划要求
-    （3）确保机械合理、有序地移动
+```markdown
+满足船舶的运输稳性要求：
+（1）保证船舶良好的稳性
+（2）保持船舶适当的吃水差
+（3）满足船体强度要求
+（4）避免配载不当造成沿线挂港作业困难
+（5）满足特种箱的配载要求
+
+符合码头的作业要求：
+（1）符合堆场取箱规则
+（2）符合单船作业计划要求
+（3）确保机械合理、有序地移动
+```
 
 #### f. 配载的主要决策内容
 

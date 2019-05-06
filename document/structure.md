@@ -4,8 +4,6 @@
 
 ## 承诺书
 
-本人郑重承诺：所呈交的毕业论文“基于船舶配载调度的决策支持系统研究”是在导师的指导下，严格按照学校和学院的有关规定由本人独立完成。文中利用的观点和参考资料均已标注并加以注释。论文研究过程中不存在抄袭他人研究成果和伪造相关数据的行为。如若出现任何侵犯他人知识产权等问题，本人愿意承担相关法律责任。
-
 ## 摘要
 
 通过研究船舶配载决策支持系统的实现，基于B/S架构实现一套基本的船舶配载决策支持系统，系统支持船舶配载信息的监控，堆场箱位信息的实时监控， 船舶预配载信息的监控，船舶调度计划的实时更新，不同类型船舶结构信息的适配显示，堆场到船舶集装箱出场的手工配载，船舶贝位调整，船舶配载问题中新调度算法或决策模型的导入，基于遗传算法和模拟退火算法的初始模型库。通过人机友好界面设计以及模型库的引入辅助决策船舶配载问题。
@@ -88,37 +86,39 @@ By studying the implementation of the ship's stowage decision support system, we
 
 集装箱码头的配载，即把预先划定好装载出口的集装箱，制定每一个集装箱的装载计划，参考标准按照港口码头的业务要求和船舶运输过程中的适配需要。码头配载员需根据船公司的预配要求以及实际收箱状况来确定集装箱在船舶中具体的装载位置和装载顺序[7]。
 
-    a. 集装箱船舶资料内容
-    
-    船舶箱位容量和箱位分布
-    船舶堆积负荷强度
-    船舶的尺寸和吃水情况
-    冷藏箱位置
-    危险箱的装载限制
-    空船重量大小和常数设置
-    稳性和吃水差计算书
-    
-    b. 堆场集装箱资料
-    
-    集装箱装箱单信息
-    装货单信息
-    特种箱清单信息
-    危险货物箱清单信息
-    危准单信息
-    预配船图船舶结构
-    集装箱的堆场位置明细
-    
-    船舶配载的基本原则：
-    满足船舶的运输要求
-    　　(1)确保船舶拥有良好的稳性
-    　　(2)保证满足船舶适当的吃水差
-    　　(3)不超过船舶规定的强度规范
-    　　(4)考虑挂港作业同时合理配载
-    　　(5)满足特殊箱运输要求标准
-    符合码头的作业要求
-    　　(1)遵守堆场取箱作业规则
-    　　(2)遵守船舶装载作业计划要求
-    保证机械合理有序地移动
+##### a. 集装箱船舶资料内容
+
+船舶箱位容量和箱位分布
+船舶堆积负荷强度
+船舶的尺寸和吃水情况
+冷藏箱位置
+危险箱的装载限制
+空船重量大小和常数设置
+稳性和吃水差计算书
+
+##### b. 堆场集装箱资料
+
+集装箱装箱单信息
+装货单信息
+特种箱清单信息
+危险货物箱清单信息
+危准单信息
+预配船图船舶结构
+集装箱的堆场位置明细
+
+##### c. 船舶配载的基本原则
+满足船舶的运输要求
+　　(1)确保船舶拥有良好的稳性
+　　(2)保证满足船舶适当的吃水差
+　　(3)不超过船舶规定的强度规范
+　　(4)考虑挂港作业同时合理配载
+　　(5)满足特殊箱运输要求标准
+
+符合码头的作业要求
+　　(1)遵守堆场取箱作业规则
+　　(2)遵守船舶装载作业计划要求
+
+保证机械合理有序地移动
 
 ### 2.4 系统技术概念
 
@@ -136,7 +136,7 @@ JS(Javascript)， 它通常写作缩写形式，JS， 它是比较高级的，�
 
 ##### a. 后端框架
 
-Django。Django 是一个由python编写的开源的Web应用框架。其软件设计模式采用了模型层Model，视图层View和模板层Template即MVT的软件设计模式。该框架创立的主要目标是为了简化由数据库驱动的，复杂的网站的开发流程。其中，该框架特别注重以下原则：Don't Repeat Yourself（DRY），敏捷开发原则，组件的可以复用性，组件的可插拔。
+Django。Django 是一个Web应用框架, 这个框架通过Python这门语言进行编写，现在最新的版本是 2.2.1。该框架的设计模是模型层Model，视图层View和模板层Template三种概念的组合，即MVT的软件设计模式。该框架创立的主要目标是为了简化由数据库驱动的，复杂的网站的开发流程。其中，该框架特别注重以下原则：Don't Repeat Yourself（DRY），敏捷开发原则，组件的可以复用性，组件的可插拔。
 该框架的组件部分主要包括路由分发、视图显示、模板渲染、连接数据库关系模型的中间。并且，该框架具有独立的Web服务器，这使得开发者便于进行开发和功能测试；处理表单序列化的系统以及验证防止CSRF的系统，这便于前端页面数据和后端数据库部分的数据转化；各种中间件的实现，开发者可以对一个http请求的每一个阶段做单独处理；独特的序列化系统，减轻了处理数据传输过程中，读取或者生成相关数据的代码压力。
 
 ##### b. 数据库
@@ -166,21 +166,21 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 ##### c. 版本控制结构
 
-    （1）git 库目录：
-    （2）hooks：存储钩子
-    （3）logs： 存储日志
-    （4）refs：存储指向各分支的指针
-    （5）objects： 存储git对象
-    （6）config: 存储设置文档
-    （6）HEAD： 存储当前开发所在分支的文件路径指向
+（1）git 库目录：
+（2）hooks：存储钩子
+（3）logs： 存储日志
+（4）refs：存储指向各分支的指针
+（5）objects： 存储git对象
+（6）config: 存储设置文档
+（6）HEAD： 存储当前开发所在分支的文件路径指向
 
 ##### d. 版本控制用例
 
-    git pull   #连接远程代码库，把相关更新同步到本地代码库
-    git status #当前项目对应远程分支代码更新状态
-    git add .  #把当前修改工作暂存
-    git commit #输入当前修所要记录的基本信息，并保存
-    git push   #把当前commit后的修改，提交到远程分支
+（1）git pull   #连接远程代码库，把相关更新同步到本地代码库
+（2）git status #当前项目对应远程分支代码更新状态
+（3）git add .  #把当前修改工作暂存
+（4）git commit #输入当前修所要记录的基本信息，并保存
+（5）git push   #把当前commit后的修改，提交到远程分支
 
 ### 2.5 算法概念
 
@@ -208,87 +208,97 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 ### 3.1 船舶实体分析
 
-    集装箱船舶的属性包括了航次信息、船舶结构信息、积载信息
-    
-    （1）船舶航次信息：
-    序号    英文名称    				中文名称    	类型
-    1   	Vessel  				船名    		 String
-    2   	ImpVoy 		 			进口航次    	String
-    3		ExpVoy					出口航次		String
-    4		VesType					船型			 String
-    5		PlaBerThgTim			计划靠泊		datetime
-    6		PlaUnbThgTim			计划离泊		datetime
-    7		ReaBerThgTim			实际靠泊（时间） datetime
-    8		ActUnbTim				实际离泊		datetime
-    9		PlaBerThgPos			计划靠泊位置	   String
-    10		ActBerPos				实际靠泊位置	   numeric
-    11		BerThgDir				靠泊方向	    String
-    12		VesDrauMax				进出最大吃水	   Real
-    13		PlaClosCustTim			计划截关时间	   datetime
-    14		ClosCustTim				截关时间	    datetime
-    15		OpAssSign				已安排作业	   String
-    16		EntPlanMakSig			已安排集港	   String
-    17		TaskFiniSig				作业完成否	   String
-    18		UnBSta					离泊情况		boolean
-    19		PlaLoaGPCtnFotNum		计划进重40		Integer
-    20		PlaLoaEmpCtnFotNum		计划进空40		Integer
-    21		PlaLoaDraCtnFotNum		计划进危40		Integer
-    22		PlaLoaGPCtnFotFivNum	计划进重45		Integer
-    23		PlaLoaEmpCtnFotFivNum	计划进空45		Integer
-    24		PlaLoaDraCtnFotFivNum	计划进危45		Integer
-    25		PlaUloGPCtnFotNum		计划出重40		Integer
-    26		PlaUloEmpCtnFotNum		计划出空40		Integer
-    27		PlaUloDraCtnFotNum		计划出危40		Integer
-    28		PlaUloGPCtnFotFivNum	计划出重45		Integer
-    29		PlaUloEmpCtnFotFivNum	计划出空45		Integer
-    30		PlaUloDraCtnFotFivNum	计划出危45		Integer
+集装箱船舶的属性包括了航次信息、船舶结构信息、积载信息。
+
+（1）船舶航次信息：
+序号    英文名称    				中文名称    	类型
+1   	Vessel  				船名    		 String
+2   	ImpVoy 		 			进口航次    	String
+3		ExpVoy					出口航次		String
+4		VesType					船型			 String
+5		PlaBerThgTim			计划靠泊		datetime
+6		PlaUnbThgTim			计划离泊		datetime
+7		ReaBerThgTim			实际靠泊（时间） datetime
+8		ActUnbTim				实际离泊		datetime
+9		PlaBerThgPos			计划靠泊位置	   String
+10		ActBerPos				实际靠泊位置	   numeric
+11		BerThgDir				靠泊方向	    String
+12		VesDrauMax				进出最大吃水	   Real
+13		PlaClosCustTim			计划截关时间	   datetime
+14		ClosCustTim				截关时间	    datetime
+15		OpAssSign				已安排作业	   String
+16		EntPlanMakSig			已安排集港	   String
+17		TaskFiniSig				作业完成否	   String
+18		UnBSta					离泊情况		boolean
+19		PlaLoaGPCtnFotNum		计划进重40		Integer
+20		PlaLoaEmpCtnFotNum		计划进空40		Integer
+21		PlaLoaDraCtnFotNum		计划进危40		Integer
+22		PlaLoaGPCtnFotFivNum	计划进重45		Integer
+23		PlaLoaEmpCtnFotFivNum	计划进空45		Integer
+24		PlaLoaDraCtnFotFivNum	计划进危45		Integer
+25		PlaUloGPCtnFotNum		计划出重40		Integer
+26		PlaUloEmpCtnFotNum		计划出空40		Integer
+27		PlaUloDraCtnFotNum		计划出危40		Integer
+28		PlaUloGPCtnFotFivNum	计划出重45		Integer
+29		PlaUloEmpCtnFotFivNum	计划出空45		Integer
+30		PlaUloDraCtnFotFivNum	计划出危45		Integer
+
+
 
 备注：背景色为黄色，表示为关键字（主键）。
 备注：“作业完成情况”：表示装卸船情况，1表示正在卸船（未装船），2表示正在装船（未卸船）、3表示正在装卸船(两者同时开展)，4表示卸船完成，正在装船；5表示装卸船都完成；
 备注：“离泊情况”：1表示装卸船已经完成，正在离泊准备；2表示正在离泊作业，3表示离泊完成；
 备注：进出港最大吃水：是船舶进港和出港时，船舶的最大吃水深度，是为了制订船舶靠泊计划用。
 
-    表4-1-2船舶结构（针对某一船舶型号）：
-    序号		英文名称		中文名称		类型
-    1		VesType			船型			 String
-    2		VesLeng			船长			 numeric
-    3		VesWidth		船舶宽度	    Real
-    4		VesFrLeng		船首长度（米）	  Real
-    5		TweBayNum		20尺贝数		 Integer
-    6		FotBayNum		40尺贝数		 Integer
-    7		FotBayCom		40组贝		 String
-    8		EngRomPos		机舱位置		Integer
-    9		EngRomWid		机舱宽度		Integer
-    10		MidBayDeaWit	中间贝处理	    Boolean
-    11		RefCtnCap		冷冻容量		Real
-    12		VesEntBerSpd	船舶进港速度	   speed
-    13		VesBerSpd		船舶靠泊速度	   speed
-    14		HigCtnCap		高箱容量		Real
-    15		CapCtnFotFiv	45尺容量		 Real
-    16		VesEmpGrvHeg	空船重心高		String
-    17		VesAtt			全隔槽？		String
-    18		LoadWeigth		载重量			 Real
-    19		DeckCapWegt		甲板容量T		Real
-    20		CabCap			舱内容量T		Real
-    21		DanCtnAlw		允装危险品		String
+
+
+（2）船舶结构信息
+
+表4-1-2船舶结构（针对某一船舶型号）：
+序号		英文名称		中文名称		类型
+1		VesType			船型			 String
+2		VesLeng			船长			 numeric
+3		VesWidth		船舶宽度	    Real
+4		VesFrLeng		船首长度（米）	  Real
+5		TweBayNum		20尺贝数		 Integer
+6		FotBayNum		40尺贝数		 Integer
+7		FotBayCom		40组贝		 String
+8		EngRomPos		机舱位置		Integer
+9		EngRomWid		机舱宽度		Integer
+10		MidBayDeaWit	中间贝处理	    Boolean
+11		RefCtnCap		冷冻容量		Real
+12		VesEntBerSpd	船舶进港速度	   speed
+13		VesBerSpd		船舶靠泊速度	   speed
+14		HigCtnCap		高箱容量		Real
+15		CapCtnFotFiv	45尺容量		 Real
+16		VesEmpGrvHeg	空船重心高		String
+17		VesAtt			全隔槽？		String
+18		LoadWeigth		载重量			 Real
+19		DeckCapWegt		甲板容量T		Real
+20		CabCap			舱内容量T		Real
+21		DanCtnAlw		允装危险品		String
+
 备注：“40组贝”是一个字符串，长度为20尺贝位数，从船首开始往后计组贝情况，如第一个组贝为第2和3号20尺贝位，那第2、3位置标注为1，第4、5号20尺贝位为第二个40尺组贝，那在第4、5位置标注上2，依次类推。
 备注：“中间贝处理”是为了确定船舶中间贝是00行，还是最中间就是一条线，左右两边对称放箱。
 
 
-    表4-1-3船舶贝位结构
-    序号		英文名称		中文名称	类型
-    1		VesType			船型		String
-    2		BayNo			贝号		String
-    3		BaySiz			贝尺寸		String
-    4		BayCom			贝组		String
-    5		DeckHeg			甲板层高	Integer
-    6		DeckWidMax		甲板最宽	Integer
-    7		CabHeg			舱内层高	Integer
-    8		CabWidMax		舱内最宽	Integer
-    9		HatCovKind		舱盖板类型	String
-    10		HatCovSiz		边舱盖板宽	Integer
-    11		BayX			贝X坐标	Integer
-    12		BayY			贝Y坐标	Integer
+
+（3）船舶贝位结构信息
+
+表4-1-3船舶贝位结构
+序号		英文名称		中文名称	类型
+1		VesType			船型		String
+2		BayNo			贝号		String
+3		BaySiz			贝尺寸		String
+4		BayCom			贝组		String
+5		DeckHeg			甲板层高	Integer
+6		DeckWidMax		甲板最宽	Integer
+7		CabHeg			舱内层高	Integer
+8		CabWidMax		舱内最宽	Integer
+9		HatCovKind		舱盖板类型	String
+10		HatCovSiz		边舱盖板宽	Integer
+11		BayX			贝X坐标	Integer
+12		BayY			贝Y坐标	Integer
 
 备注：“舱盖板类型”，0表示是自开式，1~4表示舱盖板数量；“边舱盖板宽”：这里假定舱盖板是左右对称的，结合“舱盖板类型”，可以确定具体尺寸，边舱盖板是最边上的舱盖板，宽度就是该舱盖板的宽度。
 备注：贝尺寸：是20尺还是40尺，是否可以存放45尺。
@@ -296,60 +306,71 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 备注：贝X坐标和贝Y坐标：表示该贝位靠近船头一侧的面和船中心线的交点所在的坐标值。
 备注：甲板最宽：表示船舶甲板上堆放集装箱的排数。
 
-    表4-1-4船舶贝位层结构
-    序号		英文名称	中文名称	类型
-    1    	VesType		船型		String
-    2		BayNo		贝号		String
-    3		TireNo		层号		String
-    4		DeckCagSig	甲板or舱内	boolean
-    5		BayWid		宽度		Integer
-    6		BayHigh		离底层		Integer
-    7		CellSpeSig	箱位特标	String
-    8		RefSig		箱位冷冻标	String
+
+
+（4） 船舶贝位层结构信息
+
+表4-1-4船舶贝位层结构
+序号		英文名称	中文名称	类型
+1    	VesType		船型		String
+2		BayNo		贝号		String
+3		TireNo		层号		String
+4		DeckCagSig	甲板or舱内	boolean
+5		BayWid		宽度		Integer
+6		BayHigh		离底层		Integer
+7		CellSpeSig	箱位特标	String
+8		RefSig		箱位冷冻标	String
 
 备注：“离底层”表示该层离开舱底和甲板的层数。
 备注：上述三张表应该可以完整表示船舶结构。
 
-    表4-1-5船舶积载（进口箱的积载）：
-    序号    英文名称        中文名称	    类型
-    1       Vessel          船名	    String
-    2       Voyage          航次	    String
-    3       VesCellNo       船箱位	    String
-    4       ColNo           列号	    tinyint
-    5       DeckCagSig      甲板or舱内	String
-    6       CtnNo           箱号	    String
-    7       CtnTyp          箱型	    String
-    8       Size            尺寸	    String
-    9       Status          状态	    String
-    10      CtnWegt         箱重	    Real
-    11      Owner           持箱人	    String
-    12      GForce          货特要求	String
-    13      StaPort         起运港	    String
-    14      UnloadPort      卸货港	    String
-    15      DesPort         目的港	    String
-    16      StrPickAwayCtn  直提箱	    String
-    17      CtnOpeSta       箱作业状态	String
-    18      PlaCtnCel       计划箱位	String
 
 
-    表4-1-6出口箱配载计划：
-    序号	英文名称	中文名称	类型
-    1	Vessel		船名		String
-    2	Voyage		航次		String
-    3	VesCellNo	船箱位		String
-    4	ColNo		列号		tinyint
-    5	DeckCagSig	甲板or舱内	String
-    6	CtnNo		箱号		String
-    7	CtnTyp		箱型		String
-    8	Size		尺寸		String
-    9	Status		状态		String
-    10	CtnWegt		箱重		Real
-    11	GForce		货特要求   String
-    12	StaPort		起运港		String
-    13	UnloadPort	卸货港		String
-    14	DesPort		目的港		String
-    15	CtnOpeSta	箱作业状态  String
-    16	YardCel		堆场箱位	String
+（5）船舶积载（进口箱的积载）信息
+
+表4-1-5船舶积载（进口箱的积载）：
+序号    英文名称        中文名称	    类型
+1       Vessel          船名	    String
+2       Voyage          航次	    String
+3       VesCellNo       船箱位	    String
+4       ColNo           列号	    tinyint
+5       DeckCagSig      甲板or舱内	String
+6       CtnNo           箱号	    String
+7       CtnTyp          箱型	    String
+8       Size            尺寸	    String
+9       Status          状态	    String
+10      CtnWegt         箱重	    Real
+11      Owner           持箱人	    String
+12      GForce          货特要求	String
+13      StaPort         起运港	    String
+14      UnloadPort      卸货港	    String
+15      DesPort         目的港	    String
+16      StrPickAwayCtn  直提箱	    String
+17      CtnOpeSta       箱作业状态	String
+18      PlaCtnCel       计划箱位	String
+
+
+
+（6）出口箱配载计划信息
+
+表4-1-6出口箱配载计划：
+序号	英文名称	中文名称	类型
+1	Vessel		船名		String
+2	Voyage		航次		String
+3	VesCellNo	船箱位		String
+4	ColNo		列号		tinyint
+5	DeckCagSig	甲板or舱内	String
+6	CtnNo		箱号		String
+7	CtnTyp		箱型		String
+8	Size		尺寸		String
+9	Status		状态		String
+10	CtnWegt		箱重		Real
+11	GForce		货特要求   String
+12	StaPort		起运港		String
+13	UnloadPort	卸货港		String
+14	DesPort		目的港		String
+15	CtnOpeSta	箱作业状态  String
+16	YardCel		堆场箱位	String
 
 
 
@@ -363,9 +384,10 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 岸桥信息主要用来确定岸桥的当前状态信息。
 
+（1）岸桥信息
 
 
-```markdown
+
 表4-2-1 岸桥信息
 序号	英文名称	中文名称	类型
 1	QCNo	岸桥编号	String
@@ -395,8 +417,6 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 25	PlaQcMtnFiniTim	岸吊预期修复时间	datetime
 26	FauTailBreak	故障尾部阻断	String
 
-```
-
 
 
 备注：岸桥状态：0、空闲；1、卸船；2、装船；3、大车移动；4、故障；5、起大梁；6、起大梁大车移动；
@@ -415,9 +435,10 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 
 
+（2）岸桥结构类别信息
+
 岸桥结构类别信息主要是用来为了后续画出岸桥的图示，这些信息保存在表中，在落实到具体岸桥后，可以把这些信息直接写入到岸桥的实体中。
 
-```markdown
 表4-2-2 岸桥结构类别信息
 序号	英文名称	中文名称	类型
 1	Qckind	类别	String
@@ -439,8 +460,6 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 17	HorSpdDolTr	后置小车水平速度	Object
 18	OpKindDolTr	后置小车作业方式	Integer
 
-```
-
 备注：类别：1、单小车双吊；2、单小车双四十次吊；3、双小车双吊；4、双小车双四十尺吊；5、三小车双吊；6、三小车双四十尺吊；
 
 备注：外伸距：从泊位垂直面到最前面的距离；后伸距，从内侧轨道到最后距离；
@@ -453,9 +472,10 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 
 
+（3）岸桥作业计划信息
+
 根据上述信息能确定岸桥的外形动画以及已经当前作业状态，另外还需要为每一台岸桥做装卸任务列表。首先是岸桥的作业计划，该计划说明了每一台岸桥需要作业的贝位及其先后关系。然后是每一个贝位内的每一个具体作业任务。
 
-```markdown
 表4-2-3 岸桥作业计划（该计划是岸桥调度模型的输出结果）
 序号	英文名称	中文名称	类型
 1	QCNo	岸桥编号	String
@@ -468,8 +488,6 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 8	PreOpPos	作业紧前位置	String
 9	PreOpKind	作业紧前类别	String
 
-```
-
 
 
 备注：作业紧前贝位：就是岸桥在当前作业贝位紧前的作业贝位，其需要与作业紧前船舶联合才能确定；
@@ -478,7 +496,8 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 
 
-```markdown
+（4）岸桥作业贝位计划信息
+
 表4-2-4 岸桥作业贝位计划（是在岸桥作业计划的基础上，为岸桥分配集装箱）
 序号	英文名称	中文名称	类型
 1	QCNo	岸桥编号	String
@@ -511,10 +530,6 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 28	NowOpBay	当前作业贝	String
 29	DesBay	目标贝位	String
 
-```
-
-
-
 备注：这里的箱号从一到四，是考虑到双四十尺吊具。
 
 备注：作业状态：见表4-2-7
@@ -524,34 +539,6 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 备注：当前作业贝，目标贝位：表示岸吊大车移动的指令。
 
 
-
-```markdown
-表4-2-5 岸桥作业历史数据（岸桥实际作业的历史数据，根据时间排序即可得先后）
-序号	英文名称	中文名称	类型
-1	QCNo	岸桥编号	String
-2	OpVes	作业船舶	String
-3	OpBay	作业贝位	String
-4	OpKind	作业类别	String
-5	OpTime	作业时间	datetime
-6	OpVesCelFir	作业船箱位一	String
-7	CtnNoFir	箱号一	String
-8	CtnSizFir	箱一尺寸	String
-9	OpVesCelSec	作业船箱位二	String
-10	CtnNoSec	箱号二	String
-11	CtnSizSec	箱二尺寸	String
-12	OpVesCelThr	作业船箱位三	String
-13	CtnNoThr	箱号三	String
-14	CtnSizThr	箱三尺寸	String
-15	OpVesCelFou	作业船箱位四	String
-16	CtnNoFou	箱号四	String
-17	CtnSizFou	箱四尺寸	String
-18	AgvNoFir	AGV一	String
-19	AgvNoSec	AGV二	String
-20	AgvNoThr	AGV三	String
-21	AgvNoFou	AGV四	String
-备注：Dt表示datetime类别。
-
-```
 
 
 
@@ -568,46 +555,37 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 #### a. 配载原则和作业流程
 
-```markdown
 （1）收集并核对配载单证资料
 （2）制作配载船图
 （3）配载图的审核
 （4）配载图的签发
 （5）退关箱复关的处理
-```
 
 #### b. 配载的数据准备
 
-```markdown
 （1）制作船舶规范
 （2）确定航次挂靠港
 （3）场站收据放关确认
 （4）退关箱、复关箱处理
 （5）出口箱整船换装
-```
 
 #### c. 制作船舶规范
 
-```markdown
 （1）船舶轮廓尺寸参数
 （2）倍内单元设定
 （3）特殊箱位设定
 （4）组倍设定
-```
 
 #### d. 船舶配载的一般步骤
 
-```markdown
 （1）分类
 （2）索箱
 （3）选倍
 （4）划块
 （5）配箱
-```
 
 #### e. 配载应遵循的原则
 
-```markdown
 满足船舶的运输稳性要求：
 （1）保证船舶良好的稳性
 （2）保持船舶适当的吃水差
@@ -619,7 +597,6 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 （1）符合堆场取箱规则
 （2）符合单船作业计划要求
 （3）确保机械合理、有序地移动
-```
 
 #### f. 配载的主要决策内容
 
@@ -627,10 +604,10 @@ GitHub 通过git bash 操作，实现代码的版本控制服务。
 
 #### g. 船舶适航要求
 
-```markdown
 配载结果——出口船图——船公司配载确认——船舶适航要求
-                    ——大副确认
-```
+                    				  ——大副确认
+
+
 
 ## 第五章、系统界限
 

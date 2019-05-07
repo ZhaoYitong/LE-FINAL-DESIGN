@@ -1,5 +1,11 @@
 // TODO: set jshint config
 /**
+ *  const
+ */
+const VESSEL_IMO = "船舶航次：";
+const BAY_INDEX = "贝位号";
+const TIP_PLEASE_RESELECT = "请重新选择";
+/**
  * @type {number}
  */
 // 水平方向侧视 支持一条船
@@ -945,8 +951,6 @@ let vesselStorageInfoAll = {
             ],
         },
     ],
-
-
 };
 /**
  * custom function
@@ -1118,7 +1122,28 @@ function createVesselSide(){
  */
 function createStowageInfo() {
     // TODO: disable according to relevant func before click
+    // TODO: ajax get data from server
     $(`.createStowage`)[0].disabled = true;
+    let header = vesselStorageInfoAll.vessel_IMO;
+    let bayNum = vesselStorageInfoAll.data.length;
+    $(`.vesselStowageInfo`).append(`<div class="vesselHeader"><span class="stowageInfoHeader">${VESSEL_IMO}${header}</span></div>`);
+    $(`.vesselStowageInfo`).append(`<div class="baysStowageArea"></div>`);
+    for(let i=0;i<bayNum;i++){
+        let itemType = vesselStorageInfoAll.data[i].type;
+        if(itemType==="single"){
+            let bayIndexOfBay = vesselStorageInfoAll.data[i].bayInch20[0].index;
+            $(`.baysStowageArea`).append(`<div bayIndex=${bayIndexOfBay} class="bayStowage"></div>`);
+        }
+        else {
+            // itemType === "combine"
+            let tempBayIndexOfBay_0 = vesselStorageInfoAll.data[i].bayInch20s[0].index;
+            let bayIndexOfBay_1 = vesselStorageInfoAll.data[i].bayInch20s[1].index;
+            let bayIndexOfBay_con = vesselStorageInfoAll.data[i].bayInch40[0].index;
+            let bayIndexOfBay_0 = tempBayIndexOfBay_0+"("+ bayIndexOfBay_con + ")";
+            $(`.baysStowageArea`).append(`<div bayIndex=${bayIndexOfBay_0} class="bayStowage"></div>`);
+            $(`.baysStowageArea`).append(`<div bayIndex=${bayIndexOfBay_1} class="bayStowage"></div>`);
+        }
+    }
 }
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
@@ -1193,7 +1218,7 @@ function setStopOfSelectable() {
                 let isNextTo = toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) == 1?true:false;
                 // TODO: add left to right constraint
                 if(isReselect || !isNextTo) {
-                    alert("请重新选择");
+                    alert(TIP_PLEASE_RESELECT);
                     clearSelected();
                 }
                 else {
@@ -1206,7 +1231,7 @@ function setStopOfSelectable() {
                 }
             }
             else {
-                alert("请重新选择");
+                alert(TIP_PLEASE_RESELECT);
                 clearSelected();
             }
         }
@@ -1306,12 +1331,9 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 // console.log(temp);
 // console.log(tempB);
 /**
- *
  *  add css style
  */
-
 /**
- *
  *  layui: https://www.layui.com/doc/modules/layer.html
  */
 // TODO: add layer with loading, support multiple layer

@@ -1,4 +1,4 @@
 # file: ~/.gitignore
 .idea
-~$Final.doc
+~$*
 *.tmp

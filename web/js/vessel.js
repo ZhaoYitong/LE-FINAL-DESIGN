@@ -1116,11 +1116,9 @@ function createVesselSide(){
 /**
  *  stowage info
  */
-
 function createStowageInfo() {
     // TODO: disable according to relevant func before click
     $(`.createStowage`)[0].disabled = true;
-
 }
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
@@ -1131,7 +1129,6 @@ function createLoadOrUnloadInfo() {
     // onBoard load 40inch
     // TODO: make bay direction uniform
     // TODO: change value in span according to the number of LOAD or UNLOAD!
-
     // TODO: inch40 and inch20 for not continued, show?
     for(let i=bayListNum-1;i>=0;i--){
         if(bayList[i].type == "single"){
@@ -1165,7 +1162,6 @@ function createLoadOrUnloadInfo() {
             $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
             $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
             $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-
             $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
             $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
             $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
@@ -1234,7 +1230,6 @@ function combineToStart (){
     // initial bay
     initAreaForInline();
     insertBay(BayNumToRealIndexList(numOfBay));
-
     $(`.startCombine`)[0].disabled = true;
     setStopOfSelectable();
     $(`.confirmCombine`)[0].disabled = false;
@@ -1274,12 +1269,10 @@ function setZoom(zoom,el) {
     let p = ["webkit", "moz", "ms", "o"],
         s = "scale(" + zoom + ")",
         oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
-
     for (let i = 0; i < p.length; i++) {
         el.style[p[i] + "Transform"] = s;
         el.style[p[i] + "TransformOrigin"] = oString;
     }
-
     el.style["transform"] = s;
     el.style["transformOrigin"] = oString;
 }

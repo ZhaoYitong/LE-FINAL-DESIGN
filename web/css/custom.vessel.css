@@ -143,7 +143,7 @@ body {
 }
 
 .vesselStowageInfo > .baysStowageArea > .bayStowage > .bayStowageHeader {
-    grid-column: 3/9;
+    grid-column: 2/10;
     grid-row: 1;
     background-color: #dda20a;
     border: 2px solid black;

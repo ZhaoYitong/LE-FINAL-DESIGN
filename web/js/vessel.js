@@ -3,7 +3,7 @@
  *  const
  */
 const VESSEL_IMO = "船舶航次：";
-const BAY_INDEX = "贝位号";
+const BAY_INDEX = "贝位号: ";
 const TIP_PLEASE_RESELECT = "请重新选择";
 /**
  * @type {number}
@@ -1132,7 +1132,10 @@ function createStowageInfo() {
         let itemType = vesselStorageInfoAll.data[i].type;
         if(itemType==="single"){
             let bayIndexOfBay = vesselStorageInfoAll.data[i].bayInch20[0].index;
-            $(`.baysStowageArea`).append(`<div bayIndex=${bayIndexOfBay} class="bayStowage"></div>`);
+            $(`.baysStowageArea`).append(`<div stowageBayIndex=${bayIndexOfBay} class="bayStowage">`+
+                                            `<div class="bayStowageHeader"><span>${BAY_INDEX}${bayIndexOfBay}</span></div>`+
+                                            `<div class="bayStowageContent"></div>`+
+                                         `</div>`);
         }
         else {
             // itemType === "combine"
@@ -1140,8 +1143,14 @@ function createStowageInfo() {
             let bayIndexOfBay_1 = vesselStorageInfoAll.data[i].bayInch20s[1].index;
             let bayIndexOfBay_con = vesselStorageInfoAll.data[i].bayInch40[0].index;
             let bayIndexOfBay_0 = tempBayIndexOfBay_0+"("+ bayIndexOfBay_con + ")";
-            $(`.baysStowageArea`).append(`<div bayIndex=${bayIndexOfBay_0} class="bayStowage"></div>`);
-            $(`.baysStowageArea`).append(`<div bayIndex=${bayIndexOfBay_1} class="bayStowage"></div>`);
+            $(`.baysStowageArea`).append(`<div stowageBayIndex=${bayIndexOfBay_0} class="bayStowage">`+
+                                            `<div class="bayStowageHeader"><span>${BAY_INDEX}${bayIndexOfBay_0}</span></div>`+
+                                            `<div class="bayStowageContent"></div>`+
+                                        `</div>`);
+            $(`.baysStowageArea`).append(`<div stowageBayIndex=${bayIndexOfBay_1} class="bayStowage">`+
+                                            `<div class="bayStowageHeader"><span>${BAY_INDEX}${bayIndexOfBay_1}</span></div>`+
+                                            `<div class="bayStowageContent"></div>`+
+                                         `</div>`);
         }
     }
 }

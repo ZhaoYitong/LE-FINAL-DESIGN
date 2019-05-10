@@ -1,9 +1,12 @@
 from django.db import models
+from django.utils.timezone import now
+# TODO: 升级并统一字符长度类型， 模块方式导入
 # length setting
 # short: 10
 # middle: 50
 # big: 100
 # supper: 500
+# TODO: SET PRIMARY KEY AND FOREIGN KEY
 
 
 class vesselVoyInfo(models.Model):
@@ -19,24 +22,26 @@ class vesselVoyInfo(models.Model):
         ('2', '正在离泊作业'),
         ('3', '离泊完成')
     )
-    Vessel = models.CharField(max_length=50, verbose_name='船名')
-    ImpVoy = models.CharField(max_length=50, verbose_name='进口航次')
-    ExpVoy = models.CharField(max_length=50, verbose_name='出口航次')
-    VesType = models.CharField(max_length=50, verbose_name='船型')
-    PlaBerThgTim = models.DateTimeField(verbose_name='计划靠泊')
-    PlaUnbThgTim = models.DateTimeField(verbose_name='计划离泊')
-    ReaBerThgTim = models.DateTimeField(verbose_name='实际靠泊（时间）')
-    ActUnbTim = models.DateTimeField(verbose_name='实际离泊')
+    Vessel = models.CharField(max_length=50, verbose_name='船名', default='COSCO123')
+    ImpVoy = models.CharField(max_length=50, verbose_name='进口航次', default='20190510')
+    ExpVoy = models.CharField(max_length=50, verbose_name='出口航次', default='20190525')
+    VesType = models.CharField(max_length=50, verbose_name='船型', default='又圆又宽')
+    PlaBerThgTim = models.DateTimeField(verbose_name='计划靠泊', default=now)
+    PlaUnbThgTim = models.DateTimeField(verbose_name='计划离泊', default=now)
+    ReaBerThgTim = models.DateTimeField(verbose_name='实际靠泊（时间）', default=now)
+    ActUnbTim = models.DateTimeField(verbose_name='实际离泊', default=now)
     PlaBerThgPos = models.CharField(max_length=50, verbose_name='计划靠泊位置')
     ActBerPos = models.FloatField(verbose_name='实际靠泊位置')
     BerThgDir = models.CharField(max_length=50, verbose_name='靠泊方向')
     VesDrauMax = models.FloatField(verbose_name='进出最大吃水')
-    PlaClosCustTim = models.DateTimeField(verbose_name='计划截关时间')
-    ClosCustTim = models.DateTimeField(verbose_name='截关时间')
-    OpAssSign = models.CharField(max_length=50, verbose_name='已安排作业')
-    EntPlanMakSig = models.CharField(max_length=50, verbose_name='已安排集港')
-    TaskFiniSig = models.BooleanField(verbose_name='作业完成情况')
-    UnBSta = models.BooleanField(verbose_name='离泊情况')
+    PlaClosCustTim = models.DateTimeField(verbose_name='计划截关时间', default=now)
+    ClosCustTim = models.DateTimeField(verbose_name='截关时间', default=now)
+    OpAssSign = models.CharField(max_length=50, verbose_name='已安排作业', default='hh')
+    EntPlanMakSig = models.CharField(max_length=50, verbose_name='已安排集港', default='jj')
+    TaskFiniSig = models.CharField(max_length='3', choices=TASK_FIN_SIG_CHOICES, verbose_name='作业完成情况', default='1')
+    # TODO:这里是完成情况 还是 完成否
+    UnBSta = models.CharField(max_length=3, choices=UNB_STATUS_CHOICES, verbose_name='离泊情况', default='1')
+    # TODO: 这里对应三种情况, 但文档却显示 boolean ?
     PlaLoaGPCtnFotNum = models.IntegerField(verbose_name='计划进重40', default=0)
     PlaLoaEmpCtnFotNum = models.IntegerField(verbose_name='计划进空40', default=0)
     PlaLoaDraCtnFotNum = models.IntegerField(verbose_name='计划进危40', default=0)
@@ -52,7 +57,7 @@ class vesselVoyInfo(models.Model):
 
 
 class vesStruct(models.Model):
-    VesType = models.CharField(max_length=30, verbose_name='船型')
+    VesType = models.CharField(max_length=30, verbose_name='船型', default='又圆又宽')
     VesLeng = models.FloatField(verbose_name='船长')
     VesWidth = models.FloatField(verbose_name='船舶宽度')
     VesFrLeng = models.FloatField(verbose_name='船首长度（米）')
@@ -62,9 +67,9 @@ class vesStruct(models.Model):
     EngRomPos = models.IntegerField(verbose_name='机舱位置')
     EngRomWid = models.IntegerField(verbose_name='机舱宽度')
     MidBayDeaWit = models.BooleanField(verbose_name='中间贝处理') # set to 00 ? true:false
-    RefCtnCap = models.FloatField(verbose_name='冷冻容量')
-    VesEntBerSpd = models.FloatField(verbose_name='船舶进港速度')
-    VesBerSpd = models.FloatField(verbose_name='船舶靠泊速度')
+    RefCtnCap = models.FloatField(null=True, blank=True, verbose_name='冷冻容量')
+    VesEntBerSpd = models.FloatField(null=True, blank=True, verbose_name='船舶进港速度')
+    VesBerSpd = models.FloatField(null=True, blank=True, verbose_name='船舶靠泊速度')
     HigCtnCap = models.FloatField(verbose_name='高箱容量')
     CapCtnFotFiv = models.FloatField(null=True, blank=True, verbose_name='45尺容量')
     VesEmpGrvHeg = models.CharField(max_length=50, verbose_name='空船重心高')
@@ -73,6 +78,7 @@ class vesStruct(models.Model):
     DeckCapWegt = models.FloatField(verbose_name='甲板容量T')
     CabCap = models.FloatField(verbose_name='舱内容量T')
     DanCtnAlw = models.CharField(max_length=50, verbose_name='允装危险品')# true or false
+    # TODO: 这里换成 boolean 还是 choiceType ?
     DeckLayNumMax = models.IntegerField(verbose_name='甲板最大层高')
     CabLayNumMax = models.IntegerField(verbose_name='舱内最大层深')
     DeckColNumMax = models.IntegerField(verbose_name='甲板最大列数')
@@ -108,7 +114,7 @@ class vesBayStruct(models.Model):
     HatCovPos = models.CharField(max_length=50, verbose_name='舱盖板明细')
     BayX = models.IntegerField(verbose_name='贝X坐标')
     BayY = models.IntegerField(verbose_name='贝Y坐标')
-    MidBayDeaWit = models.CharField(verbose_name='中间贝处理')#choice
+    MidBayDeaWit = models.CharField(max_length=3, default='0', verbose_name='中间贝处理')#choice
 
 
 class vesBayLayStruct(models.Model):
@@ -117,14 +123,14 @@ class vesBayLayStruct(models.Model):
         ('1', '舱内'),
     )
     VesType = models.CharField(max_length=30, verbose_name='船型')
-    BayNo = models.CharField(verbose_name='贝号')
-    TireNo = models.CharField(verbose_name='层号')
-    DeckCagSig = models.CharField(verbose_name='甲板or舱内')# choice
+    BayNo = models.CharField(max_length=10, verbose_name='贝号')
+    TireNo = models.CharField(max_length=100, verbose_name='层号')
+    DeckCagSig = models.CharField(max_length=3, verbose_name='甲板or舱内')# choice
     BayWid = models.IntegerField(verbose_name='宽度')
-    BayTieCtnLay = models.CharField(verbose_name='层箱位分布')
+    BayTieCtnLay = models.CharField(max_length=50, verbose_name='层箱位分布')
     BayHigh = models.IntegerField(verbose_name='离底层')
-    CellSpeSig = models.CharField(verbose_name='箱位特标')
-    RefSig = models.CharField(verbose_name='箱位冷冻标')
+    CellSpeSig = models.CharField(max_length=50, verbose_name='箱位特标')
+    RefSig = models.CharField(max_length=50, verbose_name='箱位冷冻标')
 
 
 

@@ -7,6 +7,18 @@ from django.db import models
 
 
 class vesselVoyInfo(models.Model):
+    TASK_FIN_SIG_CHOICES = (
+        ('1', '正在卸船（未装船）'),
+        ('2', '正在装船（未卸船）'),
+        ('3', '正在装卸船(两者同时开展)'),
+        ('4', '卸船完成，正在装船'),
+        ('5', '装卸船都完成'),
+    )
+    UNB_STATUS_CHOICES = (
+        ('1', '装卸船已经完成，正在离泊准备'),
+        ('2', '正在离泊作业'),
+        ('3', '离泊完成')
+    )
     Vessel = models.CharField(max_length=50, verbose_name='船名')
     ImpVoy = models.CharField(max_length=50, verbose_name='进口航次')
     ExpVoy = models.CharField(max_length=50, verbose_name='出口航次')
@@ -23,20 +35,20 @@ class vesselVoyInfo(models.Model):
     ClosCustTim = models.DateTimeField(verbose_name='截关时间')
     OpAssSign = models.CharField(max_length=50, verbose_name='已安排作业')
     EntPlanMakSig = models.CharField(max_length=50, verbose_name='已安排集港')
-    TaskFiniSig = models.BooleanField(verbose_name='作业完成否')
+    TaskFiniSig = models.BooleanField(verbose_name='作业完成情况')
     UnBSta = models.BooleanField(verbose_name='离泊情况')
-    PlaLoaGPCtnFotNum = models.IntegerField(verbose_name='计划进重40')
-    PlaLoaEmpCtnFotNum = models.IntegerField(verbose_name='计划进空40')
-    PlaLoaDraCtnFotNum = models.IntegerField(verbose_name='计划进危40')
-    PlaLoaGPCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划进重45')
-    PlaLoaEmpCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划进空45')
-    PlaLoaDraCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划进危45')
-    PlaUloGPCtnFotNum = models.IntegerField(verbose_name='计划出重40')
-    PlaUloEmpCtnFotNum = models.IntegerField(verbose_name='计划出空40')
-    PlaUloDraCtnFotNum = models.IntegerField(verbose_name='计划出危40')
-    PlaUloGPCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划出重45')
-    PlaUloEmpCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划出空45')
-    PlaUloDraCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划出危45')
+    PlaLoaGPCtnFotNum = models.IntegerField(verbose_name='计划进重40', default=0)
+    PlaLoaEmpCtnFotNum = models.IntegerField(verbose_name='计划进空40', default=0)
+    PlaLoaDraCtnFotNum = models.IntegerField(verbose_name='计划进危40', default=0)
+    PlaLoaGPCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划进重45', default=0)
+    PlaLoaEmpCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划进空45', default=0)
+    PlaLoaDraCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划进危45', default=0)
+    PlaUloGPCtnFotNum = models.IntegerField(verbose_name='计划出重40', default=0)
+    PlaUloEmpCtnFotNum = models.IntegerField(verbose_name='计划出空40', default=0)
+    PlaUloDraCtnFotNum = models.IntegerField(verbose_name='计划出危40', default=0)
+    PlaUloGPCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划出重45', default=0)
+    PlaUloEmpCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划出空45', default=0)
+    PlaUloDraCtnFotFivNum = models.IntegerField(null=True, blank=True, verbose_name='计划出危45', default=0)
 
 
 class vesStruct(models.Model):
@@ -54,7 +66,7 @@ class vesStruct(models.Model):
     VesEntBerSpd = models.FloatField(verbose_name='船舶进港速度')
     VesBerSpd = models.FloatField(verbose_name='船舶靠泊速度')
     HigCtnCap = models.FloatField(verbose_name='高箱容量')
-    CapCtnFotFiv = models.FloatField(verbose_name='45尺容量')
+    CapCtnFotFiv = models.FloatField(null=True, blank=True, verbose_name='45尺容量')
     VesEmpGrvHeg = models.CharField(max_length=50, verbose_name='空船重心高')
     VesAtt = models.CharField(max_length=50, verbose_name='全隔槽？')
     LoadWeigth = models.FloatField(verbose_name='载重量')
@@ -80,6 +92,10 @@ class vesBayStruct(models.Model):
         ('3', '数目3'),
         ('4', '数目4'),
     )
+    MID_BAY_DEAL_WIT_CHOICES = (
+        ('0', '00行'),
+        ('1', '非00行'),
+    )
     VesType = models.CharField(max_length=30, verbose_name='船型')
     BayNo = models.CharField(max_length=50, verbose_name='贝号')
     BaySiz = models.CharField(max_length=50, verbose_name='贝尺寸')
@@ -96,6 +112,10 @@ class vesBayStruct(models.Model):
 
 
 class vesBayLayStruct(models.Model):
+    DECK_CAG_SIG_CHOICES = (
+        ('0', '甲板'),
+        ('1', '舱内'),
+    )
     VesType = models.CharField(max_length=30, verbose_name='船型')
     BayNo = models.CharField(verbose_name='贝号')
     TireNo = models.CharField(verbose_name='层号')

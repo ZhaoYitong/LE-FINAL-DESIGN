@@ -10,6 +10,9 @@ from django.utils.timezone import now
 
 
 class vesselVoyInfo(models.Model):
+    def __str__(self):
+        return self.Vessel
+    
     TASK_FIN_SIG_CHOICES = (
         ('1', '正在卸船（未装船）'),
         ('2', '正在装船（未卸船）'),
@@ -57,6 +60,9 @@ class vesselVoyInfo(models.Model):
 
 
 class vesStruct(models.Model):
+    def __str__(self):
+        return self.VesType
+
     VesType = models.CharField(max_length=30, verbose_name='船型')
     VesLeng = models.FloatField(verbose_name='船长')
     VesWidth = models.FloatField(verbose_name='船舶宽度')
@@ -86,6 +92,9 @@ class vesStruct(models.Model):
 
 
 class vesBayStruct(models.Model):
+    def __str__(self):
+        return self.VesType
+
     BAY_COM_CHOICES = (
         ('0', '不组贝'),
         ('1', '向右组贝'),
@@ -118,6 +127,9 @@ class vesBayStruct(models.Model):
 
 
 class vesBayLayStruct(models.Model):
+    def __str__(self):
+        return self.VesType
+
     DECK_CAG_SIG_CHOICES = (
         ('0', '甲板'),
         ('1', '舱内'),

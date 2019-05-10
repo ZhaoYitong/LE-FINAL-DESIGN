@@ -38,7 +38,7 @@ class vesselVoyInfo(models.Model):
     ClosCustTim = models.DateTimeField(verbose_name='截关时间', default=now)
     OpAssSign = models.CharField(max_length=50, verbose_name='已安排作业', default='hh')
     EntPlanMakSig = models.CharField(max_length=50, verbose_name='已安排集港', default='jj')
-    TaskFiniSig = models.CharField(max_length='3', choices=TASK_FIN_SIG_CHOICES, verbose_name='作业完成情况', default='1')
+    TaskFiniSig = models.CharField(max_length=3, choices=TASK_FIN_SIG_CHOICES, verbose_name='作业完成情况', default='1')
     # TODO:这里是完成情况 还是 完成否
     UnBSta = models.CharField(max_length=3, choices=UNB_STATUS_CHOICES, verbose_name='离泊情况', default='1')
     # TODO: 这里对应三种情况, 但文档却显示 boolean ?
@@ -132,6 +132,11 @@ class vesBayLayStruct(models.Model):
     CellSpeSig = models.CharField(max_length=50, verbose_name='箱位特标')
     RefSig = models.CharField(max_length=50, verbose_name='箱位冷冻标')
 
+    # TODO: to be with Pei Qiling everyday when encoding
+
+    # TODO: say good night to Miss Pei
+
+    # TODO: Pei is always my love, hah.
 
 
 

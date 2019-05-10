@@ -22,10 +22,10 @@ class vesselVoyInfo(models.Model):
         ('2', '正在离泊作业'),
         ('3', '离泊完成')
     )
-    Vessel = models.CharField(max_length=50, verbose_name='船名', default='COSCO123')
-    ImpVoy = models.CharField(max_length=50, verbose_name='进口航次', default='20190510')
-    ExpVoy = models.CharField(max_length=50, verbose_name='出口航次', default='20190525')
-    VesType = models.CharField(max_length=50, verbose_name='船型', default='又圆又宽')
+    Vessel = models.CharField(max_length=50, verbose_name='船名')
+    ImpVoy = models.CharField(max_length=50, verbose_name='进口航次')
+    ExpVoy = models.CharField(max_length=50, verbose_name='出口航次')
+    VesType = models.CharField(max_length=50, verbose_name='船型')
     PlaBerThgTim = models.DateTimeField(verbose_name='计划靠泊', default=now)
     PlaUnbThgTim = models.DateTimeField(verbose_name='计划离泊', default=now)
     ReaBerThgTim = models.DateTimeField(verbose_name='实际靠泊（时间）', default=now)
@@ -57,7 +57,7 @@ class vesselVoyInfo(models.Model):
 
 
 class vesStruct(models.Model):
-    VesType = models.CharField(max_length=30, verbose_name='船型', default='又圆又宽')
+    VesType = models.CharField(max_length=30, verbose_name='船型')
     VesLeng = models.FloatField(verbose_name='船长')
     VesWidth = models.FloatField(verbose_name='船舶宽度')
     VesFrLeng = models.FloatField(verbose_name='船首长度（米）')

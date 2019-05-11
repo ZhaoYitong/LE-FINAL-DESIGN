@@ -1339,6 +1339,15 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 }
 // console.log(temp);
 // console.log(tempB);
+
+function gotoConnect() {
+    $.ajax({
+      url: url,
+      data: data,
+      success: success,
+      dataType: Text,
+    });
+}
 /**
  *  add css style
  */
@@ -1346,3 +1355,4 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
  *  layui: https://www.layui.com/doc/modules/layer.html
  */
 // TODO: add layer with loading, support multiple layer
+

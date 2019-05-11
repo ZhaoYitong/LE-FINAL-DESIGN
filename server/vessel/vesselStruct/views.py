@@ -16,5 +16,11 @@ def page_not_found(request):
 
 def ves_basic(request):
     if request.method == 'GET':
-        print('vessel_basic')
         return render(request, 'vessel.view.html')
+
+
+def test_connect_to_db(request):
+    if request.method == 'GET':
+        return HttpResponse("JJJ")
+    elif request.method == 'POST':
+        return HttpResponse("KKK")

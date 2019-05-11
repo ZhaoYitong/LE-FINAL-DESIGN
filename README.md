@@ -1,6 +1,16 @@
 # LE-FINAL-DESIGN
 毕业设计
 
+## python virtual environment
+### Windows
+
+```bash
+vessel-env\Scripts\activate
+```
+### Deactivate
+```bash
+deactivate
+```
 ## git instruction
 
 ### pull

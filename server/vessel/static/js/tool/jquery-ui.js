@@ -7,7 +7,7 @@
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD. Register as an anonymous module.
-		define([ "web/static/js/tool/jquery" ], factory );
+		define([ "server/vessel/static/js/tool/jquery" ], factory );
 	} else {
 
 		// Browser globals

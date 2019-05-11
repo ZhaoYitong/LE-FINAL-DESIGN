@@ -6,13 +6,15 @@ from .models import vesselVoyInfo, vesStruct, vesBayStruct, vesBayLayStruct
 
 def index(request):
     if request.method == 'GET':
-        data = vesselVoyInfo.VesType
-        print(data)
-        return HttpResponse("Hello, world")
+        return render(request, 'index.html')
 
 
-def vesInfo(request):
+def page_not_found(request):
     if request.method == 'GET':
-        return HttpResponse("HHH")
-    elif request.method == 'POST':
-        return HttpResponse("done")
+        return render(request, '404.html')
+
+
+def ves_basic(request):
+    if request.method == 'GET':
+        print('vessel_basic')
+        return render(request, 'vessel.view.html')

@@ -1,13 +1,5 @@
 # LE-FINAL-DESIGN
-毕业设计代码部分
-
-## python instruction
-
-### install pip dependency
-```bash
-pip install -r requirements.txt
-```
-
+毕业设计
 
 ## git instruction
 

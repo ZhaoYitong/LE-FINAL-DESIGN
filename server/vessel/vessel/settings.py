@@ -15,7 +15,12 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+CLIENT_BASE_DIR = (os.path.abspath(os.path.join(os.getcwd(), "../.."))+'\\web\\').replace('\\', '/')
+print(BASE_DIR+'\n'+CLIENT_BASE_DIR)
+# print('base_dir'+BASE_DIR)
+# print('2 '+ os.path.relpath(os.path.abspath(__file__)))
+# print('3 '+  __file__)
+# print('try '+ os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -57,7 +62,7 @@ ROOT_URLCONF = 'vessel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [CLIENT_BASE_DIR + '/template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,4 +129,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '../../web/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(CLIENT_BASE_DIR, "static"),
+# ]
+# print('static file url' + '\n' + os.path.join(CLIENT_BASE_DIR, "static"))

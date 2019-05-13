@@ -1340,18 +1340,49 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 // console.log(temp);
 // console.log(tempB);
 
-function gotoConnect() {
-    let testData = {
-      test: 'hello world',
-    };
-    $.ajax({
-        url: '/vesselStruct/test_connect_to_db/',
-        type: 'POST',
-        data: JSON.stringify(testData),
-        success: console.log("hhh"),
-        dataType: "json",
-    });
-}
+// function gotoConnect() {
+//     let testData = {
+//       test: 'hello world',
+//     };
+//     $.ajax({
+//         url: '/vesselStruct/test_connect_to_db/',
+//         type: 'POST',
+//         data: JSON.stringify(testData),
+//         success: function (result) {
+//             console.log(result);
+//         },
+//         dataType: "json",
+//     });
+// }
+
+// function gotoConnect() {
+//     let testData = {
+//       test: 'hello world',
+//     };
+//     $.ajax({
+//         url: '/vesselStruct/test_connect_to_db/',
+//         type: 'GET',
+//         dataType: "json",
+//         success: function (res) {
+//             console.log(res);
+//         },
+//     });
+// }
+
+// function gotoConnect() {
+//     let testData = {
+//       test: 'hello world',
+//     };
+//     $.ajax({
+//         url: '/vesselStruct/test_connect_to_db/',
+//         type: 'GET',
+//         dataType: "json",
+//         success: function (res) {
+//             console.log(res);
+//         },
+//     });
+// }
+
 /**
  *  add css style
  */

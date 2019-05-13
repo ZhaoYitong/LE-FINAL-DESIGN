@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.http import JsonResponse
 from django.core import serializers
 from .models import vesselVoyInfo, vesStruct, vesBayStruct, vesBayLayStruct
 
@@ -24,13 +25,14 @@ def ves_basic(request):
 @csrf_exempt
 def test_connect_to_db(request):
     if request.method == 'GET':
-        return HttpResponse("JJJ")
+        # return HttpResponse("JJJ")
+        return JsonResponse({'response': 'hhh'})
     elif request.method == 'POST':
-        temp = request.POST
-        temp_json = json.loads(request.body.decode('utf-8'))
-        print(temp)
-        print("*****")
-        print(temp_json)
-        return HttpResponse("KKK")
+        # temp = request.POST
+        # temp_json = json.loads(request.body.decode('utf-8'))
+        # print(temp)
+        # print("*****")
+        # print(temp_json)
+        return JsonResponse({'list': 'abc'})
     else:
         return

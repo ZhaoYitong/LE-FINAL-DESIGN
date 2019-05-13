@@ -1369,19 +1369,19 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 //     });
 // }
 
-// function gotoConnect() {
-//     let testData = {
-//       test: 'hello world',
-//     };
-//     $.ajax({
-//         url: '/vesselStruct/test_connect_to_db/',
-//         type: 'GET',
-//         dataType: "json",
-//         success: function (res) {
-//             console.log(res);
-//         },
-//     });
-// }
+function gotoConnect() {
+    let testData = {
+      test: 'hello world',
+    };
+    $.ajax({
+        url: '/vesselStruct/test_connect_to_db/',
+        type: 'GET',
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+        },
+    });
+}
 
 /**
  *  add css style

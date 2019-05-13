@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>港口堆场决策支持系统</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .div_table_information_input {
+            width: 1000px;
+            height: 766px;
+            margin: 0 auto;
+            background-color: lightgray;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .div_yardcel_choose {
+            width: 100%;
+            height: auto;
+            background-color: darkgrey;
+            margin-top: 100px;
+        }
+
+        .table_title {
+            font-size: 20px;
+            font-weight: bolder;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="div_table_information_input">
+    <form class="form-horizontal" onsubmit="check_value()" method="post">
+        <div class="table_title"><p>集装箱信息录入</p></div>
+
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label"><a href="#page_con_infor">场箱位</a></label>
+            <div class="col-sm-8">
+                <input name="YardCel" type="Text" class="form-control" id="YardCel" placeholder="场箱位">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">箱号</label>
+            <div class="col-sm-8">
+                <input name="CtnNo" type="Text" class="form-control" id="CtnNo" placeholder="箱号">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">装卸船</label>
+            <div class="col-sm-8">
+                <input name="StrLoaUnlSig" type="Text" class="form-control" id="StrLoaUnlSig" placeholder="装卸船">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">箱型</label>
+            <div class="col-sm-8">
+                <select name="selectCtnTyp" class="form-control" id="selectCtnTyp">
+                    <option value="普通箱">普通箱</option>
+                    <option value="冷藏箱">冷藏箱</option>
+                    <option value="危险箱">危险箱</option>
+                    <option value="散货箱">散货箱</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">箱重</label>
+            <div class="col-sm-8">
+                <select name="selectCtnWegt" class="form-control" id="selectCtnWegt">
+                    <option value="轻">轻</option>
+                    <option value="中">中</option>
+                    <option value="重">重</option>
+                    <option value="超重">超重</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">卸货港</label>
+            <div class="col-sm-8">
+                <input name="UnloadPort" type="Text" class="form-control" id="UnloadPort" placeholder="卸货港">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">尺寸</label>
+            <div class="col-sm-8">
+                <select name="selectSize" class="form-control" id="selectSize">
+                    <option value="20尺">20尺</option>
+                    <option value="40尺">40尺</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">持箱人</label>
+            <div class="col-sm-8">
+                <input name="Owner" type="Text" class="form-control" id="Owner" placeholder="持箱人">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label">装卸日期</label>
+            <div class="col-sm-8">
+                <input name="LoaVesTim" type="Text" class="form-control" id="LoaVesTim" placeholder="装卸日期">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputText3" class="col-sm-2 control-label"> </label>
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-default btn-block">录入</button>
+                <script>
+                    //获取值，并判断非空，返回到后台
+                    function check_value() {
+                        //获取对象--获取值--传回表单
+
+                       //YardCel	Status	CtnNo	StrLoaUnlSig	CtnTyp	CtnWegt	UnloadPort	Size	Owner	LoaVesTim	Box	Bay	Col	Lay	Table_lay	Color
+
+
+                        var obj = document.getElementById("YardCel");
+                        var YardCel = obj.value;
+
+                        obj = document.getElementById("CtnNo");
+                        var CtnNo = obj.value;
+
+                        obj = document.getElementById("StrLoaUnlSig");
+                        var StrLoaUnlSig = obj.value;
+
+                        obj = document.getElementById("selectCtnTyp");
+                        var CtnTyp = obj.options[obj.selectedIndex].innerText;
+
+                        obj = document.getElementById("selectCtnWegt");
+                        var CtnWegt = obj.options[obj.selectedIndex].innerText;
+
+                        obj = document.getElementById("UnloadPort");
+                        var UnloadPort = obj.value;
+
+                        obj = document.getElementById("selectSize");
+                        var Size = obj.options[obj.selectedIndex].innerText;
+
+                        obj = document.getElementById("Owner");
+                        var Owner = obj.value;
+
+                        obj = document.getElementById("LoaVesTim");
+                        var LoaVesTim = obj.value;
+
+                        //alert(YardCel+"\n"+CtnNo+"\n"+CtnTyp+"\n"+CtnWegt+"\n"+UnloadPort+"\n"+Size+"\n"+Owner+"\n"+LoaVesTim);
+                       if(YardCel&&Status&&CtnNo&&StrLoaUnlSig&&CtnTyp&&CtnWegt&&UnloadPort&&Size&&Owner&&LoaVesTim)
+                       {
+                           return true;
+                       }
+                       else{
+                           alert("存在空值！");
+                           return false;
+                       }
+                    }
+                </script>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="div_yardcel_choose" id="page_con_infor">
+    <iframe id="iframe" frameborder="1px" border="2px" src={{ url_for('first_blue.yard_layout_input') }} height="550px"
+            width="100%" scrolling="auto"></iframe>
+</div>
+
+</body>
+</html>

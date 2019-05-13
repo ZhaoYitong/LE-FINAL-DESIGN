@@ -32,7 +32,11 @@ def test_connect_to_db(request):
         # temp_json = json.loads(request.body.decode('utf-8'))
         # print(temp)
         # print("*****")
-        # print(temp_json)
+        # print(temp_js  on)
         return JsonResponse({'list': 'abc'})
     else:
         return
+
+
+# display value in choices
+## https://my.oschina.net/esdn/blog/832982

@@ -1341,11 +1341,15 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 // console.log(tempB);
 
 function gotoConnect() {
+    let testData = {
+      test: 'hello world',
+    };
     $.ajax({
-      url: url,
-      data: data,
-      success: success,
-      dataType: Text,
+        url: '/vesselStruct/test_connect_to_db/',
+        type: 'POST',
+        data: JSON.stringify(testData),
+        success: console.log("hhh"),
+        dataType: "json",
     });
 }
 /**

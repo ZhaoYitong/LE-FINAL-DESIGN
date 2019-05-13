@@ -20,11 +20,13 @@ class vesselVoyInfo(models.Model):
         ('4', '卸船完成，正在装船'),
         ('5', '装卸船都完成'),
     )
+
     UNB_STATUS_CHOICES = (
         ('1', '装卸船已经完成，正在离泊准备'),
         ('2', '正在离泊作业'),
         ('3', '离泊完成')
     )
+
     Vessel = models.CharField(max_length=50, verbose_name='船名')
     ImpVoy = models.CharField(max_length=50, verbose_name='进口航次')
     ExpVoy = models.CharField(max_length=50, verbose_name='出口航次')
@@ -41,10 +43,8 @@ class vesselVoyInfo(models.Model):
     ClosCustTim = models.DateTimeField(verbose_name='截关时间', default=now)
     OpAssSign = models.CharField(max_length=50, verbose_name='已安排作业', default='hh')
     EntPlanMakSig = models.CharField(max_length=50, verbose_name='已安排集港', default='jj')
-    TaskFiniSig = models.CharField(max_length=3, choices=TASK_FIN_SIG_CHOICES, verbose_name='作业完成情况', default='1')
-    # TODO:这里是完成情况 还是 完成否
-    UnBSta = models.CharField(max_length=3, choices=UNB_STATUS_CHOICES, verbose_name='离泊情况', default='1')
-    # TODO: 这里对应三种情况, 但文档却显示 boolean ?
+    TaskFiniSig = models.CharField(max_length=10, choices=TASK_FIN_SIG_CHOICES, verbose_name='作业完成情况', default='1')
+    UnBSta = models.CharField(max_length=10, choices=UNB_STATUS_CHOICES, verbose_name='离泊情况', default='1')
     PlaLoaGPCtnFotNum = models.IntegerField(verbose_name='计划进重40', default=0)
     PlaLoaEmpCtnFotNum = models.IntegerField(verbose_name='计划进空40', default=0)
     PlaLoaDraCtnFotNum = models.IntegerField(verbose_name='计划进危40', default=0)
@@ -62,7 +62,10 @@ class vesselVoyInfo(models.Model):
 class vesStruct(models.Model):
     def __str__(self):
         return self.VesType
-
+    DANGER_CON_ALLOW_CHOICES = (
+        ('1', '允许'),
+        ('0', '不允许'),
+    )
     VesType = models.CharField(max_length=30, verbose_name='船型')
     VesLeng = models.FloatField(verbose_name='船长')
     VesWidth = models.FloatField(verbose_name='船舶宽度')
@@ -83,8 +86,7 @@ class vesStruct(models.Model):
     LoadWeigth = models.FloatField(verbose_name='载重量')
     DeckCapWegt = models.FloatField(verbose_name='甲板容量T')
     CabCap = models.FloatField(verbose_name='舱内容量T')
-    DanCtnAlw = models.CharField(max_length=50, verbose_name='允装危险品')# true or false
-    # TODO: 这里换成 boolean 还是 choiceType ?
+    DanCtnAlw = models.CharField(max_length=10, verbose_name='允装危险品')
     DeckLayNumMax = models.IntegerField(verbose_name='甲板最大层高')
     CabLayNumMax = models.IntegerField(verbose_name='舱内最大层深')
     DeckColNumMax = models.IntegerField(verbose_name='甲板最大列数')
@@ -100,6 +102,7 @@ class vesBayStruct(models.Model):
         ('1', '向右组贝'),
         ('2', '向左组贝'),
     )
+
     HAT_COVER_CHOICES = (
         ('0', '自开式'),
         ('1', '数目1'),
@@ -107,23 +110,25 @@ class vesBayStruct(models.Model):
         ('3', '数目3'),
         ('4', '数目4'),
     )
+
     MID_BAY_DEAL_WIT_CHOICES = (
         ('0', '00行'),
         ('1', '非00行'),
     )
+
     VesType = models.CharField(max_length=30, verbose_name='船型')
     BayNo = models.CharField(max_length=50, verbose_name='贝号')
     BaySiz = models.CharField(max_length=50, verbose_name='贝尺寸')
-    BayCom = models.CharField(max_length=3, choices=BAY_COM_CHOICES, default='0', verbose_name='贝组')
+    BayCom = models.CharField(max_length=10, choices=BAY_COM_CHOICES, default='0', verbose_name='贝组')
     DeckHeg = models.IntegerField(verbose_name='甲板层高')
     DeckWidMax = models.IntegerField(verbose_name='甲板最宽')
     CabHeg = models.IntegerField(verbose_name='舱内层高')
     CabWidMax = models.IntegerField(verbose_name='舱内最宽')
-    HatCovKind = models.CharField(max_length=3, choices=HAT_COVER_CHOICES, default='0', verbose_name='舱盖板类型')# choice
+    HatCovKind = models.CharField(max_length=10, choices=HAT_COVER_CHOICES, default='0', verbose_name='舱盖板类型')# choice
     HatCovPos = models.CharField(max_length=50, verbose_name='舱盖板明细')
     BayX = models.IntegerField(verbose_name='贝X坐标')
     BayY = models.IntegerField(verbose_name='贝Y坐标')
-    MidBayDeaWit = models.CharField(max_length=3, default='0', verbose_name='中间贝处理')#choice
+    MidBayDeaWit = models.CharField(max_length=10, choices=MID_BAY_DEAL_WIT_CHOICES, default='0', verbose_name='中间贝处理')
 
 
 class vesBayLayStruct(models.Model):
@@ -134,21 +139,16 @@ class vesBayLayStruct(models.Model):
         ('0', '甲板'),
         ('1', '舱内'),
     )
+
     VesType = models.CharField(max_length=30, verbose_name='船型')
     BayNo = models.CharField(max_length=10, verbose_name='贝号')
     TireNo = models.CharField(max_length=100, verbose_name='层号')
-    DeckCagSig = models.CharField(max_length=3, verbose_name='甲板or舱内')# choice
+    DeckCagSig = models.CharField(max_length=10, verbose_name='甲板or舱内')# choice
     BayWid = models.IntegerField(verbose_name='宽度')
     BayTieCtnLay = models.CharField(max_length=50, verbose_name='层箱位分布')
     BayHigh = models.IntegerField(verbose_name='离底层')
     CellSpeSig = models.CharField(max_length=50, verbose_name='箱位特标')
     RefSig = models.CharField(max_length=50, verbose_name='箱位冷冻标')
-
-    # TODO: to be with Pei Qiling everyday when encoding
-
-    # TODO: say good night to Miss Pei
-
-    # TODO: Pei is always my love, hah.
 
 
 

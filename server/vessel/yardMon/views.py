@@ -3,14 +3,9 @@ from django.http import JsonResponse
 from .models import Yard
 
 
-def home(request):
-    if request.method == 'GET':
-        return render('home.html')
-
-
 def yard_layout(request):
     if request.method == "GET":
-        return render('yard_layout.html')
+        return render(request, 'yard.view.layout.html')
     else:
         Box_Bay = request.get_json()
         Box = Box_Bay["Box"]

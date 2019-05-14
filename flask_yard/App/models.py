@@ -2,7 +2,7 @@ from App.ext import db
 
 
 class Yard(db.Model):
-    YardCel = db.Column(db.String(20),primary_key=True)
+    YardCel = db.Column(db.String(20), primary_key=True)
     Status = db.Column(db.String(20))
     CtnNo = db.Column(db.String(20))
     StrLoaUnlSig = db.Column(db.String(20))

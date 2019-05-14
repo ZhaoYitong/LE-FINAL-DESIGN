@@ -217,7 +217,7 @@ class qcDisPlanOut(models.Model):
     PreTaskCluKind = models.CharField(max_length=3, choices=PRE_TASK_CLU_KIND_CHOICES, verbose_name='作业紧前类别') # choices
     TaskCluEstBegTim = models.DateTimeField(verbose_name='作业开始时间（估计）')
     TaskCluEstEndtim = models.DateTimeField(verbose_name='作业结束时间（估计） ')
-    ModPlanKind = models.CharField(null=True, blank=True, verbose_name='模型计划类型')
+    ModPlanKind = models.CharField(null=True, blank=True, max_length=50, verbose_name='模型计划类型')
     # TODO: ？？？？
     EffFactr = models.CharField(null=True, blank=True, max_length=500, verbose_name='影响因素')
     ModFud = models.CharField(null=True, blank=True, max_length=500, verbose_name='模型基础')

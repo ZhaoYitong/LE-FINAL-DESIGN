@@ -1,13 +1,13 @@
 # LE-FINAL-DESIGN
-毕业设计
+coding about ACT
 
 ## python virtual environment
 ### Windows
 
 ```bash
-vessel-env\Scripts\activate
+server\vessel\vessel-env\Scripts\activate
 ```
-### Deactivate
+### deactivate virtual environment
 ```bash
 deactivate
 ```
@@ -37,6 +37,20 @@ git commit
 
 git push origin HEAD:master
 ```
+
+### mysql 
+
+#### dump
+```bash
+mysqldump -uroot -pPASSWORD --databases DB_NAME > temp.sql
+```
+    Note: dump whole database or whole table, use Navicat or workbench(GUI)
+
+#### create 
+```bash
+source temp.sql
+```
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

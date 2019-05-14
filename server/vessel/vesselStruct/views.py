@@ -19,7 +19,17 @@ def page_not_found(request):
 
 def ves_basic(request):
     if request.method == 'GET':
-        return render(request, 'vessel.view.html')
+        return render(request, 'VESSEL/vessel.view.html')
+
+
+@csrf_exempt
+def ves_info_input(request):
+    if request.method == 'GET':
+        return render(request, 'VESSEL/vessel.input.basicInfo.html')
+    elif request.method == 'POST':
+        print("ves_info_input_post"+json.loads(request.body.decode('utf-8')))
+
+        return render(request, 'VESSEL/vessel.input.basicInfo.html')
 
 
 @csrf_exempt

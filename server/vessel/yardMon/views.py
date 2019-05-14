@@ -8,16 +8,15 @@ from .models import Yard
 @csrf_exempt
 def yard_layout(request):
     if request.method == "GET":
-        return render(request, 'yard.view.layout.html')
+        return render(request, 'YARD/yard.view.layout.html')
     else:
         Box_Bay = json.loads(request.body.decode('utf-8'))
-        print(Box_Bay)
         Box = Box_Bay["Box"]
         Bay = Box_Bay["Bay"]
-        print("Box: \n" + Box)
-        print("Bay: \n" + Bay)
         # TODO: Update query and write value to table Yard!!!
-        yard_list = Yard.query.filter_by(Box=Box).filter_by(Bay=Bay).all()
+        # yard_list = Yard.query.filter_by(Box=Box).filter_by(Bay=Bay).all()
+        yard_list = Yard.objects.filter(Box=Box, Bay=Bay)
+        print(yard_list)
         yard_database = dict()
         yard_yardcel = dict()
         yard_status = dict()
@@ -57,5 +56,11 @@ def yard_layout(request):
         yard_database["yard_loaVesTim"] = yard_loaVesTim
         yard_database["yard_color"] = yard_color
 
-        print("yard_database: \n" + yard_database)
         return JsonResponse(yard_database)
+
+
+def yard_info_input(request):
+    if request.method == 'GET':
+        return render(request, '')
+    else:
+        return render(request, '')

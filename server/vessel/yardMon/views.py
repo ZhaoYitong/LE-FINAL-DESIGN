@@ -1,15 +1,22 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 from .models import Yard
 
 
+@csrf_exempt
 def yard_layout(request):
     if request.method == "GET":
         return render(request, 'yard.view.layout.html')
     else:
-        Box_Bay = request.get_json()
+        Box_Bay = json.loads(request.body.decode('utf-8'))
+        print(Box_Bay)
         Box = Box_Bay["Box"]
         Bay = Box_Bay["Bay"]
+        print("Box: \n" + Box)
+        print("Bay: \n" + Bay)
+        # TODO: Update query and write value to table Yard!!!
         yard_list = Yard.query.filter_by(Box=Box).filter_by(Bay=Bay).all()
         yard_database = dict()
         yard_yardcel = dict()

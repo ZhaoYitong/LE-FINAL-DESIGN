@@ -234,13 +234,13 @@
 <script>
     function paint_container(yard_add) {
         //这里是画箱子   箱区  贝位 列
-        var col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-        var add = yard_add;
-        for (var j = 0; j < 900; j++) {
+        let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+        let add = yard_add;
+        for (let j = 0; j < 900; j++) {
             //name_str="A"+String(parseInt(j/10)*2+1)+col_list[j%10];
-            var bay_str = String(parseInt(j/10) * 2 + 1);
-            var col_str = col_list[j % 10];
-            document.write("<div class='container' yard='" + add + "' bay='" + bay_str + "' col='" + col_str + "' onclick='container_add(this,event)'" + "></div>");
+            let bay_str = String(parseInt(j/10) * 2 + 1);
+            let col_str = col_list[j % 10];
+            document.write(`<div class="container" yard=${add} bay='" + bay_str + "' col='" + col_str + "' onclick='container_add(this,event)'" + "></div>`);
         }
     }
 </script>

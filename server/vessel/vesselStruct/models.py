@@ -48,6 +48,7 @@ class vesselVoyInfo(models.Model):
     TaskFiniSig = models.CharField(max_length=10, choices=TASK_FIN_SIG_CHOICES, verbose_name='作业完成情况', default='1')
     UnBSta = models.CharField(max_length=10, choices=UNB_STATUS_CHOICES, verbose_name='离泊情况', default='1')
     # TODO: 计划部分含义， 以及 是否 包含 20 尺寸
+    # 包含 20 inch !
     PlaLoaGPCtnFotNum = models.IntegerField(verbose_name='计划进重40', default=0)
     PlaLoaEmpCtnFotNum = models.IntegerField(verbose_name='计划进空40', default=0)
     PlaLoaDraCtnFotNum = models.IntegerField(verbose_name='计划进危40', default=0)
@@ -209,7 +210,7 @@ class qcDisPlanOut(models.Model):
     TaskCluVes = models.CharField(max_length=50, verbose_name='作业船舶')
     TaskCluBay = models.CharField(max_length=10, verbose_name='作业贝位')
     # TODO: 任务簇编号 ？ unknown
-    BayInnTaskCluNo = models.CharField(max_length=1000, verbose_name='作业贝位内任务簇编号')
+    BayInnTaskCluNo = models.CharField(max_length=1000, verbose_name='作业贝位内任务簇编号(贝位作业的再划分)')
     TaskCluKind = models.CharField(max_length=3, choices=TASK_CLU_KIND_CHOICES, verbose_name='作业类别') # choices
     PreTaskCluVes = models.CharField(max_length=50, verbose_name='紧前作业船舶')
     PreTaskCluBay = models.CharField(max_length=50, verbose_name='紧前作业贝位')

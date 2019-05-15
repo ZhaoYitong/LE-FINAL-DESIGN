@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Yard
+from .models import yard
 
 
 @csrf_exempt
@@ -10,11 +10,11 @@ def yard_layout(request):
     if request.method == "GET":
         return render(request, 'YARD/yard.view.layout.html')
     else:
-        Box_Bay = json.loads(request.body.decode('utf-8'))
-        Box = Box_Bay["Box"]
-        Bay = Box_Bay["Bay"]
+        box_bay = json.loads(request.body.decode('utf-8'))
+        box = box_bay["Box"]
+        bay = box_bay["Bay"]
         # TODO: Update query and write value to table Yard!!!
-        yard_list = Yard.objects.filter(Box=Box, Bay=Bay)
+        yard_list = yard.objects.filter(Box=box, Bay=bay)
         yard_database = dict()
         yard_yardcel = dict()
         yard_status = dict()

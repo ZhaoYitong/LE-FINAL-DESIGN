@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Yard(models.Model):
+class yard(models.Model):
     def __str__(self):
         return self.YardCel
 
@@ -23,7 +23,7 @@ class Yard(models.Model):
 
 
 # 场吊调度计划输入信息
-class ARMG_SCHEDULE_PLAN_INPUT_INFO(models.Model):
+class armg_schedule_plan_input(models.Model):
     OP_KIND_CHOICES = (
         ('1', '卸船箱'),
         ('2', '装船箱'),
@@ -57,7 +57,7 @@ class ARMG_SCHEDULE_PLAN_INPUT_INFO(models.Model):
 
 
 # 场桥调度计划的接口信息（输出）
-class ARMG_SCHEDULE_PLAN_OUTPUT(models.Model):
+class armg_schedule_plan_output(models.Model):
     OP_KIND_CHOICES = (
         ('1', '卸船箱'),
         ('2', '装船箱'),
@@ -75,7 +75,7 @@ class ARMG_SCHEDULE_PLAN_OUTPUT(models.Model):
 
 
 # 场吊信息
-class ARMG_INFO(models.Model):
+class armg_info(models.Model):
     YC_STATUS_CHOICES = (
         ('0', '空闲'),
         ('1', '卸船'),
@@ -104,7 +104,7 @@ class ARMG_INFO(models.Model):
 
 
 #  场桥作业计划
-class ARMG_OPER_PLAN(models.Model):
+class armg_op_plan(models.Model):
     OP_KIND_CHOICES = (
         ('1', '卸船箱'),
         ('2', '装船箱'),
@@ -131,7 +131,7 @@ class ARMG_OPER_PLAN(models.Model):
 
 
 # 堆场堆存现状
-class YARD_CUR_CONS(models.Model):
+class yard_cur_cons(models.Model):
     PRE_SIG_CHOICES = (
         (0, '否'),
         (1, '是'),
@@ -141,16 +141,16 @@ class YARD_CUR_CONS(models.Model):
     #     ('2', '危险箱'),
     #     ('3', '普通箱'),
     # )
-    CtnNo = models.CharField(max_length=50, verbose_name='箱号')
-    Vessel = models.CharField(max_length=50, verbose_name='船名')
-    Voyage = models.CharField(max_length=50, verbose_name='航次')
-    CtnTyp = models.CharField(max_length=50, verbose_name='箱型') # choice
-    Size = models.CharField(max_length=50, verbose_name='尺寸')
-    Status = models.CharField(max_length=50, verbose_name='状态')
-    CtnWegt = models.FloatField(verbose_name='箱重')
-    Owner = models.CharField(max_length=50, verbose_name='持箱人')
+    CtnNo = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱号')
+    Vessel = models.CharField(null=True, blank=True, max_length=50, verbose_name='船名')
+    Voyage = models.CharField(null=True, blank=True, max_length=50, verbose_name='航次')
+    CtnTyp = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱型') # choice
+    Size = models.CharField(null=True, blank=True, max_length=50, verbose_name='尺寸')
+    Status = models.CharField(null=True, blank=True, max_length=50, verbose_name='状态')
+    CtnWegt = models.FloatField(null=True, blank=True, verbose_name='箱重')
+    Owner = models.CharField(null=True, blank=True, max_length=50, verbose_name='持箱人')
     OpSty = models.CharField(null=True, blank=True, max_length=50, verbose_name='作业方式')
-    YardCel = models.CharField(max_length=50, verbose_name='场箱位')
+    YardCel = models.CharField(null=True, blank=True, max_length=50, verbose_name='场箱位')
     PlaCtnCel = models.CharField(null=True, blank=True, max_length=50, verbose_name='计划箱位')
     CtnOpeSta = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱作业状态')
     FromWhr = models.CharField(null=True, blank=True, max_length=50, verbose_name='来源')
@@ -162,18 +162,18 @@ class YARD_CUR_CONS(models.Model):
     VesCellNo = models.CharField(null=True, blank=True, max_length=50, verbose_name='船箱位')
     ColNo = models.IntegerField(null=True, blank=True, verbose_name='列号')
     CellDH = models.CharField(null=True, blank=True, max_length=50, verbose_name='D/H')
-    StaPort = models.CharField(max_length=50, verbose_name='起运港')
-    UnloadPort = models.CharField(max_length=50, verbose_name='卸货港')
-    DesPort = models.CharField(max_length=50, verbose_name='目的港')
+    StaPort = models.CharField(null=True, blank=True, max_length=50, verbose_name='起运港')
+    UnloadPort = models.CharField(null=True, blank=True, max_length=50, verbose_name='卸货港')
+    DesPort = models.CharField(null=True, blank=True, max_length=50, verbose_name='目的港')
     StrLoaUnlSig = models.CharField(null=True, blank=True, max_length=50, verbose_name='直接装卸船')
     CtnChkDobCra = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱校核/双吊')
     EntYrdSeo = models.CharField(null=True, blank=True, max_length=50, verbose_name='进场次序')
     ExiYrdSeo = models.CharField(null=True, blank=True, max_length=50, verbose_name='出场次序')
     OriVes = models.CharField(null=True, blank=True, max_length=50, verbose_name='原船')
     OriVoy = models.CharField(null=True, blank=True, max_length=50, verbose_name='原航次')
-    CtnWegtCla = models.IntegerField(verbose_name='箱重等级')
-    PrpSig = models.IntegerField(choices=PRE_SIG_CHOICES, verbose_name='配载')
-    DesPortNam = models.CharField(max_length=50, verbose_name='目的港全称')
+    CtnWegtCla = models.IntegerField(null=True, blank=True, verbose_name='箱重等级')
+    PrpSig = models.IntegerField(null=True, blank=True, choices=PRE_SIG_CHOICES, verbose_name='配载')
+    DesPortNam = models.CharField(null=True, blank=True, max_length=50, verbose_name='目的港全称')
     VesVoy = models.CharField(null=True, blank=True, max_length=50, verbose_name='船名航次')
     EntOpKind = models.CharField(null=True, blank=True, max_length=50, verbose_name='进场类别')
     ForeighDomSig = models.CharField(null=True, blank=True, max_length=50, verbose_name='内外贸标志')

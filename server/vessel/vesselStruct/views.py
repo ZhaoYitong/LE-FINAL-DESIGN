@@ -4,7 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
 from django.core import serializers
-from .models import vesselVoyInfo, vesStruct, vesBayStruct, vesBayLayStruct
 
 
 def index(request):

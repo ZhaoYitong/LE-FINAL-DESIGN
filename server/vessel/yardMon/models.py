@@ -71,7 +71,7 @@ class armg_schedule_plan_output(models.Model):
     OpKind = models.CharField(max_length=50, choices=OP_KIND_CHOICES, verbose_name='作业类别')
     TaskBegSit = models.CharField(max_length=50, verbose_name='作业源地')
     DesPos = models.CharField(max_length=50, verbose_name='目的地')
-    OpTime = models.DateTimeField(null=True, blank=True, verbose_name='作业时间')
+    OpTime = models.DateTimeField(null=True, blank=True, verbose_name='作业时间') # timeStamp
 
 
 # 场吊信息
@@ -99,8 +99,8 @@ class armg_info(models.Model):
     OpOriStaSit = models.CharField(null=True, blank=True, max_length=50, verbose_name='当前作业起点位置')
     QcNoLeft = models.CharField(null=True, blank=True, max_length=50, verbose_name='左侧场吊编号')
     QcNoRight = models.CharField(null=True, blank=True, max_length=50, verbose_name='右侧场吊编号')
-    OpLifTime = models.DateTimeField(null=True, blank=True, verbose_name='作业起吊时间')
-    OpRelCtnTim = models.DateTimeField(null=True, blank=True, verbose_name='作业放箱时间')
+    OpLifTime = models.DateTimeField(null=True, blank=True, verbose_name='作业起吊时间') # timeStamp
+    OpRelCtnTim = models.DateTimeField(null=True, blank=True, verbose_name='作业放箱时间') # timeStamp
 
 
 #  场桥作业计划
@@ -123,6 +123,7 @@ class armg_op_plan(models.Model):
     DesPosSec = models.CharField(null=True, blank=True, max_length=50, verbose_name='目的位置二')
     PreYcNo = models.CharField(null=True, blank=True, max_length=50, verbose_name='紧前场吊编号')
     PreOpZone = models.CharField(null=True, blank=True, max_length=50, verbose_name='紧前作业箱区')
+    PreOpCtnNum = models.IntegerField(null=True, blank=True, verbose_name='紧前作业箱数')
     PreOpKind = models.CharField(null=True, blank=True, max_length=50, verbose_name='紧前作业类别')
     PreOriPosFir = models.CharField(null=True, blank=True, max_length=50, verbose_name='紧前作业位置源一')
     PreOriPosSec = models.CharField(null=True, blank=True, max_length=50, verbose_name='紧前作业位置源二')

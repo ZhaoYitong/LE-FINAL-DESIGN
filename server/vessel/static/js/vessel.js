@@ -1011,13 +1011,25 @@ function layerNumToRealIndexList(layerNumAbove,layerNumBelow) {
     }
     return layer;
 }
-function insertBay(bayLists){
+function insertBay(bayLists, direction){
     let bay_num = bayLists.inch20.length;
-    for(let i=bay_num-1;i>=0;i--){
-        let bayIndex = bayLists.inch20[i].bayRealIndex;
-        let bayId = bayLists.inch20[i].id;
+    function drawBay(val) {
+        let bayIndex = bayLists.inch20[val].bayRealIndex;
+        let bayId = bayLists.inch20[val].id;
         $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
-        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} class="bayZone_inch20"><span class="bay20Index">${bayIndex}</span></div>`);
+        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} class="bayZone_inch20">`+
+                                    `<span class="bay20Index">${bayIndex}</span>`+
+                                `</div>`);
+    }
+    if(direction === 'L'){
+        for(let i=0;i<bay_num;i++){
+            drawBay(i)
+        }
+    }
+    else {
+        for(let i=bay_num-1;i>=0;i--){
+            drawBay(i)
+        }
     }
 }
 /**
@@ -1261,12 +1273,37 @@ function enableSelectable() {
  *  combination buttons
  */
 function combineToStart (){
+    // DEFAULT VESSEL: FIRST VESSEL IN SELECT OPTION !
+    let selected_vessel = $(`#vesselSelect option:selected`).val();
+    // getURL: http://127.0.0.1:8000/vesselStruct/get_bay_inch20/?name=V1
+    $.ajax({
+        url: '/vesselStruct/get_bay_inch20/',
+        type: 'GET',
+        data: {
+            name: selected_vessel,
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            //initial bay
+            let num = res.number;
+            let dir = res.bayDirection;
+            initAreaForInline();
+            insertBay(BayNumToRealIndexList(num), dir);
+            $(`.startCombine`)[0].disabled = true;
+            setStopOfSelectable();
+            $(`.confirmCombine`)[0].disabled = false;
+        },
+        error: function(xhr) {
+            //Do Something to handle error
+        },
+    });
     // initial bay
-    initAreaForInline();
-    insertBay(BayNumToRealIndexList(numOfBay));
-    $(`.startCombine`)[0].disabled = true;
-    setStopOfSelectable();
-    $(`.confirmCombine`)[0].disabled = false;
+    // initAreaForInline();
+    // insertBay(BayNumToRealIndexList(numOfBay));
+    // $(`.startCombine`)[0].disabled = true;
+    // setStopOfSelectable();
+    // $(`.confirmCombine`)[0].disabled = false;
 }
 function combineToConfirm (){
     disableSelectable();
@@ -1355,20 +1392,6 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 //     });
 // }
 
-// function gotoConnect() {
-//     let testData = {
-//       test: 'hello world',
-//     };
-//     $.ajax({
-//         url: '/vesselStruct/test_connect_to_db/',
-//         type: 'GET',
-//         dataType: "json",
-//         success: function (res) {
-//             console.log(res);
-//         },
-//     });
-// }
-
 function gotoConnect() {
     let testData = {
       test: 'hello world',
@@ -1390,4 +1413,20 @@ function gotoConnect() {
  *  layui: https://www.layui.com/doc/modules/layer.html
  */
 // TODO: add layer with loading, support multiple layer
+
+
+
+/**
+ *  service
+ */
+
+//TODO: ajax
+
+
+/**
+ *  div object
+ */
+ // TODO: set class
+
+
 

@@ -5,14 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="{% static 'images/smu.jpg' %}" rel="icon">
-  <link href="{% static 'css/tool/jquery-ui.css' %}">
-  <link href="{% static 'css/tool/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/tool/jquery-ui.css' %}" rel="stylesheet">
   <link href="{% static 'css/tool/google-api.css' %}" rel="stylesheet">
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/tool/bootstrap_v4/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/custom.vessel.css' %}" rel="stylesheet">
 </head>
 <body id="page-top">
 <div id="IMO-001" class="vessel">
+    <div class="allVessels col-md-3">
+     <div class="form-group">
+        <label for="vesselSelect">选择船舶</label>
+        <select class="form-control" id="vesselSelect">
+        {% for v in all_vessel %}
+          <option>{{ v }}</option>
+        {% endfor %}
+        </select>
+      </div>
+    </div>
     <div id="control-buttons">
         <div id="buttons" class="d-flex flex-row">
             <button type="button" class="btn btn-outline-primary startCombine" onclick="combineToStart()">编辑组贝</button>
@@ -72,10 +82,9 @@
     </div>
 </div>
 <script src="{% static 'js/tool/jquery.js' %}"></script>
-<script src="{% static 'js/tool/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/tool/jquery-easing/jquery.easing.min.js' %}"></script>
 <script src="{% static 'js/tool/jquery-ui.js' %}"></script>
 <script src="{% static 'js/main.min.js' %}"></script>
+<script src="{% static 'js/tool/bootstrap_v4/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/vessel.js' %}"></script>
 </body>
 </html>

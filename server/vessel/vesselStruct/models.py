@@ -30,17 +30,17 @@ class vessel_voy_info(models.Model):
         ('3', '离泊完成')
     )
 
-    Vessel = models.CharField(max_length=50, verbose_name='船名')
-    ImpVoy = models.CharField(max_length=50, verbose_name='进口航次')
-    ExpVoy = models.CharField(max_length=50, verbose_name='出口航次')
+    Vessel = models.CharField(max_length=50, verbose_name='船名') #
+    ImpVoy = models.CharField(max_length=50, verbose_name='进口航次') #
+    ExpVoy = models.CharField(max_length=50, verbose_name='出口航次') #
     VesType = models.CharField(null=True, blank=True, max_length=50, verbose_name='船型')
-    PlaBerThgTim = models.DateTimeField(verbose_name='计划靠泊', default=now)
-    PlaUnbThgTim = models.DateTimeField(verbose_name='计划离泊', default=now)
-    ReaBerThgTim = models.DateTimeField(verbose_name='实际靠泊（时间）', default=now)
+    PlaBerThgTim = models.DateTimeField(verbose_name='计划靠泊', default=now) #
+    PlaUnbThgTim = models.DateTimeField(verbose_name='计划离泊', default=now)#
+    ReaBerThgTim = models.DateTimeField(verbose_name='实际靠泊（时间）', default=now)#
     ActUnbTim = models.DateTimeField(null=True, blank=True, verbose_name='实际离泊', default=now)
-    PlaBerThgPos = models.CharField(max_length=50, verbose_name='计划靠泊位置')
-    ActBerPos = models.FloatField(verbose_name='实际靠泊位置')
-    BerThgDir = models.CharField(max_length=50, verbose_name='靠泊方向')
+    PlaBerThgPos = models.CharField(max_length=50, verbose_name='计划靠泊位置')#
+    ActBerPos = models.FloatField(verbose_name='实际靠泊位置')#
+    BerThgDir = models.CharField(max_length=50, verbose_name='靠泊方向')#
     VesDrauMax = models.FloatField(null=True, blank=True, verbose_name='进出最大吃水')
     PlaClosCustTim = models.DateTimeField(null=True, blank=True, verbose_name='计划截关时间', default=now)
     ClosCustTim = models.DateTimeField(null=True, blank=True, verbose_name='截关时间', default=now)
@@ -81,14 +81,14 @@ class ves_struct(models.Model):
     )
 #   VesType = models.CharField(null=True, blank=True, max_length=30, verbose_name='船型')
     Vessel = models.CharField(max_length=50, verbose_name='船名')
-    VesLeng = models.FloatField(verbose_name='船长')
-    VesWidth = models.FloatField(verbose_name='船舶宽度')
-    VesFrLeng = models.FloatField(verbose_name='船首长度（米）')
-    TweBayNum = models.IntegerField(verbose_name='20尺贝数')
+    VesLeng = models.FloatField(verbose_name='船长') #
+    VesWidth = models.FloatField(verbose_name='船舶宽度') #
+    VesFrLeng = models.FloatField(verbose_name='船首长度（米）') #
+    TweBayNum = models.IntegerField(verbose_name='20尺贝数') #
     FotBayNum = models.IntegerField(null=True, blank=True, verbose_name='40尺贝数')
     FotBayCom = models.CharField(null=True, blank=True, max_length=500, verbose_name='40组贝')
-    EngRomPos = models.IntegerField(verbose_name='机舱位置')
-    EngRomWid = models.IntegerField(verbose_name='机舱宽度')
+    EngRomPos = models.IntegerField(verbose_name='机舱位置') #
+    EngRomWid = models.IntegerField(verbose_name='机舱宽度') #
     MidBayDeaWit = models.BooleanField(null=True, blank=True, verbose_name='中间贝处理')  # set to 00 ? true:false
     RefCtnCap = models.FloatField(null=True, blank=True, verbose_name='冷冻容量')
     VesEntBerSpd = models.FloatField(null=True, blank=True, verbose_name='船舶进港速度')
@@ -101,10 +101,10 @@ class ves_struct(models.Model):
     DeckCapWegt = models.FloatField(null=True, blank=True, verbose_name='甲板容量T')
     CabCap = models.FloatField(null=True, blank=True, verbose_name='舱内容量T')
     DanCtnAlw = models.CharField(null=True, blank=True, max_length=10, verbose_name='允装危险品')
-    DeckLayNumMax = models.IntegerField(verbose_name='甲板最大层高')
-    CabLayNumMax = models.IntegerField(verbose_name='舱内最大层深')
-    DeckColNumMax = models.IntegerField(verbose_name='甲板最大列数')
-    CabColNumMax = models.IntegerField(verbose_name='舱内最大列数')
+    DeckLayNumMax = models.IntegerField(verbose_name='甲板最大层高') #
+    CabLayNumMax = models.IntegerField(verbose_name='舱内最大层深') #
+    DeckColNumMax = models.IntegerField(verbose_name='甲板最大列数') #
+    CabColNumMax = models.IntegerField(verbose_name='舱内最大列数') #
 
 
 # 船舶贝位结构
@@ -149,7 +149,7 @@ class ves_bay_struct(models.Model):
                                     choices=MID_BAY_DEAL_WIT_CHOICES, verbose_name='中间贝处理')
 
 
-# 船舶贝位层结构
+# 船舶贝位层信息
 class ves_bay_lay_struct(models.Model):
     def __str__(self):
         return self.VesType
@@ -169,8 +169,8 @@ class ves_bay_lay_struct(models.Model):
     BayHigh = models.IntegerField(null=True, blank=True, verbose_name='离底层(该层层号)')
     CellSpeSig = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱位特标')
     RefSig = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱位冷冻标')
-    BayCanOpe = models.BooleanField(verbose_name='贝位是否可用')
-    BayLayCanOpe = models.BooleanField(verbose_name='贝位层是否可用')
+#   BayCanOpe = models.BooleanField(verbose_name='贝位是否可用')
+#   BayLayCanOpe = models.BooleanField(verbose_name='贝位层是否可用')
 
 
 # add container distritube info
@@ -190,7 +190,7 @@ class con_pend_info(models.Model):
     DeckUloNum = models.IntegerField(null=True, blank=True, verbose_name='甲板卸数')
     CabLoaNum = models.IntegerField(null=True, blank=True, verbose_name='舱内装数')
     CabUloNum = models.IntegerField(null=True, blank=True, verbose_name='舱内卸数')
-    HatCovKind = models.CharField(max_length=10, choices=HAT_COVER_CHOICES,
+    HatCovKind = models.CharField(null=True, blank=True, max_length=10, choices=HAT_COVER_CHOICES,
                                   default='0', verbose_name='舱盖板类型')  # choice
 
 

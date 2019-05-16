@@ -43,7 +43,6 @@ def temp_get_bay_inch20(request):
         data = {'number': bay_num,
                 'bayDirection': bay_dir,
                 }
-        # return JsonResponse({'number': bay_num})
         return JsonResponse(data)
 
 

@@ -1294,6 +1294,7 @@ function combineToStart (){
             setStopOfSelectable();
             $(`.confirmCombine`)[0].disabled = false;
         },
+        // TODO: add message when request failed
         error: function(xhr) {
             //Do Something to handle error
         },
@@ -1358,6 +1359,7 @@ function showVal(a){
 let numOfBay = VIEW_SIDE.max_bay_number;
 let layerNumAbove = VIEW_SIDE.max_layer_above_number;
 let layerNumBelow = VIEW_SIDE.max_layer_below_number;
+let selectedBayList = [];
 /**
  *  USAGE
  */

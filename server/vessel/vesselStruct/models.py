@@ -73,7 +73,7 @@ class vessel_voy_info(models.Model):
 # 船舶结构（针对某一船舶型号）
 class ves_struct(models.Model):
     def __str__(self):
-        return self.VesType
+        return self.Vessel
 
     DANGER_CON_ALLOW_CHOICES = (
         ('1', '允许'),
@@ -109,7 +109,7 @@ class ves_struct(models.Model):
 # 船舶贝位结构
 class ves_bay_struct(models.Model):
     def __str__(self):
-        return self.VesType
+        return self.Vessel
 
     BAY_COM_CHOICES = (
         ('0', '不组贝'),
@@ -150,7 +150,7 @@ class ves_bay_struct(models.Model):
 # 船舶贝位层信息
 class ves_bay_lay_struct(models.Model):
     def __str__(self):
-        return self.VesType
+        return self.Vessel
 
     DECK_CAG_SIG_CHOICES = (
         ('0', '甲板'),
@@ -166,8 +166,6 @@ class ves_bay_lay_struct(models.Model):
     BayHigh = models.IntegerField(null=True, blank=True, verbose_name='离底层(该层层号)')
     CellSpeSig = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱位特标')
     RefSig = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱位冷冻标')
-#   BayCanOpe = models.BooleanField(verbose_name='贝位是否可用')
-#   BayLayCanOpe = models.BooleanField(verbose_name='贝位层是否可用')
 
 
 # add container distritube info

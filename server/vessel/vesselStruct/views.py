@@ -5,6 +5,7 @@ import json
 from django.http import JsonResponse
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
 from django.db.models import Count,Min,Max,Sum
+from .methods import index_to_num
 
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
 
@@ -41,12 +42,11 @@ def edit_bay(request):
         ves_name = request.GET['name']
         bay_num = ves_struct.objects.get(Vessel=ves_name).TweBayNum
         bay_dir = vessel_voy_info.objects.get(Vessel=ves_name).BerThgDir
-        print(bay_num)
-        print(request.GET['name'])
         data = {'number': bay_num,
                 'bayDirection': bay_dir,
                 }
         return JsonResponse(data)
+
     elif request.method == 'POST':
         content = json.loads(request.body.decode('utf-8'))
         ves_name = content['vessel_name']
@@ -61,10 +61,16 @@ def edit_bay(request):
         obj_ves_struct.FotBayCom = fot_bay_com
         obj_ves_struct.FotBayNum = fot_bay_num
         obj_ves_struct.save()
-        # Get Updated bayCombined Info
-        # global confirm_of_bay_edit
-        obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name)
-        print(obj_bay_inch20)
+        # Get From DB
+        obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name, BaySiz='20')
+        obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)
+        bay_inch20_list = sorted(index_to_num([item.BayNo for item in obj_bay_inch20]))
+        bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
+        data_bay_list = []
+        # for i in bay_inch20_list:
+        #     for j in bay_inch40_list:
+        #         if j-1 == i | j+1 == i:
+
         data_bay = {
             'dataType': confirm_of_bay_edit,
             'vessel_IMO': "001",
@@ -99,6 +105,14 @@ def edit_bay(request):
             ]
         }
         return JsonResponse(data_bay)
+
+
+@csrf_exempt
+def create_ves_struct(request):
+    if request.method == 'GET':
+        return JsonResponse({'ves_struct': 'aaa'})
+    elif request.method == 'POST':
+        return JsonResponse({'ves_struct': 'bbb'})
 
 
 @csrf_exempt

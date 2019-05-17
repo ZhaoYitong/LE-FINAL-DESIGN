@@ -131,7 +131,7 @@ class armg_op_plan(models.Model):
     PreDesPosSec = models.CharField(null=True, blank=True, max_length=50, verbose_name='紧前目的位置二')
 
 
-# 堆场堆存现状
+# 堆场堆存现状 (本表格废弃)
 class yard_cur_cons(models.Model):
     PRE_SIG_CHOICES = (
         (0, '否'),

@@ -46,7 +46,6 @@ def edit_bay(request):
         engine_pos = obj.EngRomPos
         engine_width = obj.EngRomWid
         eng_body_list = create_engine_index(engine_pos, engine_width)
-        # bay_num = ves_struct.objects.get(Vessel=ves_name).TweBayNum
         bay_dir = vessel_voy_info.objects.get(Vessel=ves_name).BerThgDir
 
         data = {'number': bay_num,
@@ -87,7 +86,49 @@ def edit_bay(request):
 @csrf_exempt
 def create_ves_struct(request):
     if request.method == 'GET':
-        return JsonResponse({'ves_struct': 'aaa'})
+        name = request.GET['name']
+        obj = ves_struct.objects.get(Vessel=name)
+        ves_name = obj.Vessel
+        ves_length = obj.VesLeng
+        ves_width = obj.VesWidth
+        ves_front_length = obj.VesFrLeng
+        ves_bay_inch20_num = obj.TweBayNum
+        ves_bay_inch40_num = obj.FotBayNum
+        ves_eng_pos = obj.EngRomPos
+        ves_eng_wid = obj.EngRomWid
+        ves_mid_bay_deal_wit = obj.MidBayDeaWit
+        ves_load_weight = obj.LoadWeigth
+        ves_deck_cap_weight = obj.DeckCapWegt
+        ves_cab_cap = obj.CabCap
+        ves_deck_lay_num_max = obj.DeckLayNumMax
+        ves_cab_lay_num_max = obj.CabLayNumMax
+        ves_deck_col_num_max = obj.DeckColNumMax
+        ves_cab_col_num_max = obj.CabColNumMax
+        ves_bay_dir = vessel_voy_info.objects.get(Vessel=name).BerThgDir
+        eng_body_list = create_engine_index(ves_eng_pos, ves_eng_wid)#?
+
+        data_content = {
+            'bayDirection': ves_bay_dir,
+            'vessel_name': ves_name,
+            'vessel_width': ves_width,
+            'vessel_frontLength': ves_front_length,
+            'vessel_length': ves_length,
+            'bay_inch20_num': ves_bay_inch20_num,
+            'bay_inch40_num': ves_bay_inch40_num,
+            'max_layer_above_number': ves_deck_lay_num_max,
+            'max_layer_below_number': ves_cab_lay_num_max,
+            'engineRoomIndex': eng_body_list,
+            'mid_bay_deal': ves_mid_bay_deal_wit,
+            'load_weight': ves_load_weight,
+            'deck_capacity': ves_deck_cap_weight,
+            'cabin_capacity': ves_cab_cap,
+            'max_col_above_number': ves_deck_col_num_max,
+            'max_col_below_number': ves_cab_col_num_max,
+            'vessel': [
+
+            ],
+        }
+        return JsonResponse(data_content)
     elif request.method == 'POST':
         return JsonResponse({'ves_struct': 'bbb'})
 
@@ -95,7 +136,6 @@ def create_ves_struct(request):
 @csrf_exempt
 def test_connect_to_db(request):
     if request.method == 'GET':
-        # return HttpResponse("JJJ")
         return JsonResponse({'response': 'hhh'})
     elif request.method == 'POST':
         temp = request.POST

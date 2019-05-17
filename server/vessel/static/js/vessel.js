@@ -7,6 +7,11 @@ const BAY_INDEX = "贝位号: ";
 const TIP_PLEASE_RESELECT = "请重新选择";
 const IS_TO_RESELECT= "确认重新组贝？";
 /**
+ *  variable initialize
+ */
+let selected_vessel = $(`#vesselSelect option:selected`).val(); // !!!
+
+/**
  * @type {number}
  */
 // 水平方向侧视 支持一条船
@@ -34,7 +39,7 @@ let VIEW_SIDE = {
     vessel_width:"30m",
     vessel_frontLength:"100m",
     vessel_length:"300m",
-    max_bay_number: 30,
+    bay_inch20_num: 30,
     max_layer_above_number: 8, // all above
     max_layer_below_number: 5,  // all below
     hatCover_kind:"自开式",
@@ -816,10 +821,25 @@ function clearSelected(){
  *  vessel creation
  */
 function createVesselSide(){
-    // disable reCreate vessel
-    $(`.createVessel`)[0].disabled = true;
+    // $(`.createVessel`)[0].disabled = true;
     // TODO: vessel board in creating vessel: not supported !!
     // TODO： as inline-flex conflicts with vertical-align
+    $.ajax({
+        url: '/vesselStruct/ves_struct/',
+        type: 'GET',
+        data: {
+            name: selected_vessel,
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+        },
+        // TODO: add message when request failed
+        error: function(xhr) {
+            //Do Something to handle error
+        },
+    });
+    /*
     $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`);
     $(`.vesselAreaSide`).append(`<div class="belowBoardSide"></div>`);
     let bayLists = BayNumToRealIndexList(numOfBay);
@@ -834,8 +854,6 @@ function createVesselSide(){
         $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
         $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayBelow_inch20"></div>`);
     }
-    // test container on board
-    // length : width : height   2.5:1:1
     // TODO: css control main area !!
     for(let j=0;j<conZone_bay_num;j++){
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
@@ -858,6 +876,8 @@ function createVesselSide(){
     }
     // TODO: CUSTOM BLINK TRICK
     $(`[point-x="19"],[point-x="17"]`).addClass("blink");
+
+     */
 }
 /**
  *  stowage info
@@ -1018,10 +1038,9 @@ function disableBayCombine(eng_list){
         $(`div[bay_index=${ind}]`).addClass("engineBody");
     }
 }
-let selected_vessel; // !!!
 function combineToStart (){
     // DEFAULT VESSEL: FIRST VESSEL IN SELECT OPTION !
-    selected_vessel = $(`#vesselSelect option:selected`).val();
+    // selected_vessel = $(`#vesselSelect option:selected`).val();
     // getURL: http://127.0.0.1:8000/vesselStruct/get_bay_inch20/?name=V1
     $.ajax({
         url: '/vesselStruct/edit_bay/',
@@ -1120,7 +1139,7 @@ function showVal(a){
 /**
  * main
  */
-let numOfBay = VIEW_SIDE.max_bay_number;
+let numOfBay = VIEW_SIDE.bay_inch20_num;
 let layerNumAbove = VIEW_SIDE.max_layer_above_number;
 let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 /**

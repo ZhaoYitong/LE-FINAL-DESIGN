@@ -133,6 +133,7 @@ let VIEW_SIDE = {
 let newBayList = {
     dataType: "RESPONSE_AFTER_CONFIRM_COMBINATION",
     vessel_IMO: "001",
+    vessel_name: 'V1',
     //TODO: update sql select function
     data: [
         {
@@ -1229,6 +1230,7 @@ function createLoadOrUnloadInfo() {
  * selectable
  */
 let combinedBay20inch = [];
+let combinedBay40inch = [];
 function setStopOfSelectable() {
     $(`#selectable`).selectable({
         stop: function() {
@@ -1247,7 +1249,10 @@ function setStopOfSelectable() {
                     let rightBayId = selectedBay[1].id;
                     combinedBay20inch.push(leftBayId);
                     combinedBay20inch.push(rightBayId);
+                    console.log(combinedBay20inch);//
                     let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
+                    combinedBay40inch.push(combinedBayInch40Index);
+                    console.log(combinedBay40inch);//
                     selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
                 }
             }
@@ -1272,12 +1277,13 @@ function enableSelectable() {
 /**
  *  combination buttons
  */
+let selected_vessel;
 function combineToStart (){
     // DEFAULT VESSEL: FIRST VESSEL IN SELECT OPTION !
-    let selected_vessel = $(`#vesselSelect option:selected`).val();
+    selected_vessel = $(`#vesselSelect option:selected`).val();
     // getURL: http://127.0.0.1:8000/vesselStruct/get_bay_inch20/?name=V1
     $.ajax({
-        url: '/vesselStruct/get_bay_inch20/',
+        url: '/vesselStruct/edit_bay/',
         type: 'GET',
         data: {
             name: selected_vessel,
@@ -1306,7 +1312,24 @@ function combineToStart (){
     // $(`.confirmCombine`)[0].disabled = false;
 }
 function combineToConfirm (){
+    console.log("bayInch20: "+ combinedBay20inch);
+    console.log("bayInch40: " + combinedBay40inch);
+    let context = {
+        vessel_name: selected_vessel,
+        bayInch20s: combinedBay20inch,
+        bayInch40s: combinedBay40inch,
+    };
+    console.log(context);
     disableSelectable();
+    $.ajax({
+        url: '/vesselStruct/edit_bay/',
+        type: 'POST',
+        data: JSON.stringify(context),
+        success: function(res){
+            console.log(res);
+        },
+        dataType: "json",
+    });
     //TODO: post new info of bay, refresh bayArea
     // TODO: get response from server
     $(`.startCombine`)[0].disabled = false;
@@ -1358,7 +1381,6 @@ function showVal(a){
 let numOfBay = VIEW_SIDE.max_bay_number;
 let layerNumAbove = VIEW_SIDE.max_layer_above_number;
 let layerNumBelow = VIEW_SIDE.max_layer_below_number;
-let selectedBayList = [];
 /**
  *  USAGE
  */
@@ -1378,34 +1400,34 @@ for(let j=testA.length-1,k=0;j>=0;j--,k++){
 // console.log(temp);
 // console.log(tempB);
 
-// function gotoConnect() {
-//     let testData = {
-//       test: 'hello world',
-//     };
-//     $.ajax({
-//         url: '/vesselStruct/test_connect_to_db/',
-//         type: 'POST',
-//         data: JSON.stringify(testData),
-//         success: function (result) {
-//             console.log(result);
-//         },
-//         dataType: "json",
-//     });
-// }
-
 function gotoConnect() {
     let testData = {
       test: 'hello world',
     };
     $.ajax({
         url: '/vesselStruct/test_connect_to_db/',
-        type: 'GET',
-        dataType: "json",
-        success: function (res) {
-            console.log(res);
+        type: 'POST',
+        data: JSON.stringify(testData),
+        success: function (result) {
+            console.log(result);
         },
+        dataType: "json",
     });
 }
+
+// function gotoConnect() {
+//     let testData = {
+//       test: 'hello world',
+//     };
+//     $.ajax({
+//         url: '/vesselStruct/test_connect_to_db/',
+//         type: 'GET',
+//         dataType: "json",
+//         success: function (res) {
+//             console.log(res);
+//         },
+//     });
+// }
 
 /**
  *  add css style

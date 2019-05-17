@@ -10,5 +10,5 @@ urlpatterns = [
     path('vesselStruct/ves_info_input/', views.ves_info_input, name='ves_info_input'),
 
 
-    path('vesselStruct/get_bay_inch20/', views.temp_get_bay_inch20, name='get_bay_inch20')
+    path('vesselStruct/edit_bay/', views.edit_bay, name='edit_bay')
 ]

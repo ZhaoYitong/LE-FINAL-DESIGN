@@ -4,6 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
+from django.db.models import Count,Min,Max,Sum
+
+confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
 
 
 def index(request):
@@ -33,7 +36,7 @@ def ves_info_input(request):
 
 
 @csrf_exempt
-def temp_get_bay_inch20(request):
+def edit_bay(request):
     if request.method == 'GET':
         ves_name = request.GET['name']
         bay_num = ves_struct.objects.get(Vessel=ves_name).TweBayNum
@@ -44,6 +47,58 @@ def temp_get_bay_inch20(request):
                 'bayDirection': bay_dir,
                 }
         return JsonResponse(data)
+    elif request.method == 'POST':
+        content = json.loads(request.body.decode('utf-8'))
+        ves_name = content['vessel_name']
+        bay_inch40 = content['bayInch40s']
+        fot_bay_num = len(bay_inch40)
+        temp_fot_bay_com = ''
+        for i in bay_inch40:
+            temp_fot_bay_com += (i + ',')
+        fot_bay_com = temp_fot_bay_com[:-1]
+        # Update DB
+        obj_ves_struct = ves_struct.objects.get(Vessel=ves_name)
+        obj_ves_struct.FotBayCom = fot_bay_com
+        obj_ves_struct.FotBayNum = fot_bay_num
+        obj_ves_struct.save()
+        # Get Updated bayCombined Info
+        # global confirm_of_bay_edit
+        obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name)
+        print(obj_bay_inch20)
+        data_bay = {
+            'dataType': confirm_of_bay_edit,
+            'vessel_IMO': "001",
+            'vessel_name': ves_name,
+            'data': [
+                {
+                    'id': 1,
+                    'type': "single",
+                    'bayInch20': [
+                        {
+                            'index': '01',
+                        }
+                    ],
+                },
+                {
+                    'id': 2,
+                    'type': "combine",
+                    'bayInch20s': [
+                        {
+                            'index': '03',
+                        },
+                        {
+                            'index': '05',
+                        },
+                    ],
+                    'bayInch40': [
+                        {
+                            'index': '04',
+                        },
+                    ],
+                },
+            ]
+        }
+        return JsonResponse(data_bay)
 
 
 @csrf_exempt
@@ -52,14 +107,13 @@ def test_connect_to_db(request):
         # return HttpResponse("JJJ")
         return JsonResponse({'response': 'hhh'})
     elif request.method == 'POST':
-        # temp = request.POST
-        # temp_json = json.loads(request.body.decode('utf-8'))
-        # print(temp)
-        # print("*****")
-        # print(temp_js  on)
-        return JsonResponse({'list': 'abc'})
-    else:
-        return
+        temp = request.POST
+        temp_json = json.loads(request.body.decode('utf-8'))
+        print(temp)
+        print("*****")
+        print(temp_json)
+        testV = {'hhh': 'connected'}
+        return JsonResponse(testV)
 
 
 # display value in choices

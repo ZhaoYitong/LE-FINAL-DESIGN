@@ -79,7 +79,6 @@ class ves_struct(models.Model):
         ('1', '允许'),
         ('0', '不允许'),
     )
-#   VesType = models.CharField(null=True, blank=True, max_length=30, verbose_name='船型')
     Vessel = models.CharField(max_length=50, verbose_name='船名')
     VesLeng = models.FloatField(verbose_name='船长') #
     VesWidth = models.FloatField(verbose_name='船舶宽度') #
@@ -130,7 +129,6 @@ class ves_bay_struct(models.Model):
         ('0', '00行'),
         ('1', '非00行'),
     )
-#   VesType = models.CharField(null=True, blank=True, max_length=30, verbose_name='船型')
     Vessel = models.CharField(max_length=50, verbose_name='船名')
     BayNo = models.CharField(max_length=50, verbose_name='贝号')
     BaySiz = models.CharField(null=True, blank=True, max_length=50, verbose_name='贝尺寸')
@@ -159,7 +157,6 @@ class ves_bay_lay_struct(models.Model):
         ('1', '舱内'),
     )
 
-#   VesType = models.CharField(max_length=30, verbose_name='船型')
     Vessel = models.CharField(max_length=50, verbose_name='船名')
     BayNo = models.CharField(max_length=10, verbose_name='贝号')
     TireNo = models.CharField(max_length=100, verbose_name='层号')

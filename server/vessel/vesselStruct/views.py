@@ -5,7 +5,7 @@ import json
 from django.http import JsonResponse
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
 from django.db.models import Count,Min,Max,Sum
-from .methods import index_to_num, combined_bay_list, create_engine_index
+from .methods import index_to_num, combined_bay_list, create_engine_index, create_index_list
 
 # const
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
@@ -107,6 +107,9 @@ def create_ves_struct(request):
         ves_bay_dir = vessel_voy_info.objects.get(Vessel=name).BerThgDir
         eng_body_list = create_engine_index(ves_eng_pos, ves_eng_wid)#?
 
+        # min to max (down to up)
+        ves_deck_lay_list = create_index_list(ves_deck_lay_num_max)
+        ves_cab_lay_list = create_index_list(ves_cab_col_num_max)
         data_content = {
             'bayDirection': ves_bay_dir,
             'vessel_name': ves_name,

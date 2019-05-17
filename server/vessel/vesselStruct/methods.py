@@ -84,3 +84,12 @@ def create_engine_index(eng_pos, eng_wid):
             eng_body_list.append(m)
         return eng_body_list
 
+
+def create_index_list(max_lay_num):
+    lay_list = []
+    for i in range(0, max_lay_num):
+        lay_list.append(num_to_index((i+1)*2))
+    return lay_list
+
+
+#print(create_index_list(6, 4))

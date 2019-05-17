@@ -1285,7 +1285,6 @@ function combineToStart (){
         dataType: "json",
         success: function (res) {
             console.log(res);
-            //initial bay
             let num = res.number;
             let dir = res.bayDirection;
             initAreaForInline();

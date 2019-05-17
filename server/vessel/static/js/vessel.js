@@ -5,6 +5,7 @@
 const VESSEL_IMO = "船舶航次：";
 const BAY_INDEX = "贝位号: ";
 const TIP_PLEASE_RESELECT = "请重新选择";
+const IS_TO_RESELECT= "确认重新组贝？";
 /**
  * @type {number}
  */
@@ -23,7 +24,6 @@ const TIP_PLEASE_RESELECT = "请重新选择";
             point-y : rowIndex
             point-z : layerIndex
  */
-// TODO: uniform the bay direction !!!!
 let VIEW_SIDE = {
     dataType: "",
     bayDirection: "",
@@ -34,7 +34,7 @@ let VIEW_SIDE = {
     vessel_width:"30m",
     vessel_frontLength:"100m",
     vessel_length:"300m",
-    max_bay_number: 30, // TODO: set max number
+    max_bay_number: 30,
     max_layer_above_number: 8, // all above
     max_layer_below_number: 5,  // all below
     hatCover_kind:"自开式",
@@ -128,278 +128,6 @@ let VIEW_SIDE = {
     typeOfBoard: "",
     numOfBoard: 1,
 
-};
-// TODO: sql select!
-let newBayList = {
-    dataType: "RESPONSE_AFTER_CONFIRM_COMBINATION",
-    vessel_IMO: "001",
-    vessel_name: 'V1',
-    //TODO: update sql select function
-    data: [
-        {
-            id: 1,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "01",
-                }
-            ],
-        },
-        {
-            id: 2,
-            type: "combine",
-            bayInch20s:[
-                {
-                    index: "03",
-                },
-                {
-                    index: "05",
-                },
-            ],
-            bayInch40: [
-                {
-                    index: "04",
-                },
-            ],
-        },
-        {
-            id: 3,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "07",
-                }
-            ],
-        },
-        {
-            id: 4,
-            type: "combine",
-            bayInch20s:[
-                {
-                    index: "09",
-                },
-                {
-                    index: "11",
-                },
-            ],
-            bayInch40: [
-                {
-                    index: "10",
-                },
-            ],
-        },
-        {
-            id: 5,
-            type: "combine",
-            bayInch20s:[
-                {
-                    index: "13",
-                },
-                {
-                    index: "15",
-                },
-            ],
-            bayInch40: [
-                {
-                    index: "14",
-                },
-            ],
-        },
-        {
-            id: 6,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "17",
-                }
-            ],
-        },
-        {
-            id: 7,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "19",
-                }
-            ],
-        },
-        {
-            id: 8,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "21",
-                }
-            ],
-        },
-        {
-            id: 9,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "23",
-                }
-            ],
-        },
-        {
-            id: 10,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "25",
-                }
-            ],
-        },
-        {
-            id: 11,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "27",
-                }
-            ],
-        },
-        {
-            id: 12,
-            type: "combine",
-            bayInch20s:[
-                {
-                    index: "29",
-                },
-                {
-                    index: "31",
-                },
-            ],
-            bayInch40: [
-                {
-                    index: "30",
-                },
-            ],
-        },
-        {
-            id: 13,
-            type: "combine",
-            bayInch20s:[
-                {
-                    index: "33",
-                },
-                {
-                    index: "35",
-                },
-            ],
-            bayInch40: [
-                {
-                    index: "34",
-                },
-            ],
-        },
-        {
-            id: 14,
-            type: "combine",
-            bayInch20s:[
-                {
-                    index: "37",
-                },
-                {
-                    index: "39",
-                },
-            ],
-            bayInch40: [
-                {
-                    index: "38",
-                },
-            ],
-        },
-        {
-            id: 15,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "41",
-                }
-            ],
-        },
-        {
-            id: 16,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "43",
-                }
-            ],
-        },
-        {
-            id: 17,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "45",
-                }
-            ],
-        },
-        {
-            id: 18,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "47",
-                }
-            ],
-        },
-        {
-            id: 19,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "49",
-                }
-            ],
-        },
-        {
-            id: 20,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "51",
-                }
-            ],
-        },
-        {
-            id: 21,
-            type: "combine",
-            bayInch20s:[
-                {
-                    index: "53",
-                },
-                {
-                    index: "55",
-                },
-            ],
-            bayInch40: [
-                {
-                    index: "54",
-                },
-            ],
-        },
-        {
-            id: 22,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "57",
-                }
-            ],
-        },
-        {
-            id: 23,
-            type: "single",
-            bayInch20:[
-                {
-                    index: "59",
-                }
-            ],
-        },
-    ],
 };
 let vesselOperationInfo = {
     dataType:"VESSEL_OPERATION_INFO",
@@ -961,7 +689,7 @@ let vesselStorageInfoAll = {
 function numToIdString(num) {
     return num < 10 ? "0" + num.toString() : num.toString();
 }
-// is exist in array
+// is exist in array (str)
 function isExist(array,value){
     for(let i=0;i<array.length;i++){
         if(array[i] === value){
@@ -1018,7 +746,7 @@ function insertBay(bayLists, direction){
         let bayIndex = bayLists.inch20[val].bayRealIndex;
         let bayId = bayLists.inch20[val].id;
         $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
-        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} class="bayZone_inch20">`+
+        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} bay_index=${bayIndex} class="bayZone_inch20">`+
                                     `<span class="bay20Index">${bayIndex}</span>`+
                                 `</div>`);
     }
@@ -1042,20 +770,21 @@ function createBayAfterOperation(newList) {
     for(let i=newBay_num-1;i>=0;i--) {
         let itemId = dataList[i].id;
         if(dataList[i].type == "single"){
-            $(`.newBayArea`).append(
-                `<div id= ${itemId} class="newBay20 bayInfo">`+
+            let bayIndex = dataList[i].bayInch20[0].index;
+            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bayInfo">`+
                     `<span class="newBay20Index">${dataList[i].bayInch20[0].index}</span>`+
                 `</div>`);
         }
         else {
-            $(`.newBayArea`).append(
-                `<div id= ${itemId} class="comBay20_40">`+
-                    `<div class="newBay40InCom bayInfo"><span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span></div>`+
-                    `<div class="newBay20InComParent">`+
-                        `<div class="newBay20InComLeft bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
-                        `<div class="newBay20InComRight bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
-                    `</div>`+
-                `</div>`);
+            $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">`+
+                                        `<div class="newBay40InCom bayInfo">`+
+                                        `<span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span>`+
+                                        `</div>`+
+                                        `<div class="newBay20InComParent">`+
+                                            `<div class="newBay20InComLeft bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
+                                            `<div class="newBay20InComRight bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
+                                        `</div>`+
+                                    `</div>`);
         }
     }
     $(`[class="newBay20"][id="6"]`).addClass("blink");
@@ -1231,16 +960,21 @@ function createLoadOrUnloadInfo() {
  */
 let combinedBay20inch = [];
 let combinedBay40inch = [];
-function setStopOfSelectable() {
+function setStopOfSelectable(engineList) {
     $(`#selectable`).selectable({
         stop: function() {
+            let engineBodyBays = [];
+            for(let j=0;j<engineList.length;j++){
+                engineBodyBays.push(engineList[j].toString());
+            }
             let selectedBay = $(`.bayZone_inch20.ui-selected`);
             let isNumSelectRight = selectedBay.length===2 ? true : false;
             if(isNumSelectRight){
                 let isReselect = (isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id))? true:false;
                 let isNextTo = toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) == 1?true:false;
+                let isEngine = (isExist(engineBodyBays,selectedBay[0].title) || isExist(engineBodyBays,selectedBay[1].title))? true:false;
                 // TODO: add left to right constraint
-                if(isReselect || !isNextTo) {
+                if(isReselect || !isNextTo || isEngine) {
                     alert(TIP_PLEASE_RESELECT);
                     clearSelected();
                 }
@@ -1277,7 +1011,14 @@ function enableSelectable() {
 /**
  *  combination buttons
  */
-let selected_vessel;
+function disableBayCombine(eng_list){
+    for(let i=0; i<eng_list.length; i++){
+        let ind = eng_list[i].toString();
+        console.log(ind);
+        $(`div[bay_index=${ind}]`).addClass("engineBody");
+    }
+}
+let selected_vessel; // !!!
 function combineToStart (){
     // DEFAULT VESSEL: FIRST VESSEL IN SELECT OPTION !
     selected_vessel = $(`#vesselSelect option:selected`).val();
@@ -1290,13 +1031,15 @@ function combineToStart (){
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
             let num = res.number;
             let dir = res.bayDirection;
+            let engBodyList = res.engineRoomIndex;
+            console.log(res);
             initAreaForInline();
             insertBay(BayNumToRealIndexList(num), dir);
             $(`.startCombine`)[0].disabled = true;
-            setStopOfSelectable();
+            disableBayCombine(engBodyList);
+            setStopOfSelectable(engBodyList);
             $(`.confirmCombine`)[0].disabled = false;
         },
         // TODO: add message when request failed
@@ -1304,46 +1047,45 @@ function combineToStart (){
             //Do Something to handle error
         },
     });
-    // initial bay
-    // initAreaForInline();
-    // insertBay(BayNumToRealIndexList(numOfBay));
-    // $(`.startCombine`)[0].disabled = true;
-    // setStopOfSelectable();
-    // $(`.confirmCombine`)[0].disabled = false;
 }
 function combineToConfirm (){
-    console.log("bayInch20: "+ combinedBay20inch);
-    console.log("bayInch40: " + combinedBay40inch);
     let context = {
         vessel_name: selected_vessel,
         bayInch20s: combinedBay20inch,
         bayInch40s: combinedBay40inch,
     };
-    console.log(context);
     disableSelectable();
     $.ajax({
         url: '/vesselStruct/edit_bay/',
         type: 'POST',
         data: JSON.stringify(context),
         success: function(res){
-            console.log(res);
+            let baysList = res;
+            $(`.confirmCombine`)[0].disabled = true;
+            clearSelected();
+            $(`.bayArea`)[0].style.display = 'none';
+            createBayAfterOperation(baysList);
         },
         dataType: "json",
     });
-    //TODO: post new info of bay, refresh bayArea
-    // TODO: get response from server
-    $(`.startCombine`)[0].disabled = false;
-    $(`.confirmCombine`)[0].disabled = true;
-    clearSelected();
-    $(`.bayArea`)[0].style.display = 'none'; // hide last bayArea
-    createBayAfterOperation(newBayList); // get data from server
-    $(`.confirmCombine`)[0].disabled = true;
 }
 function combineReset (){
     // TODO: delete last vessel's combination
     // TODO: get response after delete
-    alert("确认重新组贝?");
+    alert(IS_TO_RESELECT);
     combinedBay20inch = [];
+    let vessel_name;
+    $.ajax({
+       url: '',
+       type: 'DELETE',
+       data:  {
+           name: vessel_name,
+       },
+       success: function (res) {
+
+       },
+
+    });
     // enableSelectable();
     // setStopOfSelectable();
     // // get new info of vessel from server
@@ -1437,8 +1179,6 @@ function gotoConnect() {
  */
 // TODO: add layer with loading, support multiple layer
 
-
-
 /**
  *  service
  */
@@ -1452,4 +1192,8 @@ function gotoConnect() {
  // TODO: set class
 
 
-
+/**
+ *
+ *  TODO AREA
+ */
+// TODO: add engine after combination of bay

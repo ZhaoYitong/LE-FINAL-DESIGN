@@ -1,4 +1,4 @@
-# bay_index to int
+# bay_index to num
 def index_to_num(bay_list):
     arr = []
     for i in bay_list:
@@ -10,6 +10,7 @@ def index_to_num(bay_list):
     return arr
 
 
+# num to bay_index
 def num_to_index(val):
     if val < 10:
         return '0'+str(val)
@@ -66,3 +67,20 @@ def combined_bay_list(bay_inch20s, bay_inch40s):
     return bay_list
 
 # print('\n'.join('{}: {}'.format(*k) for k in enumerate(combined_bay_list(test_a, test_b))))
+
+
+# index: min to max
+def create_engine_index(eng_pos, eng_wid):
+    if eng_pos % 2 == 0 or eng_pos < 0:
+        print("engine_position is illegal!")
+        return False
+    else:
+        temp_list = []
+        eng_body_list = []
+        for k in range(0, eng_wid):
+            real_num = 2*k + eng_pos
+            temp_list.append(real_num)
+        for m in temp_list:
+            eng_body_list.append(m)
+        return eng_body_list
+

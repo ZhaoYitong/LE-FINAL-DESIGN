@@ -5,7 +5,7 @@ import json
 from django.http import JsonResponse
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
 from django.db.models import Count,Min,Max,Sum
-from .methods import index_to_num, combined_bay_list
+from .methods import index_to_num, combined_bay_list, create_engine_index
 
 # const
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
@@ -41,10 +41,17 @@ def ves_info_input(request):
 def edit_bay(request):
     if request.method == 'GET':
         ves_name = request.GET['name']
-        bay_num = ves_struct.objects.get(Vessel=ves_name).TweBayNum
+        obj = ves_struct.objects.get(Vessel=ves_name)
+        bay_num = obj.TweBayNum
+        engine_pos = obj.EngRomPos
+        engine_width = obj.EngRomWid
+        eng_body_list = create_engine_index(engine_pos, engine_width)
+        # bay_num = ves_struct.objects.get(Vessel=ves_name).TweBayNum
         bay_dir = vessel_voy_info.objects.get(Vessel=ves_name).BerThgDir
+
         data = {'number': bay_num,
                 'bayDirection': bay_dir,
+                'engineRoomIndex': eng_body_list,
                 }
         return JsonResponse(data)
 

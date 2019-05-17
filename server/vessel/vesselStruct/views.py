@@ -5,8 +5,9 @@ import json
 from django.http import JsonResponse
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
 from django.db.models import Count,Min,Max,Sum
-from .methods import index_to_num
+from .methods import index_to_num, combined_bay_list
 
+# const
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
 
 
@@ -66,43 +67,12 @@ def edit_bay(request):
         obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)
         bay_inch20_list = sorted(index_to_num([item.BayNo for item in obj_bay_inch20]))
         bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
-        data_bay_list = []
-        # for i in bay_inch20_list:
-        #     for j in bay_inch40_list:
-        #         if j-1 == i | j+1 == i:
-
+        data_bay_list = combined_bay_list(bay_inch20_list, bay_inch40_list)
         data_bay = {
             'dataType': confirm_of_bay_edit,
             'vessel_IMO': "001",
             'vessel_name': ves_name,
-            'data': [
-                {
-                    'id': 1,
-                    'type': "single",
-                    'bayInch20': [
-                        {
-                            'index': '01',
-                        }
-                    ],
-                },
-                {
-                    'id': 2,
-                    'type': "combine",
-                    'bayInch20s': [
-                        {
-                            'index': '03',
-                        },
-                        {
-                            'index': '05',
-                        },
-                    ],
-                    'bayInch40': [
-                        {
-                            'index': '04',
-                        },
-                    ],
-                },
-            ]
+            'data': data_bay_list
         }
         return JsonResponse(data_bay)
 

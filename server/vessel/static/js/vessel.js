@@ -707,6 +707,32 @@ function isExist(array,value){
 function toAbsent(value) {
     return value>0?value:-value;
 }
+function directionDealer(num, dir, func, isInverse) {
+    if (isInverse) {
+        if (dir === 'L') {
+        for (let a=0; a<num; a++) {
+            func(a);
+        }
+        }
+        else {
+            for (let b=num-1; b>0; b--) {
+                func(b);
+            }
+        }
+    }
+    else {
+        if (dir === 'L') {
+        for (let d=num-1; d>0; d--) {
+            func(d);
+        }
+        }
+        else {
+            for (let c=0; c<num; c++) {
+                func(c);
+            }
+        }
+    }
+}
 /**
  *  initialize bay area
  */
@@ -752,16 +778,8 @@ function insertBay(bayLists, direction){
                                     `<span class="bay20Index">${bayIndex}</span>`+
                                 `</div>`);
     }
-    if(direction === 'L'){
-        for(let i=0;i<bay_num;i++){
-            drawBay(i)
-        }
-    }
-    else {
-        for(let i=bay_num-1;i>=0;i--){
-            drawBay(i)
-        }
-    }
+    let isInverse = true;
+    directionDealer(bay_num, direction, drawBay, isInverse);
 }
 /**
  * redraw bayArea after confirm
@@ -769,26 +787,29 @@ function insertBay(bayLists, direction){
 function createBayAfterOperation(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
-    for(let i=newBay_num-1;i>=0;i--) {
-        let itemId = dataList[i].id;
-        if(dataList[i].type == "single"){
-            let bayIndex = dataList[i].bayInch20[0].index;
-            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bayInfo">`+
-                    `<span class="newBay20Index">${dataList[i].bayInch20[0].index}</span>`+
+    let dir = newList.bayDirection;
+    let drawNewBay = function (index) {
+        let itemId = dataList[index].id;
+        if (dataList[index].type === "single") {
+            let bayIndex = dataList[index].bayInch20[0].index;
+            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bayInfo">` +
+                `<span class="newBay20Index">${dataList[index].bayInch20[0].index}</span>` +
+                `</div>`);
+        } else {
+            $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">` +
+                `<div class="newBay40InCom bayInfo">` +
+                `<span class="newBay40IndexInCom">${dataList[index].bayInch40[0].index}</span>` +
+                `</div>` +
+                `<div class="newBay20InComParent">` +
+                `<div class="newBay20InComLeft bayInfo"><span class="newBay20IndexInCom">${dataList[index].bayInch20s[1].index}</span></div>` +
+                `<div class="newBay20InComRight bayInfo"><span class="newBay20IndexInCom">${dataList[index].bayInch20s[0].index}</span></div>` +
+                `</div>` +
                 `</div>`);
         }
-        else {
-            $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">`+
-                                        `<div class="newBay40InCom bayInfo">`+
-                                        `<span class="newBay40IndexInCom">${dataList[i].bayInch40[0].index}</span>`+
-                                        `</div>`+
-                                        `<div class="newBay20InComParent">`+
-                                            `<div class="newBay20InComLeft bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[1].index}</span></div>` +
-                                            `<div class="newBay20InComRight bayInfo"><span class="newBay20IndexInCom">${dataList[i].bayInch20s[0].index}</span></div>` +
-                                        `</div>`+
-                                    `</div>`);
-        }
-    }
+    };
+    let isInverse = true;
+    directionDealer(newBay_num, dir, drawNewBay, isInverse);
+
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
     $(`.bayInfo`).click(function () {
@@ -818,9 +839,7 @@ function clearSelected(){
  *  vessel creation
  */
 function createVesselSide(){
-    // $(`.createVessel`)[0].disabled = true;
-    // TODO: vessel board in creating vessel: not supported !!
-    // TODO： as inline-flex conflicts with vertical-align
+    $(`.createVessel`)[0].disabled = true;
     $.ajax({
         url: '/vesselStruct/ves_struct/',
         type: 'GET',
@@ -829,26 +848,33 @@ function createVesselSide(){
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            let bay_num = res.bay_inch20_num;
+            let layerNumAbove = res.max_layer_above_number;
+            let layerNumBelow = res.max_layer_below_number;
+            let dir = res.bayDirection;
+            drawVesselStruct(bay_num, layerNumAbove, layerNumBelow, dir)
         },
-        // TODO: add message when request failed
-        error: function(xhr) {
-            //Do Something to handle error
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
         },
     });
-    let bayLists = BayNumToRealIndexList(numOfBay);
-    let layerLists = layerNumToRealIndexList(layerNumAbove,layerNumBelow);
+}
+function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir) {
+    let bayLists = BayNumToRealIndexList(bay_num);
+    let layerLists = layerNumToRealIndexList(lay_above_num,lay_below_num);
     let conZone_bay_num = bayLists.inch20.length;
     let conZone_layerAbove_num = layerLists.above.length;
     let conZone_layerBelow_num = layerLists.below.length;
     // TODO: change conZoneAbove_inch20 according maxLayer input
     // TODO: tip1: set fixed height according maxLayer input
-    for(let i=conZone_bay_num-1;i>=0;i--){
-        let conZoneBayIndex = bayLists.inch20[i].bayRealIndex;
+    let drawVesBayArea = function (index) {
+        let conZoneBayIndex = bayLists.inch20[index].bayRealIndex;
         $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
         $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayBelow_inch20"></div>`);
-    }
-    // TODO: css control main area !!
+    };
+    let isInverse = true;
+    directionDealer(conZone_bay_num,dir,drawVesBayArea,isInverse);
+    // zone: bay + layer
     for(let j=0;j<conZone_bay_num;j++){
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
         for(let k=conZone_layerAbove_num-1;k>=0;k--){
@@ -860,6 +886,7 @@ function createVesselSide(){
             $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
         }
     }
+    // css control ves body, engine, and container zone
     for(let t=0;t<VIEW_SIDE.vessel.length;t++){
         for(let u=0;u<VIEW_SIDE.vessel[t].bayIndexList.length;u++){
             $(`[pointx=${VIEW_SIDE.vessel[t].bayIndexList[u]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselBody_inch20");
@@ -870,8 +897,6 @@ function createVesselSide(){
     }
     // TODO: CUSTOM BLINK TRICK
     $(`[point-x="19"],[point-x="17"]`).addClass("blink");
-
-
 }
 /**
  *  stowage info
@@ -1069,6 +1094,7 @@ function combineToConfirm (){
         type: 'POST',
         data: JSON.stringify(context),
         success: function(res){
+            console.log(res);
             let baysList = res;
             $(`.confirmCombine`)[0].disabled = true;
             clearSelected();
@@ -1129,9 +1155,9 @@ function showVal(a){
 /**
  * main
  */
-let numOfBay = VIEW_SIDE.bay_inch20_num;
-let layerNumAbove = VIEW_SIDE.max_layer_above_number;
-let layerNumBelow = VIEW_SIDE.max_layer_below_number;
+// let numOfBay = VIEW_SIDE.bay_inch20_num;
+// let layerNumAbove = VIEW_SIDE.max_layer_above_number;
+// let layerNumBelow = VIEW_SIDE.max_layer_below_number;
 /**
  *  USAGE
  */

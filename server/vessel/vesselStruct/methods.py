@@ -1,6 +1,8 @@
 # bay_index to num
 def index_to_num(bay_list):
     arr = []
+    if len(bay_list) == 0:
+        return arr
     for i in bay_list:
         if i[0] == '0':
             i = int(i[1])
@@ -21,49 +23,63 @@ def num_to_index(val):
 def combined_bay_list(bay_inch20s, bay_inch40s):
     bay_list = []
     count = 0
+    count_no_com = 0
     is_jump = False
-    for i in bay_inch20s:
-        if is_jump:
-            is_jump = False
-            continue
-        for j in bay_inch40s:
-            if i+1 == j:
-                count += 1
-                bay_list.append(
+    if len(bay_inch40s) == 0:
+        for n in bay_inch20s:
+            count_no_com += 1
+            bay_list.append({
+                'id': count_no_com,
+                'type': "single",
+                'bayInch20': [
                     {
-                        'id': count,
-                        'type': "combine",
-                        'bayInch20s': [
-                            {
-                                'index': num_to_index(j-1),
-                            },
-                            {
-                                'index': num_to_index(j+1),
-                            },
-                        ],
-                        'bayInch40': [
-                            {
-                                'index': num_to_index(j),
-                            },
-                        ],
-                    },
-                )
-                is_jump = True
-                break
-            elif j == bay_inch40s[-1] and i != j:
-                count += 1
-                bay_list.append({
-                    'id': count,
-                    'type': "single",
-                    'bayInch20': [
-                        {
-                            'index': num_to_index(i),
-                        }
-                    ],
-                })
-                break
-            else:
+                        'index': num_to_index(n),
+                    }
+                ],
+            })
+    else:
+        for i in bay_inch20s:
+            if is_jump:
+                is_jump = False
                 continue
+            for j in bay_inch40s:
+                if i + 1 == j:
+                    count += 1
+                    bay_list.append(
+                        {
+                            'id': count,
+                            'type': "combine",
+                            'bayInch20s': [
+                                {
+                                    'index': num_to_index(j - 1),
+                                },
+                                {
+                                    'index': num_to_index(j + 1),
+                                },
+                            ],
+                            'bayInch40': [
+                                {
+                                    'index': num_to_index(j),
+                                },
+                            ],
+                        },
+                    )
+                    is_jump = True
+                    break
+                elif j == bay_inch40s[-1] and i != j:
+                    count += 1
+                    bay_list.append({
+                        'id': count,
+                        'type': "single",
+                        'bayInch20': [
+                            {
+                                'index': num_to_index(i),
+                            }
+                        ],
+                    })
+                    break
+                else:
+                    continue
     return bay_list
 
 # print('\n'.join('{}: {}'.format(*k) for k in enumerate(combined_bay_list(test_a, test_b))))

@@ -72,15 +72,25 @@ def edit_bay(request):
         obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name, BaySiz='20')
         obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)
         bay_inch20_list = sorted(index_to_num([item.BayNo for item in obj_bay_inch20]))
-        bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
+        print("bay_inch20_list: {}", bay_inch20_list)
+
+        if obj_temp_inch40.FotBayCom:
+            bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
+        else:
+            bay_inch40_list = []
+        print("bay_inch40_list: {}", bay_inch40_list)
         data_bay_list = combined_bay_list(bay_inch20_list, bay_inch40_list)
+        bay_dir = vessel_voy_info.objects.get(Vessel=ves_name).BerThgDir
+
         data_bay = {
             'dataType': confirm_of_bay_edit,
             'vessel_IMO': "001",
             'vessel_name': ves_name,
-            'data': data_bay_list
+            'data': data_bay_list,
+            'bayDirection': bay_dir,
         }
         return JsonResponse(data_bay)
+
     elif request.method == 'DELETE':
         return JsonResponse({'delete': 'done'})
 
@@ -133,6 +143,8 @@ def create_ves_struct(request):
 
             ],
         }
+        print('\n'.join('{}: {}'.format(*k) for k in enumerate(data_content)))
+        print(data_content)
         return JsonResponse(data_content)
     elif request.method == 'POST':
         return JsonResponse({'ves_struct': 'bbb'})

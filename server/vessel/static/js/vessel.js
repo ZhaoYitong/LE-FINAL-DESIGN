@@ -10,7 +10,8 @@ const IS_TO_RESELECT= "确认重新组贝？";
  *  variable initialize
  */
 let selected_vessel = $(`#vesselSelect option:selected`).val(); // !!!
-
+let combinedBay20inch = [];
+let combinedBay40inch = [];
 /**
  * @type {number}
  */
@@ -709,10 +710,6 @@ function toAbsent(value) {
 /**
  *  initialize bay area
  */
-function initAreaForInline() {
-    $(`.bayArea`).append(`<div class="bayArea_40"></div>`);
-    $(`.bayArea`).append(`<div id="selectable" class="bayArea_20"></div>`);
-}
 // TODO: BayNumToRealIndexList and layerNumToRealIndexList -> class
 function BayNumToRealIndexList(bayNum) {
     let bay = {};
@@ -797,7 +794,7 @@ function createBayAfterOperation(newList) {
     $(`.bayInfo`).click(function () {
         //TODO: ajax get, show with response
         let bayIndex = this.childNodes[0].innerText;
-        console.log(bayIndex);
+        // console.log(bayIndex);
 
     });
 }
@@ -839,9 +836,6 @@ function createVesselSide(){
             //Do Something to handle error
         },
     });
-    /*
-    $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`);
-    $(`.vesselAreaSide`).append(`<div class="belowBoardSide"></div>`);
     let bayLists = BayNumToRealIndexList(numOfBay);
     let layerLists = layerNumToRealIndexList(layerNumAbove,layerNumBelow);
     let conZone_bay_num = bayLists.inch20.length;
@@ -877,7 +871,7 @@ function createVesselSide(){
     // TODO: CUSTOM BLINK TRICK
     $(`[point-x="19"],[point-x="17"]`).addClass("blink");
 
-     */
+
 }
 /**
  *  stowage info
@@ -918,7 +912,7 @@ function createStowageInfo() {
 }
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
-    console.log("created load info!");
+    // console.log("created load info!");
     // TODO: ajax  get
     let bayList = vesselOperationInfo.data.List;
     let bayListNum = vesselOperationInfo.data.List.length;
@@ -978,8 +972,6 @@ function createLoadOrUnloadInfo() {
 /**
  * selectable
  */
-let combinedBay20inch = [];
-let combinedBay40inch = [];
 function setStopOfSelectable(engineList) {
     $(`#selectable`).selectable({
         stop: function() {
@@ -1003,10 +995,10 @@ function setStopOfSelectable(engineList) {
                     let rightBayId = selectedBay[1].id;
                     combinedBay20inch.push(leftBayId);
                     combinedBay20inch.push(rightBayId);
-                    console.log(combinedBay20inch);//
+                    // console.log(combinedBay20inch);//
                     let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
                     combinedBay40inch.push(combinedBayInch40Index);
-                    console.log(combinedBay40inch);//
+                    // console.log(combinedBay40inch);//
                     selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
                 }
             }
@@ -1034,27 +1026,25 @@ function enableSelectable() {
 function disableBayCombine(eng_list){
     for(let i=0; i<eng_list.length; i++){
         let ind = eng_list[i].toString();
-        console.log(ind);
+        // console.log(ind);
         $(`div[bay_index=${ind}]`).addClass("engineBody");
     }
 }
 function combineToStart (){
-    // DEFAULT VESSEL: FIRST VESSEL IN SELECT OPTION !
-    // selected_vessel = $(`#vesselSelect option:selected`).val();
-    // getURL: http://127.0.0.1:8000/vesselStruct/get_bay_inch20/?name=V1
+    selected_vessel = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/edit_bay/',
         type: 'GET',
         data: {
             name: selected_vessel,
+            type: 'edit',
         },
         dataType: "json",
         success: function (res) {
             let num = res.number;
             let dir = res.bayDirection;
             let engBodyList = res.engineRoomIndex;
-            console.log(res);
-            initAreaForInline();
+            // console.log(res);
             insertBay(BayNumToRealIndexList(num), dir);
             $(`.startCombine`)[0].disabled = true;
             disableBayCombine(engBodyList);
@@ -1093,15 +1083,15 @@ function combineReset (){
     // TODO: get response after delete
     alert(IS_TO_RESELECT);
     combinedBay20inch = [];
-    let vessel_name;
     $.ajax({
-       url: '',
+       url: '/vesselStruct/edit_bay/',
        type: 'DELETE',
        data:  {
-           name: vessel_name,
+           name: selected_vessel,
+           type: 'delete',
        },
        success: function (res) {
-
+            // console.log(res)
        },
 
     });

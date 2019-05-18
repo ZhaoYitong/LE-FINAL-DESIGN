@@ -81,6 +81,8 @@ def edit_bay(request):
             'data': data_bay_list
         }
         return JsonResponse(data_bay)
+    elif request.method == 'DELETE':
+        return JsonResponse({'delete': 'done'})
 
 
 @csrf_exempt

@@ -1,8 +1,7 @@
 # LE-FINAL-DESIGN
-coding about ACT
 
-## python virtual environment
-### Windows
+## virtual environment
+### Win
 
 ```bash
 server\vessel\vessel-env\Scripts\activate
@@ -11,7 +10,7 @@ server\vessel\vessel-env\Scripts\activate
 ```bash
 deactivate
 ```
-## git instruction
+## git
 
 ### pull
 
@@ -19,7 +18,7 @@ deactivate
 git clone <project>
 ```
 
-### establish new branch
+### new branch
 ```bash
 git checkout -b <branch-name> origin/master
 ```

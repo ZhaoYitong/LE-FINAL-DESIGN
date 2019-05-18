@@ -1,9 +1,8 @@
-// TODO: set jshint config
 /**
  *  const
  */
 const VESSEL_IMO = "船舶航次：";
-const BAY_INDEX = "贝位号: ";
+const BAY_INDEX_TIP = "贝位号: ";
 const TIP_PLEASE_RESELECT = "请重新选择";
 const IS_TO_RESELECT= "确认重新组贝？";
 /**
@@ -15,20 +14,10 @@ let combinedBay40inch = [];
 /**
  * @type {number}
  */
-// 水平方向侧视 支持一条船
 /*
-    01   03   05   07   09   11   13   15   17    19    21    // 20 inch
-       02   04   06   08   10   12   14   16   18    20   // 40 inch
-
- */
-/*
-      39    37    35    33    31    29    27    25     23    21    19    17    15    13    11    09    07    05    03    01
-         38    36    34    32    30    28    26     24    22    20    18    16    14    12    10    08    06    04    02
- */
-/*
-            point-x : bayIndex
-            point-y : rowIndex
-            point-z : layerIndex
+    point-x : bayIndex
+    point-y : rowIndex
+    point-z : layerIndex
  */
 let VIEW_SIDE = {
     dataType: "",
@@ -133,7 +122,6 @@ let VIEW_SIDE = {
     // 舱盖板
     typeOfBoard: "",
     numOfBoard: 1,
-
 };
 let vesselOperationInfo = {
     dataType:"VESSEL_OPERATION_INFO",
@@ -691,7 +679,6 @@ let vesselStorageInfoAll = {
  * custom function
  */
 // id number to string
-// 1 -> 01; 12->12
 function numToIdString(num) {
     return num < 10 ? "0" + num.toString() : num.toString();
 }
@@ -732,6 +719,25 @@ function directionDealer(num, dir, func, isInverse) {
             }
         }
     }
+}
+// zoom in and zoom out
+function setZoom(zoom,el) {
+    let transformOrigin = [0,0];
+    el = el || instance.getContainer();
+    let p = ["webkit", "moz", "ms", "o"],
+        s = "scale(" + zoom + ")",
+        oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
+    for (let i = 0; i < p.length; i++) {
+        el.style[p[i] + "Transform"] = s;
+        el.style[p[i] + "TransformOrigin"] = oString;
+    }
+    el.style["transform"] = s;
+    el.style["transformOrigin"] = oString;
+}
+function showVal(a){
+    let zoomScale = Number(a)/10;
+    //setZoom(5,document.getElementsByClassName('container')[0]);
+    setZoom(zoomScale,document.getElementsByClassName('mainArea')[0])
 }
 /**
  *  initialize bay area
@@ -774,7 +780,7 @@ function insertBay(bayLists, direction){
         let bayIndex = bayLists.inch20[val].bayRealIndex;
         let bayId = bayLists.inch20[val].id;
         $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
-        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} bay_index=${bayIndex} class="bayZone_inch20">`+
+        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} bay_index=${bayIndex} class="bayZone_20">`+
                                     `<span class="bay20Index">${bayIndex}</span>`+
                                 `</div>`);
     }
@@ -801,8 +807,10 @@ function createBayAfterOperation(newList) {
                 `<span class="newBay40IndexInCom">${dataList[index].bayInch40[0].index}</span>` +
                 `</div>` +
                 `<div class="newBay20InComParent">` +
-                `<div class="newBay20InComLeft bayInfo"><span class="newBay20IndexInCom">${dataList[index].bayInch20s[1].index}</span></div>` +
-                `<div class="newBay20InComRight bayInfo"><span class="newBay20IndexInCom">${dataList[index].bayInch20s[0].index}</span></div>` +
+                `<div class="newBay20InComLeft bayInfo">`+
+                `<span class="newBay20IndexInCom">${dataList[index].bayInch20s[1].index}</span></div>` +
+                `<div class="newBay20InComRight bayInfo">`+
+                `<span class="newBay20IndexInCom">${dataList[index].bayInch20s[0].index}</span></div>` +
                 `</div>` +
                 `</div>`);
         }
@@ -816,24 +824,18 @@ function createBayAfterOperation(newList) {
         //TODO: ajax get, show with response
         let bayIndex = this.childNodes[0].innerText;
         // console.log(bayIndex);
-
     });
 }
 /**
  *  select bay
  */
 function selectToInch40(leftBay,rightBay,comBayIndex){
-    $(`.bayArea_40 div[id=${leftBay}]`).addClass("leftBaySelected");
-    $(`.bayArea_40 div[id=${leftBay}]`).addClass("combined");
-    $(`.bayArea_40 div[id=${rightBay}]`).addClass("rightBaySelected");
-    $(`.bayArea_40 div[id=${rightBay}]`).addClass("combined");
-
-    $(`.bayArea_40 div[id=${leftBay}]`).append(`<span class="bay40Index">${comBayIndex}</span>`);
-    $(`.bayArea_40 div[id=${rightBay}]`).append(`<span class="bay40Index">${comBayIndex}</span>`);
+    let span_bayIndex = `<span class="bay40Index">${comBayIndex}</span>`;
+    $(`.bayArea_40 div[id=${leftBay}]`).addClass("leftBaySelected combined").append(span_bayIndex);
+    $(`.bayArea_40 div[id=${rightBay}]`).addClass("rightBaySelected combined").append(span_bayIndex);
 }
 function clearSelected(){
-    $(`.bayZone_inch20.ui-selected`).children().removeClass("ui-selected");
-    $(`.bayZone_inch20.ui-selected`).removeClass("ui-selected");
+    $(`.bayZone_20.ui-selected`).removeClass("ui-selected").children().removeClass("ui-selected");
 }
 /**
  *  vessel creation
@@ -879,20 +881,26 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir) {
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
         for(let k=conZone_layerAbove_num-1;k>=0;k--){
             let conZoneLayerIndex = layerLists.above[k].layerRealIndex;
-            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
+            let item = `<div class="conZoneBayLayerAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`;
+            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(item);
         }
         for(let m=conZone_layerBelow_num-1;m>=0;m--){
             let conZoneLayerIndex = layerLists.below[m].layerRealIndex;
-            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(`<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`);
+            let item = `<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`;
+            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(item);
         }
     }
     // css control ves body, engine, and container zone
     for(let t=0;t<VIEW_SIDE.vessel.length;t++){
         for(let u=0;u<VIEW_SIDE.vessel[t].bayIndexList.length;u++){
-            $(`[pointx=${VIEW_SIDE.vessel[t].bayIndexList[u]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselBody_inch20");
+            let x = VIEW_SIDE.vessel[t].bayIndexList[u];
+            let z = VIEW_SIDE.vessel[t].layerIndex;
+            $(`[pointx=${x}][pointz=${z}]`).addClass("vesselBody_inch20");
         }
         for(let v=0;v<VIEW_SIDE.vessel[t].conZoneIndexList.length;v++){
-            $(`[pointx=${VIEW_SIDE.vessel[t].conZoneIndexList[v]}][pointz=${VIEW_SIDE.vessel[t].layerIndex}]`).addClass("vesselConZone_inch20");
+            let x = VIEW_SIDE.vessel[t].conZoneIndexList[v];
+            let z = VIEW_SIDE.vessel[t].layerIndex;
+            $(`[pointx=${x}][pointz=${z}]`).addClass("vesselConZone_inch20");
         }
     }
     // TODO: CUSTOM BLINK TRICK
@@ -907,16 +915,18 @@ function createStowageInfo() {
     $(`.createStowage`)[0].disabled = true;
     let header = vesselStorageInfoAll.vessel_IMO;
     let bayNum = vesselStorageInfoAll.data.length;
-    $(`.vesselStowageInfo`).append(`<div class="vesselHeader"><span class="stowageInfoHeader">${VESSEL_IMO}${header}</span></div>`);
-    $(`.vesselStowageInfo`).append(`<div class="baysStowageArea"></div>`);
+
+    let ves_header = `<div class="vesselHeader"><span class="stowageInfoHeader">${VESSEL_IMO}${header}</span></div>`;
+    let ves_bay_stowage_area = `<div class="baysStowageArea"></div>`;
+    $(`.vesselStowageInfo`).append(ves_header).append(ves_bay_stowage_area);
+    let item_bay_info = function (tip, bayIndex) {
+        return `<div id="${bayIndex}" class="bayStowage"><div class="header"><span>${tip}${bayIndex}</span></div><div class="content"></div></div>`
+    };
     for(let i=0;i<bayNum;i++){
         let itemType = vesselStorageInfoAll.data[i].type;
         if(itemType==="single"){
             let bayIndexOfBay = vesselStorageInfoAll.data[i].bayInch20[0].index;
-            $(`.baysStowageArea`).append(`<div stowageBayIndex=${bayIndexOfBay} class="bayStowage">`+
-                                            `<div class="bayStowageHeader"><span>${BAY_INDEX}${bayIndexOfBay}</span></div>`+
-                                            `<div class="bayStowageContent"></div>`+
-                                         `</div>`);
+            $(`.baysStowageArea`).append(item_bay_info(BAY_INDEX_TIP,bayIndexOfBay));
         }
         else {
             // itemType === "combine"
@@ -924,14 +934,9 @@ function createStowageInfo() {
             let bayIndexOfBay_1 = vesselStorageInfoAll.data[i].bayInch20s[1].index;
             let bayIndexOfBay_con = vesselStorageInfoAll.data[i].bayInch40[0].index;
             let bayIndexOfBay_0 = tempBayIndexOfBay_0+"("+ bayIndexOfBay_con + ")";
-            $(`.baysStowageArea`).append(`<div stowageBayIndex=${bayIndexOfBay_0} class="bayStowage">`+
-                                            `<div class="bayStowageHeader"><span>${BAY_INDEX}${bayIndexOfBay_0}</span></div>`+
-                                            `<div class="bayStowageContent"></div>`+
-                                        `</div>`);
-            $(`.baysStowageArea`).append(`<div stowageBayIndex=${bayIndexOfBay_1} class="bayStowage">`+
-                                            `<div class="bayStowageHeader"><span>${BAY_INDEX}${bayIndexOfBay_1}</span></div>`+
-                                            `<div class="bayStowageContent"></div>`+
-                                         `</div>`);
+            $(`.baysStowageArea`)
+                .append(item_bay_info(BAY_INDEX_TIP,bayIndexOfBay_0))
+                .append(item_bay_info(BAY_INDEX_TIP,bayIndexOfBay_1));
         }
     }
 }
@@ -945,42 +950,49 @@ function createLoadOrUnloadInfo() {
     // TODO: make bay direction uniform
     // TODO: change value in span according to the number of LOAD or UNLOAD!
     // TODO: inch40 and inch20 for not continued, show?
+    let item_num = function (bayIndex,class_div) {
+        return `<div bayIndex="${bayIndex}" class="${class_div}"><span>0</span></div>`;
+    };
     for(let i=bayListNum-1;i>=0;i--){
-        if(bayList[i].type == "single"){
+        if(bayList[i].type === "single"){
             let bayIndex20 = bayList[i].bayInch20[0].index;
-            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div>`);
-            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
+            $(`div[class="aboveUnload_40"]`).append(item_num(bayIndex20,"unload_20"));
+            $(`div[class="belowUnload_40"]`).append(item_num(bayIndex20,"unload_20"));
+            $(`div[class="aboveLoad_40"]`).append(item_num(bayIndex20,"load_20"));
+            $(`div[class="belowLoad_40"]`).append(item_num(bayIndex20,"load_20"));
         }
         else {
             let bayIndex40 = bayList[i].bayInch40[0].index;
-            $(`div[class="aboveUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowUnloadInch40"]`).append(`<div bayIndex=${bayIndex40} class="unloadInch40"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="aboveLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowLoadInch40"]`).append(`<div bayIndex=${bayIndex40} class="loadInch40"><span class="loadOrUnloadNum">0</span></div></div>`);
+            $(`div[class="aboveUnload_40"]`).append(item_num(bayIndex40,"unload_40"));
+            $(`div[class="belowUnload_40"]`).append(item_num(bayIndex40,"unload_40"));
+            $(`div[class="aboveLoad_40"]`).append(item_num(bayIndex40,"load_40"));
+            $(`div[class="belowLoad_40"]`).append(item_num(bayIndex40,"load_40"));
         }
     }
     for(let j=bayListNum-1;j>=0;j--){
-        if(bayList[j].type == "single"){
+        if(bayList[j].type === "single"){
             let bayIndex20 = bayList[j].bayInch20[0].index;
-            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
+            $(`div[class="aboveUnload_20"]`).append(item_num(bayIndex20,"unload_20"));
+            $(`div[class="belowUnload_20"]`).append(item_num(bayIndex20,"unload_20"));
+            $(`div[class="aboveLoad_20"]`).append(item_num(bayIndex20,"load_20"));
+            $(`div[class="belowLoad_20"]`).append(item_num(bayIndex20,"load_20"));
         }
         else {
             //TODO: from left to right?
-            let bayIndex20_first = bayList[j].bayInch20s[1].index;
-            let bayIndex20_second = bayList[j].bayInch20s[0].index;
-            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="aboveUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowUnloadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="unloadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="aboveLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_first} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
-            $(`div[class="belowLoadInch20"]`).append(`<div bayIndex=${bayIndex20_second} class="loadInch20"><span class="loadOrUnloadNum">0</span></div></div>`);
+            let bayIndex20_0 = bayList[j].bayInch20s[1].index;
+            let bayIndex20_1 = bayList[j].bayInch20s[0].index;
+            $(`div[class="aboveUnload_20"]`)
+                .append(item_num(bayIndex20_0,"unload_20"))
+                .append(item_num(bayIndex20_1,"unload_20"));
+            $(`div[class="belowUnload_20"]`)
+                .append(item_num(bayIndex20_0,"unload_20"))
+                .append(item_num(bayIndex20_1,"unload_20"));
+            $(`div[class="aboveLoad_20"]`)
+                .append(item_num(bayIndex20_0,"load_20"))
+                .append(item_num(bayIndex20_1,"load_20"));
+            $(`div[class="belowLoad_20"]`)
+                .append(item_num(bayIndex20_0,"load_20"))
+                .append(item_num(bayIndex20_1,"load_20"));
         }
     }
     // vessel body
@@ -1004,12 +1016,15 @@ function setStopOfSelectable(engineList) {
             for(let j=0;j<engineList.length;j++){
                 engineBodyBays.push(engineList[j].toString());
             }
-            let selectedBay = $(`.bayZone_inch20.ui-selected`);
-            let isNumSelectRight = selectedBay.length===2 ? true : false;
+            let selectedBay = $(`.bayZone_20.ui-selected`);
+            let isNumSelectRight = selectedBay.length === 2;
             if(isNumSelectRight){
-                let isReselect = (isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id))? true:false;
-                let isNextTo = toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) == 1?true:false;
-                let isEngine = (isExist(engineBodyBays,selectedBay[0].title) || isExist(engineBodyBays,selectedBay[1].title))? true:false;
+                let isReselect =
+                    isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id);
+                let isNextTo =
+                    toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) === 1;
+                let isEngine =
+                    isExist(engineBodyBays,selectedBay[0].title) || isExist(engineBodyBays,selectedBay[1].title);
                 // TODO: add left to right constraint
                 if(isReselect || !isNextTo || isEngine) {
                     alert(TIP_PLEASE_RESELECT);
@@ -1020,10 +1035,8 @@ function setStopOfSelectable(engineList) {
                     let rightBayId = selectedBay[1].id;
                     combinedBay20inch.push(leftBayId);
                     combinedBay20inch.push(rightBayId);
-                    // console.log(combinedBay20inch);//
                     let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
                     combinedBay40inch.push(combinedBayInch40Index);
-                    // console.log(combinedBay40inch);//
                     selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
                 }
             }
@@ -1119,7 +1132,6 @@ function combineReset (){
        success: function (res) {
             // console.log(res)
        },
-
     });
     // enableSelectable();
     // setStopOfSelectable();
@@ -1129,104 +1141,15 @@ function combineReset (){
     // $(".bayArea")[0].style.display = '';
     // $(".bayArea").remove(".bayArea_20");
     // $(".bayArea").remove(".bayArea_40");
-
 }
-/**
- *  zoom in and zoom out
- */
-function setZoom(zoom,el) {
-    let transformOrigin = [0,0];
-    el = el || instance.getContainer();
-    let p = ["webkit", "moz", "ms", "o"],
-        s = "scale(" + zoom + ")",
-        oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
-    for (let i = 0; i < p.length; i++) {
-        el.style[p[i] + "Transform"] = s;
-        el.style[p[i] + "TransformOrigin"] = oString;
-    }
-    el.style["transform"] = s;
-    el.style["transformOrigin"] = oString;
-}
-//setZoom(5,document.getElementsByClassName('container')[0]);
-function showVal(a){
-    let zoomScale = Number(a)/10;
-    setZoom(zoomScale,document.getElementsByClassName('mainArea')[0])
-}
-/**
- * main
- */
-// let numOfBay = VIEW_SIDE.bay_inch20_num;
-// let layerNumAbove = VIEW_SIDE.max_layer_above_number;
-// let layerNumBelow = VIEW_SIDE.max_layer_below_number;
-/**
- *  USAGE
- */
-// TODO: append the item from bottom to floor in div
-/**
- *  test area
- */
-let temp =[];
-let tempB = [];
-let testA = BayNumToRealIndexList(30).inch20;
-for(let i=0;i<testA.length;i++){
-    temp[i] = testA[i].bayRealIndex;
-}
-for(let j=testA.length-1,k=0;j>=0;j--,k++){
-    tempB[k] = testA[j].bayRealIndex;
-}
-// console.log(temp);
-// console.log(tempB);
-
-function gotoConnect() {
-    let testData = {
-      test: 'hello world',
-    };
-    $.ajax({
-        url: '/vesselStruct/test_connect_to_db/',
-        type: 'POST',
-        data: JSON.stringify(testData),
-        success: function (result) {
-            console.log(result);
-        },
-        dataType: "json",
-    });
-}
-
-// function gotoConnect() {
-//     let testData = {
-//       test: 'hello world',
-//     };
-//     $.ajax({
-//         url: '/vesselStruct/test_connect_to_db/',
-//         type: 'GET',
-//         dataType: "json",
-//         success: function (res) {
-//             console.log(res);
-//         },
-//     });
-// }
-
-/**
- *  add css style
- */
 /**
  *  layui: https://www.layui.com/doc/modules/layer.html
  */
 // TODO: add layer with loading, support multiple layer
-
 /**
  *  service
  */
-
 //TODO: ajax
-
-
-/**
- *  div object
- */
- // TODO: set class
-
-
 /**
  *
  *  TODO AREA

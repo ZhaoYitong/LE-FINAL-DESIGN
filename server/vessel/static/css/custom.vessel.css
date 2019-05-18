@@ -21,7 +21,7 @@ body {
     width: 100%;
 }
 
-.bayArea .bayZone_inch20 {
+.bayArea .bayZone_20 {
     background:#2f96b4;
     width:38px;
     height:30px;
@@ -142,7 +142,7 @@ body {
     grid-template-columns: repeat(9, 1fr);
 }
 
-.vesselStowageInfo > .baysStowageArea > .bayStowage > .bayStowageHeader {
+.vesselStowageInfo > .baysStowageArea > .bayStowage > .header {
     grid-column: 2/10;
     grid-row: 1;
     background-color: #dda20a;
@@ -152,7 +152,7 @@ body {
     align-items:center;
 }
 
-.vesselStowageInfo > .baysStowageArea > .bayStowage > .bayStowageContent {
+.vesselStowageInfo > .baysStowageArea > .bayStowage > .content {
     grid-column: 1/10;
     grid-row: 2;
     background-color: #dda20a;
@@ -167,7 +167,7 @@ body {
     display: flex;
 }
 
-.unloadInch20 {
+.unload_20 {
     background:#dd569e;
     width: 38px;
     height: 20px;
@@ -181,7 +181,7 @@ body {
     align-items:center;
 }
 
-.loadInch20 {
+.load_20 {
     background:#373db2;
     width: 38px;
     height: 20px;
@@ -195,7 +195,7 @@ body {
     align-items:center;
 }
 
-.unloadInch40 {
+.unload_40 {
     background:#dd569e;
     width: 80px;
     height: 20px;
@@ -209,7 +209,7 @@ body {
     align-items:center;
 }
 
-.loadInch40 {
+.load_40 {
     background:#373db2;
     width: 80px;
     height: 20px;

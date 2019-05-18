@@ -9,6 +9,7 @@ from .methods import index_to_num, combined_bay_list, create_engine_index, creat
 
 # const
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
+ves_side_view = 'VESSEL_SIDE_VIEWING'
 
 
 def index(request):
@@ -123,6 +124,7 @@ def create_ves_struct(request):
         ves_deck_lay_list = create_index_list(ves_deck_lay_num_max)
         ves_cab_lay_list = create_index_list(ves_cab_col_num_max)
         data_content = {
+            'dataType': ves_side_view,
             'bayDirection': ves_bay_dir,
             'vessel_name': ves_name,
             'vessel_width': ves_width,

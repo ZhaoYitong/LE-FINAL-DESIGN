@@ -31,7 +31,8 @@ def ves_basic(request):
 @csrf_exempt
 def ves_info_input(request):
     if request.method == 'GET':
-        return render(request, 'VESSEL/vessel.input.basicInfo.html')
+        all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
+        return render(request, 'VESSEL/vessel.input.basicInfo.html', {'all_vessel': all_vessel})
     elif request.method == 'POST':
         print("ves_info_input_post"+json.loads(request.body.decode('utf-8')))
 
@@ -168,15 +169,54 @@ def test_connect_to_db(request):
 
 
 @csrf_exempt
-def creat_con_pend_info(request):
+def get_con_pend_info(request):
     # TODO: update DB, CLEAR table: con_pend_info
     if request.method == 'GET':
-        name = request.GET['name']
-        print(name)
-        # obj = con_pend_info.objects.get(Vessel=name)
-        test = {'hhh': 'pending'}
-        return JsonResponse(test)
+        return JsonResponse({'hhh': 'test_creat_pend_info'})
 
+
+@csrf_exempt
+def test_creat_pend_info(request):
+    if request.method == 'GET':
+        name = request.GET['name']
+        obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=name,BaySiz='20')
+        obj_temp_inch40 = ves_struct.objects.get(Vessel=name)
+        bay_inch20_list = sorted(index_to_num([item.BayNo for item in obj_bay_inch20]))
+        print("bay_inch20_list: {}",bay_inch20_list)
+
+        if obj_temp_inch40.FotBayCom:
+            bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
+        else:
+            bay_inch40_list = []
+        print("bay_inch40_list: {}",bay_inch40_list)
+        data_bay_list = combined_bay_list(bay_inch20_list,bay_inch40_list)
+        bay_dir = vessel_voy_info.objects.get(Vessel=name).BerThgDir
+
+        context = {
+            'dataType': 'EDIT_CONTAINER_PENDING_INFO',
+            'vessel_IMO': "001",
+            'vessel_name': name,
+            'data': data_bay_list,
+            'bayDirection': bay_dir,
+        }
+        return JsonResponse(context)
+
+    elif request.method == 'POST':
+        temp_lists = json.loads(request.body.decode('utf-8'))
+        vessel_name = temp_lists['vessel_name']
+        print(temp_lists)
+        # print("*****")
+        test = {'hhh': 'test_creat_pend_info'}
+        unload_40_list = temp_lists['unload_40_list']
+        unload_20_list = temp_lists['unload_20_list']
+        load_40_list = temp_lists['load_40_list']
+        load_20_list = temp_lists['load_20_list']
+        # print(unload_40_list)
+        for item in unload_40_list:
+            index = item['index']
+            num = item['num']
+            obj = con_pend_info.objects.get(Vessel=vessel_name, BayNo=index)
+        return JsonResponse(test)
 
 
 

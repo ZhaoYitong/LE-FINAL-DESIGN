@@ -794,6 +794,7 @@ function createBayAfterOperation(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
     let dir = newList.bayDirection;
+    // TODO: func to createLoadOrUnloadInfo
     let drawNewBay = function (index) {
         let itemId = dataList[index].id;
         if (dataList[index].type === "single") {
@@ -954,7 +955,6 @@ function createStowageInfo() {
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
     // console.log("created load info!");
-    // TODO: ajax  get
     $.ajax({
         url: '/vesselStruct/con_pend_info/',
         type: 'GET',
@@ -963,13 +963,33 @@ function createLoadOrUnloadInfo() {
         },
         dataType: "json",
         success: function (res) {
+            // TODO:
             console.log(res);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
+    // TODO: *********************************************
+     let drawNewBay = function (index) {
+        // let itemId = dataList[index].id;
+        if (dataList[index].type === "single") {
+            let bayIndex = dataList[index].bayInch20[0].index;
+            $(`.above div[class="unload"]`).append(`<div bayIndex=${bayIndex} class="bay_20 unload_20">` +
+                `<span></span></div>`);
+        } else {
+            $(`.above div[class="unload"]`).append(`<div class="comBay">` +
+                `<div class="bay40InCom"><span></span>` +
+                `</div>` +
+                `<div class="bay20sInCom">` +
+                `<div class="bay20InComLeft"><span></span></div>` +
+                `<div class="bay20InComRight"><span></span></div>` +
+                `</div>` +
+                `</div>`);
+        }
+    };
     //
+    /*
     let bayList = vesselOperationInfo.data.List;
     let bayListNum = vesselOperationInfo.data.List.length;
     // onBoard load 40inch
@@ -1031,6 +1051,7 @@ function createLoadOrUnloadInfo() {
     // TODO: loadOrUnloadNum value setting by jQuery
     // TODO: CUSTOM BLINK TRICK
     $(`[bayindex="19"],[bayindex="17"]`).addClass("blink");
+    */
 }
 /**
  * selectable
@@ -1185,3 +1206,10 @@ function combineReset (){
  */
 // TODO: CUSTOM BLINK TRICK
 $(`[pos_x="19"],[pos_x="17"]`).addClass("blink");
+
+
+/**
+ *  as input area
+ *
+ */
+

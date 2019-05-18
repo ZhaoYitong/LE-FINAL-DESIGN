@@ -702,14 +702,14 @@ function directionDealer(num, dir, func, isInverse) {
         }
         }
         else {
-            for (let b=num-1; b>0; b--) {
+            for (let b=num-1; b>=0; b--) {
                 func(b);
             }
         }
     }
     else {
         if (dir === 'L') {
-        for (let d=num-1; d>0; d--) {
+        for (let d=num-1; d>=0; d--) {
             func(d);
         }
         }

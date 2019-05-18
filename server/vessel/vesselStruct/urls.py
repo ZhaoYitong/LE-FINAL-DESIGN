@@ -10,4 +10,5 @@ urlpatterns = [
     path('vesselStruct/ves_info_input/', views.ves_info_input, name='ves_info_input'),
     path('vesselStruct/edit_bay/', views.edit_bay, name='edit_bay'),
     path('vesselStruct/ves_struct/', views.create_ves_struct, name='create_ves_struct'),
+    path('vesselStruct/con_pend_info/', views.creat_con_pend_info, name='creat_con_pend_info'),
 ]

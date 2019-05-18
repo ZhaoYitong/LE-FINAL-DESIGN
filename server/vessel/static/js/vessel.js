@@ -15,9 +15,9 @@ let combinedBay40inch = [];
  * @type {number}
  */
 /*
-    point-x : bayIndex
-    point-y : rowIndex
-    point-z : layerIndex
+    pos_x : bayIndex
+    pos_y : rowIndex
+    pos_z : layerIndex
  */
 let VIEW_SIDE = {
     dataType: "",
@@ -850,29 +850,32 @@ function createVesselSide(){
         },
         dataType: "json",
         success: function (res) {
+            console.log(res);
             let bay_num = res.bay_inch20_num;
             let layerNumAbove = res.max_layer_above_number;
             let layerNumBelow = res.max_layer_below_number;
             let dir = res.bayDirection;
-            drawVesselStruct(bay_num, layerNumAbove, layerNumBelow, dir)
+            let eng_list_ind = res.engine_room_index;
+            drawVesselStruct(bay_num, layerNumAbove, layerNumBelow, dir, eng_list_ind)
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
 }
-function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir) {
+function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_list) {
     let bayLists = BayNumToRealIndexList(bay_num);
     let layerLists = layerNumToRealIndexList(lay_above_num,lay_below_num);
     let conZone_bay_num = bayLists.inch20.length;
     let conZone_layerAbove_num = layerLists.above.length;
     let conZone_layerBelow_num = layerLists.below.length;
+    let eng_list_index = engine_list;
     // TODO: change conZoneAbove_inch20 according maxLayer input
     // TODO: tip1: set fixed height according maxLayer input
     let drawVesBayArea = function (index) {
         let conZoneBayIndex = bayLists.inch20[index].bayRealIndex;
-        $(`.onBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayAbove_inch20"></div>`);
-        $(`.belowBoardSide`).append(`<div point-x=${conZoneBayIndex} class="conZoneBayBelow_inch20"></div>`);
+        $(`.onBoardSide`).append(`<div pos_x=${conZoneBayIndex} class="bayAbove_20"></div>`);
+        $(`.belowBoardSide`).append(`<div pos_x=${conZoneBayIndex} class="bayBelow_20"></div>`);
     };
     let isInverse = true;
     directionDealer(conZone_bay_num,dir,drawVesBayArea,isInverse);
@@ -881,30 +884,38 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir) {
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
         for(let k=conZone_layerAbove_num-1;k>=0;k--){
             let conZoneLayerIndex = layerLists.above[k].layerRealIndex;
-            let item = `<div class="conZoneBayLayerAbove_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`;
-            $(`.onBoardSide div[point-x=${conZoneBayIndex}]`).append(item);
+            let item = `<div class="conZone_20" p_x=${conZoneBayIndex} p_z=${conZoneLayerIndex}></div>`;
+            $(`.onBoardSide div[pos_x=${conZoneBayIndex}]`).append(item);
         }
         for(let m=conZone_layerBelow_num-1;m>=0;m--){
             let conZoneLayerIndex = layerLists.below[m].layerRealIndex;
-            let item = `<div class="conZoneBayLayerBelow_inch20" pointx=${conZoneBayIndex} pointz=${conZoneLayerIndex}></div>`;
-            $(`.belowBoardSide div[point-x=${conZoneBayIndex}]`).append(item);
+            let item = `<div class="conZone_20" p_x=${conZoneBayIndex} p_z=${conZoneLayerIndex}></div>`;
+            $(`.belowBoardSide div[pos_x=${conZoneBayIndex}]`).append(item);
         }
     }
     // css control ves body, engine, and container zone
+    $(`.bayAbove_20`).children('div').addClass("vessel_inch20_default");
+    $(`.bayBelow_20`).children('div').addClass("vessel_inch20_default");
+    console.log(eng_list_index);
+    for (let i=0; i<eng_list_index.length; i++) {
+        let index = eng_list_index[i].toString();
+        console.log(index);
+        $(`div[p_x=${index}]`).addClass("vesselBody_inch20");
+    }
+    /*
     for(let t=0;t<VIEW_SIDE.vessel.length;t++){
         for(let u=0;u<VIEW_SIDE.vessel[t].bayIndexList.length;u++){
             let x = VIEW_SIDE.vessel[t].bayIndexList[u];
             let z = VIEW_SIDE.vessel[t].layerIndex;
-            $(`[pointx=${x}][pointz=${z}]`).addClass("vesselBody_inch20");
+            $(`[p_x=${x}][p_z=${z}]`).addClass("vesselBody_inch20");
         }
         for(let v=0;v<VIEW_SIDE.vessel[t].conZoneIndexList.length;v++){
             let x = VIEW_SIDE.vessel[t].conZoneIndexList[v];
             let z = VIEW_SIDE.vessel[t].layerIndex;
-            $(`[pointx=${x}][pointz=${z}]`).addClass("vesselConZone_inch20");
+            $(`[p_x=${x}][p_z=${z}]`).addClass("vesselConZone_inch20");
         }
     }
-    // TODO: CUSTOM BLINK TRICK
-    $(`[point-x="19"],[point-x="17"]`).addClass("blink");
+     */
 }
 /**
  *  stowage info
@@ -944,6 +955,21 @@ function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
     // console.log("created load info!");
     // TODO: ajax  get
+    $.ajax({
+        url: '/vesselStruct/con_pend_info/',
+        type: 'GET',
+        data: {
+            name: selected_vessel,
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+        },
+    });
+    //
     let bayList = vesselOperationInfo.data.List;
     let bayListNum = vesselOperationInfo.data.List.length;
     // onBoard load 40inch
@@ -1089,9 +1115,8 @@ function combineToStart (){
             setStopOfSelectable(engBodyList);
             $(`.confirmCombine`)[0].disabled = false;
         },
-        // TODO: add message when request failed
-        error: function(xhr) {
-            //Do Something to handle error
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
         },
     });
 }
@@ -1155,3 +1180,8 @@ function combineReset (){
  *  TODO AREA
  */
 // TODO: add engine after combination of bay
+/**
+ *  test area
+ */
+// TODO: CUSTOM BLINK TRICK
+$(`[pos_x="19"],[pos_x="17"]`).addClass("blink");

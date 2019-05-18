@@ -123,6 +123,7 @@ def create_ves_struct(request):
         # min to max (down to up)
         ves_deck_lay_list = create_index_list(ves_deck_lay_num_max)
         ves_cab_lay_list = create_index_list(ves_cab_col_num_max)
+        # TODO: vessel_info !
         data_content = {
             'dataType': ves_side_view,
             'bayDirection': ves_bay_dir,
@@ -134,7 +135,7 @@ def create_ves_struct(request):
             'bay_inch40_num': ves_bay_inch40_num,
             'max_layer_above_number': ves_deck_lay_num_max,
             'max_layer_below_number': ves_cab_lay_num_max,
-            'engineRoomIndex': eng_body_list,
+            'engine_room_index': eng_body_list,
             'mid_bay_deal': ves_mid_bay_deal_wit,
             'load_weight': ves_load_weight,
             'deck_capacity': ves_deck_cap_weight,
@@ -164,6 +165,19 @@ def test_connect_to_db(request):
         print(temp_json)
         testV = {'hhh': 'connected'}
         return JsonResponse(testV)
+
+
+@csrf_exempt
+def creat_con_pend_info(request):
+    # TODO: update DB, CLEAR table: con_pend_info
+    if request.method == 'GET':
+        name = request.GET['name']
+        print(name)
+        # obj = con_pend_info.objects.get(Vessel=name)
+        test = {'hhh': 'pending'}
+        return JsonResponse(test)
+
+
 
 
 # display value in choices

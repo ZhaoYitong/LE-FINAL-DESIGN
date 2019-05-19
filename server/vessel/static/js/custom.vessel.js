@@ -123,283 +123,6 @@ let VIEW_SIDE = {
     typeOfBoard: "",
     numOfBoard: 1,
 };
-let vesselOperationInfo = {
-    dataType:"VESSEL_OPERATION_INFO",
-    vessel_id:"001",
-    vessel_IMO:"KuiYa123",
-    // according to current combined bay
-    //TODO: same as newBayList.data WILL BE BETTER
-    data: {
-        List:[
-            // TODO: set direction !!
-            {
-                id: 1,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "01",
-                    }
-                ],
-            },
-            {
-                id: 2,
-                type: "combine",
-                bayInch20s:[
-                    {
-                        index: "03",
-                    },
-                    {
-                        index: "05",
-                    },
-                ],
-                bayInch40: [
-                    {
-                        index: "04",
-                    },
-                ],
-            },
-            {
-                id: 3,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "07",
-                    }
-                ],
-            },
-            {
-                id: 4,
-                type: "combine",
-                bayInch20s:[
-                    {
-                        index: "09",
-                    },
-                    {
-                        index: "11",
-                    },
-                ],
-                bayInch40: [
-                    {
-                        index: "10",
-                    },
-                ],
-            },
-            {
-                id: 5,
-                type: "combine",
-                bayInch20s:[
-                    {
-                        index: "13",
-                    },
-                    {
-                        index: "15",
-                    },
-                ],
-                bayInch40: [
-                    {
-                        index: "14",
-                    },
-                ],
-            },
-            {
-                id: 6,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "17",
-                    }
-                ],
-            },
-            {
-                id: 7,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "19",
-                    }
-                ],
-            },
-            {
-                id: 8,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "21",
-                    }
-                ],
-            },
-            {
-                id: 9,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "23",
-                    }
-                ],
-            },
-            {
-                id: 10,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "25",
-                    }
-                ],
-            },
-            {
-                id: 11,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "27",
-                    }
-                ],
-            },
-            {
-                id: 12,
-                type: "combine",
-                bayInch20s:[
-                    {
-                        index: "29",
-                    },
-                    {
-                        index: "31",
-                    },
-                ],
-                bayInch40: [
-                    {
-                        index: "30",
-                    },
-                ],
-            },
-            {
-                id: 13,
-                type: "combine",
-                bayInch20s:[
-                    {
-                        index: "33",
-                    },
-                    {
-                        index: "35",
-                    },
-                ],
-                bayInch40: [
-                    {
-                        index: "34",
-                    },
-                ],
-            },
-            {
-                id: 14,
-                type: "combine",
-                bayInch20s:[
-                    {
-                        index: "37",
-                    },
-                    {
-                        index: "39",
-                    },
-                ],
-                bayInch40: [
-                    {
-                        index: "38",
-                    },
-                ],
-            },
-            {
-                id: 15,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "41",
-                    }
-                ],
-            },
-            {
-                id: 16,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "43",
-                    }
-                ],
-            },
-            {
-                id: 17,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "45",
-                    }
-                ],
-            },
-            {
-                id: 18,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "47",
-                    }
-                ],
-            },
-            {
-                id: 19,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "49",
-                    }
-                ],
-            },
-            {
-                id: 20,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "51",
-                    }
-                ],
-            },
-            {
-                id: 21,
-                type: "combine",
-                bayInch20s:[
-                    {
-                        index: "53",
-                    },
-                    {
-                        index: "55",
-                    },
-                ],
-                bayInch40: [
-                    {
-                        index: "54",
-                    },
-                ],
-            },
-            {
-                id: 22,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "57",
-                    }
-                ],
-            },
-            {
-                id: 23,
-                type: "single",
-                bayInch20:[
-                    {
-                        index: "59",
-                    }
-                ],
-            },
-        ],
-        //TODO: set inch20List null or set it to other value ?
-        inch20List:[],
-    },
-};
 let vesselStorageInfoAll = {
     dataType: "VESSEL_STORAGE_INFO",
     vessel_id:"001",
@@ -927,7 +650,6 @@ function createStowageInfo() {
     $(`.createStowage`)[0].disabled = true;
     let header = vesselStorageInfoAll.vessel_IMO;
     let bayNum = vesselStorageInfoAll.data.length;
-
     let ves_header = `<div class="vesselHeader"><span class="stowageInfoHeader">${VESSEL_IMO}${header}</span></div>`;
     let ves_bay_stowage_area = `<div class="baysStowageArea"></div>`;
     $(`.vesselStowageInfo`).append(ves_header).append(ves_bay_stowage_area);
@@ -952,30 +674,37 @@ function createStowageInfo() {
         }
     }
 }
-function drawVesselPending(new_bay_num, dataList, dir) {
+function drawVesselPending(new_bay_num, bayList, dir, dataList) {
     // TODO: make bay direction uniform
-    // TODO: change value in span according to the number of LOAD or UNLOAD!
-    function draw_single_row(pos, op_type, data_list, index) {
-        if (data_list[index].type === "single") {
-         let bayIndex = dataList[index].bayInch20[0].index;
+    function draw_single_row(pos, op_type, bay_list, index) {
+        // add class: above or below, load or unload
+        let position = 'ves_' + pos;
+        let type = 'ves_' + op_type;
+        if (bay_list[index].type === "single") {
+         let bayIndex = bayList[index].bayInch20[0].index;
          $(`div[class = ${pos}] div[class=${op_type}]`)
-             .append(`<div bayIndex=${bayIndex} class="bay_20"><span></span></div>`);
+             .append(`<div id=${bayIndex} class="bay_20 ${position} ${type}"><span class="text_silver"></span></div>`);
         } else {
             // TODO: direction setting bay20[0] bay20[1]
+            let bay_40 = bayList[index].bayInch40[0].index;
+            let left_index = bayList[index].bayInch20s[1].index;
+            let right_index = bayList[index].bayInch20s[0].index;
          $(`div[class = ${pos}] div[class=${op_type}]`)
-             .append(`<div class="comBay"><div bayIndex=${dataList[index].bayInch40[0].index} class="bay40InCom">`+
-             `<span></span></div><div class="bay20sInCom">` +
-             `<div bayIndex=${dataList[index].bayInch20s[1].index} class="bay20InComLeft"><span></span></div>` +
-             `<div bayIndex=${dataList[index].bayInch20s[0].index} class="bay20InComRight"><span></span></div>` +
+             .append(`<div class="comBay"><div id=${bay_40} class="bay40InCom ${position} ${type}">`+
+             `<span class="text_silver"></span></div><div class="bay20sInCom">` +
+             `<div id=${left_index} class="bay20InComLeft ${position} ${type}"><span class="text_silver"></span></div>` +
+             `<div id=${right_index} class="bay20InComRight ${position} ${type}"><span class="text_silver"></span></div>` +
              `</div></div>`);
         }
     }
     let drawConsPending = function (key) {
-        draw_single_row("above", "unload", dataList, key);
-        draw_single_row("above", "load", dataList, key);
-        draw_single_row("below", "unload", dataList, key);
-        draw_single_row("below", "load", dataList, key);
+        draw_single_row("above", "unload", bayList, key);
+        draw_single_row("above", "load", bayList, key);
+        draw_single_row("below", "unload", bayList, key);
+        draw_single_row("below", "load", bayList, key);
     };
+    // TODO: add data to area
+    // $(`div[class="above"] div[class="unload"] div[id="69"] span`)[0].innerText = 10;
     let isInverse = true;
     directionDealer(new_bay_num, dir, drawConsPending, isInverse);
 }
@@ -991,9 +720,10 @@ function createLoadOrUnloadInfo() {
         success: function (res) {
             console.log(res);
             let new_bay_num = res.bay_list.length;
-            let data_list = res.bay_list;
+            let bay_list = res.bay_list;
             let dir = res.bayDirection;
-            drawVesselPending(new_bay_num, data_list, dir);
+            let data_list = res.data_list;
+            drawVesselPending(new_bay_num, bay_list, dir, data_list);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
@@ -1153,10 +883,4 @@ function combineReset (){
  */
 // TODO: CUSTOM BLINK TRICK
 $(`[pos_x="19"],[pos_x="17"]`).addClass("blink");
-
-
-/**
- *  as input area
- *
- */
 

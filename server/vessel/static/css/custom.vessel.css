@@ -200,6 +200,7 @@ body {
 }
 
 .above > .unload > .comBay,
+.above > .unload > .comBay,
 .above > .load > .comBay,
 .below > .unload > .comBay,
 .below > .load > .comBay {
@@ -262,10 +263,10 @@ body {
     border-right: 1px solid silver;
 }
 
-.above > .unload > .comBay > .bay20sInCom > .newBay20InComRight,
-.above > .load > .comBay > .bay20sInCom > .newBay20InComRight,
-.below > .unload > .comBay > .bay20sInCom > .newBay20InComRight,
-.below > .load > .comBay > .bay20sInCom > .newBay20InComRight {
+.above > .unload > .comBay > .bay20sInCom > .bay20InComRight,
+.above > .load > .comBay > .bay20sInCom > .bay20InComRight,
+.below > .unload > .comBay > .bay20sInCom > .bay20InComRight,
+.below > .load > .comBay > .bay20sInCom > .bay20InComRight {
     width: 40px;
     height: 30px;
     float:left;
@@ -380,7 +381,8 @@ body {
 .bay20Index,
 .newBay20Index,
 .newBay20IndexInCom,
-.loadOrUnloadNum {
+.loadOrUnloadNum,
+.text_silver{
     color: #cdd8f6;
 }
 /* character in span  */

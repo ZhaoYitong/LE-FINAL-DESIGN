@@ -93,6 +93,7 @@ def edit_bay(request):
             'bayDirection': bay_dir,
         }
         ####################################
+        # TODO: add random value after bay combination
         # generate random container pending info
         for i in obj_bay_inch20:
             obj = con_pend_info.objects.get(Vessel=ves_name, BayNo=i.BayNo)

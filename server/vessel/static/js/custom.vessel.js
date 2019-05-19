@@ -743,11 +743,12 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
 }
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
+    let selected_ves = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/con_pend_info/',
         type: 'GET',
         data: {
-            name: selected_vessel,
+            name: selected_ves,
         },
         dataType: "json",
         success: function (res) {

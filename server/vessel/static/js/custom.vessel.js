@@ -674,7 +674,7 @@ function createStowageInfo() {
         }
     }
 }
-function drawVesselPending(new_bay_num, bayList, dir, dataList) {
+function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
     // TODO: make bay direction uniform
     function draw_single_row(pos, op_type, bay_list, index) {
         // add class: above or below, load or unload
@@ -703,10 +703,43 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList) {
         draw_single_row("below", "unload", bayList, key);
         draw_single_row("below", "load", bayList, key);
     };
-    // TODO: add data to area
-    // $(`div[class="above"] div[class="unload"] div[id="69"] span`)[0].innerText = 10;
     let isInverse = true;
     directionDealer(new_bay_num, dir, drawConsPending, isInverse);
+    // TODO: add data to area
+    console.log(dataList);
+    for(let i=0;i<dataList.inch20.length;i++) {
+        let index = dataList.inch20[i].index;
+        let val_above_load = dataList.inch20[i].data.above_load;
+        let val_above_unload = dataList.inch20[i].data.above_unload;
+        let val_below_load = dataList.inch20[i].data.below_load;
+        let val_below_unload = dataList.inch20[i].data.below_unload;
+        $(`div[class="above"] div[class="load"] div[id=${index}] span`)[0].innerText = val_above_load;
+        $(`div[class="above"] div[class="unload"] div[id=${index}] span`)[0].innerText = val_above_unload;
+        $(`div[class="below"] div[class="load"] div[id=${index}] span`)[0].innerText = val_below_load;
+        $(`div[class="below"] div[class="unload"] div[id=${index}] span`)[0].innerText = val_below_unload;
+    }
+    for (let j=0; j<dataList.inch40.length;j++) {
+        let index = dataList.inch40[j].index;
+        let val_above_load = dataList.inch40[j].data.above_load;
+        let val_above_unload = dataList.inch40[j].data.above_unload;
+        let val_below_load = dataList.inch40[j].data.below_load;
+        let val_below_unload = dataList.inch40[j].data.below_unload;
+        $(`div[class="above"] div[class="load"] div[id=${index}] span`)[0].innerText = val_above_load;
+        $(`div[class="above"] div[class="unload"] div[id=${index}] span`)[0].innerText = val_above_unload;
+        $(`div[class="below"] div[class="load"] div[id=${index}] span`)[0].innerText = val_below_load;
+        $(`div[class="below"] div[class="unload"] div[id=${index}] span`)[0].innerText = val_below_unload;
+    }
+    // $(`div[class="above"] div[class="unload"] div[id="69"] span`)[0].innerText = 10;
+
+    // engine_body
+    for(let k=0; k<engine_list.length; k++){
+        console.log(typeof engine_list[k]);
+        let index = engine_list[k].toString();
+        $(`div[class="above"] div[class="load"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
+        $(`div[class="above"] div[class="unload"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
+        $(`div[class="below"] div[class="load"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
+        $(`div[class="below"] div[class="unload"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
+    }
 }
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
@@ -723,7 +756,8 @@ function createLoadOrUnloadInfo() {
             let bay_list = res.bay_list;
             let dir = res.bayDirection;
             let data_list = res.data_list;
-            drawVesselPending(new_bay_num, bay_list, dir, data_list);
+            let engBodyList = res.engineRoomIndex;
+            drawVesselPending(new_bay_num, bay_list, dir, data_list, engBodyList);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
@@ -870,10 +904,6 @@ function combineReset (){
  */
 // TODO: add layer with loading, support multiple layer
 /**
- *  service
- */
-//TODO: ajax
-/**
  *
  *  TODO AREA
  */
@@ -884,3 +914,6 @@ function combineReset (){
 // TODO: CUSTOM BLINK TRICK
 $(`[pos_x="19"],[pos_x="17"]`).addClass("blink");
 
+/**
+ *  data input
+ **/

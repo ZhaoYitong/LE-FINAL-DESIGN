@@ -2,10 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import random
 from django.http import JsonResponse
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
 from django.db.models import Count,Min,Max,Sum
 from .methods import index_to_num, combined_bay_list, create_engine_index, create_index_list, num_to_index
+import importlib
+import sys
+importlib.reload(sys)
 
 # const
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
@@ -88,7 +92,23 @@ def edit_bay(request):
             'data': data_bay_list,
             'bayDirection': bay_dir,
         }
-
+        ####################################
+        # generate random container pending info
+        for i in obj_bay_inch20:
+            obj = con_pend_info.objects.get(Vessel=ves_name, BayNo=i.BayNo)
+            obj.DeckLodNum = random.randrange(0, 50, 1)
+            obj.DeckUloNum = random.randrange(0, 50, 1)
+            obj.CabLoaNum = random.randrange(0, 50, 1)
+            obj.CabUloNum = random.randrange(0, 50, 1)
+            obj.save()
+        for j in bay_inch40:
+            obj = con_pend_info.objects.get(Vessel=ves_name, BayNo=j)
+            obj.DeckLodNum = random.randrange(0, 50, 1)
+            obj.DeckUloNum = random.randrange(0, 50, 1)
+            obj.CabLoaNum = random.randrange(0, 50, 1)
+            obj.CabUloNum = random.randrange(0, 50, 1)
+            obj.save()
+        ####################################
         return JsonResponse(data_bay)
 
     elif request.method == 'DELETE':
@@ -187,7 +207,7 @@ def get_con_pend_info(request):
             below_unload = obj.CabUloNum
             bay_inch20_pend_list.append({
                 'type': 'inch20',
-                'index': bay_20_index,
+                'index': index_bay,
                 'data': {
                     'above_load': above_load,
                     'above_unload': above_unload,
@@ -204,7 +224,7 @@ def get_con_pend_info(request):
             below_unload = obj.CabUloNum
             bay_inch40_pend_list.append({
                 'type': 'inch40',
-                'index': bay_40_index,
+                'index': index_bay,
                 'data': {
                     'above_load': above_load,
                     'above_unload': above_unload,
@@ -212,6 +232,11 @@ def get_con_pend_info(request):
                     'below_unload': below_unload,
                 }
             })
+        # engine_list
+        obj = ves_struct.objects.get(Vessel=ves_name)
+        engine_pos = obj.EngRomPos
+        engine_width = obj.EngRomWid
+        eng_body_list = create_engine_index(engine_pos, engine_width)
         data_content = {
             'dataType': con_pending_info,
             'vessel_IMO': "001",
@@ -222,6 +247,7 @@ def get_con_pend_info(request):
                 'inch20': bay_inch20_pend_list,
                 'inch40': bay_inch40_pend_list,
             },
+            'engineRoomIndex': eng_body_list,
         }
         return JsonResponse(data_content)
 
@@ -269,3 +295,42 @@ def test_creat_pend_info(request):
 
 # display value in choices
 ## https://my.oschina.net/esdn/blog/832982
+@csrf_exempt
+def add_vessel(request):
+    if request.method == 'POST':
+        content = json.loads(request.body.decode('utf-8'))
+        ves_name = content['ves_name']
+        ves_length = float(content['ves_len'])
+        ves_width = float(content['ves_wid'])
+        ves_front_length = float(content['ves_fr_len'])
+        ves_bay_20_num = int(content['bay_20_num'])
+        ves_eng_pos = int(content['eng_pos'])
+        ves_eng_wid = int(content['eng_wid'])
+        ves_deck_max_lay = int(content['deck_max_lay'])
+        ves_cab_max_lay = int(content['cab_max_lay'])
+        ves_deck_max_col = int(content['deck_max_col'])
+        ves_cab_max_col = int(content['cab_max_col'])
+        # ves_mid_deal_wit = content['mid_deal_wit']
+
+        # add to DB
+        # ves_struct.objects.create(Vessel=ves_name,
+        #                           VesLeng=ves_length,
+        #                           VesWidth=ves_width,
+        #                           VesFrLeng=ves_front_length,
+        #                           TweBayNum=ves_bay_20_num,
+        #                           EngRomPos=ves_eng_pos,
+        #                           EngRomWid=ves_eng_wid,
+        #                           DeckLayNumMax=ves_deck_max_lay,
+        #                           CabLayNumMax=ves_cab_max_lay,
+        #                           DeckColNumMax=ves_deck_max_col,
+        #                           CabColNumMax=ves_cab_max_col)
+        # vessel_voy_info.objects.crete(Vessel=ves_name,
+        #                               ImpVoy='',
+        #                               ExpVoy='',
+        #                               PlaBerThgTim='',
+        #                               PlaUnbThgTim='',
+        #                               ReaBerThgTim='',
+        #                               PlaBerThgPos='',
+        #                               ActBerPos='',
+        #                               BerThgDir='')
+        return JsonResponse({'response': 'hhh'})

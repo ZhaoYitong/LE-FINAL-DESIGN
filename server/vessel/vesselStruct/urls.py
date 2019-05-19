@@ -12,6 +12,5 @@ urlpatterns = [
     path('vesselStruct/con_pend_info/', views.get_con_pend_info, name='get_con_pend_info'),
     path('vesselStruct/test_connect_to_db/', views.test_connect_to_db, name='test_connect_to_db'),
     path('vesselStruct/test_creat_pend_info/', views.test_creat_pend_info, name='test_creat_pend_info'),
-
-
+    path('vesselStruct/add_vessel/', views.add_vessel, name='add_vessel'),
 ]

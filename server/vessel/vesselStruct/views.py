@@ -10,6 +10,7 @@ from .methods import index_to_num, combined_bay_list, create_engine_index, creat
 # const
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
 ves_side_view = 'VESSEL_SIDE_VIEWING'
+con_pending_info = 'VESSEL_CONTAINER_PENDING_INFO'
 
 
 def index(request):
@@ -91,6 +92,7 @@ def edit_bay(request):
             'data': data_bay_list,
             'bayDirection': bay_dir,
         }
+
         return JsonResponse(data_bay)
 
     elif request.method == 'DELETE':
@@ -172,7 +174,30 @@ def test_connect_to_db(request):
 def get_con_pend_info(request):
     # TODO: update DB, CLEAR table: con_pend_info
     if request.method == 'GET':
-        return JsonResponse({'hhh': 'test_creat_pend_info'})
+        ves_name = ves_name = request.GET['name']
+        # Get From DB
+        obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name, BaySiz='20')
+        obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)
+        bay_inch20_list = sorted(index_to_num([item.BayNo for item in obj_bay_inch20]))
+        print("bay_inch20_list: {}", bay_inch20_list)
+
+        if obj_temp_inch40.FotBayCom:
+            bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
+        else:
+            bay_inch40_list = []
+        print("bay_inch40_list: {}", bay_inch40_list)
+        data_bay_list = combined_bay_list(bay_inch20_list, bay_inch40_list)
+        bay_dir = vessel_voy_info.objects.get(Vessel=ves_name).BerThgDir
+
+        data_content = {
+            'dataType': con_pending_info,
+            'vessel_IMO': "001",
+            'vessel_name': ves_name,
+            'bay_list': data_bay_list,
+            'bayDirection': bay_dir,
+        }
+
+        return JsonResponse(data_content)
 
 
 @csrf_exempt

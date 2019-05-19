@@ -952,9 +952,35 @@ function createStowageInfo() {
         }
     }
 }
+function drawVesselPending(new_bay_num, dataList, dir) {
+    // TODO: make bay direction uniform
+    // TODO: change value in span according to the number of LOAD or UNLOAD!
+    function draw_single_row(pos, op_type, data_list, index) {
+        if (data_list[index].type === "single") {
+         let bayIndex = dataList[index].bayInch20[0].index;
+         $(`div[class = ${pos}] div[class=${op_type}]`)
+             .append(`<div bayIndex=${bayIndex} class="bay_20"><span></span></div>`);
+        } else {
+            // TODO: direction setting bay20[0] bay20[1]
+         $(`div[class = ${pos}] div[class=${op_type}]`)
+             .append(`<div class="comBay"><div bayIndex=${dataList[index].bayInch40[0].index} class="bay40InCom">`+
+             `<span></span></div><div class="bay20sInCom">` +
+             `<div bayIndex=${dataList[index].bayInch20s[1].index} class="bay20InComLeft"><span></span></div>` +
+             `<div bayIndex=${dataList[index].bayInch20s[0].index} class="bay20InComRight"><span></span></div>` +
+             `</div></div>`);
+        }
+    }
+    let drawConsPending = function (key) {
+        draw_single_row("above", "unload", dataList, key);
+        draw_single_row("above", "load", dataList, key);
+        draw_single_row("below", "unload", dataList, key);
+        draw_single_row("below", "load", dataList, key);
+    };
+    let isInverse = true;
+    directionDealer(new_bay_num, dir, drawConsPending, isInverse);
+}
 function createLoadOrUnloadInfo() {
     $(`.createLoadOrUnload`)[0].disabled = true;
-    // console.log("created load info!");
     $.ajax({
         url: '/vesselStruct/con_pend_info/',
         type: 'GET',
@@ -963,95 +989,16 @@ function createLoadOrUnloadInfo() {
         },
         dataType: "json",
         success: function (res) {
-            // TODO:
             console.log(res);
+            let new_bay_num = res.bay_list.length;
+            let data_list = res.bay_list;
+            let dir = res.bayDirection;
+            drawVesselPending(new_bay_num, data_list, dir);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
-    // TODO: *********************************************
-     let drawNewBay = function (index) {
-        // let itemId = dataList[index].id;
-        if (dataList[index].type === "single") {
-            let bayIndex = dataList[index].bayInch20[0].index;
-            $(`.above div[class="unload"]`).append(`<div bayIndex=${bayIndex} class="bay_20 unload_20">` +
-                `<span></span></div>`);
-        } else {
-            $(`.above div[class="unload"]`).append(`<div class="comBay">` +
-                `<div class="bay40InCom"><span></span>` +
-                `</div>` +
-                `<div class="bay20sInCom">` +
-                `<div class="bay20InComLeft"><span></span></div>` +
-                `<div class="bay20InComRight"><span></span></div>` +
-                `</div>` +
-                `</div>`);
-        }
-    };
-    //
-    /*
-    let bayList = vesselOperationInfo.data.List;
-    let bayListNum = vesselOperationInfo.data.List.length;
-    // onBoard load 40inch
-    // TODO: make bay direction uniform
-    // TODO: change value in span according to the number of LOAD or UNLOAD!
-    // TODO: inch40 and inch20 for not continued, show?
-    let item_num = function (bayIndex,class_div) {
-        return `<div bayIndex="${bayIndex}" class="${class_div}"><span>0</span></div>`;
-    };
-    for(let i=bayListNum-1;i>=0;i--){
-        if(bayList[i].type === "single"){
-            let bayIndex20 = bayList[i].bayInch20[0].index;
-            $(`div[class="aboveUnload_40"]`).append(item_num(bayIndex20,"unload_20"));
-            $(`div[class="belowUnload_40"]`).append(item_num(bayIndex20,"unload_20"));
-            $(`div[class="aboveLoad_40"]`).append(item_num(bayIndex20,"load_20"));
-            $(`div[class="belowLoad_40"]`).append(item_num(bayIndex20,"load_20"));
-        }
-        else {
-            let bayIndex40 = bayList[i].bayInch40[0].index;
-            $(`div[class="aboveUnload_40"]`).append(item_num(bayIndex40,"unload_40"));
-            $(`div[class="belowUnload_40"]`).append(item_num(bayIndex40,"unload_40"));
-            $(`div[class="aboveLoad_40"]`).append(item_num(bayIndex40,"load_40"));
-            $(`div[class="belowLoad_40"]`).append(item_num(bayIndex40,"load_40"));
-        }
-    }
-    for(let j=bayListNum-1;j>=0;j--){
-        if(bayList[j].type === "single"){
-            let bayIndex20 = bayList[j].bayInch20[0].index;
-            $(`div[class="aboveUnload_20"]`).append(item_num(bayIndex20,"unload_20"));
-            $(`div[class="belowUnload_20"]`).append(item_num(bayIndex20,"unload_20"));
-            $(`div[class="aboveLoad_20"]`).append(item_num(bayIndex20,"load_20"));
-            $(`div[class="belowLoad_20"]`).append(item_num(bayIndex20,"load_20"));
-        }
-        else {
-            //TODO: from left to right?
-            let bayIndex20_0 = bayList[j].bayInch20s[1].index;
-            let bayIndex20_1 = bayList[j].bayInch20s[0].index;
-            $(`div[class="aboveUnload_20"]`)
-                .append(item_num(bayIndex20_0,"unload_20"))
-                .append(item_num(bayIndex20_1,"unload_20"));
-            $(`div[class="belowUnload_20"]`)
-                .append(item_num(bayIndex20_0,"unload_20"))
-                .append(item_num(bayIndex20_1,"unload_20"));
-            $(`div[class="aboveLoad_20"]`)
-                .append(item_num(bayIndex20_0,"load_20"))
-                .append(item_num(bayIndex20_1,"load_20"));
-            $(`div[class="belowLoad_20"]`)
-                .append(item_num(bayIndex20_0,"load_20"))
-                .append(item_num(bayIndex20_1,"load_20"));
-        }
-    }
-    // vessel body
-    // test
-    let vesselBodyBayList = ["17","19",];
-    for(let i=0;i<vesselBodyBayList.length;i++){
-        $(`div[bayIndex=${vesselBodyBayList[i]}]`).addClass("vesselBodyInLoading");
-        $(`div[bayIndex=${vesselBodyBayList[i]}] span`).addClass("vesselBodyBayIndex");
-    }
-    // TODO: loadOrUnloadNum value setting by jQuery
-    // TODO: CUSTOM BLINK TRICK
-    $(`[bayindex="19"],[bayindex="17"]`).addClass("blink");
-    */
 }
 /**
  * selectable

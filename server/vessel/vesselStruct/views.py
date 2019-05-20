@@ -350,3 +350,28 @@ def add_vessel(request):
             return JsonResponse({'CREATE VESSEL': 'DONE!'})
         else:
             return JsonResponse({'WARNING': 'vessel_name is already exist'})
+
+
+@csrf_exempt
+def define_bay(request):
+    if request.method == 'GET':
+        ves_name = request.GET['name']
+        bay_index = request.GET['index']
+
+        print("{}: {}", ves_name, bay_index)
+        obj = ves_struct.objects.get(Vessel=ves_name)
+        deck_lay_num_max = obj.DeckLayNumMax
+        cab_lay_num_max = obj.CabLayNumMax
+        deck_col_num_max = obj.DeckColNumMax
+        cab_col_num_max = obj.CabColNumMax
+
+        data = {
+            'ves_name': ves_name,
+            'bay_struct_max': {
+                'deck_lay_num_max': deck_lay_num_max,
+                'cab_lay_num_max': cab_lay_num_max,
+                'deck_col_num_max': deck_col_num_max,
+                'cab_col_num_max': cab_col_num_max,
+            },
+        }
+        return JsonResponse(data)

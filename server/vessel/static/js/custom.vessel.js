@@ -467,7 +467,6 @@ function showVal(a){
 /**
  *  initialize bay area
  */
-// TODO: BayNumToRealIndexList and layerNumToRealIndexList -> class
 function BayNumToRealIndexList(bayNum) {
     let bay = {};
     bay.inch20 = [];
@@ -524,35 +523,40 @@ function createBayAfterOperation(newList) {
         let itemId = dataList[index].id;
         if (dataList[index].type === "single") {
             let bayIndex = dataList[index].bayInch20[0].index;
-            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bayInfo">` +
+            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bayInfo bay">` +
                 `<span class="newBay20Index">${dataList[index].bayInch20[0].index}</span>` +
                 `</div>`);
         } else {
             if (bay_dir === 'R'){
+                let bay40_index = dataList[index].bayInch40[0].index;
+                let bay20_left = dataList[index].bayInch20s[1].index;
+                let bay20_right = dataList[index].bayInch20s[0].index;
                 $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">` +
-                    `<div class="newBay40InCom bayInfo">` +
-                    `<span class="newBay40IndexInCom">${dataList[index].bayInch40[0].index}</span>` +
+                    `<div class="newBay40InCom bayInfo bay">` +
+                    `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bayInfo">`+
-                    `<span class="newBay20IndexInCom">${dataList[index].bayInch20s[1].index}</span></div>` +
-                    `<div class="newBay20InComRight bayInfo">`+
-                    `<span class="newBay20IndexInCom">${dataList[index].bayInch20s[0].index}</span></div>` +
+                    `<div class="newBay20InComLeft bayInfo bay">`+
+                    `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
+                    `<div class="newBay20InComRight bayInfo bay">`+
+                    `<span class="newBay20IndexInCom">${bay20_right}</span></div>` +
                     `</div>` +
                     `</div>`);
             }
             else {
                 // bay_dir === 'L'
+                let bay40_index = dataList[index].bayInch40[0].index;
+                let bay20_left = dataList[index].bayInch20s[0].index;
+                let bay20_right = dataList[index].bayInch20s[1].index;
                 $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">` +
-                    `<div class="newBay40InCom bayInfo">` +
-                    `<span class="newBay40IndexInCom">${dataList[index].bayInch40[0].index}</span>` +
+                    `<div class="newBay40InCom bayInfo bay">` +
+                    `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bayInfo">`+
-                    `<span class="newBay20IndexInCom">${dataList[index].bayInch20s[0].index}</span></div>` +
-                    `<div class="newBay20InComRight bayInfo">`+
-                    `<span class="newBay20IndexInCom">${dataList[index].bayInch20s[1].index}</span></div>` +
-                    `</div>` +
+                    `<div class="newBay20InComLeft bayInfo bay">`+
+                    `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
+                    `<div class="newBay20InComRight bayInfo bay">`+
+                    `<span class="newBay20IndexInCom">${bay20_right}</span></div></div>` +
                     `</div>`);
             }
 
@@ -560,6 +564,32 @@ function createBayAfterOperation(newList) {
     };
     let isInverse = true;
     directionDealer(newBay_num, dir, drawNewBay, isInverse);
+
+    // TODO: as bayArea is created dynamically, use on click
+    // TODO: disable this func before bayCombined!
+    $(`.bay`).on('click', function () {
+        let index = this.childNodes[0].innerText;
+        let ves_selected = $(`#vesselSelect option:selected`).val();
+        $.ajax({
+            url: '/vesselStruct/define_bay/',
+            type: 'GET',
+            data: {
+                name: ves_selected,
+                index: index,
+            },
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status);
+            },
+        });
+    });
+
+
+
+
 
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
@@ -957,3 +987,13 @@ $(`[pos_x="19"],[pos_x="17"]`).addClass("blink");
 /**
  *  data input
  **/
+
+/**
+ *  bay struct define
+ */
+function bayStructDefine() {
+    let selected_ves = $(`#vesselSelect option:selected`).val();
+
+    $(`.defineBayStruct`)[0].disabled = true;
+    console.log("start to define!");
+}

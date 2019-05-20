@@ -345,8 +345,8 @@ def add_vessel(request):
                                            ActBerPos=real_ber_pos,
                                            BerThgDir=ves_ber_dir)
             for i in bay_index_list:
-                con_pend_info.objects.create(Vessel=ves_name, BayNo=i)
-                ves_bay_struct.objects.create(Vessel=ves_name, BayNo=i)
+                con_pend_info.objects.create(Vessel=ves_name, BayNo=i['index'])
+                ves_bay_struct.objects.create(Vessel=ves_name, BayNo=i['index'], BaySiz=i['size'])
             return JsonResponse({'CREATE VESSEL': 'DONE!'})
         else:
             return JsonResponse({'WARNING': 'vessel_name is already exist'})

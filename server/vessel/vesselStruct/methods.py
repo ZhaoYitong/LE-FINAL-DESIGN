@@ -12,6 +12,14 @@ def index_to_num(bay_list):
     return arr
 
 
+# single bayIndex to num
+def single_index_to_num(index):
+    if index[0] == '0':
+        return int(index[1])
+    else:
+        return int(index)
+
+
 # num to bay_index
 def num_to_index(val):
     if val < 10:
@@ -114,6 +122,17 @@ def bay_num_to_index_list(max_bay_num):
         return []
     for a in range(0, max_bay_num*2-1, 1):
         temp_index = num_to_index(a + 1)
-        bay_list.append(temp_index)
+        bay_size = bay_index_to_bay_size(temp_index)
+        bay_list.append({'index': temp_index, 'size': bay_size})
     return bay_list
 
+
+def bay_index_to_bay_size(val):
+    temp = single_index_to_num(val)
+    if temp % 2 == 0:
+        return '40'
+    else:
+        return '20'
+
+
+print(bay_num_to_index_list(10))

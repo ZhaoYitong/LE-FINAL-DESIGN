@@ -108,4 +108,12 @@ def create_index_list(max_lay_num):
     return lay_list
 
 
-#print(create_index_list(6, 4))
+def bay_num_to_index_list(max_bay_num):
+    bay_list = []
+    if max_bay_num > 50:
+        return []
+    for a in range(0, max_bay_num*2-1, 1):
+        temp_index = num_to_index(a + 1)
+        bay_list.append(temp_index)
+    return bay_list
+

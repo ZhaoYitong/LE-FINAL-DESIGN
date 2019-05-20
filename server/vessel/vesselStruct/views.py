@@ -4,12 +4,15 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import random
 from django.http import JsonResponse
-from .models import vessel_voy_info, ves_struct, ves_bay_struct, ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
+from .models import vessel_voy_info, ves_struct, ves_bay_struct, \
+    ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
 from django.db.models import Count,Min,Max,Sum
-from .methods import index_to_num, combined_bay_list, create_engine_index, create_index_list, num_to_index
-import importlib
-import sys
-importlib.reload(sys)
+from .methods import index_to_num, combined_bay_list, create_engine_index, \
+    create_index_list, num_to_index, bay_num_to_index_list
+
+# TODO:
+# display value in choices
+#  https://my.oschina.net/esdn/blog/832982
 
 # const
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
@@ -34,7 +37,7 @@ def ves_basic(request):
 
 
 @csrf_exempt
-def ves_info_input(request):
+def ves_struct_input(request):
     if request.method == 'GET':
         all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
         return render(request, 'VESSEL/vessel.input.basicInfo.html', {'all_vessel': all_vessel})
@@ -293,9 +296,6 @@ def test_creat_pend_info(request):
         return JsonResponse(test)
 
 
-
-# display value in choices
-## https://my.oschina.net/esdn/blog/832982
 @csrf_exempt
 def add_vessel(request):
     if request.method == 'POST':
@@ -311,27 +311,42 @@ def add_vessel(request):
         ves_cab_max_lay = int(content['cab_max_lay'])
         ves_deck_max_col = int(content['deck_max_col'])
         ves_cab_max_col = int(content['cab_max_col'])
-        # ves_mid_deal_wit = content['mid_deal_wit']
+        ves_imp_voy = content['ves_imp_voy']
+        ves_exp_voy = content['ves_exp_voy']
+        plan_ber_pos = content['plan_ber_pos']
+        real_ber_pos = float(content['real_ber_pos'])
+        ves_ber_dir = content['ves_ber_dir']
 
-        # add to DB
-        # ves_struct.objects.create(Vessel=ves_name,
-        #                           VesLeng=ves_length,
-        #                           VesWidth=ves_width,
-        #                           VesFrLeng=ves_front_length,
-        #                           TweBayNum=ves_bay_20_num,
-        #                           EngRomPos=ves_eng_pos,
-        #                           EngRomWid=ves_eng_wid,
-        #                           DeckLayNumMax=ves_deck_max_lay,
-        #                           CabLayNumMax=ves_cab_max_lay,
-        #                           DeckColNumMax=ves_deck_max_col,
-        #                           CabColNumMax=ves_cab_max_col)
-        # vessel_voy_info.objects.crete(Vessel=ves_name,
-        #                               ImpVoy='',
-        #                               ExpVoy='',
-        #                               PlaBerThgTim='',
-        #                               PlaUnbThgTim='',
-        #                               ReaBerThgTim='',
-        #                               PlaBerThgPos='',
-        #                               ActBerPos='',
-        #                               BerThgDir='')
-        return JsonResponse({'response': 'hhh'})
+        # check if vessel_name exists
+        try:
+            obj = ves_struct.objects.get(Vessel=ves_name)
+        except ves_struct.DoesNotExist:
+            obj = None
+
+        if obj is None:
+            print("vessel is ok ")
+            bay_index_list = bay_num_to_index_list(ves_bay_20_num)
+            # add to DB
+            ves_struct.objects.create(Vessel=ves_name,
+                                      VesLeng=ves_length,
+                                      VesWidth=ves_width,
+                                      VesFrLeng=ves_front_length,
+                                      TweBayNum=ves_bay_20_num,
+                                      EngRomPos=ves_eng_pos,
+                                      EngRomWid=ves_eng_wid,
+                                      DeckLayNumMax=ves_deck_max_lay,
+                                      CabLayNumMax=ves_cab_max_lay,
+                                      DeckColNumMax=ves_deck_max_col,
+                                      CabColNumMax=ves_cab_max_col)
+            vessel_voy_info.objects.create(Vessel=ves_name,
+                                           ImpVoy=ves_imp_voy,
+                                           ExpVoy=ves_exp_voy,
+                                           PlaBerThgPos=plan_ber_pos,
+                                           ActBerPos=real_ber_pos,
+                                           BerThgDir=ves_ber_dir)
+            for i in bay_index_list:
+                con_pend_info.objects.create(Vessel=ves_name, BayNo=i)
+                ves_bay_struct.objects.create(Vessel=ves_name, BayNo=i)
+            return JsonResponse({'CREATE VESSEL': 'DONE!'})
+        else:
+            return JsonResponse({'WARNING': 'vessel_name is already exist'})

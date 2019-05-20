@@ -1,4 +1,4 @@
-$(`button[id="vessel-struct"]`).click(function f() {
+$(`button[id="vessel-struct"]`).click(function () {
     let ves_name = $(`input[id="vessel-name"]`)[0].value;
     let ves_len = $(`input[id="vessel-length"]`)[0].value;
     let ves_wid = $(`input[id="vessel-width"]`)[0].value;
@@ -10,7 +10,14 @@ $(`button[id="vessel-struct"]`).click(function f() {
     let cab_max_lay = $(`input[id="cabin-max-layer-num"]`)[0].value;
     let deck_max_col = $(`input[id="deck-max-col-num"]`)[0].value;
     let cab_max_col = $(`input[id="cabin-max-col-num"]`)[0].value;
-    // let mid_deal_wit = $(`input[name="mid-deal-wit"]:checked`).val();
+    let ves_imp_voy = $(`input[id="vessel-import-voy"]`)[0].value;
+    let ves_exp_voy = $(`input[id="vessel-export-voy"]`)[0].value;
+    // let ves_plan_ber_time = $(`input[id="vessel-plan-ber-time"]`);
+    // let ves_plan_unber_time = $(`input[id="vessel-plan-unber-time"]`);
+    // let real_ber_time = $(`input[id="vessel-real-ber-plan-time"]`);
+    let plan_ber_pos = $(`input[id="vessel-plan-ber-pos"]`)[0].value;
+    let real_ber_pos = $(`input[id="vessel-real-ber-pos"]`)[0].value;
+    let ves_ber_dir = $(`input[id="vessel-ber-dir"]`)[0].value;
     let data = {
         ves_name: ves_name,
         ves_len: ves_len,
@@ -24,9 +31,19 @@ $(`button[id="vessel-struct"]`).click(function f() {
         deck_max_col: deck_max_col,
         cab_max_col: cab_max_col,
         // mid_deal_wit: mid_deal_wit,
-        //TODO:add ves_voy_info
+        ves_imp_voy: ves_imp_voy,
+        ves_exp_voy: ves_exp_voy,
+        // ves_plan_ber_time: ves_plan_ber_time,
+        // ves_plan_unber_time: ves_plan_unber_time,
+        // real_ber_time: real_ber_time,
+        plan_ber_pos: plan_ber_pos,
+        real_ber_pos: real_ber_pos,
+        ves_ber_dir: ves_ber_dir,
     };
-    console.log(data);
+    if (!ves_name) {
+        console.log("Vessel NAME IS NULL!");
+        return false
+    }
     $.ajax({
         url: '/vesselStruct/add_vessel/',
         type: 'POST',

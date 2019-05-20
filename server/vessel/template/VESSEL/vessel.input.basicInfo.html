@@ -6,22 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="{% static 'images/smu.jpg' %}" rel="icon">
   <link href="{% static 'css/tool/google-api.css' %}" rel="stylesheet">
-  <link href="{% static 'css/tool/bootstrap_v4/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/tool/bootstrap_v3/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/tool/datatimepicker/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/custom.input.css' %}" rel="stylesheet">
-
-
-<!--  <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>-->
-<!--  <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>-->
-<!--  <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
-<!--  <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>-->
-<!--  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />-->
-<!--  <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />-->
-
-
 </head>
 <body id="page-top">
 <div class="vesselBasicInput">
-
 <form class="col-md-10" id="vessel-struct-define">
 <h1 class="form-header"> 定义船舶结构 </h1>
 <div class="form-row">
@@ -31,6 +21,22 @@
                 <span class="input-group-text">船名</span>
             </div>
         <input type="text" class="form-control" id="vessel-name">
+        </div>
+    </div>
+    <div class="form-group col-md-4">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">进口航次</span>
+            </div>
+        <input type="text" class="form-control" id="vessel-import-voy">
+        </div>
+    </div>
+    <div class="form-group col-md-4">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">出口航次</span>
+            </div>
+        <input type="text" class="form-control" id="vessel-export-voy">
         </div>
     </div>
 </div>
@@ -144,12 +150,13 @@
 <!--</div>-->
 <button id="vessel-struct" class="btn btn-primary">提交</button>
 </form>
-
 </div>
 <script src="{% static 'js/tool/jquery_v3/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/tool/datatimepicker/moment/moment.min.js' %}"></script>
+<script src="{% static 'js/tool/bootstrap_v4/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/tool/datatimepicker/bootstrap-datetimepicker.min.js' %}"></script>
 <script src="{% static 'js/tool/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/main.min.js' %}"></script>
-<script src="{% static 'js/tool/bootstrap_v4/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/custom.input.js' %}"></script>
 </body>
 </html>

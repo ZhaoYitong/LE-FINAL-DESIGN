@@ -580,6 +580,7 @@ function createBayAfterOperation(newList) {
             dataType: "json",
             success: function (res) {
                 console.log(res);
+                let data = res;
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);

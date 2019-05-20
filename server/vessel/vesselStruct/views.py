@@ -18,6 +18,7 @@ from .methods import index_to_num, combined_bay_list, create_engine_index, \
 confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
 ves_side_view = 'VESSEL_SIDE_VIEWING'
 con_pending_info = 'VESSEL_CONTAINER_PENDING_INFO'
+get_basic_bay_combine = 'GET_BASIC_BAY_COMBINE_INFO'
 
 
 def index(request):
@@ -49,16 +50,28 @@ def ves_struct_input(request):
 def edit_bay(request):
     if request.method == 'GET':
         ves_name = request.GET['name']
+        obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name, BaySiz='20')
+        obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)
+        bay_inch20_list = sorted(index_to_num([item.BayNo for item in obj_bay_inch20]))
+        if obj_temp_inch40.FotBayCom:
+            bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
+        else:
+            bay_inch40_list = []
+        data_bay_list = combined_bay_list(bay_inch20_list, bay_inch40_list)
         obj = ves_struct.objects.get(Vessel=ves_name)
         bay_num = obj.TweBayNum
         engine_pos = obj.EngRomPos
         engine_width = obj.EngRomWid
         eng_body_list = create_engine_index(engine_pos, engine_width)
         bay_dir = vessel_voy_info.objects.get(Vessel=ves_name).BerThgDir
-
-        data = {'number': bay_num,
+        data = {
+                'dataType': get_basic_bay_combine,
+                'number': bay_num,
+                'vessel_IMO': "001",
                 'bayDirection': bay_dir,
                 'engineRoomIndex': eng_body_list,
+                'vessel_name': ves_name,
+                'data': data_bay_list,
                 }
         return JsonResponse(data)
 
@@ -115,8 +128,43 @@ def edit_bay(request):
         ####################################
         return JsonResponse(data_bay)
 
-    elif request.method == 'DELETE':
-        return JsonResponse({'delete': 'done'})
+
+@csrf_exempt
+def reset_bay_combine(request):
+    # delete and reset bay combination
+    if request.method == 'POST':
+        ves_name = request.POST['name']
+        print(ves_name)
+        # delete DB
+        obj = ves_struct.objects.get(Vessel=ves_name)
+        obj.FotBayCom = None
+        obj.FotBayNum = None
+        obj.save()
+        # get from DB
+        obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name, BaySiz='20')
+        obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)
+        bay_inch20_list = sorted(index_to_num([item.BayNo for item in obj_bay_inch20]))
+        if obj_temp_inch40.FotBayCom:
+            bay_inch40_list = sorted(index_to_num(obj_temp_inch40.FotBayCom.split(",")))
+        else:
+            bay_inch40_list = []
+        data_bay_list = combined_bay_list(bay_inch20_list, bay_inch40_list)
+        obj = ves_struct.objects.get(Vessel=ves_name)
+        bay_num = obj.TweBayNum
+        engine_pos = obj.EngRomPos
+        engine_width = obj.EngRomWid
+        eng_body_list = create_engine_index(engine_pos,engine_width)
+        bay_dir = vessel_voy_info.objects.get(Vessel=ves_name).BerThgDir
+        data = {
+            'dataType': get_basic_bay_combine,
+            'number': bay_num,
+            'vessel_IMO': "001",
+            'bayDirection': bay_dir,
+            'engineRoomIndex': eng_body_list,
+            'vessel_name': ves_name,
+            'data': data_bay_list,
+        }
+        return JsonResponse(data)
 
 
 @csrf_exempt

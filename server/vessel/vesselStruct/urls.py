@@ -8,6 +8,7 @@ urlpatterns = [
     path('vesselStruct/page_not_found/', views.page_not_found, name='page_not_found'),
     path('vesselStruct/ves_struct_input/', views.ves_struct_input, name='ves_struct_input'),
     path('vesselStruct/edit_bay/', views.edit_bay, name='edit_bay'),
+    path('vesselStruct/reset_bay_combine/', views.reset_bay_combine, name='reset_bay_combine'),
     path('vesselStruct/ves_struct/', views.create_ves_struct, name='create_ves_struct'),
     path('vesselStruct/con_pend_info/', views.get_con_pend_info, name='get_con_pend_info'),
     path('vesselStruct/test_connect_to_db/', views.test_connect_to_db, name='test_connect_to_db'),

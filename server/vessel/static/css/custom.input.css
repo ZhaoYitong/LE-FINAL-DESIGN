@@ -3,13 +3,182 @@
     padding:0;
 }
 
-#vessel-struct-define {
+#add-vessel {
     margin-top: 30px;
     margin-left: 30px;
+    margin-bottom: 40px;
     padding: 10px;
     border: 5px solid #35638f;
 }
 
-.form-header {
-    margin-bottom: 10px;
+#add-vessel > h1,
+#define-bay-struct > h1 {
+    margin: 10px;
 }
+
+#control-buttons {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#control-buttons > div > button {
+    margin: 5px;
+}
+
+#control-buttons {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#control-buttons > div > button {
+    margin: 5px;
+}
+
+.zoomToggle {
+    margin-top:10px;
+    margin-bottom: 40px;
+}
+
+.bayStructArea {
+    width: 100%;
+}
+
+.bayArea .bayZone_20 {
+    background:#2f96b4;
+    width:38px;
+    height:30px;
+    float:left;
+    margin:2px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+/* combined bay area */
+.bayArea .bayZone_inch40 {
+    width:38px;
+    height:30px;
+    float:left;
+    background-color:lightgrey;
+    margin:2px;
+    position: relative;
+}
+
+.newBayArea .newBay20 {
+    background:#2f96b4;
+    width: 38px;
+    height: 60px;
+    float:left;
+    margin:2px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+/** newBayArea **/
+.newBayArea .comBay20_40{
+    width: 80px;
+    height:60px;
+    float: left;
+    margin: 2px;
+}
+
+.newBayArea .comBay20_40 .newBay40InCom {
+    width: 80px;
+    height: 30px;
+    float:left;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color: yellow;
+}
+
+.newBayArea .comBay20_40 .newBay20InComParent {
+    width: 80px;
+    height: 30px;
+    display:flex;
+    background:#2f96b4;
+}
+
+.newBayArea .comBay20_40 .newBay20InComParent .newBay20InComLeft {
+    width: 40px;
+    height: 30px;
+    float:left;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-right: 1px solid silver;
+}
+
+.newBayArea .comBay20_40 .newBay20InComParent .newBay20InComRight {
+    width: 40px;
+    height: 30px;
+    float:left;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-left: 1px solid silver;
+}
+/* combined bay area */
+/* selected bay control when selecting  */
+.bayArea_40 .leftBaySelected {
+    border-left:5px solid red;
+    border-bottom: 3px solid red;
+    border-top: 3px solid red;
+}
+
+.bayArea_40 .rightBaySelected {
+    border-right:5px solid red;
+    border-bottom: 3px solid red;
+    border-top: 3px solid red;
+}
+
+/* selected bay control when selecting  */
+.bayArea .bayArea_20,
+.bayArea .bayArea_40,
+.bayStructArea .newBayArea {
+    display: inline-flex;
+}
+
+/* jquery ui-select */
+#feedback {
+    font-size: 1.4em;
+}
+
+#selectable .ui-selecting {
+    background: #FECA40;
+}
+
+#selectable .ui-selected {
+    background: #F39814;
+    color: white;
+}
+/* jquery ui-select */
+/* character in span  */
+.bay20Index,
+.newBay20Index,
+.newBay20IndexInCom,
+.loadOrUnloadNum,
+.text_silver{
+    color: #cdd8f6;
+}
+/* character in span  */
+.newBay40IndexInCom,
+.vesselBodyBayIndex{
+    color: black;
+}
+
+.leftBaySelected .bay40Index  {
+    float: right;
+    margin-right: 2px;
+}
+
+.rightBaySelected .bay40Index  {
+    float: left;
+    margin-left: 2px;
+}
+
+.engineBody {
+    background-color: black !important;
+}
+
+
+

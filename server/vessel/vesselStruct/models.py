@@ -13,8 +13,6 @@ from django.utils.timezone import now
 
 # 船舶航次信息
 class vessel_voy_info(models.Model):
-    def __str__(self):
-        return self.Vessel
     
     TASK_FIN_SIG_CHOICES = (
         ('1', '正在卸船（未装船）'),
@@ -72,8 +70,6 @@ class vessel_voy_info(models.Model):
 
 # 船舶结构（针对某一船舶型号）
 class ves_struct(models.Model):
-    def __str__(self):
-        return self.Vessel
 
     DANGER_CON_ALLOW_CHOICES = (
         ('1', '允许'),
@@ -108,8 +104,6 @@ class ves_struct(models.Model):
 
 # 船舶贝位结构
 class ves_bay_struct(models.Model):
-    def __str__(self):
-        return self.Vessel
 
     BAY_COM_CHOICES = (
         ('0', '不组贝'),
@@ -149,8 +143,6 @@ class ves_bay_struct(models.Model):
 
 # 船舶贝位层信息
 class ves_bay_lay_struct(models.Model):
-    def __str__(self):
-        return self.Vessel
 
     DECK_CAG_SIG_CHOICES = (
         ('0', '甲板'),

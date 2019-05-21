@@ -241,18 +241,34 @@ function createBayCombinationInfo(newList) {
                 let cab_max_col = res.bay_struct_max.cab_col_num_max;
 
                 let data = res;
-                let bay_struct_edit = `<div id='table-bay-struct'><div id="sub-table"><h1>test areaa </h1></div></div>`;
-                let area_size = ['864px', '256px']; // change according to size of ves_struct
-                let title = '定义贝位结构';
+                let bay_struct_edit =
+                    `<div id='table-bay-struct'>`+
+                    `<div id="sub-table">`+
+                    `<h1>test areaa </h1>`+
+                    `<button class="btn btn-dark test_btn">确认</button>`+
+                    `</div></div>`;
 
+                let area_size = ['1000px', '650px']; // change according to size of ves_struct
+                let title = '定义贝位结构';
+                // 当前贝位结构
+                // 编辑 确认
+                // 当前贝位结构情况
+                // 点击编辑 按钮 则 可以对当前贝位结构（定义/未定义）进行更新操作
+                //      支持 selectable 一个  多个 ---> jquery UI
+                // 点击 确认 按钮 则 对当前贝位结构信息（更新/未更新）提交
+                //
                 layer.open({
                     type: 1,
                     title: title,
                     area: area_size, //宽高
                     closeBtn: 1,
-                    shadeClose: true,
+                    shadeClose: false,
                     skin: '',
                     content: bay_struct_edit,
+                });
+                // button func in layer
+                $(`.test_btn`).on('click', function () {
+                   console.log("hhh");
                 });
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -260,6 +276,7 @@ function createBayCombinationInfo(newList) {
             },
         });
     });
+
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
 }
@@ -413,3 +430,7 @@ function combineToConfirm (){
         dataType: "json",
     });
 }
+
+/**
+ *
+ */

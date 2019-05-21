@@ -406,14 +406,18 @@ def define_bay(request):
     if request.method == 'GET':
         ves_name = request.GET['name']
         bay_index = request.GET['index']
-
-        print("{}: {}", ves_name, bay_index)
-        obj = ves_struct.objects.get(Vessel=ves_name)
-        deck_lay_num_max = obj.DeckLayNumMax
-        cab_lay_num_max = obj.CabLayNumMax
-        deck_col_num_max = obj.DeckColNumMax
-        cab_col_num_max = obj.CabColNumMax
-
+        # get max
+        obj1 = ves_struct.objects.get(Vessel=ves_name)
+        deck_lay_num_max = obj1.DeckLayNumMax
+        cab_lay_num_max = obj1.CabLayNumMax
+        deck_col_num_max = obj1.DeckColNumMax
+        cab_col_num_max = obj1.CabColNumMax
+        # get real
+        obj2 = ves_bay_struct.objects.filter(Vessel=ves_name, BayNo=bay_index)
+        deck_lay_num_real = obj2[0].DeckHeg
+        cab_lay_num_real = obj2[0].CabHeg
+        deck_col_num_real = obj2[0].DeckWidMax
+        cab_col_num_real = obj2[0].CabWidMax
         data = {
             'ves_name': ves_name,
             'bay_struct_max': {
@@ -421,6 +425,12 @@ def define_bay(request):
                 'cab_lay_num_max': cab_lay_num_max,
                 'deck_col_num_max': deck_col_num_max,
                 'cab_col_num_max': cab_col_num_max,
+            },
+            'real_bay_struct': {
+                'deck_lay_num_real': deck_lay_num_real,
+                'cab_lay_num_real': cab_lay_num_real,
+                'deck_col_num_real': deck_col_num_real,
+                'cab_col_num_real': cab_col_num_real,
             },
         }
         return JsonResponse(data)

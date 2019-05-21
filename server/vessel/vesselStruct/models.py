@@ -8,7 +8,7 @@ from django.utils.timezone import now
 # supper: 500
 # supsuper: 1000
 # TODO: SET PRIMARY KEY AND FOREIGN KEY
-# TODO： choices in mysql
+# TODO: choices in mysql
 
 
 # 船舶航次信息

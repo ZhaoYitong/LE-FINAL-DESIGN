@@ -12,6 +12,7 @@ const TIP_RESET_BAY_SUCCESS = "重新组贝成功";
 let selected_vessel = $(`#vesselSelect option:selected`).val();
 let combinedBay20inch = [];
 let combinedBay40inch = [];
+// $(`.bay-struct-define`).style.display = 'none';
 // let getTable = document.getElementById("table-bay-struct");
 // getTable.style.display='none';
 // set table_bay_struct display: none
@@ -169,6 +170,156 @@ function insertBay(bayLists, direction){
     let isInverse = true;
     directionDealer(bay_num, direction, drawBay, isInverse);
 }
+
+function getDeckLayIndex(real, max) {
+    let temp=[];
+    for(let i=0; i<(real? real:max);i++){
+        temp.push(numToIdString((41+i)*2));
+    }
+    console.log("deckBayIndex: " + temp);
+    return temp;
+}
+function getCabLayIndex(real, max) {
+    let temp =[];
+    for(let j=0; j<(real? real:max); j++) {
+        temp.push(numToIdString((j+1)*2));
+    }
+    console.log("cabBayIndex: " + temp);
+    return temp;
+}
+function createColIndex(num_of_col) {
+    let temp_list = [];
+    if (num_of_col%2 === 0){
+        // 00 line
+        let sub = num_of_col/2;
+        for(let i=sub; i>0; i--){
+            temp_list.push(numToIdString(i*2));
+        }
+        for(let j=0; j<sub; j++){
+            temp_list.push(numToIdString((j+1)*2-1));
+        }
+    }
+    else {
+        let sub = (num_of_col-1)/2;
+        for(let i=sub; i>0; i--){
+            temp_list.push(numToIdString(i*2));
+        }
+        temp_list.push('00');
+        for(let j=0; j<sub; j++){
+            temp_list.push(numToIdString((j+1)*2-1));
+        }
+    }
+    console.log("colIndex: " + temp_list);
+    return temp_list;
+}
+function drawBayStruct(res) {
+    let ves_name = res.ves_name;
+    let bay_index = res.bay_index;
+    let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
+    let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
+    let deck_max_col = res.bay_struct_max.deck_lay_num_max;
+    let cab_max_col = res.bay_struct_max.cab_col_num_max;
+
+    let deck_real_lay = res.real_bay_struct.deck_lay_num_real;
+    let cab_real_lay = res.real_bay_struct.cab_lay_num_real;
+    let cab_real_col = res.real_bay_struct.cab_col_num_real;
+    let deck_real_col = res.real_bay_struct.deck_col_num_real;
+
+    // update bay-struct-define
+    let lay_index_deck = getDeckLayIndex(deck_real_lay,deck_max_lay);
+    let lay_index_cab = getCabLayIndex(cab_real_lay,cab_max_lay);
+    // for (let i=0; i<(deck_real_lay? deck_real_lay:deck_max_lay);i++) {
+    //     lay_index_deck.push(numToIdString((41+i)*2));
+    // }
+
+    // for(let j=0; j<(cab_real_lay? cab_real_lay:cab_max_lay); j++) {
+    //     lay_index_cab.push(numToIdString((j+1)*2));
+    // }
+
+    let col_index_deck_list = createColIndex(deck_real_col? deck_real_col:deck_max_col);
+    let col_index_cab_list = createColIndex(cab_real_col? cab_real_col:cab_max_col);
+
+    console.log(col_index_deck_list);
+    console.log(col_index_cab_list);
+    // from up to down
+    $(`.bay-struct-header`).children()[0].innerText = '贝位号: '+ bay_index;
+    // col-index on deck
+    let k;
+    for(k=0; k<col_index_deck_list.length; k++){
+        let col_index = col_index_deck_list[k];
+        $(`.col-index-area-deck`).append(`<div class="col-index-zone">${col_index}</div>`);
+    }
+    // con-zone on deck
+    // for(let m=0; m<lay_index_deck.length; m++){
+    //     let lay_index = lay_index_deck[m];
+    //     for(let n=0; n<col_index_deck_list.length; n++){
+    //         let col_index = col_index_deck_list[n];
+    //         $(`.bay-deck-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones"><div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div></div></div>`);
+    //     }
+    // }
+
+    //lay
+    for(let m=lay_index_deck.length-1; m>=0; m--){
+        let lay_index = lay_index_deck[m];
+        $(`.bay-deck-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
+        for(let n=0; n<col_index_deck_list.length; n++){
+            let col_index = col_index_deck_list[n];
+            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+        }
+    }
+
+    for(let p=lay_index_cab.length-1; p>=0; p--){
+        let lay_index = lay_index_cab[p];
+        $(`.bay-cab-lays`).append(`<div class="bay-cab-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
+        for(let q=0; q<col_index_cab_list.length; q++){
+            let col_index = col_index_cab_list[q];
+            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+        }
+    }
+    // con-zone
+    // for(let n=0; n<col_index_deck_list.length; n++){
+    //     let col_index = col_index_deck_list[n];
+    //     $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+    // }
+ // $(`.belowBoardSide div[pos_x=${conZoneBayIndex}]`).append(item);
+
+    // con-zone in cab
+    // for(let p=0; p<lay_index_cab.length; p++){
+    //     let lay_index = lay_index_deck[p];
+    //     for(let q=0; q<col_index_cab_list.length; q++){
+    //         $(`.bay-cab-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones"><div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div></div></div>`);
+    //     }
+    // }
+    // con-index in cab
+    for(let r=0; r<col_index_cab_list.length; r++){
+        let col_index = col_index_cab_list[r];
+        $(`.col-index-area-cab`).append(`<div class="col-index-zone">${col_index}</div>`);
+    }
+
+    // layer of bay
+    let area_size = ['1000px', '650px'];
+    let title = '定义贝位结构 --- ' + '船号：' + ves_name;
+    // 当前贝位结构
+    // 编辑 确认
+    // 当前贝位结构情况
+    // 点击编辑 按钮 则 可以对当前贝位结构（定义/未定义）进行更新操作
+    //      支持 selectable 一个  多个 ---> jquery UI
+    // 点击 确认 按钮 则 对当前贝位结构信息（更新/未更新）提交
+    //
+    layer.open({
+        type: 1,
+        title: title,
+        area: area_size, //宽高
+        closeBtn: 1,
+        shadeClose: false,
+        skin: '',
+        content: $(`.bay-struct-define`),
+    });
+    // button func in layer
+    $(`.test_btn`).on('click', function () {
+       console.log("hhh");
+    });
+}
 function createBayCombinationInfo(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
@@ -234,42 +385,7 @@ function createBayCombinationInfo(newList) {
             dataType: "json",
             success: function (res) {
                 console.log(res);
-                let bay_struct_max = res.bay_struct_max;
-                let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
-                let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
-                let deck_max_col = res.bay_struct_max.deck_lay_num_max;
-                let cab_max_col = res.bay_struct_max.cab_col_num_max;
-
-                let data = res;
-                let bay_struct_edit =
-                    `<div id='table-bay-struct'>`+
-                    `<div id="sub-table">`+
-                    `<h1>test areaa </h1>`+
-                    `<button class="btn btn-dark test_btn">确认</button>`+
-                    `</div></div>`;
-
-                let area_size = ['1000px', '650px']; // change according to size of ves_struct
-                let title = '定义贝位结构';
-                // 当前贝位结构
-                // 编辑 确认
-                // 当前贝位结构情况
-                // 点击编辑 按钮 则 可以对当前贝位结构（定义/未定义）进行更新操作
-                //      支持 selectable 一个  多个 ---> jquery UI
-                // 点击 确认 按钮 则 对当前贝位结构信息（更新/未更新）提交
-                //
-                layer.open({
-                    type: 1,
-                    title: title,
-                    area: area_size, //宽高
-                    closeBtn: 1,
-                    shadeClose: false,
-                    skin: '',
-                    content: bay_struct_edit,
-                });
-                // button func in layer
-                $(`.test_btn`).on('click', function () {
-                   console.log("hhh");
-                });
+                drawBayStruct(res);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);
@@ -376,8 +492,7 @@ function get_combined_info (){
         dataType: "json",
         success: function (res) {
             console.log(res);
-            let data = res;
-            createBayCombinationInfo(data);
+            createBayCombinationInfo(res);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);

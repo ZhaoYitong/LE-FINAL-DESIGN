@@ -420,6 +420,7 @@ def define_bay(request):
         cab_col_num_real = obj2[0].CabWidMax
         data = {
             'ves_name': ves_name,
+            'bay_index': bay_index,
             'bay_struct_max': {
                 'deck_lay_num_max': deck_lay_num_max,
                 'cab_lay_num_max': cab_lay_num_max,

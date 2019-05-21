@@ -7,15 +7,11 @@ const TIP_PLEASE_RESELECT = "请重新选择";
 const IS_TO_RESELECT= "确认重新组贝？";
 const TIP_RESET_BAY_SUCCESS = "重新组贝成功";
 /**
- *  var
- */
-/**
  *  variable initialize
  */
 let selected_vessel = $(`#vesselSelect option:selected`).val();
 let combinedBay20inch = [];
 let combinedBay40inch = [];
-
 $(`button[id="add-vessel-submit"]`).click(function () {
     let ves_name = $(`input[id="vessel-name"]`)[0].value;
     let ves_len = $(`input[id="vessel-length"]`)[0].value;
@@ -30,9 +26,6 @@ $(`button[id="add-vessel-submit"]`).click(function () {
     let cab_max_col = $(`input[id="cabin-max-col-num"]`)[0].value;
     let ves_imp_voy = $(`input[id="vessel-import-voy"]`)[0].value;
     let ves_exp_voy = $(`input[id="vessel-export-voy"]`)[0].value;
-    // let ves_plan_ber_time = $(`input[id="vessel-plan-ber-time"]`);
-    // let ves_plan_unber_time = $(`input[id="vessel-plan-unber-time"]`);
-    // let real_ber_time = $(`input[id="vessel-real-ber-plan-time"]`);
     let plan_ber_pos = $(`input[id="vessel-plan-ber-pos"]`)[0].value;
     let real_ber_pos = $(`input[id="vessel-real-ber-pos"]`)[0].value;
     let ves_ber_dir = $(`input[id="vessel-ber-dir"]`)[0].value;
@@ -50,9 +43,6 @@ $(`button[id="add-vessel-submit"]`).click(function () {
         cab_max_col: cab_max_col,
         ves_imp_voy: ves_imp_voy,
         ves_exp_voy: ves_exp_voy,
-        // ves_plan_ber_time: ves_plan_ber_time,
-        // ves_plan_unber_time: ves_plan_unber_time,
-        // real_ber_time: real_ber_time,
         plan_ber_pos: plan_ber_pos,
         real_ber_pos: real_ber_pos,
         ves_ber_dir: ves_ber_dir,
@@ -75,18 +65,9 @@ $(`button[id="add-vessel-submit"]`).click(function () {
         dataType: "json",
     });
 });
-
-// function combineReset() {
-//     $(`.reStartCombine`)[0].disabled = true;
-//
-// }
-
-function bayStructDefine() {
-     $(`.defineBayStruct`)[0].disabled = true;
-
-}
-
-// zoom in and zoom out
+/**
+ *  zoom in and zoom out
+ */
 function setZoom(zoom,el) {
     let transformOrigin = [0,0];
     el = el || instance.getContainer();
@@ -100,12 +81,10 @@ function setZoom(zoom,el) {
     el.style["transform"] = s;
     el.style["transformOrigin"] = oString;
 }
-
 function showVal(a){
     let zoomScale = Number(a)/10;
     setZoom(zoomScale,document.getElementsByClassName('bayStructArea')[0])
 }
-
 /**
  * custom function
  */
@@ -153,7 +132,6 @@ function directionDealer(num, dir, func, isInverse) {
         }
     }
 }
-
 /**
  *  initialize bay area
  */
@@ -168,7 +146,6 @@ function BayNumToRealIndexList(bayNum) {
     }
     return bay;
 }
-
 /**
  * bay
  */
@@ -178,17 +155,15 @@ function insertBay(bayLists, direction){
         let bayIndex = bayLists.inch20[val].bayRealIndex;
         let bayId = bayLists.inch20[val].id;
         $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
-        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} bay_index=${bayIndex} class="bayZone_20">`+
+        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} 
+                                    bay_index=${bayIndex} class="bayZone_20">`+
                                     `<span class="bay20Index">${bayIndex}</span>`+
                                 `</div>`);
     }
     let isInverse = true;
     directionDealer(bay_num, direction, drawBay, isInverse);
 }
-/**
- * redraw bayArea after confirm
- */
-function createBayAfterOperation(newList) {
+function createBayCombinationInfo(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
     let dir = newList.bayDirection;
@@ -197,7 +172,8 @@ function createBayAfterOperation(newList) {
         let itemId = dataList[index].id;
         if (dataList[index].type === "single") {
             let bayIndex = dataList[index].bayInch20[0].index;
-            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bayInfo bay">` +
+            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} 
+                class="newBay20 bayInfo bay">` +
                 `<span class="newBay20Index">${dataList[index].bayInch20[0].index}</span>` +
                 `</div>`);
         } else {
@@ -233,7 +209,6 @@ function createBayAfterOperation(newList) {
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div></div>` +
                     `</div>`);
             }
-
         }
     };
     let isInverse = true;
@@ -262,16 +237,12 @@ function createBayAfterOperation(newList) {
         });
     });
 
-
-
-
-
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
     $(`.bayInfo`).click(function () {
         //TODO: ajax get, show with response
         let bayIndex = this.childNodes[0].innerText;
-        // console.log(bayIndex);
+        console.log(bayIndex);
     });
 }
 /**
@@ -279,11 +250,17 @@ function createBayAfterOperation(newList) {
  */
 function selectToInch40(leftBay,rightBay,comBayIndex){
     let span_bayIndex = `<span class="bay40Index">${comBayIndex}</span>`;
-    $(`.bayArea_40 div[id=${leftBay}]`).addClass("leftBaySelected combined").append(span_bayIndex);
-    $(`.bayArea_40 div[id=${rightBay}]`).addClass("rightBaySelected combined").append(span_bayIndex);
+    $(`.bayArea_40 div[id=${leftBay}]`)
+        .addClass("leftBaySelected combined")
+        .append(span_bayIndex);
+    $(`.bayArea_40 div[id=${rightBay}]`)
+        .addClass("rightBaySelected combined")
+        .append(span_bayIndex);
 }
 function clearSelected(){
-    $(`.bayZone_20.ui-selected`).removeClass("ui-selected").children().removeClass("ui-selected");
+    $(`.bayZone_20.ui-selected`)
+        .removeClass("ui-selected")
+        .children().removeClass("ui-selected");
 }
 
 /**
@@ -300,11 +277,14 @@ function setStopOfSelectable(engineList) {
             let isNumSelectRight = selectedBay.length === 2;
             if(isNumSelectRight){
                 let isReselect =
-                    isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id);
+                    isExist(combinedBay20inch,selectedBay[0].id) ||
+                    isExist(combinedBay20inch,selectedBay[1].id);
                 let isNextTo =
-                    toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) === 1;
+                    toAbsent(parseInt(selectedBay[0].id) -
+                        parseInt(selectedBay[1].id)) === 1;
                 let isEngine =
-                    isExist(engineBodyBays,selectedBay[0].title) || isExist(engineBodyBays,selectedBay[1].title);
+                    isExist(engineBodyBays,selectedBay[0].title) ||
+                    isExist(engineBodyBays,selectedBay[1].title);
                 // TODO: add left to right constraint
                 if(isReselect || !isNextTo || isEngine) {
                     alert(TIP_PLEASE_RESELECT);
@@ -315,7 +295,8 @@ function setStopOfSelectable(engineList) {
                     let rightBayId = selectedBay[1].id;
                     combinedBay20inch.push(leftBayId);
                     combinedBay20inch.push(rightBayId);
-                    let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
+                    let combinedBayInch40Index =
+                        numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
                     combinedBay40inch.push(combinedBayInch40Index);
                     selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
                 }
@@ -348,7 +329,6 @@ function disableBayCombine(eng_list){
         $(`div[bay_index=${ind}]`).addClass("engineBody");
     }
 }
-
 function getCombineInfo (){
     $(`.bayCombineInfo`)[0].disabled = true;
     selected_vessel = $(`#vesselSelect option:selected`).val();
@@ -363,15 +343,13 @@ function getCombineInfo (){
         success: function (res) {
             console.log(res);
             let data = res;
-            // $(`.bayArea`)[0].style.display = 'none';
-            createBayAfterOperation(data);
+            createBayCombinationInfo(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
 }
-
 function combineReset() {
     alert(IS_TO_RESELECT);
     selected_vessel = $(`#vesselSelect option:selected`).val();
@@ -388,7 +366,6 @@ function combineReset() {
             let num = res.number;
             let dir = res.bayDirection;
             let engBodyList = res.engineRoomIndex;
-            // newBayArea
             $(`.newBayArea`)[0].style.display = 'none';
             insertBay(BayNumToRealIndexList(num), dir);
             $(`.reStartCombine`)[0].disabled = true;
@@ -401,7 +378,6 @@ function combineReset() {
         },
     });
 }
-
 function combineToConfirm (){
     let context = {
         vessel_name: selected_vessel,

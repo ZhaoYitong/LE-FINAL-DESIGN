@@ -25,14 +25,6 @@
     </div>
     <div id="control-buttons">
         <div id="buttons-bay" class="d-flex flex-row">
-<!-- disable bay input func  //-->
-<!--            <button type="button" class="btn btn-outline-primary startCombine" disabled-->
-<!--                    onclick="combineToStart()">编辑组贝</button>-->
-<!--            <button type="button" class="btn btn-outline-primary confirmCombine" disabled-->
-<!--                    onclick="combineToConfirm()">确认组贝</button>-->
-<!--            <button type="button" class="btn btn-outline-primary reStartCombine" disabled-->
-<!--                    onclick="combineReset()">重新组贝</button>-->
-<!-- disable bay input func  //-->
             <button type="button" class="btn btn-outline-primary bayCombineInfo"
                     onclick="getCombineInfo()">当前组贝</button>
         </div>
@@ -47,7 +39,8 @@
         </div>
     </div>
     <div class="zoomToggle d-flex flex-row">
-        <input id="test" min="1" max="10" value='10' step="1" onchange="showVal(this.value)" type="range"/>
+        <input id="test" min="1" max="10" value='10' step="1"
+               onchange="showVal(this.value)" type="range"/>
     </div>
     <div class="mainArea">
         <div class="bayArea">
@@ -73,9 +66,7 @@
             </div>
         </div>
         <div class="vesselStowageInfo"></div>
-        <div class="vesselPlanInfo">
-
-        </div>
+        <div class="vesselPlanInfo"></div>
         <div class="vesselManOpertation"></div>
     </div>
 </div>

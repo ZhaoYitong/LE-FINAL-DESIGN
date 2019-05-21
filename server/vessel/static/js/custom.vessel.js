@@ -3,14 +3,10 @@
  */
 const VESSEL_IMO = "船舶航次：";
 const BAY_INDEX_TIP = "贝位号: ";
-const TIP_PLEASE_RESELECT = "请重新选择";
-const IS_TO_RESELECT= "确认重新组贝？";
 /**
  *  variable initialize
  */
-let selected_vessel = $(`#vesselSelect option:selected`).val(); // !!!
-let combinedBay20inch = [];
-let combinedBay40inch = [];
+let selected_vessel = $(`#vesselSelect option:selected`).val();
 /**
  * @classname
  */
@@ -500,8 +496,7 @@ function layerNumToRealIndexList(layerNumAbove,layerNumBelow) {
     }
     return layer;
 }
-
-function createBayAfterOperation(newList) {
+function createBayCombinationInfo(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
     let dir = newList.bayDirection;
@@ -582,7 +577,6 @@ function createBayAfterOperation(newList) {
         // console.log(bayIndex);
     });
 }
-
 /**
  *  vessel creation
  */
@@ -809,7 +803,7 @@ function getCombineInfo (){
         dataType: "json",
         success: function (res) {
             console.log(res);
-            createBayAfterOperation(res);
+            createBayCombinationInfo(res);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
@@ -826,145 +820,3 @@ function getCombineInfo (){
  */
 // TODO: CUSTOM BLINK TRICK
 $(`[pos_x="19"],[pos_x="17"]`).addClass("blink");
-
-/**
- *  absolute func
- */
-// /**
-//  *  select bay
-//  */
-// function selectToInch40(leftBay,rightBay,comBayIndex){
-//     let span_bayIndex = `<span class="bay40Index">${comBayIndex}</span>`;
-//     $(`.bayArea_40 div[id=${leftBay}]`).addClass("leftBaySelected combined").append(span_bayIndex);
-//     $(`.bayArea_40 div[id=${rightBay}]`).addClass("rightBaySelected combined").append(span_bayIndex);
-// }
-// function clearSelected(){
-//     $(`.bayZone_20.ui-selected`).removeClass("ui-selected").children().removeClass("ui-selected");
-// }
-// /**
-//  * redraw bayArea after confirm
-//  */
-
-// /**
-//  *  bay operation
-//  */
-// function insertBay(bayLists, direction){
-//     let bay_num = bayLists.inch20.length;
-//     function drawBay(val,args_dir) {
-//         let bayIndex = bayLists.inch20[val].bayRealIndex;
-//         let bayId = bayLists.inch20[val].id;
-//         $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
-//         $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} bay_index=${bayIndex} class="bayZone_20">`+
-//                                     `<span class="bay20Index">${bayIndex}</span>`+
-//                                 `</div>`);
-//     }
-//     let isInverse = true;
-//     directionDealer(bay_num, direction, drawBay, isInverse);
-// }
-// /**
-//  * selectable
-//  */
-// function setStopOfSelectable(engineList) {
-//     $(`#selectable`).selectable({
-//         stop: function() {
-//             let engineBodyBays = [];
-//             for(let j=0;j<engineList.length;j++){
-//                 engineBodyBays.push(engineList[j].toString());
-//             }
-//             let selectedBay = $(`.bayZone_20.ui-selected`);
-//             let isNumSelectRight = selectedBay.length === 2;
-//             if(isNumSelectRight){
-//                 let isReselect =
-//                     isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id);
-//                 let isNextTo =
-//                     toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) === 1;
-//                 let isEngine =
-//                     isExist(engineBodyBays,selectedBay[0].title) || isExist(engineBodyBays,selectedBay[1].title);
-//                 // TODO: add left to right constraint
-//                 if(isReselect || !isNextTo || isEngine) {
-//                     alert(TIP_PLEASE_RESELECT);
-//                     clearSelected();
-//                 }
-//                 else {
-//                     let leftBayId = selectedBay[0].id;
-//                     let rightBayId = selectedBay[1].id;
-//                     combinedBay20inch.push(leftBayId);
-//                     combinedBay20inch.push(rightBayId);
-//                     let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
-//                     combinedBay40inch.push(combinedBayInch40Index);
-//                     selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
-//                 }
-//             }
-//             else {
-//                 alert(TIP_PLEASE_RESELECT);
-//                 clearSelected();
-//             }
-//         }
-//     });
-// }
-// function disableSelectable() {
-//     $(`#selectable`).selectable({
-//         disabled: true
-//     });
-// }
-// // TODO: enable after reset combination
-// function enableSelectable() {
-//     $(`#selectable`).selectable({
-//        disabled: false
-//     });
-// }
-// function disableBayCombine(eng_list){
-//     for(let i=0; i<eng_list.length; i++){
-//         let ind = eng_list[i].toString();
-//         // console.log(ind);
-//         $(`div[bay_index=${ind}]`).addClass("engineBody");
-//     }
-// }
-// function combineToStart (){
-//     selected_vessel = $(`#vesselSelect option:selected`).val();
-//     $.ajax({
-//         url: '/vesselStruct/edit_bay/',
-//         type: 'GET',
-//         data: {
-//             name: selected_vessel,
-//             type: 'edit',
-//         },
-//         dataType: "json",
-//         success: function (res) {
-//             let num = res.number;
-//             let dir = res.bayDirection;
-//             let engBodyList = res.engineRoomIndex;
-//             // console.log(res);
-//             insertBay(BayNumToRealIndexList(num), dir);
-//             $(`.startCombine`)[0].disabled = true;
-//             disableBayCombine(engBodyList);
-//             setStopOfSelectable(engBodyList);
-//             $(`.confirmCombine`)[0].disabled = false;
-//         },
-//         error: function(XMLHttpRequest, textStatus, errorThrown) {
-//             alert(XMLHttpRequest.status);
-//         },
-//     });
-// }
-// function combineToConfirm (){
-//     let context = {
-//         vessel_name: selected_vessel,
-//         bayInch20s: combinedBay20inch,
-//         bayInch40s: combinedBay40inch,
-//     };
-//     disableSelectable();
-//     $.ajax({
-//         url: '/vesselStruct/edit_bay/',
-//         type: 'POST',
-//         data: JSON.stringify(context),
-//         success: function(res){
-//             console.log(res);
-//             let data = res;
-//             $(`.confirmCombine`)[0].disabled = true;
-//             clearSelected();
-//             $(`.bayArea`)[0].style.display = 'none';
-//             createBayAfterOperation(data);
-//         },
-//         dataType: "json",
-//     });
-// }

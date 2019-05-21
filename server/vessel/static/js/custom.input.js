@@ -7,11 +7,17 @@ const TIP_PLEASE_RESELECT = "请重新选择";
 const IS_TO_RESELECT= "确认重新组贝？";
 const TIP_RESET_BAY_SUCCESS = "重新组贝成功";
 /**
- *  variable initialize
+ *  initialize
  */
 let selected_vessel = $(`#vesselSelect option:selected`).val();
 let combinedBay20inch = [];
 let combinedBay40inch = [];
+// let getTable = document.getElementById("table-bay-struct");
+// getTable.style.display='none';
+// set table_bay_struct display: none
+// let getTable = document.getElementById("table-bay-struct");
+// getTable.style.display='none';
+
 $(`button[id="add-vessel-submit"]`).click(function () {
     let ves_name = $(`input[id="vessel-name"]`)[0].value;
     let ves_len = $(`input[id="vessel-length"]`)[0].value;
@@ -173,7 +179,7 @@ function createBayCombinationInfo(newList) {
         if (dataList[index].type === "single") {
             let bayIndex = dataList[index].bayInch20[0].index;
             $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} 
-                class="newBay20 bayInfo bay">` +
+                class="newBay20 bay">` +
                 `<span class="newBay20Index">${dataList[index].bayInch20[0].index}</span>` +
                 `</div>`);
         } else {
@@ -182,13 +188,13 @@ function createBayCombinationInfo(newList) {
                 let bay20_left = dataList[index].bayInch20s[1].index;
                 let bay20_right = dataList[index].bayInch20s[0].index;
                 $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">` +
-                    `<div class="newBay40InCom bayInfo bay">` +
+                    `<div class="newBay40InCom bayInfo">` +
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bayInfo bay">`+
+                    `<div class="newBay20InComLeft bay">`+
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bayInfo bay">`+
+                    `<div class="newBay20InComRight bay">`+
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div>` +
                     `</div>` +
                     `</div>`);
@@ -199,13 +205,13 @@ function createBayCombinationInfo(newList) {
                 let bay20_left = dataList[index].bayInch20s[0].index;
                 let bay20_right = dataList[index].bayInch20s[1].index;
                 $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">` +
-                    `<div class="newBay40InCom bayInfo bay">` +
+                    `<div class="newBay40InCom bayInfo">` +
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bayInfo bay">`+
+                    `<div class="newBay20InComLeft bay">`+
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bayInfo bay">`+
+                    `<div class="newBay20InComRight bay">`+
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div></div>` +
                     `</div>`);
             }
@@ -213,7 +219,6 @@ function createBayCombinationInfo(newList) {
     };
     let isInverse = true;
     directionDealer(newBay_num, dir, drawNewBay, isInverse);
-
     // TODO: as bayArea is created dynamically, use on click
     // TODO: disable this func before bayCombined!
     $(`.bay`).on('click', function () {
@@ -229,21 +234,34 @@ function createBayCombinationInfo(newList) {
             dataType: "json",
             success: function (res) {
                 console.log(res);
+                let bay_struct_max = res.bay_struct_max;
+                let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
+                let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
+                let deck_max_col = res.bay_struct_max.deck_lay_num_max;
+                let cab_max_col = res.bay_struct_max.cab_col_num_max;
+
                 let data = res;
+                let bay_struct_edit = `<div id='table-bay-struct'><div id="sub-table"><h1>test areaa </h1></div></div>`;
+                let area_size = ['864px', '256px']; // change according to size of ves_struct
+                let title = '定义贝位结构';
+
+                layer.open({
+                    type: 1,
+                    title: title,
+                    area: area_size, //宽高
+                    closeBtn: 1,
+                    shadeClose: true,
+                    skin: '',
+                    content: bay_struct_edit,
+                });
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);
             },
         });
     });
-
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
-    $(`.bayInfo`).click(function () {
-        //TODO: ajax get, show with response
-        let bayIndex = this.childNodes[0].innerText;
-        console.log(bayIndex);
-    });
 }
 /**
  *  select bay
@@ -262,7 +280,6 @@ function clearSelected(){
         .removeClass("ui-selected")
         .children().removeClass("ui-selected");
 }
-
 /**
  * selectable
  */
@@ -329,7 +346,7 @@ function disableBayCombine(eng_list){
         $(`div[bay_index=${ind}]`).addClass("engineBody");
     }
 }
-function getCombineInfo (){
+function get_combined_info (){
     $(`.bayCombineInfo`)[0].disabled = true;
     selected_vessel = $(`#vesselSelect option:selected`).val();
     $.ajax({
@@ -396,4 +413,3 @@ function combineToConfirm (){
         dataType: "json",
     });
 }
-

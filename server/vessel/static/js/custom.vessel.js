@@ -505,7 +505,7 @@ function createBayCombinationInfo(newList) {
         let itemId = dataList[index].id;
         if (dataList[index].type === "single") {
             let bayIndex = dataList[index].bayInch20[0].index;
-            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bayInfo bay">` +
+            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bay-20">` +
                 `<span class="newBay20Index">${dataList[index].bayInch20[0].index}</span>` +
                 `</div>`);
         } else {
@@ -514,13 +514,13 @@ function createBayCombinationInfo(newList) {
                 let bay20_left = dataList[index].bayInch20s[1].index;
                 let bay20_right = dataList[index].bayInch20s[0].index;
                 $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">` +
-                    `<div class="newBay40InCom bayInfo bay">` +
+                    `<div class="newBay40InCom bay-40">` +
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bayInfo bay">`+
+                    `<div class="newBay20InComLeft bay-20">`+
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bayInfo bay">`+
+                    `<div class="newBay20InComRight bay-20">`+
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div>` +
                     `</div>` +
                     `</div>`);
@@ -531,13 +531,13 @@ function createBayCombinationInfo(newList) {
                 let bay20_left = dataList[index].bayInch20s[0].index;
                 let bay20_right = dataList[index].bayInch20s[1].index;
                 $(`.newBayArea`).append(`<div id= ${itemId} class="comBay20_40">` +
-                    `<div class="newBay40InCom bayInfo bay">` +
+                    `<div class="newBay40InCom bay-40">` +
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bayInfo bay">`+
+                    `<div class="newBay20InComLeft bay-20">`+
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bayInfo bay">`+
+                    `<div class="newBay20InComRight bay-20">`+
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div></div>` +
                     `</div>`);
             }
@@ -548,7 +548,7 @@ function createBayCombinationInfo(newList) {
 
     // TODO: as bayArea is created dynamically, use on click
     // TODO: disable this func before bayCombined!
-    $(`.bay`).on('click', function () {
+    $(`.bay-20`).on('click', function () {
         let index = this.childNodes[0].innerText;
         let ves_selected = $(`#vesselSelect option:selected`).val();
         $.ajax({
@@ -561,21 +561,14 @@ function createBayCombinationInfo(newList) {
             dataType: "json",
             success: function (res) {
                 console.log(res);
-                let data = res;
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);
             },
         });
     });
-
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
-    $(`.bayInfo`).click(function () {
-        //TODO: ajax get, show with response
-        let bayIndex = this.childNodes[0].innerText;
-        // console.log(bayIndex);
-    });
 }
 /**
  *  vessel creation

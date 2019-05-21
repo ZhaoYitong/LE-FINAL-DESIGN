@@ -1,13 +1,13 @@
 {% load static %}
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="{% static 'images/smu.jpg' %}" rel="icon">
-  <link href="{% static 'css/tool/google-api.css' %}" rel="stylesheet">
-  <link href="{% static 'css/tool/bootstrap_v4/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'css/custom.input.css' %}" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'images/smu.jpg' %}" rel="icon">
+    <link href="{% static 'css/tool/google-api.css' %}" rel="stylesheet">
+    <link href="{% static 'css/tool/bootstrap_v4/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.input.css' %}" rel="stylesheet">
 </head>
 <body id="page-top">
 <div id="add-vessel" class="col-md-9">
@@ -175,11 +175,15 @@
     <div id="control-buttons">
         <div id="buttons-bay" class="d-flex flex-row">
             <button type="button" class="btn btn-outline-primary bayCombineInfo"
-                    onclick="getCombineInfo()">当前组贝</button>
+                    onclick="get_combined_info()">当前组贝</button>
             <button type="button" class="btn btn-outline-primary reStartCombine"
                     onclick="combineReset()">重新组贝</button>
             <button type="button" class="btn btn-outline-primary confirmCombine" disabled
                     onclick="combineToConfirm()">确认组贝</button>
+        </div>
+        <!-- test area -->
+        <div class="test-buttons">
+            <button data-method='setTop' class="layui-btn test">test layui</button>
         </div>
     </div>
     <div class="zoomToggle d-flex flex-row">
@@ -201,6 +205,7 @@
 <script src="{% static 'js/tool/bootstrap_v4/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/tool/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/main.min.js' %}"></script>
+<script src="{% static 'layui_layer/layer/layer.js' %}"></script>
 <script src="{% static 'js/custom.input.js' %}"></script>
 </body>
 </html>

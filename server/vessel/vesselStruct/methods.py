@@ -133,6 +133,3 @@ def bay_index_to_bay_size(val):
         return '40'
     else:
         return '20'
-
-
-print(bay_num_to_index_list(10))

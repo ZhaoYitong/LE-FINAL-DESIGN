@@ -12,12 +12,15 @@ let selected_vessel = $(`#vesselSelect option:selected`).val(); // !!!
 let combinedBay20inch = [];
 let combinedBay40inch = [];
 /**
- * @type {number}
+ * @classname
  */
 /*
     pos_x : bayIndex
     pos_y : rowIndex
     pos_z : layerIndex
+ */
+/**
+ *  data
  */
 let VIEW_SIDE = {
     dataType: "",
@@ -461,7 +464,6 @@ function setZoom(zoom,el) {
 }
 function showVal(a){
     let zoomScale = Number(a)/10;
-    //setZoom(5,document.getElementsByClassName('container')[0]);
     setZoom(zoomScale,document.getElementsByClassName('mainArea')[0])
 }
 /**
@@ -498,22 +500,7 @@ function layerNumToRealIndexList(layerNumAbove,layerNumBelow) {
     }
     return layer;
 }
-function insertBay(bayLists, direction){
-    let bay_num = bayLists.inch20.length;
-    function drawBay(val,args_dir) {
-        let bayIndex = bayLists.inch20[val].bayRealIndex;
-        let bayId = bayLists.inch20[val].id;
-        $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
-        $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} bay_index=${bayIndex} class="bayZone_20">`+
-                                    `<span class="bay20Index">${bayIndex}</span>`+
-                                `</div>`);
-    }
-    let isInverse = true;
-    directionDealer(bay_num, direction, drawBay, isInverse);
-}
-/**
- * redraw bayArea after confirm
- */
+
 function createBayAfterOperation(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
@@ -559,7 +546,6 @@ function createBayAfterOperation(newList) {
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div></div>` +
                     `</div>`);
             }
-
         }
     };
     let isInverse = true;
@@ -588,10 +574,6 @@ function createBayAfterOperation(newList) {
         });
     });
 
-
-
-
-
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
     $(`.bayInfo`).click(function () {
@@ -600,17 +582,7 @@ function createBayAfterOperation(newList) {
         // console.log(bayIndex);
     });
 }
-/**
- *  select bay
- */
-function selectToInch40(leftBay,rightBay,comBayIndex){
-    let span_bayIndex = `<span class="bay40Index">${comBayIndex}</span>`;
-    $(`.bayArea_40 div[id=${leftBay}]`).addClass("leftBaySelected combined").append(span_bayIndex);
-    $(`.bayArea_40 div[id=${rightBay}]`).addClass("rightBaySelected combined").append(span_bayIndex);
-}
-function clearSelected(){
-    $(`.bayZone_20.ui-selected`).removeClass("ui-selected").children().removeClass("ui-selected");
-}
+
 /**
  *  vessel creation
  */
@@ -676,20 +648,6 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
         console.log(index);
         $(`div[p_x=${index}]`).addClass("vesselBody_inch20");
     }
-    /*
-    for(let t=0;t<VIEW_SIDE.vessel.length;t++){
-        for(let u=0;u<VIEW_SIDE.vessel[t].bayIndexList.length;u++){
-            let x = VIEW_SIDE.vessel[t].bayIndexList[u];
-            let z = VIEW_SIDE.vessel[t].layerIndex;
-            $(`[p_x=${x}][p_z=${z}]`).addClass("vesselBody_inch20");
-        }
-        for(let v=0;v<VIEW_SIDE.vessel[t].conZoneIndexList.length;v++){
-            let x = VIEW_SIDE.vessel[t].conZoneIndexList[v];
-            let z = VIEW_SIDE.vessel[t].layerIndex;
-            $(`[p_x=${x}][p_z=${z}]`).addClass("vesselConZone_inch20");
-        }
-    }
-     */
 }
 /**
  *  stowage info
@@ -836,148 +794,32 @@ function createLoadOrUnloadInfo() {
     });
 }
 /**
- * selectable
- */
-function setStopOfSelectable(engineList) {
-    $(`#selectable`).selectable({
-        stop: function() {
-            let engineBodyBays = [];
-            for(let j=0;j<engineList.length;j++){
-                engineBodyBays.push(engineList[j].toString());
-            }
-            let selectedBay = $(`.bayZone_20.ui-selected`);
-            let isNumSelectRight = selectedBay.length === 2;
-            if(isNumSelectRight){
-                let isReselect =
-                    isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id);
-                let isNextTo =
-                    toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) === 1;
-                let isEngine =
-                    isExist(engineBodyBays,selectedBay[0].title) || isExist(engineBodyBays,selectedBay[1].title);
-                // TODO: add left to right constraint
-                if(isReselect || !isNextTo || isEngine) {
-                    alert(TIP_PLEASE_RESELECT);
-                    clearSelected();
-                }
-                else {
-                    let leftBayId = selectedBay[0].id;
-                    let rightBayId = selectedBay[1].id;
-                    combinedBay20inch.push(leftBayId);
-                    combinedBay20inch.push(rightBayId);
-                    let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
-                    combinedBay40inch.push(combinedBayInch40Index);
-                    selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
-                }
-            }
-            else {
-                alert(TIP_PLEASE_RESELECT);
-                clearSelected();
-            }
-        }
-    });
-}
-function disableSelectable() {
-    $(`#selectable`).selectable({
-        disabled: true
-    });
-}
-// TODO: enable after reset combination
-function enableSelectable() {
-    $(`#selectable`).selectable({
-       disabled: false
-    });
-}
-/**
  *  combination buttons
  */
-function disableBayCombine(eng_list){
-    for(let i=0; i<eng_list.length; i++){
-        let ind = eng_list[i].toString();
-        // console.log(ind);
-        $(`div[bay_index=${ind}]`).addClass("engineBody");
-    }
-}
-function combineToStart (){
+function getCombineInfo (){
+    $(`.bayCombineInfo`)[0].disabled = true;
     selected_vessel = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/edit_bay/',
         type: 'GET',
         data: {
             name: selected_vessel,
-            type: 'edit',
+            type: 'current_info',
         },
         dataType: "json",
         success: function (res) {
-            let num = res.number;
-            let dir = res.bayDirection;
-            let engBodyList = res.engineRoomIndex;
-            // console.log(res);
-            insertBay(BayNumToRealIndexList(num), dir);
-            $(`.startCombine`)[0].disabled = true;
-            disableBayCombine(engBodyList);
-            setStopOfSelectable(engBodyList);
-            $(`.confirmCombine`)[0].disabled = false;
+            console.log(res);
+            createBayAfterOperation(res);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
 }
-function combineToConfirm (){
-    let context = {
-        vessel_name: selected_vessel,
-        bayInch20s: combinedBay20inch,
-        bayInch40s: combinedBay40inch,
-    };
-    disableSelectable();
-    $.ajax({
-        url: '/vesselStruct/edit_bay/',
-        type: 'POST',
-        data: JSON.stringify(context),
-        success: function(res){
-            console.log(res);
-            let data = res;
-            $(`.confirmCombine`)[0].disabled = true;
-            clearSelected();
-            $(`.bayArea`)[0].style.display = 'none';
-            createBayAfterOperation(data);
-        },
-        dataType: "json",
-    });
-}
-function combineReset (){
-    // TODO: delete last vessel's combination
-    // TODO: get response after delete
-    alert(IS_TO_RESELECT);
-    combinedBay20inch = [];
-    $.ajax({
-       url: '/vesselStruct/edit_bay/',
-       type: 'DELETE',
-       data:  {
-           name: selected_vessel,
-           type: 'delete',
-       },
-       success: function (res) {
-            // console.log(res)
-       },
-    });
-    // enableSelectable();
-    // setStopOfSelectable();
-    // // get new info of vessel from server
-    // $(".newBayArea")[0].style.display = 'none'; // hide combined bayArea
-    // TODO: reInitial the bayArea
-    // $(".bayArea")[0].style.display = '';
-    // $(".bayArea").remove(".bayArea_20");
-    // $(".bayArea").remove(".bayArea_40");
-}
 /**
  *  layui: https://www.layui.com/doc/modules/layer.html
  */
 // TODO: add layer with loading, support multiple layer
-/**
- *
- *  TODO AREA
- */
 // TODO: add engine after combination of bay
 /**
  *  test area
@@ -986,15 +828,143 @@ function combineReset (){
 $(`[pos_x="19"],[pos_x="17"]`).addClass("blink");
 
 /**
- *  data input
- **/
-
-/**
- *  bay struct define
+ *  absolute func
  */
-function bayStructDefine() {
-    let selected_ves = $(`#vesselSelect option:selected`).val();
+// /**
+//  *  select bay
+//  */
+// function selectToInch40(leftBay,rightBay,comBayIndex){
+//     let span_bayIndex = `<span class="bay40Index">${comBayIndex}</span>`;
+//     $(`.bayArea_40 div[id=${leftBay}]`).addClass("leftBaySelected combined").append(span_bayIndex);
+//     $(`.bayArea_40 div[id=${rightBay}]`).addClass("rightBaySelected combined").append(span_bayIndex);
+// }
+// function clearSelected(){
+//     $(`.bayZone_20.ui-selected`).removeClass("ui-selected").children().removeClass("ui-selected");
+// }
+// /**
+//  * redraw bayArea after confirm
+//  */
 
-    $(`.defineBayStruct`)[0].disabled = true;
-    console.log("start to define!");
-}
+// /**
+//  *  bay operation
+//  */
+// function insertBay(bayLists, direction){
+//     let bay_num = bayLists.inch20.length;
+//     function drawBay(val,args_dir) {
+//         let bayIndex = bayLists.inch20[val].bayRealIndex;
+//         let bayId = bayLists.inch20[val].id;
+//         $('.bayArea_40').append(`<div id= ${bayId} class="bayZone_inch40"></div>`);
+//         $('.bayArea_20').append(`<div id= ${bayId} title=${bayIndex} bay_index=${bayIndex} class="bayZone_20">`+
+//                                     `<span class="bay20Index">${bayIndex}</span>`+
+//                                 `</div>`);
+//     }
+//     let isInverse = true;
+//     directionDealer(bay_num, direction, drawBay, isInverse);
+// }
+// /**
+//  * selectable
+//  */
+// function setStopOfSelectable(engineList) {
+//     $(`#selectable`).selectable({
+//         stop: function() {
+//             let engineBodyBays = [];
+//             for(let j=0;j<engineList.length;j++){
+//                 engineBodyBays.push(engineList[j].toString());
+//             }
+//             let selectedBay = $(`.bayZone_20.ui-selected`);
+//             let isNumSelectRight = selectedBay.length === 2;
+//             if(isNumSelectRight){
+//                 let isReselect =
+//                     isExist(combinedBay20inch,selectedBay[0].id) || isExist(combinedBay20inch,selectedBay[1].id);
+//                 let isNextTo =
+//                     toAbsent(parseInt(selectedBay[0].id) - parseInt(selectedBay[1].id)) === 1;
+//                 let isEngine =
+//                     isExist(engineBodyBays,selectedBay[0].title) || isExist(engineBodyBays,selectedBay[1].title);
+//                 // TODO: add left to right constraint
+//                 if(isReselect || !isNextTo || isEngine) {
+//                     alert(TIP_PLEASE_RESELECT);
+//                     clearSelected();
+//                 }
+//                 else {
+//                     let leftBayId = selectedBay[0].id;
+//                     let rightBayId = selectedBay[1].id;
+//                     combinedBay20inch.push(leftBayId);
+//                     combinedBay20inch.push(rightBayId);
+//                     let combinedBayInch40Index = numToIdString((leftBayId*2-1+rightBayId*2-1)/2);
+//                     combinedBay40inch.push(combinedBayInch40Index);
+//                     selectToInch40(leftBayId,rightBayId,combinedBayInch40Index);
+//                 }
+//             }
+//             else {
+//                 alert(TIP_PLEASE_RESELECT);
+//                 clearSelected();
+//             }
+//         }
+//     });
+// }
+// function disableSelectable() {
+//     $(`#selectable`).selectable({
+//         disabled: true
+//     });
+// }
+// // TODO: enable after reset combination
+// function enableSelectable() {
+//     $(`#selectable`).selectable({
+//        disabled: false
+//     });
+// }
+// function disableBayCombine(eng_list){
+//     for(let i=0; i<eng_list.length; i++){
+//         let ind = eng_list[i].toString();
+//         // console.log(ind);
+//         $(`div[bay_index=${ind}]`).addClass("engineBody");
+//     }
+// }
+// function combineToStart (){
+//     selected_vessel = $(`#vesselSelect option:selected`).val();
+//     $.ajax({
+//         url: '/vesselStruct/edit_bay/',
+//         type: 'GET',
+//         data: {
+//             name: selected_vessel,
+//             type: 'edit',
+//         },
+//         dataType: "json",
+//         success: function (res) {
+//             let num = res.number;
+//             let dir = res.bayDirection;
+//             let engBodyList = res.engineRoomIndex;
+//             // console.log(res);
+//             insertBay(BayNumToRealIndexList(num), dir);
+//             $(`.startCombine`)[0].disabled = true;
+//             disableBayCombine(engBodyList);
+//             setStopOfSelectable(engBodyList);
+//             $(`.confirmCombine`)[0].disabled = false;
+//         },
+//         error: function(XMLHttpRequest, textStatus, errorThrown) {
+//             alert(XMLHttpRequest.status);
+//         },
+//     });
+// }
+// function combineToConfirm (){
+//     let context = {
+//         vessel_name: selected_vessel,
+//         bayInch20s: combinedBay20inch,
+//         bayInch40s: combinedBay40inch,
+//     };
+//     disableSelectable();
+//     $.ajax({
+//         url: '/vesselStruct/edit_bay/',
+//         type: 'POST',
+//         data: JSON.stringify(context),
+//         success: function(res){
+//             console.log(res);
+//             let data = res;
+//             $(`.confirmCombine`)[0].disabled = true;
+//             clearSelected();
+//             $(`.bayArea`)[0].style.display = 'none';
+//             createBayAfterOperation(data);
+//         },
+//         dataType: "json",
+//     });
+// }

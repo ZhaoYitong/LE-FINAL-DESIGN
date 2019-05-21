@@ -140,6 +140,7 @@ def reset_bay_combine(request):
         obj.FotBayCom = None
         obj.FotBayNum = None
         obj.save()
+        # TODO: delete other info in DBs
         # get from DB
         obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name, BaySiz='20')
         obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)

@@ -5,7 +5,7 @@ const VESSEL_IMO = "船舶航次：";
 const BAY_INDEX_TIP = "贝位号: ";
 const TIP_PLEASE_RESELECT = "请重新选择";
 const IS_TO_RESELECT= "确认重新组贝？";
-
+const TIP_RESET_BAY_SUCCESS = "重新组贝成功";
 /**
  *  var
  */
@@ -363,7 +363,7 @@ function getCombineInfo (){
         success: function (res) {
             console.log(res);
             let data = res;
-            $(`.bayArea`)[0].style.display = 'none';
+            // $(`.bayArea`)[0].style.display = 'none';
             createBayAfterOperation(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -373,6 +373,7 @@ function getCombineInfo (){
 }
 
 function combineReset() {
+    alert(IS_TO_RESELECT);
     selected_vessel = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/reset_bay_combine/',
@@ -384,17 +385,16 @@ function combineReset() {
         dataType: "json",
         success: function (res) {
             console.log(res);
+            let num = res.number;
+            let dir = res.bayDirection;
+            let engBodyList = res.engineRoomIndex;
+            // newBayArea
+            $(`.newBayArea`)[0].style.display = 'none';
+            insertBay(BayNumToRealIndexList(num), dir);
+            $(`.reStartCombine`)[0].disabled = true;
+            disableBayCombine(engBodyList);
+            setStopOfSelectable(engBodyList);
             $(`.confirmCombine`)[0].disabled = false;
-            // confirmCombine
-            // let num = res.number;
-            // let dir = res.bayDirection;
-            // let engBodyList = res.engineRoomIndex;
-            // // console.log(res);
-            // insertBay(BayNumToRealIndexList(num), dir);
-            // $(`.reStartCombine`)[0].disabled = true;
-            // disableBayCombine(engBodyList);
-            // setStopOfSelectable(engBodyList);
-            // $(`.confirmCombine`)[0].disabled = false;
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
@@ -415,10 +415,7 @@ function combineToConfirm (){
         data: JSON.stringify(context),
         success: function(res){
             console.log(res);
-            let data = res;
-            clearSelected();
-            $(`.bayArea`)[0].style.display = 'none';
-            createBayAfterOperation(data);
+            alert(TIP_RESET_BAY_SUCCESS);
         },
         dataType: "json",
     });

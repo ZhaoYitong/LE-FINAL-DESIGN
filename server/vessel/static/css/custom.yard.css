@@ -100,11 +100,24 @@
     top: 100px;
 }
 
+.con-info-table-outer {
+    float:left;
+    width: 600px;
+    height: 100%
+}
+
 .container_information_table {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     border: 1px black solid;
+    text-align: center;
+}
+
+
+
+#container_information_col {
+    background-color: #a9a9a9;
 }
 
 .bay_blank {
@@ -124,18 +137,6 @@
     display: none
 }
 
-.add_table tr {
-    background-color: darkgray;
-    height: 10%;
-}
-
-.add_table {
-    background-color: wheat;
-    border:1px;
-    width:198px;
-    height:100%;
-}
-
 #add_table {
     float: left;
     width: 198px;
@@ -143,3 +144,28 @@
     text-align: center;
     font-size:10px;
 }
+
+#add_table > .add_table {
+    background-color: wheat;
+    border:1px;
+    width:198px;
+    height:100%;
+}
+
+#add_table > .add_table tr {
+    background-color: darkgray;
+    height: 10%;
+}
+
+.table-confirm {
+    colspan: 11;
+    background-color: #a9a9a9;
+    alignment: center;
+}
+
+#container_information_button {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+

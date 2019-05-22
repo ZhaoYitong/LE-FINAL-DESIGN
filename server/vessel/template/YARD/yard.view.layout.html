@@ -8,114 +8,18 @@
     <script src="{% static 'js/tool/jquery_v3/jquery-3.4.1.min.js' %}"></script>
 </head>
 <body class="body">
-
 <!--写出详细贝位-->
-
 <div class="bay_blank">贝位</div>
-
 <div id="container_information" class="container_information" hidden="true">
-    <div style="float:left;width: 600px;height: 100%">
-        <table class="container_information_table" border="1px" style="text-align: center">
-
+    <div class="con-info-table-outer">
+        <table class="container_information_table">
             <tr>
                 <td height="10%" id="container_information_title" colspan="11" bgcolor="#a9a9a9">**贝位详细信息</td>
             </tr>
-
-            <tr height="14%" id="container_information_5_layer">
-                <td width="10%" bgcolor="#a9a9a9">5</td>
-                <td width="9%" id="A5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="B5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="C5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="D5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="E5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="F5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="G5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="H5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="I5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="J5" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-            </tr>
-
-            <tr height="14%" id="container_information_4_layer">
-                <td width="10%" bgcolor="#a9a9a9">4</td>
-                <td width="9%" id="A4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="B4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="C4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="D4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="E4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="F4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="G4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="H4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="I4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="J4" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-            </tr>
-
-            <tr height="14%" id="container_information_3_layer">
-                <td width="10%" bgcolor="#a9a9a9">3</td>
-                <td width="9%" id="A3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="B3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="C3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="D3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="E3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="F3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="G3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="H3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="I3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="J3" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-            </tr>
-
-            <tr height="14%" id="container_information_2_layer">
-                <td width="10%" bgcolor="#a9a9a9">2</td>
-                <td width="9%" id="A2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="B2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="C2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="D2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="E2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="F2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="G2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="H2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="I2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="J2" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-            </tr>
-
-            <tr height="14%" id="container_information_1_layer">
-                <td width="10%" bgcolor="#a9a9a9">1</td>
-                <td width="9%" id="A1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="B1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="C1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="D1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="E1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="F1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="G1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="H1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="I1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-                <td width="9%" id="J1" onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>
-            </tr>
-
-            <tr height="14%" id="container_information_col" bgcolor="#a9a9a9">
-                <td width="10%">层数<br>贝位</td>
-                <td width="9%">1</td>
-                <td width="9%">2</td>
-                <td width="9%">3</td>
-                <td width="9%">4</td>
-                <td width="9%">5</td>
-                <td width="9%">6</td>
-                <td width="9%">7</td>
-                <td width="9%">8</td>
-                <td width="9%">9</td>
-                <td width="9%">10</td>
-            </tr>
-
-
-            <tr>
-                <td colspan="11" align="center" bgcolor="#a9a9a9"><input
-                        style="display: block; height: 100%; width: 100%;"
-                        id="container_information_button" type="button"
-                        onclick='des()' value="确定"></td>
-            </tr>
         </table>
     </div>
-    <div id="add_table" style="float:left;width: 198px;height: 100%;text-align: center;font-size:10px">
-        <table class="add_table" border="1px" style="background-color: wheat;" width="198px" height="100%">
+    <div id="add_table">
+        <table class="add_table">
             <tr>
                 <td width="40%">场箱位</td>
                 <td id="add1">BBB</td>
@@ -158,84 +62,16 @@
             </tr>
         </table>
     </div>
-    <script>
-        function fun_infor(obj) {
-            color_old = obj.style.backgroundColor;
-            obj.style.backgroundColor = "yellow";
-            document.getElementById("add1").innerText = yard_yardcel[obj.id];
-            document.getElementById("add2").innerText = yard_status[obj.id];
-            document.getElementById("add3").innerText = yard_ctnno[obj.id];
-            document.getElementById("add4").innerText = yard_strloaunlsig[obj.id];
-            document.getElementById("add5").innerText = yard_ctntyp[obj.id];
-            document.getElementById("add6").innerText = yard_ctnwegt[obj.id];
-            document.getElementById("add7").innerText = yard_unloadport[obj.id];
-            document.getElementById("add8").innerText = yard_size[obj.id];
-            document.getElementById("add9").innerText = yard_owner[obj.id];
-            document.getElementById("add10").innerText = yard_loaVesTim[obj.id];
-        }
-
-        function re_fun_infor(obj) {
-           // obj.style.backgroundColor = color_old;
-            obj.style.backgroundColor = yard_color[obj.id];
-        }
-    </script>
 </div>
-
 <!--写贝位-->
 <div class="bay_Y"></div>
-
 <div class="box_title"></div>
-
-<script>
-    function paint_container(yard_add) {
-        //这里是画箱子   箱区  贝位 列
-        let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-        for (let j = 0; j < 900; j++) {
-            //name_str="A"+String(parseInt(j/10)*2+1)+col_list[j%10];
-            let bay_str = String(parseInt(j / 10) * 2 + 1);
-            let col_str = col_list[j % 10];
-            document.write(`<div class="container" yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this,event)"></div>`);
-        }
-    }
-</script>
-<div class="box_area">
-<div class="box_A">
-    <script>
-        paint_container("A");
-    </script>
-</div>
-<div class="box_B">
-    <script>
-        paint_container("B");
-    </script>
-</div>
-<div class="box_C">
-    <script>
-        paint_container("C");
-    </script>
-</div>
-<div class="box_D">
-    <script>
-        paint_container("D");
-    </script>
-</div>
-<div class="box_E">
-    <script>
-        paint_container("E");
-    </script>
-</div>
-<div class="box_F">
-    <script>
-        paint_container("F");
-    </script>
-</div>
-</div>
+<div class="box_area"></div>
 <script>
 var container_object;
 var container_list_object;
 var bay_object;
 var box_object;
-
 var yard_yardcel;
 var yard_status;
 var yard_ctnno;
@@ -247,18 +83,67 @@ var yard_size;
 var yard_owner;
 var yard_loaVesTim;
 var yard_color;
-
 var color_old;
+
+let box_title_list = ["A", "B", "C", "D", "E", "F"];
+let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+// table
+function fun_infor(obj) {
+    color_old = obj.style.backgroundColor;
+    obj.style.backgroundColor = "yellow";
+    document.getElementById("add1").innerText = yard_yardcel[obj.id];
+    document.getElementById("add2").innerText = yard_status[obj.id];
+    document.getElementById("add3").innerText = yard_ctnno[obj.id];
+    document.getElementById("add4").innerText = yard_strloaunlsig[obj.id];
+    document.getElementById("add5").innerText = yard_ctntyp[obj.id];
+    document.getElementById("add6").innerText = yard_ctnwegt[obj.id];
+    document.getElementById("add7").innerText = yard_unloadport[obj.id];
+    document.getElementById("add8").innerText = yard_size[obj.id];
+    document.getElementById("add9").innerText = yard_owner[obj.id];
+    document.getElementById("add10").innerText = yard_loaVesTim[obj.id];
+}
+
+function re_fun_infor(obj) {
+   // obj.style.backgroundColor = color_old;
+    obj.style.backgroundColor = yard_color[obj.id];
+}
+
+for(let i=5; i>0; i--){
+    let lay_index_id = "container_information_"+ (i) + "_layer";
+    $(`.container_information_table`).append(`<tr height="14%" id=${lay_index_id}>`);
+    $(`tr[id=${lay_index_id}]`).append(`<td width="10%" bgcolor="#a9a9a9">${i}</td>`);
+    for(let j=0; j<col_list.length; j++){
+        let col_index = col_list[j];
+        let col_lay = col_index + i.toString();
+        $(`tr[id=${lay_index_id}]`).append(`<td width="9%" id=${col_lay} onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>`);
+    }
+}
+
+$(`.container_information_table`).append(`<tr height="14%" id="container_information_col">`+
+                `<td width="10%">层数<br>贝位</td>`+
+                `<td width="9%">1</td>`+
+                `<td width="9%">2</td>`+
+                `<td width="9%">3</td>`+
+                `<td width="9%">4</td>`+
+                `<td width="9%">5</td>`+
+                `<td width="9%">6</td>`+
+                `<td width="9%">7</td>`+
+                `<td width="9%">8</td>`+
+                `<td width="9%">9</td>`+
+                `<td width="9%">10</td>`+
+            `</tr>`+
+            `<tr>`+
+                `<td class="table-confirm" colspan="11">`+
+                    `<input id="container_information_button" type="button" onclick='des()' value="确定">`+
+                `</td>`+
+            `</tr>`);
 
 //这里是写出贝位
 for (let i = 0; i < 90; i++) {
     let bay = 2 * i + 1;
     $(`.bay_Y`).append(`<div class="bay_Y_num">${bay}</div>`);
 }
-
 // 增加列号
-let box_title_list = ["A", "B", "C", "D", "E", "F"];
-let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 for(let i=0; i<box_title_list.length; i++){
     let index = box_title_list[i];
     let box_sub_title = "box_" + index + "_title";
@@ -268,18 +153,18 @@ for(let i=0; i<box_title_list.length; i++){
         $(`div[class=${box_sub_title}]`).append(`<div class="box_col">${col_list[i]}</div>`);
     }
 }
-
 //这里是画箱子   箱区  贝位 列
-// function paint_container(yard_add) {
-//     //这里是画箱子   箱区  贝位 列
-//     let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-//     for (let j = 0; j < 900; j++) {
-//         //name_str="A"+String(parseInt(j/10)*2+1)+col_list[j%10];
-//         let bay_str = String(parseInt(j / 10) * 2 + 1);
-//         let col_str = col_list[j % 10];
-//         document.write(`<div class="container" yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this,event)"></div>`);
-//     }
-// }
+for(let i=0; i<box_title_list.length; i++){
+    let box_area_sub = "box_" + box_title_list[i];
+    let yard_add = box_title_list[i];
+    $(`.box_area`).append(`<div class=${box_area_sub}></div>`);
+    for(let j=0; j<900; j++){
+        //name_str="A"+String(parseInt(j/10)*2+1)+col_list[j%10];
+        let bay_str = String(parseInt(j / 10) * 2 + 1);
+        let col_str = col_list[j % 10];
+        $(`div[class=${box_area_sub}]`).append(`<div class="container" yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this,event)"></div>`);
+    }
+}
 
 function container_add(container_this, e) {
     ////////////////////发送信息//////////////////////////
@@ -319,7 +204,7 @@ function container_add(container_this, e) {
                     document.getElementById(find_str).style.backgroundColor = color_str;
                 }
             }
-            con_tab.hidden = false;
+
         },
         error: function (msg) {
             //alert("发送失败");
@@ -347,14 +232,11 @@ function container_add(container_this, e) {
     let yard = container_this.getAttribute("yard");
     let bay = container_this.getAttribute("bay");
     let con_tab = document.getElementById("container_information");
+    con_tab.hidden = false;
     let pos_str = yard + "箱区" + "*" + bay + "贝位" + "*" + "详细信息";
     document.getElementById("container_information_title").innerText = pos_str;
 
-
-    /////////////更改每个箱位的颜色
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //更改每个箱位的颜色
 
     //更改表格属性颜色  yard_list
     //在点击后获取到箱区 贝位相同的集装箱箱位
@@ -364,14 +246,14 @@ function container_add(container_this, e) {
 
     //改变整个贝位的颜色
 
-    var bay_list = document.getElementsByClassName("container");
+    let con_list = document.getElementsByClassName("container");
 
     let bay_obj_list = [];
-    for (let i = 0; i < bay_list.length; i++) {
-        let yard_list_str = bay_list[i].getAttribute("yard");
-        let bay_list_str = bay_list[i].getAttribute("bay");
+    for (let i = 0; i < con_list.length; i++) {
+        let yard_list_str = con_list[i].getAttribute("yard");
+        let bay_list_str = con_list[i].getAttribute("bay");
         if (yard_list_str === yard && bay_list_str === bay) {
-            bay_obj_list.push(bay_list[i]);
+            bay_obj_list.push(con_list[i]);
         }
     }
     for (let i = 0; i < 10; i++) {
@@ -381,10 +263,10 @@ function container_add(container_this, e) {
     //传递整个贝位
     container_list_object = bay_obj_list;
 
-    var bay_list = document.getElementsByClassName("bay_Y_num");
+    let bay_list = document.getElementsByClassName("bay_Y_num");
     for (let i = 0; i < 90; i++) {
         let bay_obj = bay_list[i];
-        if (bay_obj.innerHTML == bay) {
+        if (bay_obj.innerHTML === bay) {
             bay_obj.style.backgroundColor = "red";
             bay_object = bay_obj;
             break;
@@ -394,7 +276,7 @@ function container_add(container_this, e) {
     let box_list = document.getElementsByClassName("box_name");
     for (let i = 0; i < 6; i++) {
         let box_obj = box_list[i];
-        if (box_obj.innerHTML == (yard + "箱区")) {
+        if (box_obj.innerHTML === (yard + "箱区")) {
             box_obj.style.backgroundColor = "red";
             box_object = box_obj;
             break;
@@ -424,6 +306,7 @@ function des() {
         for (let j = 0; j < 10; j++) {
             let find_str = col_list[j] + lay_list[i];
             document.getElementById(find_str).style.backgroundColor = "wheat";
+            // $(`${find_str}`)
         }
     }
 }

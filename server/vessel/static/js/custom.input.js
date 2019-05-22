@@ -170,7 +170,6 @@ function insertBay(bayLists, direction){
     let isInverse = true;
     directionDealer(bay_num, direction, drawBay, isInverse);
 }
-
 function getDeckLayIndex(real, max) {
     let temp=[];
     for(let i=0; i<(real? real:max);i++){
@@ -226,15 +225,30 @@ function drawBayStruct(res) {
     let deck_real_col = res.real_bay_struct.deck_col_num_real;
 
     // update bay-struct-define
+    $( `body`).append(`<div class="bay-struct-define" style="display: none">`+
+    `<div class="bay-struct-header" name="bay-index">`+
+        `<span></span>`+
+    `</div>`+
+    `<div class="bay-struct-content" name="bay-struct-area">`+
+        `<div class="bay-col-index-deck">`+
+            `<div class="blank-index-deck"></div>`+
+            `<div class="col-index-area-deck"></div>`+
+        `</div>`+
+        `<div class="bay-deck-lays"></div>`+
+        `<div class="vessel-hat">`+
+            `<div class="blank-hat-area"></div>`+
+            `<div class="hat-area"></div>`+
+        `</div>`+
+        `<div class="bay-cab-lays"></div>`+
+        `<div class="bay-col-index-cab">`+
+            `<div class="blank-index-cab"></div>`+
+            `<div class="col-index-area-cab"></div>`+
+        `</div>`+
+    `</div>`+
+`</div>`);
+
     let lay_index_deck = getDeckLayIndex(deck_real_lay,deck_max_lay);
     let lay_index_cab = getCabLayIndex(cab_real_lay,cab_max_lay);
-    // for (let i=0; i<(deck_real_lay? deck_real_lay:deck_max_lay);i++) {
-    //     lay_index_deck.push(numToIdString((41+i)*2));
-    // }
-
-    // for(let j=0; j<(cab_real_lay? cab_real_lay:cab_max_lay); j++) {
-    //     lay_index_cab.push(numToIdString((j+1)*2));
-    // }
 
     let col_index_deck_list = createColIndex(deck_real_col? deck_real_col:deck_max_col);
     let col_index_cab_list = createColIndex(cab_real_col? cab_real_col:cab_max_col);
@@ -249,15 +263,10 @@ function drawBayStruct(res) {
         let col_index = col_index_deck_list[k];
         $(`.col-index-area-deck`).append(`<div class="col-index-zone">${col_index}</div>`);
     }
-    // con-zone on deck
-    // for(let m=0; m<lay_index_deck.length; m++){
-    //     let lay_index = lay_index_deck[m];
-    //     for(let n=0; n<col_index_deck_list.length; n++){
-    //         let col_index = col_index_deck_list[n];
-    //         $(`.bay-deck-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones"><div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div></div></div>`);
-    //     }
-    // }
-
+    for(let r=0; r<col_index_cab_list.length; r++){
+        let col_index = col_index_cab_list[r];
+        $(`.col-index-area-cab`).append(`<div class="col-index-zone">${col_index}</div>`);
+    }
     //lay
     for(let m=lay_index_deck.length-1; m>=0; m--){
         let lay_index = lay_index_deck[m];
@@ -267,7 +276,6 @@ function drawBayStruct(res) {
             $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
         }
     }
-
     for(let p=lay_index_cab.length-1; p>=0; p--){
         let lay_index = lay_index_cab[p];
         $(`.bay-cab-lays`).append(`<div class="bay-cab-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
@@ -276,26 +284,6 @@ function drawBayStruct(res) {
             $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
         }
     }
-    // con-zone
-    // for(let n=0; n<col_index_deck_list.length; n++){
-    //     let col_index = col_index_deck_list[n];
-    //     $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
-    // }
- // $(`.belowBoardSide div[pos_x=${conZoneBayIndex}]`).append(item);
-
-    // con-zone in cab
-    // for(let p=0; p<lay_index_cab.length; p++){
-    //     let lay_index = lay_index_deck[p];
-    //     for(let q=0; q<col_index_cab_list.length; q++){
-    //         $(`.bay-cab-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones"><div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div></div></div>`);
-    //     }
-    // }
-    // con-index in cab
-    for(let r=0; r<col_index_cab_list.length; r++){
-        let col_index = col_index_cab_list[r];
-        $(`.col-index-area-cab`).append(`<div class="col-index-zone">${col_index}</div>`);
-    }
-
     // layer of bay
     let area_size = ['1000px', '650px'];
     let title = '定义贝位结构 --- ' + '船号：' + ves_name;
@@ -315,9 +303,16 @@ function drawBayStruct(res) {
         skin: '',
         content: $(`.bay-struct-define`),
     });
+    // TODO: add reload when layui closed
     // button func in layer
-    $(`.test_btn`).on('click', function () {
-       console.log("hhh");
+    $(`.con-zone`).on('dblclick', function () {
+        let pos_x = this.attributes[1].value;
+        let pos_y = this.attributes[2].value;
+        let pos_z = this.attributes[3].value;
+        let test = $(this).attr("pos_x");
+        console.log(test);
+        $(this).addClass("bay-struct-zone-absolute");
+        // console.log(this.attributes[1].value);
     });
 }
 function createBayCombinationInfo(newList) {

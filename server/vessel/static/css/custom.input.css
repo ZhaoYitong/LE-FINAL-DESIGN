@@ -185,6 +185,10 @@
     background-color: black !important;
 }
 
+#define-bay-struct {
+    margin-left: 40px !important;
+}
+
 .bay-struct-define {
     margin-top: 50px;
     margin-left: 50px;
@@ -192,7 +196,7 @@
 }
 
 .bay-struct-header {
-    height: 20px;
+    height: 30px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -201,7 +205,7 @@
 
 .bay-struct-content {
     /*height: 300px;*/
-    background-color: yellow;
+    /*background-color: yellow;*/
 }
 
 .bay-struct-content > .bay-col-index-deck,
@@ -209,7 +213,7 @@
     height: 30px;
     display: grid;
     grid-template-columns: repeat(12, minmax(0,1fr));
-    background-color: red;
+    /*background-color: red;*/
 }
 
 .bay-struct-content > .bay-col-index-deck > .blank-index-deck,
@@ -222,23 +226,23 @@
 .bay-struct-content > .bay-col-index-cab > .col-index-area-cab {
     grid-column: 2/13;
     display: flex;
-    background-color: green;
+    /*background-color: green;*/
 }
 
 .bay-struct-content > .bay-col-index-deck > .col-index-area-deck > .col-index-zone,
 .bay-struct-content > .bay-col-index-cab > .col-index-area-cab > .col-index-zone {
-    width:50px;
+    width:30px;
     /*height: 50px;*/
     display:flex;
     justify-content:center;
     align-items:center;
-    border: 2px solid red;
-    background-color: wheat;
+    border: 1px solid black;
+    background-color: lightblue;
 }
 
 .bay-struct-content > .bay-deck-lays,
 .bay-struct-content > .bay-cab-lays {
-    background-color: gainsboro;
+    /*background-color: gainsboro;*/
 }
 
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay,
@@ -246,7 +250,7 @@
     /*height: 20px;*/
     display: grid;
     grid-template-columns: repeat(12, minmax(0,1fr));
-    background-color: #64dcd9;
+    /*background-color: #64dcd9;*/
 }
 
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay >.bay-lay-index,
@@ -262,13 +266,13 @@
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones {
     grid-column: 2/13;
     display: flex;
-    background-color: black;
+    /*background-color: black;*/
 }
 
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone,
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -301,5 +305,14 @@
     background-color: #0c5460;
 }
 
+.bay-struct-zone-absolute {
+    width: 30px;
+    height: 30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border: 2px solid white !important;
+    background-color: white !important;
+}
 
 

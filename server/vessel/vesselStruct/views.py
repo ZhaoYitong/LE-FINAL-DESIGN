@@ -435,3 +435,10 @@ def define_bay(request):
             },
         }
         return JsonResponse(data)
+
+
+@csrf_exempt
+def operation_load_basic(request):
+    if request.method == 'GET':
+        all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
+        return render(request, 'VESSEL/vessel.load.container.html', {'all_vessel': all_vessel})

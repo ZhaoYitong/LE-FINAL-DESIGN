@@ -22,7 +22,8 @@
     border: 1px black solid;
 }
 
-.box_A_title, .box_B_title, .box_C_title, .box_D_title, .box_E_title, .box_F_title {
+.box_A_title, .box_B_title, .box_C_title,
+.box_D_title, .box_E_title, .box_F_title {
     /*width:14.58%;*/
     width: 16.6666%;
     height: auto;
@@ -66,7 +67,8 @@
     border: 1px black solid;
 }
 
-.box_A, .box_B, .box_C, .box_D, .box_E, .box_F {
+.box_A, .box_B, .box_C,
+.box_D, .box_E, .box_F {
     width: 16%;
     height: auto;
     background-color: lightgrey;

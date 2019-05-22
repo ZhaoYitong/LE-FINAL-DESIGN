@@ -8,9 +8,9 @@
     <link href="{% static 'css/tool/bootstrap_v4/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.vessel.load.css' %}" rel="stylesheet">
 </head>
-<body class="body">
+<body id="page-top">
 
-<div class="toggle-giz">
+<div id="toggle-giz">
     <div class="zoomToggle d-flex flex-row">
         <input id="test" min="1" max="10" value='10' step="1"
                onchange="showVal(this.value)" type="range"/>
@@ -43,15 +43,11 @@
     </div>
     </div>
     <div class="mainArea">
-        <div class="bayArea">
-            <div class="bayArea_40"></div>
-            <div id="selectable" class="bayArea_20"></div>
-        </div>
-        <div class="newBayArea"></div>
         <div class="vesselAreaSide">
             <div class="onBoardSide"></div>
             <div class="belowBoardSide"></div>
         </div>
+        <div class="newBayArea"></div>
         <div class="vesOperationInfo">
             <div class="above">
                 <div class="operationInch40Num"></div>
@@ -66,11 +62,10 @@
             </div>
         </div>
         <div class="vesselStowageInfo"></div>
-        <div class="vesselPlanInfo"></div>
-        <div class="vesselManOpertation"></div>
     </div>
-
-
+  </div>
+  <div class="OPERATION-AREA">
+    <div></div>
   </div>
   <div class="YARD-AREA">
     <div class="bay_blank">贝位</div>
@@ -79,6 +74,9 @@
     <div class="box_area"></div>
   </div>
 </div>
+<a class="scroll-to-top rounded" href="#toggle-giz">
+    <i class="fas fa-angle-up"></i>
+</a>
 <script src="{% static 'js/tool/jquery_v3/jquery-3.4.1.min.js' %}"></script>
 <script src="{% static 'js/tool/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/tool/bootstrap_v4/bootstrap.min.js' %}"></script>

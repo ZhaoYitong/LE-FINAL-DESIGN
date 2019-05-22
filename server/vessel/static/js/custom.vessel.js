@@ -803,10 +803,6 @@ function getCombineInfo (){
         },
     });
 }
-/**
- *  layui: https://www.layui.com/doc/modules/layer.html
- */
-// TODO: add layer with loading, support multiple layer
 // TODO: add engine after combination of bay
 /**
  *  test area

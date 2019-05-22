@@ -31,10 +31,8 @@ function fun_infor(obj) {
 }
 
 function re_fun_infor(obj) {
-   // obj.style.backgroundColor = color_old;
     obj.style.backgroundColor = yard_color[obj.id];
 }
-
 
 //这里是写出贝位
 for (let i = 0; i < 90; i++) {
@@ -48,7 +46,8 @@ for(let i=0; i<box_title_list.length; i++){
     let index = box_title_list[i];
     let box_sub_title = "box_" + index + "_title";
     let box_sub_name = index + "箱区";
-    $(`.box_title`).append(`<div class=${box_sub_title}><div class="box_name">${box_sub_name}</div></div>`);
+    $(`.box_title`).append(`<div class=${box_sub_title}>`+
+        `<div class="box_name">${box_sub_name}</div></div>`);
     for(let i = 0; i < col_list.length; i++){
         $(`div[class=${box_sub_title}]`).append(`<div class="box_col">${col_list[i]}</div>`);
     }
@@ -59,7 +58,6 @@ for(let i=0; i<box_title_list.length; i++){
     let yard_add = box_title_list[i];
     $(`.box_area`).append(`<div class=${box_area_sub}></div>`);
     for(let j=0; j<900; j++){
-        //name_str="A"+String(parseInt(j/10)*2+1)+col_list[j%10];
         let bay_str = String(parseInt(j / 10) * 2 + 1);
         let col_str = col_list[j % 10];
         $(`div[class=${box_area_sub}]`).append(`<div class="container-all" yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this,event)"></div>`);
@@ -67,8 +65,10 @@ for(let i=0; i<box_title_list.length; i++){
 }
 
 function container_add(container_this, e) {
-    ////////////////////发送信息//////////////////////////
-    let data = {"Box": container_this.getAttribute("yard"), "Bay": container_this.getAttribute("bay")};
+    let data = {
+        "Box": container_this.getAttribute("yard"),
+        "Bay": container_this.getAttribute("bay")
+    };
     $.ajax({
         url: "",
         type: "POST",
@@ -98,8 +98,7 @@ function container_add(container_this, e) {
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 10; j++) {
                     let find_str = col_list[j] + lay_list[i];
-                    let color_str = yard_color[find_str];
-                    document.getElementById(find_str).style.backgroundColor = color_str;
+                    document.getElementById(find_str).style.backgroundColor = yard_color[find_str];
                 }
             }
             con_tab.hidden = false;
@@ -136,9 +135,6 @@ function container_add(container_this, e) {
 
     /////////////更改每个箱位的颜色
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     //更改表格属性颜色  yard_list
     //在点击后获取到箱区 贝位相同的集装箱箱位
     //在确定了层和列后设置颜色
@@ -147,7 +143,7 @@ function container_add(container_this, e) {
 
     //改变整个贝位的颜色
 
-    var bay_list = document.getElementsByClassName("container");
+    let bay_list = document.getElementsByClassName("container");
 
     let bay_obj_list = [];
     for (let i = 0; i < bay_list.length; i++) {
@@ -164,9 +160,9 @@ function container_add(container_this, e) {
     //传递整个贝位
     container_list_object = bay_obj_list;
 
-    var bay_list = document.getElementsByClassName("bay_Y_num");
+    let bay_list_1 = document.getElementsByClassName("bay_Y_num");
     for (let i = 0; i < 90; i++) {
-        let bay_obj = bay_list[i];
+        let bay_obj = bay_list_1[i];
         if (bay_obj.innerHTML === bay) {
             bay_obj.style.backgroundColor = "red";
             bay_object = bay_obj;
@@ -210,12 +206,10 @@ function des() {
         }
     }
 }
-
 /***
  *
  *  zoom in and out
  */
-
 function setZoom(zoom,el) {
     let transformOrigin = [0,0];
     // el = el || el.getContainerNode();
@@ -236,7 +230,7 @@ function showVal(a){
 
 
 /**
- * vessel area
+ * ***************vessel area*****************
  */
 
 /**
@@ -1026,13 +1020,4 @@ function getCombineInfo (){
         },
     });
 }
-/**
- *  layui: https://www.layui.com/doc/modules/layer.html
- */
-// TODO: add layer with loading, support multiple layer
 // TODO: add engine after combination of bay
-/**
- *  test area
- */
-// TODO: CUSTOM BLINK TRICK
-$(`[pos_x="19"],[pos_x="17"]`).addClass("blink");

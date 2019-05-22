@@ -2,7 +2,7 @@
     margin: 0px;
     padding: 0px;
 }
-
+/*************** YARD-AREA ***************/
 .bay_Y {
     width: 4%;
     height: auto;
@@ -22,7 +22,8 @@
     border: 1px black solid;
 }
 
-.box_A_title, .box_B_title, .box_C_title, .box_D_title, .box_E_title, .box_F_title {
+.box_A_title, .box_B_title, .box_C_title,
+.box_D_title, .box_E_title, .box_F_title {
     /*width:14.58%;*/
     width: 16.6666%;
     height: auto;
@@ -66,7 +67,8 @@
     border: 1px black solid;
 }
 
-.box_A, .box_B, .box_C, .box_D, .box_E, .box_F {
+.box_A, .box_B, .box_C,
+.box_D, .box_E, .box_F {
     width: 16%;
     height: auto;
     background-color: lightgrey;
@@ -138,7 +140,6 @@
     display: none
 }
 
-
 #add_table {
     float: left;
     width: 198px;
@@ -170,12 +171,12 @@
     height: 100%;
     width: 100%;
 }
+/**************YARD-AREA*******************/
+/******* VESSEL-AREA *******************/
+.VESSEL-AREA {
+    overflow-x: auto;
+}
 
-/*********************************************************************************************************/
-
-
-
-/*************************************** VESSEL AREA *****************************************************************/
 #control-buttons {
     margin-top: 20px;
     margin-bottom: 40px;
@@ -534,7 +535,6 @@
     width: 100%;
     display: inline-flex;
     /*vertical-align: bottom; */
-    /* https://stackoverflow.com/questions/38872653/why-inline-flex-element-with-clearfix-has-a-weird-white-space  */
 }
 /* jquery ui-select */
 #feedback {

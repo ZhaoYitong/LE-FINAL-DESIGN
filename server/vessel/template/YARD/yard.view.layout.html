@@ -5,6 +5,7 @@
     <script src="{% static 'js/tool/jquery.js' %}"></script>
     <link href="{% static 'images/smu.jpg' %}" rel="icon">
     <link href="{% static 'css/custom.yard.css' %}" rel="stylesheet">
+    <script src="{% static 'js/tool/jquery_v3/jquery-3.4.1.min.js' %}"></script>
 </head>
 <body class="body">
 
@@ -181,67 +182,9 @@
 </div>
 
 <!--写贝位-->
-<div class="bay_Y">
-    <script>
-        //这里是写出贝位
-        for (let i = 0; i < 90; i++) {
-            let bay = 2 * i + 1;
-            document.write("<div class='bay_Y_num'>" + bay + "</div>");
-        }
-    </script>
-</div>
+<div class="bay_Y"></div>
 
-
-<script>
-    function paint_col() {
-        //这里是写出列号
-        let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-        for (let i = 0; i < 10; i++) {
-            document.write("<div class=\'box_col\'>" + col_list[i] + "</div>")
-        }
-    }
-</script>
-
-<div class="box_title">
-    <div class="box_A_title">
-        <div class="box_name">A箱区</div>
-        <script>
-            paint_col();
-        </script>
-    </div>
-
-    <div class="box_B_title">
-        <div class="box_name">B箱区</div>
-        <script>
-            paint_col();
-        </script>
-    </div>
-    <div class="box_C_title">
-        <div class="box_name">C箱区</div>
-        <script>
-            paint_col();
-        </script>
-    </div>
-    <div class="box_D_title">
-        <div class="box_name">D箱区</div>
-        <script>
-            paint_col();
-        </script>
-    </div>
-    <div class="box_E_title">
-        <div class="box_name">E箱区</div>
-        <script>
-            paint_col();
-        </script>
-    </div>
-    <div class="box_F_title">
-        <div class="box_name">F箱区</div>
-        <script>
-            paint_col();
-        </script>
-    </div>
-
-</div>
+<div class="box_title"></div>
 
 <script>
     function paint_container(yard_add) {
@@ -251,11 +194,11 @@
             //name_str="A"+String(parseInt(j/10)*2+1)+col_list[j%10];
             let bay_str = String(parseInt(j / 10) * 2 + 1);
             let col_str = col_list[j % 10];
-            document.write("<div class='container' yard='" + yard_add + "' bay='" + bay_str + "' col='" + col_str + "' onclick='container_add(this,event)'" + "></div>");
+            document.write(`<div class="container" yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this,event)"></div>`);
         }
     }
 </script>
-
+<div class="box_area">
 <div class="box_A">
     <script>
         paint_container("A");
@@ -286,8 +229,58 @@
         paint_container("F");
     </script>
 </div>
-
+</div>
 <script>
+var container_object;
+var container_list_object;
+var bay_object;
+var box_object;
+
+var yard_yardcel;
+var yard_status;
+var yard_ctnno;
+var yard_strloaunlsig;
+var yard_ctntyp;
+var yard_ctnwegt;
+var yard_unloadport;
+var yard_size;
+var yard_owner;
+var yard_loaVesTim;
+var yard_color;
+
+var color_old;
+
+//这里是写出贝位
+for (let i = 0; i < 90; i++) {
+    let bay = 2 * i + 1;
+    $(`.bay_Y`).append(`<div class="bay_Y_num">${bay}</div>`);
+}
+
+// 增加列号
+let box_title_list = ["A", "B", "C", "D", "E", "F"];
+let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+for(let i=0; i<box_title_list.length; i++){
+    let index = box_title_list[i];
+    let box_sub_title = "box_" + index + "_title";
+    let box_sub_name = index + "箱区";
+    $(`.box_title`).append(`<div class=${box_sub_title}><div class="box_name">${box_sub_name}</div></div>`);
+    for(let i = 0; i < col_list.length; i++){
+        $(`div[class=${box_sub_title}]`).append(`<div class="box_col">${col_list[i]}</div>`);
+    }
+}
+
+//这里是画箱子   箱区  贝位 列
+// function paint_container(yard_add) {
+//     //这里是画箱子   箱区  贝位 列
+//     let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+//     for (let j = 0; j < 900; j++) {
+//         //name_str="A"+String(parseInt(j/10)*2+1)+col_list[j%10];
+//         let bay_str = String(parseInt(j / 10) * 2 + 1);
+//         let col_str = col_list[j % 10];
+//         document.write(`<div class="container" yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this,event)"></div>`);
+//     }
+// }
+
 function container_add(container_this, e) {
     ////////////////////发送信息//////////////////////////
     let data = {"Box": container_this.getAttribute("yard"), "Bay": container_this.getAttribute("bay")};
@@ -434,30 +427,7 @@ function des() {
         }
     }
 }
-</script>
 
-<script>
-    var container_object;
-    var container_list_object;
-    var bay_object;
-    var box_object;
-
-    var yard_yardcel;
-    var yard_status;
-    var yard_ctnno;
-    var yard_strloaunlsig;
-    var yard_ctntyp;
-    var yard_ctnwegt;
-    var yard_unloadport;
-    var yard_size;
-    var yard_owner;
-    var yard_loaVesTim;
-    var yard_color;
-
-    var color_old;
-</script>
-
-<script>
 dragElement(document.getElementById(("container_information")));
 
 function dragElement(elmnt) {

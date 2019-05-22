@@ -100,7 +100,7 @@ function container_add(container_this, e) {
     ////////////////////发送信息//////////////////////////
     let data = {"Box": container_this.getAttribute("yard"), "Bay": container_this.getAttribute("bay")};
     $.ajax({
-        url: "",
+        url: "/yardMon/yard_layout/",
         type: "POST",
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(data),
@@ -134,85 +134,84 @@ function container_add(container_this, e) {
                 }
             }
 
+            //判断空值还原颜色
+            if (container_object) {
+                container_object.style.backgroundColor = "darksalmon";
+                for (let i = 0; i < 10; i++) {
+                    container_list_object[i].style.backgroundColor = "darksalmon";
+                }
+                let con_tab = document.getElementById("container_information");
+                con_tab.style.left = "383px";
+                con_tab.style.top = "100px";
+            }
+            if (bay_object) {
+                bay_object.style.backgroundColor = "skyblue";
+            }
+            if (box_object) {
+                box_object.style.backgroundColor = "skyblue";
+            }
+
+            //////////////////操作table
+            let yard = container_this.getAttribute("yard");
+            let bay = container_this.getAttribute("bay");
+            let pos_str = yard + "箱区" + "*" + bay + "贝位" + "*" + "详细信息";
+            document.getElementById("container_information_title").innerText = pos_str;
+
+            //更改每个箱位的颜色
+
+            //更改表格属性颜色  yard_list
+            //在点击后获取到箱区 贝位相同的集装箱箱位
+            //在确定了层和列后设置颜色
+            //改变集装箱颜色 贝位颜色 箱区颜色
+            container_this.style.backgroundColor = "red";
+
+            //改变整个贝位的颜色
+
+            let con_list = document.getElementsByClassName("container");
+
+            let bay_obj_list = [];
+            for (let i = 0; i < con_list.length; i++) {
+                let yard_list_str = con_list[i].getAttribute("yard");
+                let bay_list_str = con_list[i].getAttribute("bay");
+                if (yard_list_str === yard && bay_list_str === bay) {
+                    bay_obj_list.push(con_list[i]);
+                }
+            }
+            for (let i = 0; i < 10; i++) {
+                bay_obj_list[i].style.backgroundColor = "red";
+            }
+
+            //传递整个贝位
+            container_list_object = bay_obj_list;
+
+            let bay_list = document.getElementsByClassName("bay_Y_num");
+            for (let i = 0; i < 90; i++) {
+                let bay_obj = bay_list[i];
+                if (bay_obj.innerHTML === bay) {
+                    bay_obj.style.backgroundColor = "red";
+                    bay_object = bay_obj;
+                    break;
+                }
+            }
+
+            let box_list = document.getElementsByClassName("box_name");
+            for (let i = 0; i < 6; i++) {
+                let box_obj = box_list[i];
+                if (box_obj.innerHTML === (yard + "箱区")) {
+                    box_obj.style.backgroundColor = "red";
+                    box_object = box_obj;
+                    break;
+                }
+            }
+            //传递集装箱
+            container_object = container_this;
+            document.getElementById("container_information").hidden = false;
+            // con_tab.hidden = false;
         },
         error: function (msg) {
             //alert("发送失败");
         }
     });
-
-    //判断空值还原颜色
-    if (container_object) {
-        container_object.style.backgroundColor = "darksalmon";
-        for (let i = 0; i < 10; i++) {
-            container_list_object[i].style.backgroundColor = "darksalmon";
-        }
-        let con_tab = document.getElementById("container_information");
-        con_tab.style.left = "383px";
-        con_tab.style.top = "100px";
-    }
-    if (bay_object) {
-        bay_object.style.backgroundColor = "skyblue";
-    }
-    if (box_object) {
-        box_object.style.backgroundColor = "skyblue";
-    }
-
-    //////////////////操作table
-    let yard = container_this.getAttribute("yard");
-    let bay = container_this.getAttribute("bay");
-    let pos_str = yard + "箱区" + "*" + bay + "贝位" + "*" + "详细信息";
-    document.getElementById("container_information_title").innerText = pos_str;
-
-    //更改每个箱位的颜色
-
-    //更改表格属性颜色  yard_list
-    //在点击后获取到箱区 贝位相同的集装箱箱位
-    //在确定了层和列后设置颜色
-    //改变集装箱颜色 贝位颜色 箱区颜色
-    container_this.style.backgroundColor = "red";
-
-    //改变整个贝位的颜色
-
-    let con_list = document.getElementsByClassName("container");
-
-    let bay_obj_list = [];
-    for (let i = 0; i < con_list.length; i++) {
-        let yard_list_str = con_list[i].getAttribute("yard");
-        let bay_list_str = con_list[i].getAttribute("bay");
-        if (yard_list_str === yard && bay_list_str === bay) {
-            bay_obj_list.push(con_list[i]);
-        }
-    }
-    for (let i = 0; i < 10; i++) {
-        bay_obj_list[i].style.backgroundColor = "red";
-    }
-
-    //传递整个贝位
-    container_list_object = bay_obj_list;
-
-    let bay_list = document.getElementsByClassName("bay_Y_num");
-    for (let i = 0; i < 90; i++) {
-        let bay_obj = bay_list[i];
-        if (bay_obj.innerHTML === bay) {
-            bay_obj.style.backgroundColor = "red";
-            bay_object = bay_obj;
-            break;
-        }
-    }
-
-    let box_list = document.getElementsByClassName("box_name");
-    for (let i = 0; i < 6; i++) {
-        let box_obj = box_list[i];
-        if (box_obj.innerHTML === (yard + "箱区")) {
-            box_obj.style.backgroundColor = "red";
-            box_object = box_obj;
-            break;
-        }
-    }
-    //传递集装箱
-    container_object = container_this;
-    document.getElementById("container_information").hidden = false;
-    // con_tab.hidden = false;
 }
 
 function des() {

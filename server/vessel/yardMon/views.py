@@ -9,7 +9,7 @@ from .models import yard
 def yard_layout(request):
     if request.method == "GET":
         return render(request, 'YARD/yard.view.layout.html')
-    elif request.method == 'POST':
+    else:
         box_bay = json.loads(request.body.decode('utf-8'))
         box = box_bay["Box"]
         bay = box_bay["Bay"]

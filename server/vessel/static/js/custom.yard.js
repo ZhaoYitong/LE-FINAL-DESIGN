@@ -14,9 +14,6 @@ let yard_owner;
 let yard_loaVesTim;
 let yard_color;
 let color_old;
-
-let box_title_list = ["A", "B", "C", "D", "E", "F"];
-let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 // table
 function fun_infor(obj) {
     color_old = obj.style.backgroundColor;
@@ -38,35 +35,6 @@ function re_fun_infor(obj) {
     obj.style.backgroundColor = yard_color[obj.id];
 }
 
-for(let i=5; i>0; i--){
-    let lay_index_id = "container_information_"+ (i) + "_layer";
-    $(`.container_information_table`).append(`<tr height="14%" id=${lay_index_id}>`);
-    $(`tr[id=${lay_index_id}]`).append(`<td width="10%" bgcolor="#a9a9a9">${i}</td>`);
-    for(let j=0; j<col_list.length; j++){
-        let col_index = col_list[j];
-        let col_lay = col_index + i.toString();
-        $(`tr[id=${lay_index_id}]`).append(`<td width="9%" id=${col_lay} onmouseenter="fun_infor(this)" onmouseleave="re_fun_infor(this)"></td>`);
-    }
-}
-
-$(`.container_information_table`).append(`<tr height="14%" id="container_information_col">`+
-                `<td width="10%">层数<br>贝位</td>`+
-                `<td width="9%">1</td>`+
-                `<td width="9%">2</td>`+
-                `<td width="9%">3</td>`+
-                `<td width="9%">4</td>`+
-                `<td width="9%">5</td>`+
-                `<td width="9%">6</td>`+
-                `<td width="9%">7</td>`+
-                `<td width="9%">8</td>`+
-                `<td width="9%">9</td>`+
-                `<td width="9%">10</td>`+
-            `</tr>`+
-            `<tr>`+
-                `<td class="table-confirm" colspan="11">`+
-                    `<input id="container_information_button" type="button" onclick='des()' value="确定">`+
-                `</td>`+
-            `</tr>`);
 
 //这里是写出贝位
 for (let i = 0; i < 90; i++) {
@@ -74,6 +42,8 @@ for (let i = 0; i < 90; i++) {
     $(`.bay_Y`).append(`<div class="bay_Y_num">${bay}</div>`);
 }
 // 增加列号
+let box_title_list = ["A", "B", "C", "D", "E", "F"];
+let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 for(let i=0; i<box_title_list.length; i++){
     let index = box_title_list[i];
     let box_sub_title = "box_" + index + "_title";
@@ -122,10 +92,9 @@ function container_add(container_this, e) {
 
             //console.log(yard_database);
 
+
             let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
             let lay_list = ["1", "2", "3", "4", "5"];
-            // var find_str;
-            // var color_str;
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 10; j++) {
                     let find_str = col_list[j] + lay_list[i];
@@ -133,7 +102,7 @@ function container_add(container_this, e) {
                     document.getElementById(find_str).style.backgroundColor = color_str;
                 }
             }
-
+            con_tab.hidden = false;
         },
         error: function (msg) {
             //alert("发送失败");
@@ -160,10 +129,15 @@ function container_add(container_this, e) {
     //////////////////操作table
     let yard = container_this.getAttribute("yard");
     let bay = container_this.getAttribute("bay");
+    let con_tab = document.getElementById("container_information");
     let pos_str = yard + "箱区" + "*" + bay + "贝位" + "*" + "详细信息";
     document.getElementById("container_information_title").innerText = pos_str;
 
-    //更改每个箱位的颜色
+
+    /////////////更改每个箱位的颜色
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //更改表格属性颜色  yard_list
     //在点击后获取到箱区 贝位相同的集装箱箱位
@@ -173,14 +147,14 @@ function container_add(container_this, e) {
 
     //改变整个贝位的颜色
 
-    let con_list = document.getElementsByClassName("container");
+    var bay_list = document.getElementsByClassName("container");
 
     let bay_obj_list = [];
-    for (let i = 0; i < con_list.length; i++) {
-        let yard_list_str = con_list[i].getAttribute("yard");
-        let bay_list_str = con_list[i].getAttribute("bay");
+    for (let i = 0; i < bay_list.length; i++) {
+        let yard_list_str = bay_list[i].getAttribute("yard");
+        let bay_list_str = bay_list[i].getAttribute("bay");
         if (yard_list_str === yard && bay_list_str === bay) {
-            bay_obj_list.push(con_list[i]);
+            bay_obj_list.push(bay_list[i]);
         }
     }
     for (let i = 0; i < 10; i++) {
@@ -190,7 +164,7 @@ function container_add(container_this, e) {
     //传递整个贝位
     container_list_object = bay_obj_list;
 
-    let bay_list = document.getElementsByClassName("bay_Y_num");
+    var bay_list = document.getElementsByClassName("bay_Y_num");
     for (let i = 0; i < 90; i++) {
         let bay_obj = bay_list[i];
         if (bay_obj.innerHTML === bay) {
@@ -211,8 +185,6 @@ function container_add(container_this, e) {
     }
     //传递集装箱
     container_object = container_this;
-    document.getElementById("container_information").hidden = false;
-    // con_tab.hidden = false;
 }
 
 function des() {
@@ -235,7 +207,6 @@ function des() {
         for (let j = 0; j < 10; j++) {
             let find_str = col_list[j] + lay_list[i];
             document.getElementById(find_str).style.backgroundColor = "wheat";
-            // $(`${find_str}`)
         }
     }
 }

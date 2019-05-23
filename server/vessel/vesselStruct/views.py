@@ -441,7 +441,7 @@ def define_bay(request):
 def operation_basic(request):
     if request.method == 'GET':
         all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
-        return render(request, 'VESSEL/vessel.load.container.html', {'all_vessel': all_vessel})
+        return render(request, 'OPERATION/operation.load.html', {'all_vessel': all_vessel})
 
 
 @csrf_exempt

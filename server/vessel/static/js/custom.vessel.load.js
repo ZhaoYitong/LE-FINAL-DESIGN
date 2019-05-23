@@ -34,7 +34,7 @@ function re_fun_infor(obj) {
     obj.style.backgroundColor = yard_color[obj.id];
 }
 
-function getYardInfo() {
+function showYardInfo() {
     // initial basic div
     $(`.YARD-AREA`).append(`<div class="bay_blank">贝位</div>`)
         .append(`<div class="bay_Y"></div>`)
@@ -554,7 +554,10 @@ function createBayCombinationInfo(newList) {
  *  vessel creation
  */
 function createVesselSide(){
-    $(`.createVessel`)[0].disabled = true;
+    // $(`.createVessel`)[0].disabled = true;
+    if($(`.vesselAreaSide`)){
+        $(`.vesselAreaSide`).empty();
+    }
     $.ajax({
         url: '/vesselStruct/ves_struct/',
         type: 'GET',
@@ -590,6 +593,9 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
         $(`.onBoardSide`).append(`<div pos_x=${conZoneBayIndex} class="bayAbove_20"></div>`);
         $(`.belowBoardSide`).append(`<div pos_x=${conZoneBayIndex} class="bayBelow_20"></div>`);
     };
+    // initial div: onBoardSide and belowBoardSide
+    $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`)
+        .append(`<div class="belowBoardSide"></div>`);
     let isInverse = true;
     directionDealer(conZone_bay_num,dir,drawVesBayArea,isInverse);
     // zone: bay + layer
@@ -620,7 +626,10 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
  *  combination buttons
  */
 function getCombineInfo (){
-    $(`.bayCombineInfo`)[0].disabled = true;
+    // $(`.bayCombineInfo`)[0].disabled = true;
+    if($(`.newBayArea`)){
+        $(`.newBayArea`).empty();
+    }
     selected_vessel = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/edit_bay/',

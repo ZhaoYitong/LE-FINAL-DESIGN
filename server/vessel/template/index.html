@@ -1,16 +1,16 @@
 {% load static %}
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Vessel Load and Unload">
-  <meta name="author" content="Kerouac">
-  <title>堆场--船舶</title>
-  <link href="{% static 'images/smu.jpg' %}" rel="icon">
-  <link href="{% static 'css/tool/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-  <link href="{% static 'css/tool/google-api.css' %}" rel="stylesheet" type="text/css">
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Vessel Load and Unload">
+    <meta name="author" content="Kerouac">
+    <title>堆场--船舶</title>
+    <link href="{% static 'images/smu.jpg' %}" rel="icon">
+    <link href="{% static 'css/tool/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/tool/google-api.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
 <body id="page-top">
 <div id="wrapper">
@@ -20,14 +20,16 @@
         </a>
         <hr class="sidebar-divider">
         <div class="sidebar-heading">
-            Yard
+            堆场
         </div>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseYarfInfoInput" aria-expanded="true" aria-controls="collapseYarfInfoInput">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseYarfInfoInput"
+               aria-expanded="true" aria-controls="collapseYarfInfoInput">
                 <i class="fas fa-fw fa-table"></i>
                 <span>堆场信息输入</span>
             </a>
-            <div id="collapseYarfInfoInput" class="collapse" aria-labelledby="headingYardInfo" data-parent="#accordionSidebar">
+            <div id="collapseYarfInfoInput" class="collapse" aria-labelledby="headingYardInfo"
+                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">表单输入</h6>
                     <a class="collapse-item" link="vesselStruct/page_not_found">Buttons</a>
@@ -36,11 +38,13 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseYardMonitor" aria-expanded="true" aria-controls="collapseYardMonitor">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseYardMonitor"
+               aria-expanded="true" aria-controls="collapseYardMonitor">
                 <i class="fas fa-fw fa-grip-horizontal"></i>
                 <span>堆场信息监控</span>
             </a>
-            <div id="collapseYardMonitor" class="collapse" aria-labelledby="headingYardMonitor" data-parent="#accordionSidebar">
+            <div id="collapseYardMonitor" class="collapse" aria-labelledby="headingYardMonitor"
+                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">视图</h6>
                     <a class="collapse-item" link="yardMon/yard_layout">堆场监控</a>
@@ -49,17 +53,20 @@
         </li>
         <hr class="sidebar-divider">
         <div class="sidebar-heading">
-            Vessel
+            船舶
         </div>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVesselInput" aria-expanded="true" aria-controls="collapseVesselInput">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVesselInput"
+               aria-expanded="true" aria-controls="collapseVesselInput">
                 <i class="fas fa-fw fa-table"></i>
                 <span>船舶信息输入</span>
             </a>
-            <div id="collapseVesselInput" class="collapse" aria-labelledby="headingVesselInput" data-parent="#accordionSidebar">
+            <div id="collapseVesselInput" class="collapse" aria-labelledby="headingVesselInput"
+                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">表单输入</h6>
-                    <a class="collapse-item" link="vesselStruct/ves_struct_input/">定义船舶结构</a>
+                    <a class="collapse-item" link="vesselStruct/ves_struct_input/">增加船舶</a>
+<!--                    <a class="collapse-item" link="vesselStruct/ves_struct_input/">定义贝位结构</a>-->
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Other Pages:</h6>
                     <a class="collapse-item" link="vesselStruct/page_not_found">404 Page</a>
@@ -68,11 +75,13 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVesselMonitor" aria-expanded="true" aria-controls="collapseVesselMonitor">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVesselMonitor"
+               aria-expanded="true" aria-controls="collapseVesselMonitor">
                 <i class="fab fa-fw fa-docker"></i>
                 <span>船舶信息监控</span>
             </a>
-            <div id="collapseVesselMonitor" class="collapse" aria-labelledby="headingVesselMonitor" data-parent="#accordionSidebar">
+            <div id="collapseVesselMonitor" class="collapse" aria-labelledby="headingVesselMonitor"
+                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">视图</h6>
                     <a class="collapse-item" link="vesselStruct/ves_basic">船舶结构</a>
@@ -81,10 +90,11 @@
         </li>
         <hr class="sidebar-divider d-none d-md-block">
         <div class="sidebar-heading">
-            Stowage
+            配载
         </div>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLoad" aria-expanded="true" aria-controls="collapseLoad">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLoad"
+               aria-expanded="true" aria-controls="collapseLoad">
                 <i class="far fa-fw fa-hand-point-left"></i>
                 <span>船舶配载</span>
             </a>
@@ -105,17 +115,20 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2 bg-light" type="search" placeholder="请输入...." aria-label="Search"/>
+                    <input class="form-control mr-sm-2 bg-light" type="search" placeholder="请输入...."
+                           aria-label="Search"/>
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">搜 索</button>
                 </form>
                 <ul class="navbar-nav ml-auto">
                     <div class="topbar-divider d-none d-sm-block"></div>
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Kerouac</span>
                             <img class="img-profile rounded-circle" src="../static/images/admin_user_01.png">
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 个人信息
@@ -140,7 +153,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Kerouac 2019.04</span>
+                            <span>Copyright &copy; Kerouac 2019.04 ~ 2019.05</span>
                         </div>
                     </div>
                 </footer>

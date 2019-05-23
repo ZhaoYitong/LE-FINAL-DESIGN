@@ -223,9 +223,13 @@ function setZoom(zoom,el) {
     el.style["transform"] = s;
     el.style["transformOrigin"] = oString;
 }
-function showVal(a){
+function vessel_size_toggle(a){
     let zoomScale = Number(a)/10;
-    setZoom(zoomScale,document.getElementById('terminal-all'));
+    setZoom(zoomScale,document.getElementById('vessel-area'));
+}
+function yard_size_toggle(b) {
+    let zoomScale = Number(b)/10;
+    setZoom(zoomScale,document.getElementById('yard-area'));
 }
 /**
  * ***************vessel area*****************
@@ -246,9 +250,6 @@ let selected_vessel = $(`#vesselSelect option:selected`).val();
     pos_x : bayIndex
     pos_y : rowIndex
     pos_z : layerIndex
- */
-/**
- *  data
  */
 /**
  * custom function
@@ -494,3 +495,7 @@ function getCombineInfo (){
         },
     });
 }
+/**
+ * OPERATION AREA
+ *
+ * **/

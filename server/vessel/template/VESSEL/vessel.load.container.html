@@ -9,52 +9,65 @@
     <link href="{% static 'css/custom.vessel.load.css' %}" rel="stylesheet">
 </head>
 <body id="page-top">
-
-<div id="toggle-giz">
-    <div class="zoomToggle d-flex flex-row">
-        <input id="test" min="1" max="10" value='10' step="1"
-               onchange="showVal(this.value)" type="range"/>
-    </div>
-</div>
 <div class="allVessels col-md-3">
     <div class="form-group">
         <label for="vesselSelect">请选择船舶</label>
         <select class="form-control" id="vesselSelect">
-        {% for v in all_vessel %}
-          <option>{{ v }}</option>
-        {% endfor %}
+            {% for v in all_vessel %}
+            <option>{{ v }}</option>
+            {% endfor %}
         </select>
     </div>
 </div>
 <div id="terminal-all">
-  <div class="VESSEL-AREA">
-    <div id="control-buttons">
-    <div id="buttons-bay" class="d-flex flex-row">
-        <button type="button" class="btn btn-outline-primary bayCombineInfo"
-                onclick="getCombineInfo()">当前组贝</button>
-    </div>
-    <div id="buttons-vessel-struct" class="d-flex flex-row">
-        <button type="button" class="btn btn-outline-success createVessel"
-                onclick="createVesselSide()">生成船舶</button>
-    </div>
-    </div>
-    <div class="mainArea">
-        <div class="vesselAreaSide">
-            <div class="onBoardSide"></div>
-            <div class="belowBoardSide"></div>
+    <div class="VESSEL-AREA">
+        <div id="control-buttons">
+            <div id="buttons-bay" class="d-flex flex-row">
+                <button type="button" class="btn btn-outline-primary bayCombineInfo"
+                        onclick="getCombineInfo()">当前组贝
+                </button>
+            </div>
+            <div id="buttons-vessel-struct" class="d-flex flex-row">
+                <button type="button" class="btn btn-outline-success createVessel"
+                        onclick="createVesselSide()">生成船舶
+                </button>
+            </div>
         </div>
-        <div class="newBayArea"></div>
+        <div id="toggle-giz">
+            <div class="zoomToggle d-flex flex-row">
+                <input min="1" max="10" value='10' step="1"
+                       onchange="vessel_size_toggle(this.value)" type="range"/>
+            </div>
+        </div>
+        <div id="vessel-area" class="mainArea">
+            <div class="vesselAreaSide">
+                <div class="onBoardSide"></div>
+                <div class="belowBoardSide"></div>
+            </div>
+            <div class="newBayArea"></div>
+        </div>
     </div>
-  </div>
-  <div class="OPERATION-AREA">
-    <div></div>
-  </div>
-  <div class="YARD-AREA">
-    <div class="bay_blank">贝位</div>
-    <div class="bay_Y"></div>
-    <div class="box_title"></div>
-    <div class="box_area"></div>
-  </div>
+    <div class="OPERATION-AREA top50" style="display: flex;">
+        <div id="bay-struct-vessel" class="col-md-6" name="bay-struct-vessel"
+             style="height: 500px; background-color: yellow">
+            <!--        <div></div>-->
+        </div>
+        <div id="bay-struct-yard" class="col-md-6" name="bay-struct-yard" style="height: 400px; background-color: red;">
+
+        </div>
+    </div>
+    <div class="toggle-giz">
+        <div class="zoomToggle d-flex flex-row">
+            <input min="1" max="10" value='10' step="1"
+                   onchange="yard_size_toggle(this.value)" type="range"/>
+        </div>
+    </div>
+    <div id="yard-area" class="YARD-AREA top50">
+        <div class="bay_blank">贝位</div>
+        <div class="bay_Y"></div>
+        <div class="box_title"></div>
+        <div class="box_area"></div>
+    </div>
 </div>
 <a class="scroll-to-top rounded" href="#toggle-giz">
     <i class="fas fa-angle-up"></i>

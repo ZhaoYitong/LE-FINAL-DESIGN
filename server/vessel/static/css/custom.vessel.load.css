@@ -45,7 +45,7 @@
     height: auto;
     background-color: black;
     margin-left: 4%;
-    position: fixed;
+    position: absolute;
 }
 
 .box_name {
@@ -54,7 +54,6 @@
     line-height: 50px;
     text-align: center;
     background-color: skyblue;
-
 }
 
 .box_col {
@@ -125,8 +124,6 @@
 
 .bay_blank {
     position: absolute;
-    left: 0px;
-    top: 0px;
     width: 4%;
     height: 100px;
     background-color: lightgrey;

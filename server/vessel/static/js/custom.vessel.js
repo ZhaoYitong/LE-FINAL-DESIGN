@@ -574,7 +574,10 @@ function createBayCombinationInfo(newList) {
  *  vessel creation
  */
 function createVesselSide(){
-    $(`.createVessel`)[0].disabled = true;
+    // $(`.createVessel`)[0].disabled = true;
+    if($(`.vesselAreaSide`)){
+        $(`.vesselAreaSide`).empty();
+    }
     $.ajax({
         url: '/vesselStruct/ves_struct/',
         type: 'GET',
@@ -603,6 +606,8 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
     let conZone_layerAbove_num = layerLists.above.length;
     let conZone_layerBelow_num = layerLists.below.length;
     let eng_list_index = engine_list;
+    // initial above and below
+    $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`).append(`<div class="belowBoardSide"></div>`);
     // TODO: change conZoneAbove_inch20 according maxLayer input
     // TODO: tip1: set fixed height according maxLayer input
     let drawVesBayArea = function (index,args_dir) {
@@ -642,7 +647,10 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
 function createStowageInfo() {
     // TODO: disable according to relevant func before click
     // TODO: ajax get data from server
-    $(`.createStowage`)[0].disabled = true;
+    // $(`.createStowage`)[0].disabled = true;
+    if($(`div[class="vesselStowageInfo"]`)){
+        $(`div[class="vesselStowageInfo"]`).empty();
+    }
     let header = vesselStorageInfoAll.vessel_IMO;
     let bayNum = vesselStorageInfoAll.data.length;
     let ves_header = `<div class="vesselHeader"><span class="stowageInfoHeader">${VESSEL_IMO}${header}</span></div>`;
@@ -670,7 +678,17 @@ function createStowageInfo() {
     }
 }
 function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
-    // TODO: make bay direction uniform
+    // initial div above and below
+    $(`.vesOperationInfo`).append(`<div class="above"></div>`)
+        .append(`<div class="board"></div>`).append(`<div class="below"></div>`);
+    $(`div[class="vesOperationInfo"] div[class="above"]`)
+        .append(`<div class="operationInch40Num"></div>`)
+        .append(`<div class="unload"></div>`)
+        .append(`<div class="load"></div>`)
+        .append(`<div class="operationInch20Num"></div>`);
+    $(`div[class="vesOperationInfo"] div[class="below"]`)
+        .append(`<div class="unload"></div>`).append(`<div class="load"></div>`);
+
     function draw_single_row(pos, op_type, bay_list, index, dir) {
         // add class: above or below, load or unload
         let position = 'ves_' + pos;
@@ -757,7 +775,10 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
     }
 }
 function createLoadOrUnloadInfo() {
-    $(`.createLoadOrUnload`)[0].disabled = true;
+    // $(`.createLoadOrUnload`)[0].disabled = true;
+    if($(`div[class="vesOperationInfo"]`)){
+        $(`div[class="vesOperationInfo"]`).empty();
+    }
     let selected_ves = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/con_pend_info/',
@@ -784,7 +805,9 @@ function createLoadOrUnloadInfo() {
  *  combination buttons
  */
 function getCombineInfo (){
-    $(`.bayCombineInfo`)[0].disabled = true;
+    if($(`.newBayArea`)){
+        $(`.newBayArea`).empty();
+    }
     selected_vessel = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/edit_bay/',

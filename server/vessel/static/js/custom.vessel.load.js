@@ -17,7 +17,7 @@ let color_old;
 // table
 function fun_infor(obj) {
     color_old = obj.style.backgroundColor;
-    obj.style.backgroundColor = "yellow";
+    // obj.style.backgroundColor = "yellow";
     document.getElementById("add1").innerText = yard_yardcel[obj.id];
     document.getElementById("add2").innerText = yard_status[obj.id];
     document.getElementById("add3").innerText = yard_ctnno[obj.id];
@@ -31,7 +31,7 @@ function fun_infor(obj) {
 }
 
 function re_fun_infor(obj) {
-    obj.style.backgroundColor = yard_color[obj.id];
+    // obj.style.backgroundColor = yard_color[obj.id];
 }
 
 function showYardInfo() {
@@ -101,15 +101,22 @@ function container_add(container_this) {
 
             //console.log(yard_database);
 
-
             let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
             let lay_list = ["1", "2", "3", "4", "5"];
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 10; j++) {
                     let find_str = col_list[j] + lay_list[i];
-                    document.getElementById(find_str).style.backgroundColor = yard_color[find_str];
+                    document.getElementById(find_str).children[0].style.backgroundColor = yard_color[find_str];
+                    // add border
+                    $(`td[id=${find_str}`).addClass("border2solid");
                 }
             }
+            // add container_information_col > td : border
+            let child_list = $(`tr[id="container_information_col"]`)[0].children;
+            for(let i=1;i<child_list.length;i++){
+                child_list[i].style.border="2px solid blanchedalmond";
+            }
+            console.log(child_list);
             con_tab.hidden = false;
         },
         error: function (msg) {
@@ -459,7 +466,9 @@ function drawBayStruct(res) {
             $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
         }
     }
+    $(`.con-zone`).droppable({
 
+    });
     $(`.con-zone`).on('dblclick', function () {
         let pos_x = this.attributes[1].value;
         let pos_y = this.attributes[2].value;
@@ -652,3 +661,4 @@ function getCombineInfo (){
  * OPERATION AREA
  *
  * **/
+$(`.con`).draggable();

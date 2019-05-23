@@ -34,37 +34,46 @@ function re_fun_infor(obj) {
     obj.style.backgroundColor = yard_color[obj.id];
 }
 
-//这里是写出贝位
-for (let i = 0; i < 90; i++) {
-    let bay = 2 * i + 1;
-    $(`.bay_Y`).append(`<div class="bay_Y_num">${bay}</div>`);
-}
-// 增加列号
-let box_title_list = ["A", "B", "C", "D", "E", "F"];
-let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-for(let i=0; i<box_title_list.length; i++){
-    let index = box_title_list[i];
-    let box_sub_title = "box_" + index + "_title";
-    let box_sub_name = index + "箱区";
-    $(`.box_title`).append(`<div class=${box_sub_title}>`+
-        `<div class="box_name">${box_sub_name}</div></div>`);
-    for(let i = 0; i < col_list.length; i++){
-        $(`div[class=${box_sub_title}]`).append(`<div class="box_col">${col_list[i]}</div>`);
+function getYardInfo() {
+    // initial basic div
+    $(`.YARD-AREA`).append(`<div class="bay_blank">贝位</div>`)
+        .append(`<div class="bay_Y"></div>`)
+        .append(`<div class="box_title"></div>`)
+        .append(`<div class="box_area"></div>`);
+    //这里是写出贝位
+    for (let i = 0; i < 90; i++) {
+        let bay = 2 * i + 1;
+        $(`.bay_Y`).append(`<div class="bay_Y_num">${bay}</div>`);
     }
-}
-//这里是画箱子   箱区  贝位 列
-for(let i=0; i<box_title_list.length; i++){
-    let box_area_sub = "box_" + box_title_list[i];
-    let yard_add = box_title_list[i];
-    $(`.box_area`).append(`<div class=${box_area_sub}></div>`);
-    for(let j=0; j<900; j++){
-        let bay_str = String(parseInt(j / 10) * 2 + 1);
-        let col_str = col_list[j % 10];
-        $(`div[class=${box_area_sub}]`).append(`<div class="container-all" yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this,event)"></div>`);
+    // 增加列号
+    let box_title_list = ["A", "B", "C", "D", "E", "F"];
+    let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+    for(let i=0; i<box_title_list.length; i++){
+        let index = box_title_list[i];
+        let box_sub_title = "box_" + index + "_title";
+        let box_sub_name = index + "箱区";
+        $(`.box_title`).append(`<div class=${box_sub_title}>`+
+            `<div class="box_name">${box_sub_name}</div></div>`);
+        for(let i = 0; i < col_list.length; i++){
+            $(`div[class=${box_sub_title}]`).append(`<div class="box_col">${col_list[i]}</div>`);
+        }
+    }
+    //这里是画箱子   箱区  贝位 列
+    for(let i=0; i<box_title_list.length; i++){
+        let box_area_sub = "box_" + box_title_list[i];
+        let yard_add = box_title_list[i];
+        $(`.box_area`).append(`<div class=${box_area_sub}></div>`);
+        for(let j=0; j<900; j++){
+            let bay_str = String(parseInt(j / 10) * 2 + 1);
+            let col_str = col_list[j % 10];
+            $(`div[class=${box_area_sub}]`)
+                .append(`<div class="container-all"`+
+                ` yard=${yard_add} bay=${bay_str} col=${col_str} onclick="container_add(this)"></div>`);
+        }
     }
 }
 
-function container_add(container_this, e) {
+function container_add(container_this) {
     let data = {
         "Box": container_this.getAttribute("yard"),
         "Bay": container_this.getAttribute("bay")
@@ -223,14 +232,17 @@ function setZoom(zoom,el) {
     el.style["transform"] = s;
     el.style["transformOrigin"] = oString;
 }
+
 function vessel_size_toggle(a){
     let zoomScale = Number(a)/10;
     setZoom(zoomScale,document.getElementById('vessel-area'));
 }
+
 function yard_size_toggle(b) {
     let zoomScale = Number(b)/10;
     setZoom(zoomScale,document.getElementById('yard-area'));
 }
+
 /**
  * ***************vessel area*****************
  */

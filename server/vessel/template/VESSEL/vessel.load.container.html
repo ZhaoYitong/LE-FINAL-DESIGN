@@ -48,11 +48,25 @@
         </div>
     </div>
     <div class="OPERATION-AREA top50" style="display: flex;">
-        <div id="bay-struct-yard" class="col-md-6" name="bay-struct-yard" style="height: 400px; background-color: red;">
+        <div id="bay-struct-yard" class="col-md-7" name="bay-struct-yard" style="height: 400px; background-color: red;">
+            <div id="table-container" style="display: flex;">
+                <div class="table-pos col-md-10" style="height: 300px; background-color: silver;">
 
+                </div>
+                <div class="table-con-info col-md-2" style="height: 200px; background-color: black;">
+
+                </div>
+            </div>
         </div>
-        <div id="bay-struct-vessel" class="col-md-6" name="bay-struct-vessel"
+        <div id="bay-struct-vessel" class="col-md-5" name="bay-struct-vessel"
              style="background-color: #fff8d2">
+        </div>
+    </div>
+    <div id="control-button" class="top100">
+        <div id="button-yard" class="d-flex flex-row">
+            <button type="button" class="btn btn-outline-primary yardInfo"
+                    onclick="getYardInfo()">显示堆场
+            </button>
         </div>
     </div>
     <div class="toggle-giz">
@@ -61,12 +75,7 @@
                    onchange="yard_size_toggle(this.value)" type="range"/>
         </div>
     </div>
-    <div id="yard-area" class="YARD-AREA top50">
-        <div class="bay_blank">贝位</div>
-        <div class="bay_Y"></div>
-        <div class="box_title"></div>
-        <div class="box_area"></div>
-    </div>
+    <div id="yard-area" class="YARD-AREA top50"></div>
 </div>
 <script src="{% static 'js/tool/jquery_v3/jquery-3.4.1.min.js' %}"></script>
 <script src="{% static 'js/tool/jquery-ui.min.js' %}"></script>

@@ -509,7 +509,8 @@ function createBayCombinationInfo(newList) {
         let itemId = dataList[index].id;
         if (dataList[index].type === "single") {
             let bayIndex = dataList[index].bayInch20[0].index;
-            $(`.newBayArea`).append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bay-20">` +
+            $(`.newBayArea`)
+                .append(`<div id= ${itemId} bay_index=${bayIndex} class="newBay20 bay-20">` +
                 `<span class="newBay20Index">${dataList[index].bayInch20[0].index}</span>` +
                 `</div>`);
         } else {
@@ -612,7 +613,8 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
     let conZone_layerBelow_num = layerLists.below.length;
     let eng_list_index = engine_list;
     // initial above and below
-    $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`).append(`<div class="belowBoardSide"></div>`);
+    $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`)
+        .append(`<div class="belowBoardSide"></div>`);
     // TODO: change conZoneAbove_inch20 according maxLayer input
     // TODO: tip1: set fixed height according maxLayer input
     let drawVesBayArea = function (index, args_dir) {
@@ -659,7 +661,8 @@ function createStowageInfo() {
     }
     let header = vesselStorageInfoAll.vessel_IMO;
     let bayNum = vesselStorageInfoAll.data.length;
-    let ves_header = `<div class="vesselHeader"><span class="stowageInfoHeader">${VESSEL_IMO}${header}</span></div>`;
+    let ves_header = `<div class="vesselHeader">`+
+        `<span class="stowageInfoHeader">${VESSEL_IMO}${header}</span></div>`;
     let ves_bay_stowage_area = `<div class="baysStowageArea"></div>`;
     $(`.vesselStowageInfo`).append(ves_header).append(ves_bay_stowage_area);
     let item_bay_info = function (tip, bayIndex) {

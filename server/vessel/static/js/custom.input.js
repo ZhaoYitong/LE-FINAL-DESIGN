@@ -478,7 +478,6 @@ function enableSelectable() {
 function disableBayCombine(eng_list){
     for(let i=0; i<eng_list.length; i++){
         let ind = eng_list[i].toString();
-        // console.log(ind);
         $(`div[bay_index=${ind}]`).addClass("engineBody");
     }
 }

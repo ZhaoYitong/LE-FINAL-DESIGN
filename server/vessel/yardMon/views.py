@@ -26,12 +26,12 @@ def yard_layout(request):
         yard_size = dict()
         yard_owner = dict()
         yard_loaVesTim = dict()
-        yard_color =dict()
+        yard_color = dict()
 
         for i in range(50):
-            name = str(yard_list[i].Col+yard_list[i].Lay)
+            name = str(yard_list[i].Col + yard_list[i].Lay)
             yard_yardcel[name] = str(yard_list[i].YardCel)
-            yard_status[name] =  str(yard_list[i].Status)
+            yard_status[name] = str(yard_list[i].Status)
             yard_ctnno[name] = str(yard_list[i].CtnNo)
             yard_strloaunlsig[name] = str(yard_list[i].StrLoaUnlSig)
             yard_ctntyp[name] = str(yard_list[i].CtnTyp)
@@ -42,7 +42,7 @@ def yard_layout(request):
             yard_loaVesTim[name] = str(yard_list[i].LoaVesTim)
             yard_color[name] = yard_list[i].Color
 
-        yard_database["yard_yardcel"]= yard_yardcel
+        yard_database["yard_yardcel"] = yard_yardcel
         yard_database["yard_status"] = yard_status
         yard_database["yard_ctnno"] = yard_ctnno
         yard_database["yard_strloaunlsig"] = yard_strloaunlsig

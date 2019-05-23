@@ -136,7 +136,6 @@ def reset_bay_combine(request):
     # delete and reset bay combination
     if request.method == 'POST':
         ves_name = request.POST['name']
-        print(ves_name)
         # delete DB
         obj = ves_struct.objects.get(Vessel=ves_name)
         obj.FotBayCom = None
@@ -220,7 +219,7 @@ def create_ves_struct(request):
 
             ],
         }
-        print('\n'.join('{}: {}'.format(*k) for k in enumerate(data_content)))
+        # printprint('\n'.join('{}: {}'.format(*k) for k in enumerate(data_content)))
         return JsonResponse(data_content)
     elif request.method == 'POST':
         return JsonResponse({'ves_struct': 'bbb'})
@@ -334,7 +333,6 @@ def test_creat_pend_info(request):
     elif request.method == 'POST':
         temp_lists = json.loads(request.body.decode('utf-8'))
         vessel_name = temp_lists['vessel_name']
-        print(temp_lists)
         test = {'hhh': 'test_creat_pend_info'}
         unload_40_list = temp_lists['unload_40_list']
         unload_20_list = temp_lists['unload_20_list']
@@ -375,7 +373,6 @@ def add_vessel(request):
             obj = None
 
         if obj is None:
-            print("vessel is ok ")
             bay_index_list = bay_num_to_index_list(ves_bay_20_num)
             # add to DB
             ves_struct.objects.create(Vessel=ves_name,

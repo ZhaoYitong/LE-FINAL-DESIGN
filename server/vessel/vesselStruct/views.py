@@ -19,6 +19,8 @@ confirm_of_bay_edit = 'RESPONSE_AFTER_CONFIRM_COMBINATION'
 ves_side_view = 'VESSEL_SIDE_VIEWING'
 con_pending_info = 'VESSEL_CONTAINER_PENDING_INFO'
 get_basic_bay_combine = 'GET_BASIC_BAY_COMBINE_INFO'
+data_operation_load = 'OPERATION_LOAD_BAY_STRUCT',
+data_define_bay_struct = 'DEFINE_BAY_STRUCT',
 
 
 def index(request):
@@ -419,6 +421,7 @@ def define_bay(request):
         deck_col_num_real = obj2[0].DeckWidMax
         cab_col_num_real = obj2[0].CabWidMax
         data = {
+            'data_type': data_define_bay_struct,
             'ves_name': ves_name,
             'bay_index': bay_index,
             'bay_struct_max': {
@@ -438,7 +441,44 @@ def define_bay(request):
 
 
 @csrf_exempt
-def operation_load_basic(request):
+def operation_basic(request):
     if request.method == 'GET':
         all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
         return render(request, 'VESSEL/vessel.load.container.html', {'all_vessel': all_vessel})
+
+
+@csrf_exempt
+def operation_load(request):
+    if request.method == 'GET':
+        ves_name = request.GET['name']
+        bay_index = request.GET['index']
+        # get max
+        obj1 = ves_struct.objects.get(Vessel=ves_name)
+        deck_lay_num_max = obj1.DeckLayNumMax
+        cab_lay_num_max = obj1.CabLayNumMax
+        deck_col_num_max = obj1.DeckColNumMax
+        cab_col_num_max = obj1.CabColNumMax
+        # get real
+        obj2 = ves_bay_struct.objects.filter(Vessel=ves_name, BayNo=bay_index)
+        deck_lay_num_real = obj2[0].DeckHeg
+        cab_lay_num_real = obj2[0].CabHeg
+        deck_col_num_real = obj2[0].DeckWidMax
+        cab_col_num_real = obj2[0].CabWidMax
+        data = {
+            'data_type': data_operation_load,
+            'ves_name': ves_name,
+            'bay_index': bay_index,
+            'bay_struct_max': {
+                'deck_lay_num_max': deck_lay_num_max,
+                'cab_lay_num_max': cab_lay_num_max,
+                'deck_col_num_max': deck_col_num_max,
+                'cab_col_num_max': cab_col_num_max,
+            },
+            'real_bay_struct': {
+                'deck_lay_num_real': deck_lay_num_real,
+                'cab_lay_num_real': cab_lay_num_real,
+                'deck_col_num_real': deck_col_num_real,
+                'cab_col_num_real': cab_col_num_real,
+            },
+        }
+        return JsonResponse(data)

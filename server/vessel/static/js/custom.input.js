@@ -225,7 +225,7 @@ function drawBayStruct(res) {
     let deck_real_col = res.real_bay_struct.deck_col_num_real;
 
     // update bay-struct-define
-    $( `body`).append(`<div class="bay-struct-define" style="display: none">`+
+    $( `#bay-define-area`).append(`<div class="bay-struct-define">`+
     `<div class="bay-struct-header" name="bay-index">`+
         `<span></span>`+
     `</div>`+
@@ -299,9 +299,12 @@ function drawBayStruct(res) {
         title: title,
         area: area_size, //宽高
         closeBtn: 1,
-        shadeClose: false,
+        shadeClose: true,
         skin: '',
         content: $(`.bay-struct-define`),
+        end: function () {
+        document.getElementById('bay-define-area').style.display = "none";
+        }
     });
     // TODO: add reload when layui closed
     // button func in layer
@@ -368,6 +371,11 @@ function createBayCombinationInfo(newList) {
     // TODO: as bayArea is created dynamically, use on click
     // TODO: disable this func before bayCombined!
     $(`.bay`).on('click', function () {
+        // if bay-struct-table exist?
+        if($(`#bay-define-area`)){
+            $(`#bay-define-area`).empty();
+        }
+        document.getElementById('bay-define-area').style.display = "";
         let index = this.childNodes[0].innerText;
         let ves_selected = $(`#vesselSelect option:selected`).val();
         $.ajax({

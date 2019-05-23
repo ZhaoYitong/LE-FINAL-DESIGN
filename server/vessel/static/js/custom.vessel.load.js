@@ -332,6 +332,132 @@ function layerNumToRealIndexList(layerNumAbove,layerNumBelow) {
     }
     return layer;
 }
+//
+function getDeckLayIndex(real, max) {
+    let temp=[];
+    for(let i=0; i<(real? real:max);i++){
+        temp.push(numToIdString((41+i)*2));
+    }
+    console.log("deckBayIndex: " + temp);
+    return temp;
+}
+function getCabLayIndex(real, max) {
+    let temp =[];
+    for(let j=0; j<(real? real:max); j++) {
+        temp.push(numToIdString((j+1)*2));
+    }
+    console.log("cabBayIndex: " + temp);
+    return temp;
+}
+function createColIndex(num_of_col) {
+    let temp_list = [];
+    if (num_of_col%2 === 0){
+        // 00 line
+        let sub = num_of_col/2;
+        for(let i=sub; i>0; i--){
+            temp_list.push(numToIdString(i*2));
+        }
+        for(let j=0; j<sub; j++){
+            temp_list.push(numToIdString((j+1)*2-1));
+        }
+    }
+    else {
+        let sub = (num_of_col-1)/2;
+        for(let i=sub; i>0; i--){
+            temp_list.push(numToIdString(i*2));
+        }
+        temp_list.push('00');
+        for(let j=0; j<sub; j++){
+            temp_list.push(numToIdString((j+1)*2-1));
+        }
+    }
+    console.log("colIndex: " + temp_list);
+    return temp_list;
+}
+function drawBayStruct(res) {
+    let ves_name = res.ves_name;
+    let bay_index = res.bay_index;
+    let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
+    let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
+    let deck_max_col = res.bay_struct_max.deck_lay_num_max;
+    let cab_max_col = res.bay_struct_max.cab_col_num_max;
+
+    let deck_real_lay = res.real_bay_struct.deck_lay_num_real;
+    let cab_real_lay = res.real_bay_struct.cab_lay_num_real;
+    let cab_real_col = res.real_bay_struct.cab_col_num_real;
+    let deck_real_col = res.real_bay_struct.deck_col_num_real;
+
+    // create bay-structure
+    $( `#bay-struct-vessel`).append(`<div class="bay-struct-define">`+
+    `<div class="bay-struct-header" name="bay-index">`+
+        `<span></span>`+
+    `</div>`+
+    `<div class="bay-struct-content" name="bay-struct-area">`+
+        `<div class="bay-col-index-deck">`+
+            `<div class="blank-index-deck"></div>`+
+            `<div class="col-index-area-deck"></div>`+
+        `</div>`+
+        `<div class="bay-deck-lays"></div>`+
+        `<div class="vessel-hat">`+
+            `<div class="blank-hat-area"></div>`+
+            `<div class="hat-area"></div>`+
+        `</div>`+
+        `<div class="bay-cab-lays"></div>`+
+        `<div class="bay-col-index-cab">`+
+            `<div class="blank-index-cab"></div>`+
+            `<div class="col-index-area-cab"></div>`+
+        `</div>`+
+    `</div>`+
+`</div>`);
+
+    let lay_index_deck = getDeckLayIndex(deck_real_lay,deck_max_lay);
+    let lay_index_cab = getCabLayIndex(cab_real_lay,cab_max_lay);
+
+    let col_index_deck_list = createColIndex(deck_real_col? deck_real_col:deck_max_col);
+    let col_index_cab_list = createColIndex(cab_real_col? cab_real_col:cab_max_col);
+
+    console.log(col_index_deck_list);
+    console.log(col_index_cab_list);
+    // from up to down
+    $(`.bay-struct-header`).children()[0].innerText = '贝位号: '+ bay_index;
+    // col-index on deck
+    let k;
+    for(k=0; k<col_index_deck_list.length; k++){
+        let col_index = col_index_deck_list[k];
+        $(`.col-index-area-deck`).append(`<div class="col-index-zone">${col_index}</div>`);
+    }
+    for(let r=0; r<col_index_cab_list.length; r++){
+        let col_index = col_index_cab_list[r];
+        $(`.col-index-area-cab`).append(`<div class="col-index-zone">${col_index}</div>`);
+    }
+    //lay
+    for(let m=lay_index_deck.length-1; m>=0; m--){
+        let lay_index = lay_index_deck[m];
+        $(`.bay-deck-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
+        for(let n=0; n<col_index_deck_list.length; n++){
+            let col_index = col_index_deck_list[n];
+            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+        }
+    }
+    for(let p=lay_index_cab.length-1; p>=0; p--){
+        let lay_index = lay_index_cab[p];
+        $(`.bay-cab-lays`).append(`<div class="bay-cab-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
+        for(let q=0; q<col_index_cab_list.length; q++){
+            let col_index = col_index_cab_list[q];
+            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+        }
+    }
+
+    $(`.con-zone`).on('dblclick', function () {
+        let pos_x = this.attributes[1].value;
+        let pos_y = this.attributes[2].value;
+        let pos_z = this.attributes[3].value;
+        let test = $(this).attr("pos_x");
+        console.log(test);
+        $(this).addClass("bay-struct-zone-absolute");
+        // console.log(this.attributes[1].value);
+    });
+}
 function createBayCombinationInfo(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
@@ -385,10 +511,14 @@ function createBayCombinationInfo(newList) {
     // TODO: as bayArea is created dynamically, use on click
     // TODO: disable this func before bayCombined!
     $(`.bay-20`).on('click', function () {
+        // if bay-struct-table exist?
+        if($(`#bay-struct-vessel`)){
+            $(`#bay-struct-vessel`).empty();
+        }
         let index = this.childNodes[0].innerText;
         let ves_selected = $(`#vesselSelect option:selected`).val();
         $.ajax({
-            url: '/vesselStruct/define_bay/',
+            url: '/vesselStruct/operation_load/',
             type: 'GET',
             data: {
                 name: ves_selected,
@@ -397,6 +527,8 @@ function createBayCombinationInfo(newList) {
             dataType: "json",
             success: function (res) {
                 console.log(res);
+                drawBayStruct(res);
+
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);

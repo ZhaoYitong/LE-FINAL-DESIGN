@@ -22,100 +22,100 @@ let VIEW_SIDE = {
     dataType: "",
     bayDirection: "",
     watchType: "sideViewing",
-    vessel_id:"001",
-    vessel_IMO:"KuiYa123",
-    vessel_name:"亚历山大",
-    vessel_width:"30m",
-    vessel_frontLength:"100m",
-    vessel_length:"300m",
+    vessel_id: "001",
+    vessel_IMO: "KuiYa123",
+    vessel_name: "亚历山大",
+    vessel_width: "30m",
+    vessel_frontLength: "100m",
+    vessel_length: "300m",
     bay_inch20_num: 30,
     max_layer_above_number: 8, // all above
     max_layer_below_number: 5,  // all below
-    hatCover_kind:"自开式",
+    hatCover_kind: "自开式",
     hatCover_number: 1,
     // create vessel
     vessel: [
-           //  down to up
-           // below: 02 04 06 08 10
-           // above: 82 84 86 88 90 92 94 96 98
-           // all: ["01", "03", "05", "07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
-           // TODO: create a function to solve the value creation:
-           // TODO: layer: set left end and right end. Then create bayIndexList and conIndexList
-           {
-               layerIndex: "02",
-               bayIndexList: ["07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "39", "41", "43", "45", "47", "49", "51",],
-               conZoneIndexList: ["35","37"],
-           },
-           {
-               layerIndex: "04",
-               bayIndexList: ["05", "07", "17","19", "49", "51", "53",],
-               conZoneIndexList: ["09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47"],
-           },
-           {
-                layerIndex: "06",
-                bayIndexList: ["03","05", "17","19","53","59"],
-                conZoneIndexList: ["07","09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47","49","51",],
+        //  down to up
+        // below: 02 04 06 08 10
+        // above: 82 84 86 88 90 92 94 96 98
+        // all: ["01", "03", "05", "07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+        // TODO: create a function to solve the value creation:
+        // TODO: layer: set left end and right end. Then create bayIndexList and conIndexList
+        {
+            layerIndex: "02",
+            bayIndexList: ["07", "09", "11", "13", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "39", "41", "43", "45", "47", "49", "51",],
+            conZoneIndexList: ["35", "37"],
+        },
+        {
+            layerIndex: "04",
+            bayIndexList: ["05", "07", "17", "19", "49", "51", "53",],
+            conZoneIndexList: ["09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47"],
+        },
+        {
+            layerIndex: "06",
+            bayIndexList: ["03", "05", "17", "19", "53", "59"],
+            conZoneIndexList: ["07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51",],
 
-           },
-           {
-               layerIndex: "08",
-               bayIndexList: ["01", "03", "05", "17","19", "53", "55", "57", "59",],
-               conZoneIndexList: ["07","09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47","49","51",],
-           },
-           {
-               layerIndex: "10",
-               bayIndexList: ["01", "03", "17","19", "57", "59",],
-               conZoneIndexList: ["05","07","09","11","13", "15","21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47","49","51", "53", "55",],
+        },
+        {
+            layerIndex: "08",
+            bayIndexList: ["01", "03", "05", "17", "19", "53", "55", "57", "59",],
+            conZoneIndexList: ["07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51",],
+        },
+        {
+            layerIndex: "10",
+            bayIndexList: ["01", "03", "17", "19", "57", "59",],
+            conZoneIndexList: ["05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55",],
 
-           },
-           {
-               layerIndex: "82",
-               bayIndexList: ["17","19"],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+        },
+        {
+            layerIndex: "82",
+            bayIndexList: ["17", "19"],
+            conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59",],
 
-           },
-           {
-               layerIndex: "84",
-               bayIndexList: [ "17","19",],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+        },
+        {
+            layerIndex: "84",
+            bayIndexList: ["17", "19",],
+            conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59",],
 
-           },
-           {
-               layerIndex: "86",
-               bayIndexList: [ "17","19",],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+        },
+        {
+            layerIndex: "86",
+            bayIndexList: ["17", "19",],
+            conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59",],
 
-           },
-           {
-               layerIndex: "88",
-               bayIndexList: [ "17","19",],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+        },
+        {
+            layerIndex: "88",
+            bayIndexList: ["17", "19",],
+            conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59",],
 
-           },
-           {
-               layerIndex: "90",
-               bayIndexList: [ "17","19",],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+        },
+        {
+            layerIndex: "90",
+            bayIndexList: ["17", "19",],
+            conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59",],
 
-           },
-           {
-               layerIndex: "92",
-               bayIndexList: [ "17",],
-               conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+        },
+        {
+            layerIndex: "92",
+            bayIndexList: ["17",],
+            conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59",],
 
-           },
-           {
-               layerIndex: "94",
-               bayIndexList: [],
-               // conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
-               conZoneIndexList:[],
-           },
-           {
-               layerIndex: "96",
-               bayIndexList: [],
-               // conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
-               conZoneIndexList:[],
-           },
+        },
+        {
+            layerIndex: "94",
+            bayIndexList: [],
+            // conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+            conZoneIndexList: [],
+        },
+        {
+            layerIndex: "96",
+            bayIndexList: [],
+            // conZoneIndexList: ["01", "03", "05", "07", "09", "11", "13", "15", "21", "23", "25", "27", "29","31", "33", "35", "37", "39", "41", "43", "45", "47", "49","51", "53", "55", "57", "59",],
+            conZoneIndexList: [],
+        },
 
     ],
     // 舱盖板
@@ -124,27 +124,25 @@ let VIEW_SIDE = {
 };
 let vesselStorageInfoAll = {
     dataType: "VESSEL_STORAGE_INFO",
-    vessel_id:"001",
-    vessel_IMO:"KuiYa123",
+    vessel_id: "001",
+    vessel_IMO: "KuiYa123",
     // TODO: is inch20 and inch40 both supported?
     // TODO: load and unload operation : --- inch20 and inch40 both supported?
     data: [
         {
             id: 1,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "01",
-                    layerList: [
-
-                    ],
+                    layerList: [],
                 }
             ],
         },
         {
             id: 2,
             type: "combine",
-            bayInch20s:[
+            bayInch20s: [
                 {
                     index: "03",
                 },
@@ -161,7 +159,7 @@ let vesselStorageInfoAll = {
         {
             id: 3,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "07",
                 }
@@ -170,7 +168,7 @@ let vesselStorageInfoAll = {
         {
             id: 4,
             type: "combine",
-            bayInch20s:[
+            bayInch20s: [
                 {
                     index: "09",
                 },
@@ -187,7 +185,7 @@ let vesselStorageInfoAll = {
         {
             id: 5,
             type: "combine",
-            bayInch20s:[
+            bayInch20s: [
                 {
                     index: "13",
                 },
@@ -204,7 +202,7 @@ let vesselStorageInfoAll = {
         {
             id: 6,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "17",
                 }
@@ -213,7 +211,7 @@ let vesselStorageInfoAll = {
         {
             id: 7,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "19",
                 }
@@ -222,7 +220,7 @@ let vesselStorageInfoAll = {
         {
             id: 8,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "21",
                 }
@@ -231,7 +229,7 @@ let vesselStorageInfoAll = {
         {
             id: 9,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "23",
                 }
@@ -240,7 +238,7 @@ let vesselStorageInfoAll = {
         {
             id: 10,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "25",
                 }
@@ -249,7 +247,7 @@ let vesselStorageInfoAll = {
         {
             id: 11,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "27",
                 }
@@ -258,7 +256,7 @@ let vesselStorageInfoAll = {
         {
             id: 12,
             type: "combine",
-            bayInch20s:[
+            bayInch20s: [
                 {
                     index: "29",
                 },
@@ -275,7 +273,7 @@ let vesselStorageInfoAll = {
         {
             id: 13,
             type: "combine",
-            bayInch20s:[
+            bayInch20s: [
                 {
                     index: "33",
                 },
@@ -292,7 +290,7 @@ let vesselStorageInfoAll = {
         {
             id: 14,
             type: "combine",
-            bayInch20s:[
+            bayInch20s: [
                 {
                     index: "37",
                 },
@@ -309,7 +307,7 @@ let vesselStorageInfoAll = {
         {
             id: 15,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "41",
                 }
@@ -318,7 +316,7 @@ let vesselStorageInfoAll = {
         {
             id: 16,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "43",
                 }
@@ -327,7 +325,7 @@ let vesselStorageInfoAll = {
         {
             id: 17,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "45",
                 }
@@ -336,7 +334,7 @@ let vesselStorageInfoAll = {
         {
             id: 18,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "47",
                 }
@@ -345,7 +343,7 @@ let vesselStorageInfoAll = {
         {
             id: 19,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "49",
                 }
@@ -354,7 +352,7 @@ let vesselStorageInfoAll = {
         {
             id: 20,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "51",
                 }
@@ -363,7 +361,7 @@ let vesselStorageInfoAll = {
         {
             id: 21,
             type: "combine",
-            bayInch20s:[
+            bayInch20s: [
                 {
                     index: "53",
                 },
@@ -380,7 +378,7 @@ let vesselStorageInfoAll = {
         {
             id: 22,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "57",
                 }
@@ -389,7 +387,7 @@ let vesselStorageInfoAll = {
         {
             id: 23,
             type: "single",
-            bayInch20:[
+            bayInch20: [
                 {
                     index: "59",
                 }
@@ -397,6 +395,7 @@ let vesselStorageInfoAll = {
         },
     ],
 };
+
 /**
  * custom function
  */
@@ -404,49 +403,50 @@ let vesselStorageInfoAll = {
 function numToIdString(num) {
     return num < 10 ? "0" + num.toString() : num.toString();
 }
+
 // is exist in array (str)
-function isExist(array,value){
-    for(let i=0;i<array.length;i++){
-        if(array[i] === value){
+function isExist(array, value) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === value) {
             return true;
         }
     }
     return false;
 }
+
 function toAbsent(value) {
-    return value>0?value:-value;
+    return value > 0 ? value : -value;
 }
+
 function directionDealer(num, dir, func, isInverse) {
     // set isInverse as args to control
     // TODO: uniform isInverse
     if (isInverse) {
         if (dir === 'L') {
-        for (let a=0; a<num; a++) {
-            func(a,dir);
-        }
-        }
-        else {
-            for (let b=num-1; b>=0; b--) {
-                func(b,dir);
+            for (let a = 0; a < num; a++) {
+                func(a, dir);
+            }
+        } else {
+            for (let b = num - 1; b >= 0; b--) {
+                func(b, dir);
             }
         }
-    }
-    else {
+    } else {
         if (dir === 'L') {
-        for (let d=num-1; d>=0; d--) {
-            func(d,dir);
-        }
-        }
-        else {
-            for (let c=0; c<num; c++) {
-                func(c,dir);
+            for (let d = num - 1; d >= 0; d--) {
+                func(d, dir);
+            }
+        } else {
+            for (let c = 0; c < num; c++) {
+                func(c, dir);
             }
         }
     }
 }
+
 // zoom in and zoom out
-function setZoom(zoom,el) {
-    let transformOrigin = [0,0];
+function setZoom(zoom, el) {
+    let transformOrigin = [0, 0];
     el = el || instance.getContainer();
     let p = ["webkit", "moz", "ms", "o"],
         s = "scale(" + zoom + ")",
@@ -458,44 +458,48 @@ function setZoom(zoom,el) {
     el.style["transform"] = s;
     el.style["transformOrigin"] = oString;
 }
-function showVal(a){
-    let zoomScale = Number(a)/10;
-    setZoom(zoomScale,document.getElementsByClassName('mainArea')[0])
+
+function showVal(a) {
+    let zoomScale = Number(a) / 10;
+    setZoom(zoomScale, document.getElementsByClassName('mainArea')[0])
 }
+
 /**
  *  initialize bay area
  */
 function BayNumToRealIndexList(bayNum) {
     let bay = {};
     bay.inch20 = [];
-    for (let i=0;i<bayNum;i++){
+    for (let i = 0; i < bayNum; i++) {
         bay.inch20[i] = {
-            "id":i+1,
-            "bayRealIndex":numToIdString(i*2+1)
+            "id": i + 1,
+            "bayRealIndex": numToIdString(i * 2 + 1)
         };
     }
     return bay;
 }
+
 // layer above
 // layer below
-function layerNumToRealIndexList(layerNumAbove,layerNumBelow) {
+function layerNumToRealIndexList(layerNumAbove, layerNumBelow) {
     let layer = {};
     layer.above = [];
     layer.below = [];
-    for (let i=0; i<layerNumAbove; i++){
+    for (let i = 0; i < layerNumAbove; i++) {
         layer.above[i] = {
-            id: i+1,
-            layerRealIndex: numToIdString((i+41)*2),
+            id: i + 1,
+            layerRealIndex: numToIdString((i + 41) * 2),
         }
     }
-    for (let j=0; j<layerNumBelow; j++){
+    for (let j = 0; j < layerNumBelow; j++) {
         layer.below[j] = {
-            id: j+1,
-            layerRealIndex: numToIdString((j+1)*2),
+            id: j + 1,
+            layerRealIndex: numToIdString((j + 1) * 2),
         }
     }
     return layer;
 }
+
 function createBayCombinationInfo(newList) {
     let newBay_num = newList.data.length;
     let dataList = newList.data;
@@ -509,7 +513,7 @@ function createBayCombinationInfo(newList) {
                 `<span class="newBay20Index">${dataList[index].bayInch20[0].index}</span>` +
                 `</div>`);
         } else {
-            if (bay_dir === 'R'){
+            if (bay_dir === 'R') {
                 let bay40_index = dataList[index].bayInch40[0].index;
                 let bay20_left = dataList[index].bayInch20s[1].index;
                 let bay20_right = dataList[index].bayInch20s[0].index;
@@ -518,14 +522,13 @@ function createBayCombinationInfo(newList) {
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bay-20">`+
+                    `<div class="newBay20InComLeft bay-20">` +
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bay-20">`+
+                    `<div class="newBay20InComRight bay-20">` +
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div>` +
                     `</div>` +
                     `</div>`);
-            }
-            else {
+            } else {
                 // bay_dir === 'L'
                 let bay40_index = dataList[index].bayInch40[0].index;
                 let bay20_left = dataList[index].bayInch20s[0].index;
@@ -535,9 +538,9 @@ function createBayCombinationInfo(newList) {
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bay-20">`+
+                    `<div class="newBay20InComLeft bay-20">` +
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bay-20">`+
+                    `<div class="newBay20InComRight bay-20">` +
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div></div>` +
                     `</div>`);
             }
@@ -562,7 +565,7 @@ function createBayCombinationInfo(newList) {
             success: function (res) {
                 console.log(res);
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);
             },
         });
@@ -570,12 +573,13 @@ function createBayCombinationInfo(newList) {
     $(`[class="newBay20"][id="6"]`).addClass("blink");
     $(`[class="newBay20"][id="7"]`).addClass("blink");
 }
+
 /**
  *  vessel creation
  */
-function createVesselSide(){
+function createVesselSide() {
     // $(`.createVessel`)[0].disabled = true;
-    if($(`.vesselAreaSide`)){
+    if ($(`.vesselAreaSide`)) {
         $(`.vesselAreaSide`).empty();
     }
     $.ajax({
@@ -594,14 +598,15 @@ function createVesselSide(){
             let eng_list_ind = res.engine_room_index;
             drawVesselStruct(bay_num, layerNumAbove, layerNumBelow, dir, eng_list_ind)
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
 }
+
 function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_list) {
     let bayLists = BayNumToRealIndexList(bay_num);
-    let layerLists = layerNumToRealIndexList(lay_above_num,lay_below_num);
+    let layerLists = layerNumToRealIndexList(lay_above_num, lay_below_num);
     let conZone_bay_num = bayLists.inch20.length;
     let conZone_layerAbove_num = layerLists.above.length;
     let conZone_layerBelow_num = layerLists.below.length;
@@ -610,22 +615,22 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
     $(`.vesselAreaSide`).append(`<div class="onBoardSide"></div>`).append(`<div class="belowBoardSide"></div>`);
     // TODO: change conZoneAbove_inch20 according maxLayer input
     // TODO: tip1: set fixed height according maxLayer input
-    let drawVesBayArea = function (index,args_dir) {
+    let drawVesBayArea = function (index, args_dir) {
         let conZoneBayIndex = bayLists.inch20[index].bayRealIndex;
         $(`.onBoardSide`).append(`<div pos_x=${conZoneBayIndex} class="bayAbove_20"></div>`);
         $(`.belowBoardSide`).append(`<div pos_x=${conZoneBayIndex} class="bayBelow_20"></div>`);
     };
     let isInverse = true;
-    directionDealer(conZone_bay_num,dir,drawVesBayArea,isInverse);
+    directionDealer(conZone_bay_num, dir, drawVesBayArea, isInverse);
     // zone: bay + layer
-    for(let j=0;j<conZone_bay_num;j++){
+    for (let j = 0; j < conZone_bay_num; j++) {
         let conZoneBayIndex = bayLists.inch20[j].bayRealIndex;
-        for(let k=conZone_layerAbove_num-1;k>=0;k--){
+        for (let k = conZone_layerAbove_num - 1; k >= 0; k--) {
             let conZoneLayerIndex = layerLists.above[k].layerRealIndex;
             let item = `<div class="conZone_20" p_x=${conZoneBayIndex} p_z=${conZoneLayerIndex}></div>`;
             $(`.onBoardSide div[pos_x=${conZoneBayIndex}]`).append(item);
         }
-        for(let m=conZone_layerBelow_num-1;m>=0;m--){
+        for (let m = conZone_layerBelow_num - 1; m >= 0; m--) {
             let conZoneLayerIndex = layerLists.below[m].layerRealIndex;
             let item = `<div class="conZone_20" p_x=${conZoneBayIndex} p_z=${conZoneLayerIndex}></div>`;
             $(`.belowBoardSide div[pos_x=${conZoneBayIndex}]`).append(item);
@@ -635,12 +640,13 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
     $(`.bayAbove_20`).children('div').addClass("vessel_inch20_default");
     $(`.bayBelow_20`).children('div').addClass("vessel_inch20_default");
     console.log(eng_list_index);
-    for (let i=0; i<eng_list_index.length; i++) {
+    for (let i = 0; i < eng_list_index.length; i++) {
         let index = eng_list_index[i].toString();
         console.log(index);
         $(`div[p_x=${index}]`).addClass("vesselBody_inch20");
     }
 }
+
 /**
  *  stowage info
  */
@@ -648,7 +654,7 @@ function createStowageInfo() {
     // TODO: disable according to relevant func before click
     // TODO: ajax get data from server
     // $(`.createStowage`)[0].disabled = true;
-    if($(`div[class="vesselStowageInfo"]`)){
+    if ($(`div[class="vesselStowageInfo"]`)) {
         $(`div[class="vesselStowageInfo"]`).empty();
     }
     let header = vesselStorageInfoAll.vessel_IMO;
@@ -659,24 +665,24 @@ function createStowageInfo() {
     let item_bay_info = function (tip, bayIndex) {
         return `<div id="${bayIndex}" class="bayStowage"><div class="header"><span>${tip}${bayIndex}</span></div><div class="content"></div></div>`
     };
-    for(let i=0;i<bayNum;i++){
+    for (let i = 0; i < bayNum; i++) {
         let itemType = vesselStorageInfoAll.data[i].type;
-        if(itemType==="single"){
+        if (itemType === "single") {
             let bayIndexOfBay = vesselStorageInfoAll.data[i].bayInch20[0].index;
-            $(`.baysStowageArea`).append(item_bay_info(BAY_INDEX_TIP,bayIndexOfBay));
-        }
-        else {
+            $(`.baysStowageArea`).append(item_bay_info(BAY_INDEX_TIP, bayIndexOfBay));
+        } else {
             // itemType === "combine"
             let tempBayIndexOfBay_0 = vesselStorageInfoAll.data[i].bayInch20s[0].index;
             let bayIndexOfBay_1 = vesselStorageInfoAll.data[i].bayInch20s[1].index;
             let bayIndexOfBay_con = vesselStorageInfoAll.data[i].bayInch40[0].index;
-            let bayIndexOfBay_0 = tempBayIndexOfBay_0+"("+ bayIndexOfBay_con + ")";
+            let bayIndexOfBay_0 = tempBayIndexOfBay_0 + "(" + bayIndexOfBay_con + ")";
             $(`.baysStowageArea`)
-                .append(item_bay_info(BAY_INDEX_TIP,bayIndexOfBay_0))
-                .append(item_bay_info(BAY_INDEX_TIP,bayIndexOfBay_1));
+                .append(item_bay_info(BAY_INDEX_TIP, bayIndexOfBay_0))
+                .append(item_bay_info(BAY_INDEX_TIP, bayIndexOfBay_1));
         }
     }
 }
+
 function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
     // initial div above and below
     $(`.vesOperationInfo`).append(`<div class="above"></div>`)
@@ -694,43 +700,42 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
         let position = 'ves_' + pos;
         let type = 'ves_' + op_type;
         if (bay_list[index].type === "single") {
-         let bayIndex = bayList[index].bayInch20[0].index;
-         $(`div[class = ${pos}] div[class=${op_type}]`)
-             .append(`<div id=${bayIndex} class="bay_20 ${position} ${type}">`+
-                 `<span class="text_silver"></span></div>`);
-        }
-        else {
+            let bayIndex = bayList[index].bayInch20[0].index;
+            $(`div[class = ${pos}] div[class=${op_type}]`)
+                .append(`<div id=${bayIndex} class="bay_20 ${position} ${type}">` +
+                    `<span class="text_silver"></span></div>`);
+        } else {
             if (dir === 'R') {
                 let bay_40 = bayList[index].bayInch40[0].index;
                 let left_index = bayList[index].bayInch20s[1].index;
                 let right_index = bayList[index].bayInch20s[0].index;
-                $(`div[class = ${pos}] div[class=${op_type}]`).append(`<div class="comBay">`+
-                    `<div id=${bay_40} class="bay40InCom ${position} ${type}">`+
-                        `<span class="text_silver"></span></div><div class="bay20sInCom">` +
-                    `<div id=${left_index} class="bay20InComLeft ${position} ${type}">`+
-                        `<span class="text_silver"></span></div>` +
-                    `<div id=${right_index} class="bay20InComRight ${position} ${type}">`+
+                $(`div[class = ${pos}] div[class=${op_type}]`).append(`<div class="comBay">` +
+                    `<div id=${bay_40} class="bay40InCom ${position} ${type}">` +
+                    `<span class="text_silver"></span></div><div class="bay20sInCom">` +
+                    `<div id=${left_index} class="bay20InComLeft ${position} ${type}">` +
                     `<span class="text_silver"></span></div>` +
-                     `</div></div>`);
-            }
-            else {
+                    `<div id=${right_index} class="bay20InComRight ${position} ${type}">` +
+                    `<span class="text_silver"></span></div>` +
+                    `</div></div>`);
+            } else {
                 // dir === 'L'
                 let bay_40 = bayList[index].bayInch40[0].index;
                 let left_index = bayList[index].bayInch20s[0].index;
                 let right_index = bayList[index].bayInch20s[1].index;
-                $(`div[class = ${pos}] div[class=${op_type}]`).append(`<div class="comBay">`+
-                    `<div id=${bay_40} class="bay40InCom ${position} ${type}">`+
-                        `<span class="text_silver"></span></div><div class="bay20sInCom">` +
-                    `<div id=${left_index} class="bay20InComLeft ${position} ${type}">`+
-                        `<span class="text_silver"></span></div>` +
-                    `<div id=${right_index} class="bay20InComRight ${position} ${type}">`+
+                $(`div[class = ${pos}] div[class=${op_type}]`).append(`<div class="comBay">` +
+                    `<div id=${bay_40} class="bay40InCom ${position} ${type}">` +
+                    `<span class="text_silver"></span></div><div class="bay20sInCom">` +
+                    `<div id=${left_index} class="bay20InComLeft ${position} ${type}">` +
                     `<span class="text_silver"></span></div>` +
-                     `</div></div>`);
+                    `<div id=${right_index} class="bay20InComRight ${position} ${type}">` +
+                    `<span class="text_silver"></span></div>` +
+                    `</div></div>`);
             }
         }
 
     }
-    let drawConsPending = function (key,args_dir) {
+
+    let drawConsPending = function (key, args_dir) {
         draw_single_row("above", "unload", bayList, key, args_dir);
         draw_single_row("above", "load", bayList, key, args_dir);
         draw_single_row("below", "unload", bayList, key, args_dir);
@@ -740,7 +745,7 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
     directionDealer(new_bay_num, dir, drawConsPending, isInverse);
     // TODO: add data to area
     console.log(dataList);
-    for(let i=0;i<dataList.inch20.length;i++) {
+    for (let i = 0; i < dataList.inch20.length; i++) {
         let index = dataList.inch20[i].index;
         let val_above_load = dataList.inch20[i].data.above_load;
         let val_above_unload = dataList.inch20[i].data.above_unload;
@@ -751,7 +756,7 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
         $(`div[class="below"] div[class="load"] div[id=${index}] span`)[0].innerText = val_below_load;
         $(`div[class="below"] div[class="unload"] div[id=${index}] span`)[0].innerText = val_below_unload;
     }
-    for (let j=0; j<dataList.inch40.length;j++) {
+    for (let j = 0; j < dataList.inch40.length; j++) {
         let index = dataList.inch40[j].index;
         let val_above_load = dataList.inch40[j].data.above_load;
         let val_above_unload = dataList.inch40[j].data.above_unload;
@@ -765,7 +770,7 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
     // $(`div[class="above"] div[class="unload"] div[id="69"] span`)[0].innerText = 10;
 
     // engine_body
-    for(let k=0; k<engine_list.length; k++){
+    for (let k = 0; k < engine_list.length; k++) {
         console.log(typeof engine_list[k]);
         let index = engine_list[k].toString();
         $(`div[class="above"] div[class="load"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
@@ -774,9 +779,10 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
         $(`div[class="below"] div[class="unload"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
     }
 }
+
 function createLoadOrUnloadInfo() {
     // $(`.createLoadOrUnload`)[0].disabled = true;
-    if($(`div[class="vesOperationInfo"]`)){
+    if ($(`div[class="vesOperationInfo"]`)) {
         $(`div[class="vesOperationInfo"]`).empty();
     }
     let selected_ves = $(`#vesselSelect option:selected`).val();
@@ -796,16 +802,17 @@ function createLoadOrUnloadInfo() {
             let engBodyList = res.engineRoomIndex;
             drawVesselPending(new_bay_num, bay_list, dir, data_list, engBodyList);
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
 }
+
 /**
  *  combination buttons
  */
-function getCombineInfo (){
-    if($(`.newBayArea`)){
+function getCombineInfo() {
+    if ($(`.newBayArea`)) {
         $(`.newBayArea`).empty();
     }
     selected_vessel = $(`#vesselSelect option:selected`).val();
@@ -821,11 +828,12 @@ function getCombineInfo (){
             console.log(res);
             createBayCombinationInfo(res);
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert(XMLHttpRequest.status);
         },
     });
 }
+
 // TODO: add engine after combination of bay
 /**
  *  test area

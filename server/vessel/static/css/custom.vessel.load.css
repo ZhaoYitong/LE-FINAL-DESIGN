@@ -33,8 +33,6 @@
     padding-left: 9px;
     padding-right: 9px;
     box-sizing: border-box;
-    border: 0px black solid;
-    /*position: fixed;*/
 }
 
 .box_B_title {
@@ -77,7 +75,6 @@
     padding-left: 9px;
     padding-right: 9px;
     box-sizing: border-box;
-    border: 0px black solid;
 }
 
 .container-all {
@@ -95,10 +92,6 @@
     background-color: wheat;
     box-sizing: border-box;
     border: 1px black solid;
-    /*position: absolute;*/
-    position: fixed;
-    left: 383px;
-    top: 100px;
 }
 
 .con-info-table-outer {

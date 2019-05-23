@@ -79,7 +79,7 @@ function container_add(container_this) {
         "Bay": container_this.getAttribute("bay")
     };
     $.ajax({
-        url: "",
+        url: "/yard/operation/load/",
         type: "POST",
         contentType: "application/json;charset=utf-8",
         data: JSON.stringify(data),
@@ -152,7 +152,7 @@ function container_add(container_this) {
 
     //改变整个贝位的颜色
 
-    let bay_list = document.getElementsByClassName("container");
+    let bay_list = document.getElementsByClassName("container-all");
 
     let bay_obj_list = [];
     for (let i = 0; i < bay_list.length; i++) {
@@ -203,8 +203,8 @@ function des() {
 
     bay_object.style.backgroundColor = "skyblue";
     box_object.style.backgroundColor = "skyblue";
-    con_tab.style.left = "383px";
-    con_tab.style.top = "100px";
+    // con_tab.style.left = "383px";
+    // con_tab.style.top = "100px";
 
     let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     let lay_list = ["1", "2", "3", "4", "5"];

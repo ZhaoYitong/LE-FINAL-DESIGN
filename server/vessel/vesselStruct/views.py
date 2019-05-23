@@ -479,3 +479,8 @@ def operation_load(request):
             },
         }
         return JsonResponse(data)
+
+
+# @csrf_exempt
+# def operation_load_yard(request):
+#     if request.method == 'POST':

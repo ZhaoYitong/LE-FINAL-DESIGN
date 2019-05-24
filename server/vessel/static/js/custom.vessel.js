@@ -126,8 +126,6 @@ let vesselStorageInfoAll = {
     dataType: "VESSEL_STORAGE_INFO",
     vessel_id: "001",
     vessel_IMO: "KuiYa123",
-    // TODO: is inch20 and inch40 both supported?
-    // TODO: load and unload operation : --- inch20 and inch40 both supported?
     data: [
         {
             id: 1,
@@ -420,7 +418,6 @@ function toAbsent(value) {
 
 function directionDealer(num, dir, func, isInverse) {
     // set isInverse as args to control
-    // TODO: uniform isInverse
     if (isInverse) {
         if (dir === 'L') {
             for (let a = 0; a < num; a++) {
@@ -549,9 +546,6 @@ function createBayCombinationInfo(newList) {
     };
     let isInverse = true;
     directionDealer(newBay_num, dir, drawNewBay, isInverse);
-
-    // TODO: as bayArea is created dynamically, use on click
-    // TODO: disable this func before bayCombined!
     $(`.bay-20`).on('click', function () {
         let index = this.childNodes[0].innerText;
         let ves_selected = $(`#vesselSelect option:selected`).val();
@@ -564,7 +558,7 @@ function createBayCombinationInfo(newList) {
             },
             dataType: "json",
             success: function (res) {
-                console.log(res);
+                // console.log(res);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);
@@ -591,7 +585,7 @@ function createVesselSide() {
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             let bay_num = res.bay_inch20_num;
             let layerNumAbove = res.max_layer_above_number;
             let layerNumBelow = res.max_layer_below_number;
@@ -641,10 +635,10 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
     // css control ves body, engine, and container zone
     $(`.bayAbove_20`).children('div').addClass("vessel_inch20_default");
     $(`.bayBelow_20`).children('div').addClass("vessel_inch20_default");
-    console.log(eng_list_index);
+    // console.log(eng_list_index);
     for (let i = 0; i < eng_list_index.length; i++) {
         let index = eng_list_index[i].toString();
-        console.log(index);
+        // console.log(index);
         $(`div[p_x=${index}]`).addClass("vesselBody_inch20");
     }
 }
@@ -653,8 +647,6 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
  *  stowage info
  */
 function createStowageInfo() {
-    // TODO: disable according to relevant func before click
-    // TODO: ajax get data from server
     // $(`.createStowage`)[0].disabled = true;
     if ($(`div[class="vesselStowageInfo"]`)) {
         $(`div[class="vesselStowageInfo"]`).empty();
@@ -747,7 +739,7 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
     let isInverse = true;
     directionDealer(new_bay_num, dir, drawConsPending, isInverse);
     // TODO: add data to area
-    console.log(dataList);
+    // console.log(dataList);
     for (let i = 0; i < dataList.inch20.length; i++) {
         let index = dataList.inch20[i].index;
         let val_above_load = dataList.inch20[i].data.above_load;
@@ -774,7 +766,7 @@ function drawVesselPending(new_bay_num, bayList, dir, dataList, engine_list) {
 
     // engine_body
     for (let k = 0; k < engine_list.length; k++) {
-        console.log(typeof engine_list[k]);
+        // console.log(typeof engine_list[k]);
         let index = engine_list[k].toString();
         $(`div[class="above"] div[class="load"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
         $(`div[class="above"] div[class="unload"] div[id=${index}]`).addClass("engineBody").children("span")[0].innerText = null;
@@ -797,7 +789,7 @@ function createLoadOrUnloadInfo() {
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             let new_bay_num = res.bay_list.length;
             let bay_list = res.bay_list;
             let dir = res.bayDirection;
@@ -828,7 +820,7 @@ function getCombineInfo() {
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             createBayCombinationInfo(res);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

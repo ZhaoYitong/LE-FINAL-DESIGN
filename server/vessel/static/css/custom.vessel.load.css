@@ -621,9 +621,10 @@
 }
 
 .bay-struct-define {
-    margin-top: 50px;
-    margin-left: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
     width: fit-content;
+    border: 2px solid black;
 }
 
 .bay-struct-header {

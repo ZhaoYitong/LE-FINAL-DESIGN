@@ -55,7 +55,8 @@ $(`button[id="add-vessel-submit"]`).click(function () {
         ves_ber_dir: ves_ber_dir,
     };
     if (!ves_name) {
-        console.log("Vessel NAME IS NULL!");
+        // console.log("Vessel NAME IS NULL!");
+        alert("Vessel NAME IS NULL!");
         return false
     }
     $.ajax({
@@ -63,7 +64,7 @@ $(`button[id="add-vessel-submit"]`).click(function () {
         type: 'POST',
         data: JSON.stringify(data),
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             location.reload();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -112,8 +113,7 @@ function toAbsent(value) {
     return value>0?value:-value;
 }
 function directionDealer(num, dir, func, isInverse) {
-    // set isInverse as args to control
-    // TODO: uniform isInverse
+    // set isInverse as args to control direction
     if (isInverse) {
         if (dir === 'L') {
         for (let a=0; a<num; a++) {
@@ -175,7 +175,7 @@ function getDeckLayIndex(real, max) {
     for(let i=0; i<(real? real:max);i++){
         temp.push(numToIdString((41+i)*2));
     }
-    console.log("deckBayIndex: " + temp);
+    // console.log("deckBayIndex: " + temp);
     return temp;
 }
 function getCabLayIndex(real, max) {
@@ -183,7 +183,7 @@ function getCabLayIndex(real, max) {
     for(let j=0; j<(real? real:max); j++) {
         temp.push(numToIdString((j+1)*2));
     }
-    console.log("cabBayIndex: " + temp);
+    // console.log("cabBayIndex: " + temp);
     return temp;
 }
 function createColIndex(num_of_col) {
@@ -208,7 +208,7 @@ function createColIndex(num_of_col) {
             temp_list.push(numToIdString((j+1)*2-1));
         }
     }
-    console.log("colIndex: " + temp_list);
+    // console.log("colIndex: " + temp_list);
     return temp_list;
 }
 function drawBayStruct(res) {
@@ -253,8 +253,8 @@ function drawBayStruct(res) {
     let col_index_deck_list = createColIndex(deck_real_col? deck_real_col:deck_max_col);
     let col_index_cab_list = createColIndex(cab_real_col? cab_real_col:cab_max_col);
 
-    console.log(col_index_deck_list);
-    console.log(col_index_cab_list);
+    // console.log(col_index_deck_list);
+    // console.log(col_index_cab_list);
     // from up to down
     $(`.bay-struct-header`).children()[0].innerText = '贝位号: '+ bay_index;
     // col-index on deck
@@ -306,14 +306,13 @@ function drawBayStruct(res) {
         document.getElementById('bay-define-area').style.display = "none";
         }
     });
-    // TODO: add reload when layui closed
     // button func in layer
     $(`.con-zone`).on('dblclick', function () {
         let pos_x = this.attributes[1].value;
         let pos_y = this.attributes[2].value;
         let pos_z = this.attributes[3].value;
         let test = $(this).attr("pos_x");
-        console.log(test);
+        // console.log(test);
         $(this).addClass("bay-struct-zone-absolute");
         // console.log(this.attributes[1].value);
     });
@@ -368,8 +367,6 @@ function createBayCombinationInfo(newList) {
     };
     let isInverse = true;
     directionDealer(newBay_num, dir, drawNewBay, isInverse);
-    // TODO: as bayArea is created dynamically, use on click
-    // TODO: disable this func before bayCombined!
     $(`.bay`).on('click', function () {
         // if bay-struct-table exist?
         if($(`#bay-define-area`)){
@@ -387,7 +384,7 @@ function createBayCombinationInfo(newList) {
             },
             dataType: "json",
             success: function (res) {
-                console.log(res);
+                // console.log(res);
                 drawBayStruct(res);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -466,12 +463,6 @@ function disableSelectable() {
         disabled: true
     });
 }
-// TODO: enable after reset combination
-function enableSelectable() {
-    $(`#selectable`).selectable({
-       disabled: false
-    });
-}
 /**
  *  combination buttons
  */
@@ -482,7 +473,10 @@ function disableBayCombine(eng_list){
     }
 }
 function get_combined_info (){
-    $(`.bayCombineInfo`)[0].disabled = true;
+    // $(`.bayCombineInfo`)[0].disabled = true;
+    if($(`.newBayArea`)){
+        $(`.newBayArea`).empty();
+    }
     selected_vessel = $(`#vesselSelect option:selected`).val();
     $.ajax({
         url: '/vesselStruct/edit_bay/',
@@ -493,7 +487,7 @@ function get_combined_info (){
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             createBayCombinationInfo(res);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -513,11 +507,12 @@ function combineReset() {
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             let num = res.number;
             let dir = res.bayDirection;
             let engBodyList = res.engineRoomIndex;
             $(`.newBayArea`)[0].style.display = 'none';
+            $(`.bayCombineInfo`)[0].disabled = true;
             insertBay(BayNumToRealIndexList(num), dir);
             $(`.reStartCombine`)[0].disabled = true;
             disableBayCombine(engBodyList);
@@ -541,13 +536,10 @@ function combineToConfirm (){
         type: 'POST',
         data: JSON.stringify(context),
         success: function(res){
-            console.log(res);
+            // console.log(res);
             alert(TIP_RESET_BAY_SUCCESS);
+            $(`.bayCombineInfo`)[0].disabled = true;
         },
         dataType: "json",
     });
 }
-
-/**
- *
- */

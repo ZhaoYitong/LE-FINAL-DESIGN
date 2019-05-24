@@ -40,12 +40,17 @@ def ves_basic(request):
 
 
 @csrf_exempt
-def ves_struct_input(request):
+def add_vessel_page(request):
     if request.method == 'GET':
         all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
         return render(request, 'VESSEL/vessel.input.basicInfo.html', {'all_vessel': all_vessel})
-    elif request.method == 'POST':
-        return render(request, 'VESSEL/vessel.input.basicInfo.html')
+
+
+@csrf_exempt
+def bay_struct_define(request):
+    if request.method == 'GET':
+        all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
+        return render(request, 'VESSEL/vessel.input.bayStructDefine.html', {'all_vessel': all_vessel})
 
 
 @csrf_exempt

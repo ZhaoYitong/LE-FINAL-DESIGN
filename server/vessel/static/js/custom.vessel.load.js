@@ -291,7 +291,6 @@ function toAbsent(value) {
 }
 function directionDealer(num, dir, func, isInverse) {
     // set isInverse as args to control
-    // TODO: uniform isInverse
     if (isInverse) {
         if (dir === 'L') {
         for (let a=0; a<num; a++) {
@@ -357,7 +356,7 @@ function getDeckLayIndex(real, max) {
     for(let i=0; i<(real? real:max);i++){
         temp.push(numToIdString((41+i)*2));
     }
-    console.log("deckBayIndex: " + temp);
+    // console.log("deckBayIndex: " + temp);
     return temp;
 }
 function getCabLayIndex(real, max) {
@@ -365,7 +364,7 @@ function getCabLayIndex(real, max) {
     for(let j=0; j<(real? real:max); j++) {
         temp.push(numToIdString((j+1)*2));
     }
-    console.log("cabBayIndex: " + temp);
+    // console.log("cabBayIndex: " + temp);
     return temp;
 }
 function createColIndex(num_of_col) {
@@ -390,7 +389,7 @@ function createColIndex(num_of_col) {
             temp_list.push(numToIdString((j+1)*2-1));
         }
     }
-    console.log("colIndex: " + temp_list);
+    // console.log("colIndex: " + temp_list);
     return temp_list;
 }
 function drawBayStruct(res) {
@@ -435,8 +434,8 @@ function drawBayStruct(res) {
     let col_index_deck_list = createColIndex(deck_real_col? deck_real_col:deck_max_col);
     let col_index_cab_list = createColIndex(cab_real_col? cab_real_col:cab_max_col);
 
-    console.log(col_index_deck_list);
-    console.log(col_index_cab_list);
+    // console.log(col_index_deck_list);
+    // console.log(col_index_cab_list);
     // from up to down
     $(`.bay-struct-header`).children()[0].innerText = '贝位号: '+ bay_index;
     // col-index on deck
@@ -474,7 +473,7 @@ function drawBayStruct(res) {
         let pos_y = this.attributes[2].value;
         let pos_z = this.attributes[3].value;
         let test = $(this).attr("pos_x");
-        console.log(test);
+        // console.log(test);
         $(this).addClass("bay-struct-zone-absolute");
         // console.log(this.attributes[1].value);
     });
@@ -528,9 +527,6 @@ function createBayCombinationInfo(newList) {
     };
     let isInverse = true;
     directionDealer(newBay_num, dir, drawNewBay, isInverse);
-
-    // TODO: as bayArea is created dynamically, use on click
-    // TODO: disable this func before bayCombined!
     $(`.bay-20`).on('click', function () {
         // if bay-struct-table exist?
         if($(`#bay-struct-vessel`)){
@@ -547,7 +543,7 @@ function createBayCombinationInfo(newList) {
             },
             dataType: "json",
             success: function (res) {
-                console.log(res);
+                // console.log(res);
                 drawBayStruct(res);
 
             },
@@ -575,7 +571,7 @@ function createVesselSide(){
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             let bay_num = res.bay_inch20_num;
             let layerNumAbove = res.max_layer_above_number;
             let layerNumBelow = res.max_layer_below_number;
@@ -624,10 +620,10 @@ function drawVesselStruct(bay_num, lay_above_num, lay_below_num, dir, engine_lis
     // css control ves body, engine, and container zone
     $(`.bayAbove_20`).children('div').addClass("vessel_inch20_default");
     $(`.bayBelow_20`).children('div').addClass("vessel_inch20_default");
-    console.log(eng_list_index);
+    // console.log(eng_list_index);
     for (let i=0; i<eng_list_index.length; i++) {
         let index = eng_list_index[i].toString();
-        console.log(index);
+        // console.log(index);
         $(`div[p_x=${index}]`).addClass("vesselBody_inch20");
     }
 }
@@ -649,7 +645,7 @@ function getCombineInfo (){
         },
         dataType: "json",
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             createBayCombinationInfo(res);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -658,7 +654,6 @@ function getCombineInfo (){
     });
 }
 /**
- * OPERATION AREA
- *
- * **/
+* OPERATION AREA
+*/
 $(`.con`).draggable();

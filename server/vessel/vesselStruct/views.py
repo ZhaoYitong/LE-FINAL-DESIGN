@@ -28,6 +28,11 @@ def index(request):
         return render(request, 'index.html')
 
 
+def default_page_iframe(request):
+    if request.method == 'GET':
+        return render(request, 'defaultPage.html')
+
+
 def page_not_found(request):
     if request.method == 'GET':
         return render(request, '404.html')

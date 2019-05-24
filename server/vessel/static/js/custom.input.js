@@ -225,27 +225,29 @@ function drawBayStruct(res) {
     let deck_real_col = res.real_bay_struct.deck_col_num_real;
 
     // update bay-struct-define
-    $( `#bay-define-area`).append(`<div class="bay-struct-define">`+
-    `<div class="bay-struct-header" name="bay-index">`+
-        `<span></span>`+
-    `</div>`+
-    `<div class="bay-struct-content" name="bay-struct-area">`+
-        `<div class="bay-col-index-deck">`+
-            `<div class="blank-index-deck"></div>`+
-            `<div class="col-index-area-deck"></div>`+
-        `</div>`+
-        `<div class="bay-deck-lays"></div>`+
-        `<div class="vessel-hat">`+
-            `<div class="blank-hat-area"></div>`+
-            `<div class="hat-area"></div>`+
-        `</div>`+
-        `<div class="bay-cab-lays"></div>`+
-        `<div class="bay-col-index-cab">`+
-            `<div class="blank-index-cab"></div>`+
-            `<div class="col-index-area-cab"></div>`+
-        `</div>`+
-    `</div>`+
-`</div>`);
+    $( `#bay-define-area`)
+        .append(`<div class="bay-struct-define col-lg-9">`+
+                `<div class="bay-struct-header" name="bay-index">`+
+                    `<span></span>`+
+                `</div>`+
+                `<div class="bay-struct-content" name="bay-struct-area">`+
+                    `<div class="bay-col-index-deck">`+
+                        `<div class="blank-index-deck"></div>`+
+                        `<div class="col-index-area-deck"></div>`+
+                    `</div>`+
+                    `<div class="bay-deck-lays"></div>`+
+                    `<div class="vessel-hat">`+
+                        `<div class="blank-hat-area"></div>`+
+                        `<div class="hat-area"></div>`+
+                    `</div>`+
+                    `<div class="bay-cab-lays"></div>`+
+                    `<div class="bay-col-index-cab">`+
+                        `<div class="blank-index-cab"></div>`+
+                        `<div class="col-index-area-cab"></div>`+
+                    `</div>`+
+                `</div>`+
+                `</div>`+
+                `<div class="bay-struct-define-buttons col-lg-3"></div>`);
 
     let lay_index_deck = getDeckLayIndex(deck_real_lay,deck_max_lay);
     let lay_index_cab = getCabLayIndex(cab_real_lay,cab_max_lay);
@@ -294,6 +296,7 @@ function drawBayStruct(res) {
     //      支持 selectable 一个  多个 ---> jquery UI
     // 点击 确认 按钮 则 对当前贝位结构信息（更新/未更新）提交
     //
+    // TODO: add func to support bay define
     layer.open({
         type: 1,
         title: title,
@@ -301,7 +304,7 @@ function drawBayStruct(res) {
         closeBtn: 1,
         shadeClose: true,
         skin: '',
-        content: $(`.bay-struct-define`),
+        content: $(`#bay-define-area`),
         end: function () {
         document.getElementById('bay-define-area').style.display = "none";
         }

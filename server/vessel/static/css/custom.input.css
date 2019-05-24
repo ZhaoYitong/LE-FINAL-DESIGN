@@ -13,7 +13,7 @@
 
 #add-vessel > h1,
 #define-bay-struct > h1 {
-    margin: 10px;
+    margin: 20px;
 }
 
 #control-buttons {
@@ -26,7 +26,7 @@
 }
 
 #control-buttons {
-    margin-top: 20px;
+    margin-top: 50px;
     margin-bottom: 40px;
 }
 
@@ -183,6 +183,11 @@
 
 #define-bay-struct {
     margin-left: 40px !important;
+}
+
+.bay-struct-define-buttons {
+    border: 2px solid red;
+    background-color: #2c9faf;
 }
 
 .bay-struct-define {

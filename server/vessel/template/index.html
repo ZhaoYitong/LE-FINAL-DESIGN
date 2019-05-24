@@ -9,7 +9,6 @@
     <title>堆场--船舶</title>
     <link href="{% static 'images/smu.jpg' %}" rel="icon">
     <link href="{% static 'css/tool/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-<!--    <link href="{% static 'css/tool/google-api.css' %}" rel="stylesheet" type="text/css">-->
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
 <body id="page-top">
@@ -22,21 +21,6 @@
         <div class="sidebar-heading">
             堆场
         </div>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseYarfInfoInput"
-               aria-expanded="true" aria-controls="collapseYarfInfoInput">
-                <i class="fas fa-fw fa-table"></i>
-                <span>堆场信息输入</span>
-            </a>
-            <div id="collapseYarfInfoInput" class="collapse" aria-labelledby="headingYardInfo"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">表单输入</h6>
-                    <a class="collapse-item" link="vesselStruct/page_not_found">Buttons</a>
-                    <a class="collapse-item" link="vesselStruct/page_not_found">Cards</a>
-                </div>
-            </div>
-        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseYardMonitor"
                aria-expanded="true" aria-controls="collapseYardMonitor">
@@ -67,10 +51,6 @@
                     <h6 class="collapse-header">表单输入</h6>
                     <a class="collapse-item" link="vesselStruct/add_vessel_page/">增加船舶</a>
                     <a class="collapse-item" link="vesselStruct/bay_struct_define/">定义贝位结构</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" link="vesselStruct/page_not_found">404 Page</a>
-                    <a class="collapse-item" link="vesselStruct/page_not_found">Blank Page</a>
                 </div>
             </div>
         </li>
@@ -148,7 +128,7 @@
             </nav>
             <div class="container-fluid">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" allowfullscreen src="default_page"></iframe>
                 </div>
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">

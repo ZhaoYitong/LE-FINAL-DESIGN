@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('default_page/', views.default_page_iframe, name='default_page_iframe'),
     path('vesselStruct/ves_basic/', views.ves_basic, name='ves_basic'),
     path('vesselStruct/page_not_found/', views.page_not_found, name='page_not_found'),
     path('vesselStruct/add_vessel_page/', views.add_vessel_page, name='add_vessel_page'),

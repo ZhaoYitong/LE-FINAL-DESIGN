@@ -11,16 +11,14 @@
     <link href="{% static 'css/custom.common.css' %}" rel="stylesheet">
 </head>
 <body id="page-top">
-<div id="define-bay-struct" class="">
-    <h1> 选择船舶 </h1>
-    <div class="allVessels col-md-3">
-        <div class="form-group">
-            <select class="form-control" id="vesselSelect">
+<div id="define-bay-struct" class="top50">
+    <div class="form-group col-md-3">
+        <h1>请选择船舶</h1>
+        <select class="form-control" id="vesselSelect">
             {% for v in all_vessel %}
-              <option>{{ v }}</option>
+            <option>{{ v }}</option>
             {% endfor %}
-            </select>
-        </div>
+        </select>
     </div>
     <div id="control-buttons">
         <div id="buttons-bay" class="d-flex flex-row">

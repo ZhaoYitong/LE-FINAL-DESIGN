@@ -226,7 +226,7 @@ function drawBayStruct(res) {
 
     // update bay-struct-define
     $( `#bay-define-area`)
-        .append(`<div class="bay-struct-define col-lg-9">`+
+        .append(`<div class="bay-struct-define">`+
                 `<div class="bay-struct-header" name="bay-index">`+
                     `<span></span>`+
                 `</div>`+
@@ -296,7 +296,6 @@ function drawBayStruct(res) {
     //      支持 selectable 一个  多个 ---> jquery UI
     // 点击 确认 按钮 则 对当前贝位结构信息（更新/未更新）提交
     //
-    // TODO: add func to support bay define
     layer.open({
         type: 1,
         title: title,
@@ -304,7 +303,7 @@ function drawBayStruct(res) {
         closeBtn: 1,
         shadeClose: true,
         skin: '',
-        content: $(`#bay-define-area`),
+        content: $(`.bay-struct-define`),
         end: function () {
         document.getElementById('bay-define-area').style.display = "none";
         }

@@ -197,11 +197,10 @@
 }
 
 .bay-struct-header {
-    height: 30px;
+    height: 45px;
     display:flex;
-    justify-content:center;
+    justify-content:left;
     align-items:center;
-    background-color: aquamarine;
 }
 
 .bay-struct-content {
@@ -232,7 +231,7 @@
 
 .bay-struct-content > .bay-col-index-deck > .col-index-area-deck > .col-index-zone,
 .bay-struct-content > .bay-col-index-cab > .col-index-area-cab > .col-index-zone {
-    width:30px;
+    width: 40px;
     /*height: 50px;*/
     display:flex;
     justify-content:center;
@@ -257,6 +256,7 @@
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay >.bay-lay-index,
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay >.bay-lay-index {
     grid-column: 1;
+    width: 40px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -272,8 +272,8 @@
 
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone,
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -282,22 +282,17 @@
 }
 
 .bay-struct-content > .vessel-hat {
-    height: 15px;
+    height: 20px;
     display: grid;
     grid-template-columns: repeat(12, minmax(0,1fr));
-    background-color: green;
 }
 
 .bay-struct-content > .vessel-hat > .blank-hat-area {
-    height: 15px;
     grid-column: 1;
-    background-color: #dcdcb4;
 }
 
 .bay-struct-content > .vessel-hat > .hat-area {
-    /*height: 15px;*/
     grid-column: 2/13;
-    background-color: #b3dc61;
 }
 
 .bay-struct-content > .vessel-hat > .hat-area > .hat-zone {
@@ -307,8 +302,8 @@
 }
 
 .bay-struct-zone-absolute {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     display:flex;
     justify-content:center;
     align-items:center;

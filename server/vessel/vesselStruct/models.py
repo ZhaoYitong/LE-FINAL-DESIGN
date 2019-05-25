@@ -235,45 +235,45 @@ class qc_dis_plan_out(models.Model):
     ModCons = models.CharField(null=True, blank=True, max_length=500, verbose_name='模型约束')
 
 
-# # 船舶积载（进口箱的积载）
-# class con_stowage_import(models.Model):
-#     Vessel = models.CharField(max_length=50, verbose_name='船名')
-#     Voyage = models.CharField(max_length=50, verbose_name='航次')
-#     VesCellNo = models.CharField(max_length=50, verbose_name='船箱位')
-#     # TODO: ColNo is tinyint?
-#     ColNo = models.CharField(max_length=50, verbose_name='列号') # tinyint
-#     DeckCagSig = models.CharField(max_length=50, verbose_name='甲板or舱内')
-#     CtnNo = models.CharField(max_length=50, verbose_name='箱号')
-#     CtnTyp = models.CharField(max_length=50, verbose_name='箱型')
-#     Size = models.CharField(max_length=50, verbose_name='尺寸')
-#     Status = models.CharField(max_length=50, verbose_name='状态')
-#     CtnWegt = models.FloatField(verbose_name='箱重')
-#     Owner = models.CharField(max_length=50, verbose_name='持箱人')
-#     GForce = models.CharField(max_length=1000, verbose_name='货特要求')
-#     StaPort = models.CharField(max_length=50, verbose_name='起运港')
-#     UnloadPort = models.CharField(max_length=50, verbose_name='卸货港')
-#     DesPort = models.CharField(max_length=50, verbose_name='目的港')
-#     StrPickAwayCtn = models.CharField(max_length=50, verbose_name='直提箱')
-#     CtnOpeSta = models.CharField(max_length=50, verbose_name='箱作业状态')
-#     PlaCtnCel = models.CharField(max_length=50, verbose_name='计划箱位')
-#
-#
-# # 出口箱配载计划
-# class con_sto(models.Model):
-#     Vessel = models.CharField(max_length=50, verbose_name='船名')
-#     Voyage = models.CharField(max_length=50, verbose_name='航次')
-#     VesCellNo = models.CharField(max_length=50, verbose_name='船箱位')
-#     # TODO: ColNo is tinyint?
-#     ColNo = models.CharField(max_length=50, verbose_name='列号') # tinyint
-#     DeckCagSig = models.CharField(max_length=50, verbose_name='甲板or舱内')
-#     CtnNo = models.CharField(max_length=50, verbose_name='箱号')
-#     CtnTyp = models.CharField(max_length=50, verbose_name='箱型')
-#     Size = models.CharField(max_length=50, verbose_name='尺寸')
-#     Status = models.CharField(max_length=50, verbose_name='状态')
-#     CtnWegt = models.FloatField(verbose_name='箱重')
-#     GForce = models.CharField(max_length=1000, verbose_name='货特要求')
-#     StaPort = models.CharField(max_length=50, verbose_name='起运港')
-#     UnloadPort = models.CharField(max_length=50, verbose_name='卸货港')
-#     DesPort = models.CharField(max_length=50, verbose_name='目的港')
-#     CtnOpeSta = models.CharField(max_length=50, verbose_name='箱作业状态')
-#     YardCel = models.CharField(max_length=50, verbose_name='堆场箱位')
+# 船舶积载（进口箱的积载）
+class con_stowage_import(models.Model):
+    Vessel = models.CharField(max_length=50, verbose_name='船名')
+    Voyage = models.CharField(max_length=50, verbose_name='航次')
+    VesCellNo = models.CharField(max_length=50, verbose_name='船箱位')
+    # TODO: ColNo is tinyint?
+    ColNo = models.CharField(max_length=50, verbose_name='列号') # tinyint
+    DeckCagSig = models.CharField(max_length=50, verbose_name='甲板or舱内')
+    CtnNo = models.CharField(max_length=50, verbose_name='箱号')
+    CtnTyp = models.CharField(max_length=50, verbose_name='箱型')
+    Size = models.CharField(max_length=50, verbose_name='尺寸')
+    Status = models.CharField(max_length=50, verbose_name='状态')
+    CtnWegt = models.FloatField(verbose_name='箱重')
+    Owner = models.CharField(max_length=50, verbose_name='持箱人')
+    GForce = models.CharField(max_length=1000, verbose_name='货特要求')
+    StaPort = models.CharField(max_length=50, verbose_name='起运港')
+    UnloadPort = models.CharField(max_length=50, verbose_name='卸货港')
+    DesPort = models.CharField(max_length=50, verbose_name='目的港')
+    StrPickAwayCtn = models.CharField(max_length=50, verbose_name='直提箱')
+    CtnOpeSta = models.CharField(max_length=50, verbose_name='箱作业状态')
+    PlaCtnCel = models.CharField(max_length=50, verbose_name='计划箱位')
+
+
+# 出口箱配载计划
+class con_sto(models.Model):
+    Vessel = models.CharField(max_length=50, verbose_name='船名')
+    Voyage = models.CharField(max_length=50, verbose_name='航次')
+    VesCellNo = models.CharField(max_length=50, verbose_name='船箱位')
+    # TODO: ColNo is tinyint?
+    ColNo = models.CharField(max_length=50, verbose_name='列号') # tinyint
+    DeckCagSig = models.CharField(max_length=50, verbose_name='甲板or舱内')
+    CtnNo = models.CharField(max_length=50, verbose_name='箱号')
+    CtnTyp = models.CharField(max_length=50, verbose_name='箱型')
+    Size = models.CharField(max_length=50, verbose_name='尺寸')
+    Status = models.CharField(max_length=50, verbose_name='状态')
+    CtnWegt = models.FloatField(verbose_name='箱重')
+    GForce = models.CharField(max_length=1000, verbose_name='货特要求')
+    StaPort = models.CharField(max_length=50, verbose_name='起运港')
+    UnloadPort = models.CharField(max_length=50, verbose_name='卸货港')
+    DesPort = models.CharField(max_length=50, verbose_name='目的港')
+    CtnOpeSta = models.CharField(max_length=50, verbose_name='箱作业状态')
+    YardCel = models.CharField(max_length=50, verbose_name='堆场箱位')

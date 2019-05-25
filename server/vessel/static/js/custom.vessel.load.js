@@ -397,7 +397,7 @@ function drawBayStruct(res) {
     let bay_index = res.bay_index;
     let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
     let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
-    let deck_max_col = res.bay_struct_max.deck_lay_num_max;
+    let deck_max_col = res.bay_struct_max.deck_col_num_max;
     let cab_max_col = res.bay_struct_max.cab_col_num_max;
 
     let deck_real_lay = res.real_bay_struct.deck_lay_num_real;

@@ -16,7 +16,7 @@ urlpatterns = [
     path('vesselStruct/test_connect_to_db/', views.test_connect_to_db, name='test_connect_to_db'),
     path('vesselStruct/test_creat_pend_info/', views.test_creat_pend_info, name='test_creat_pend_info'),
     path('vesselStruct/add_vessel/', views.add_vessel, name='add_vessel'),
-    path('vesselStruct/define_bay/', views.define_bay, name='define_bay'),
+    path('vesselStruct/define_bay_struct/', views.define_bay_struct, name='define_bay_struct'),
     path('vesselStruct/operation_basic/', views.operation_basic, name='operation_basic'),
     path('vesselStruct/operation_load/', views.operation_load, name='operation_load'),
 ]

@@ -411,7 +411,7 @@ def add_vessel(request):
 
 
 @csrf_exempt
-def define_bay(request):
+def define_bay_struct(request):
     if request.method == 'GET':
         ves_name = request.GET['name']
         bay_index = request.GET['index']

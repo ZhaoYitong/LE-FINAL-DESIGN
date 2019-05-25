@@ -133,3 +133,10 @@ def bay_index_to_bay_size(val):
         return '40'
     else:
         return '20'
+
+
+# one layer
+def create_bay_tier_info_list(max_col):
+    temp_list = ['08', '06', '04', '02', '01', '03', '05', '07']
+    return 'test'
+

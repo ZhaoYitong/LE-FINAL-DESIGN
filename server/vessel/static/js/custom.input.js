@@ -216,7 +216,7 @@ function drawBayStruct(res) {
     let bay_index = res.bay_index;
     let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
     let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
-    let deck_max_col = res.bay_struct_max.deck_lay_num_max;
+    let deck_max_col = res.bay_struct_max.deck_col_num_max;
     let cab_max_col = res.bay_struct_max.cab_col_num_max;
 
     let deck_real_lay = res.real_bay_struct.deck_lay_num_real;
@@ -378,7 +378,7 @@ function createBayCombinationInfo(newList) {
         let index = this.childNodes[0].innerText;
         let ves_selected = $(`#vesselSelect option:selected`).val();
         $.ajax({
-            url: '/vesselStruct/define_bay/',
+            url: '/vesselStruct/define_bay_struct/',
             type: 'GET',
             data: {
                 name: ves_selected,
@@ -386,7 +386,7 @@ function createBayCombinationInfo(newList) {
             },
             dataType: "json",
             success: function (res) {
-                // console.log(res);
+                console.log(res);
                 drawBayStruct(res);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {

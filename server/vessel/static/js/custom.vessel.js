@@ -550,7 +550,7 @@ function createBayCombinationInfo(newList) {
         let index = this.childNodes[0].innerText;
         let ves_selected = $(`#vesselSelect option:selected`).val();
         $.ajax({
-            url: '/vesselStruct/define_bay/',
+            url: '/vesselStruct/define_bay_struct/',
             type: 'GET',
             data: {
                 name: ves_selected,

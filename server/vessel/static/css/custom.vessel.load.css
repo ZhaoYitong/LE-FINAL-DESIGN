@@ -700,8 +700,10 @@
     /*background-color: black;*/
 }
 
-.bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone,
-.bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone {
+.bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone-initial,
+.bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone-initial,
+.bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone-exist,
+.bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone-exist {
     width: 40px;
     height: 40px;
     display: flex;
@@ -709,6 +711,17 @@
     align-items: center;
     border: 2px solid red;
     background-color: wheat;
+}
+
+.bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone-after,
+.bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone-after {
+    width: 40px;
+    height: 40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    /*border: 2px solid red;*/
+    /*background-color: wheat;   */
 }
 
 .bay-struct-content > .vessel-hat {

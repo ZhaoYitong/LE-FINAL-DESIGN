@@ -405,6 +405,8 @@ function drawBayStruct(res) {
     let cab_real_col = res.real_bay_struct.cab_col_num_real;
     let deck_real_col = res.real_bay_struct.deck_col_num_real;
 
+    let bay_layer_con_zone = res.bay_layer_con_zone;
+
     // create bay-structure
     $( `#bay-struct-vessel`).append(`<div class="bay-struct-define">`+
     `<div class="bay-struct-header" name="bay-index">`+
@@ -454,7 +456,12 @@ function drawBayStruct(res) {
         $(`.bay-deck-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
         for(let n=0; n<col_index_deck_list.length; n++){
             let col_index = col_index_deck_list[n];
-            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            if(bay_layer_con_zone.length === 0) {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+            else {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
         }
     }
     for(let p=lay_index_cab.length-1; p>=0; p--){
@@ -462,13 +469,33 @@ function drawBayStruct(res) {
         $(`.bay-cab-lays`).append(`<div class="bay-cab-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
         for(let q=0; q<col_index_cab_list.length; q++){
             let col_index = col_index_cab_list[q];
-            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            if(bay_layer_con_zone.length === 0) {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+            else {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
         }
     }
-    $(`.con-zone`).droppable({
+
+    // show real con-zone if exist
+    if(bay_layer_con_zone.length !== 0) {
+         for (let i = 0; i < bay_layer_con_zone.length; i++) {
+             let lay_index = bay_layer_con_zone[i].layer_index;
+             let con_list = bay_layer_con_zone[i].con_zone_list;
+             for (let j=0; j<con_list.length; j++){
+                 let pos_y = col_index_deck_list[j];
+                 if(con_list[j] === '1'){
+                     $(`div[class="con-zone-after"][pos_z=${lay_index}][pos_y=${pos_y}]`).addClass("con-zone-exist");
+                 }
+             }
+         }
+    }
+
+    $(`.con-zone-initial, .con-zone-exist`).droppable({
 
     });
-    $(`.con-zone`).on('dblclick', function () {
+    $(`.con-zone-initial`).on('dblclick', function () {
         let pos_x = this.attributes[1].value;
         let pos_y = this.attributes[2].value;
         let pos_z = this.attributes[3].value;
@@ -543,7 +570,7 @@ function createBayCombinationInfo(newList) {
             },
             dataType: "json",
             success: function (res) {
-                // console.log(res);
+                console.log(res);
                 drawBayStruct(res);
 
             },

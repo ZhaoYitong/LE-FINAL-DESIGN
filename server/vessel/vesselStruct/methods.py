@@ -136,7 +136,47 @@ def bay_index_to_bay_size(val):
 
 
 # one layer
-def create_bay_tier_info_list(max_col):
-    temp_list = ['08', '06', '04', '02', '01', '03', '05', '07']
-    return 'test'
+def layer_con_list_to_db(con_list):
+    list_len = len(con_list)
+    if list_len % 2 == 0:
+        lay_str = ''
+        count = 0
+        for i in con_list:
+            count += 1
+            if count == int(list_len / 2)+1:
+                lay_str += '#'
+            lay_str += i
+        return lay_str
+    else:
+        lay_str = ''
+        count = 0
+        for j in con_list:
+            count += 1
+            if count == int(list_len / 2)+1:
+                if j == '1':
+                    lay_str += '*'
+                else:
+                    lay_str += '#'
+                continue
+            lay_str += j
+        return lay_str
 
+
+def db_layer_info_to_list(items):
+    lay_info = []
+    for i in items:
+        if i == '1' or i == '*':
+            lay_info.append('1')
+        else:
+            if i == '#':
+                continue
+            lay_info.append('0')
+    return lay_info
+
+
+def get_bay_width(items):
+    count = 0
+    for i in items:
+        if i == '1' or i == '*':
+            count += 1
+    return count

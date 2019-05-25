@@ -12,6 +12,7 @@ const TIP_RESET_BAY_SUCCESS = "重新组贝成功";
 let selected_vessel = $(`#vesselSelect option:selected`).val();
 let combinedBay20inch = [];
 let combinedBay40inch = [];
+let selected_bay = '';
 // $(`.bay-struct-define`).style.display = 'none';
 // let getTable = document.getElementById("table-bay-struct");
 // getTable.style.display='none';
@@ -36,6 +37,12 @@ $(`button[id="add-vessel-submit"]`).click(function () {
     let plan_ber_pos = $(`input[id="vessel-plan-ber-pos"]`)[0].value;
     let real_ber_pos = $(`input[id="vessel-real-ber-pos"]`)[0].value;
     let ves_ber_dir = $(`input[id="vessel-ber-dir"]`)[0].value;
+
+    // disable not equals
+    if (deck_max_col !== cab_max_col){
+        alert("请输入相同列数！");
+        return false;
+    }
     let data = {
         ves_name: ves_name,
         ves_len: ves_len,
@@ -57,7 +64,7 @@ $(`button[id="add-vessel-submit"]`).click(function () {
     if (!ves_name) {
         // console.log("Vessel NAME IS NULL!");
         alert("Vessel NAME IS NULL!");
-        return false
+        return false;
     }
     $.ajax({
         url: '/vesselStruct/add_vessel/',
@@ -224,6 +231,8 @@ function drawBayStruct(res) {
     let cab_real_col = res.real_bay_struct.cab_col_num_real;
     let deck_real_col = res.real_bay_struct.deck_col_num_real;
 
+    let bay_layer_con_zone = res.bay_layer_con_zone;
+
     // update bay-struct-define
     $( `#bay-define-area`)
         .append(`<div class="bay-struct-define">`+
@@ -267,13 +276,19 @@ function drawBayStruct(res) {
         let col_index = col_index_cab_list[r];
         $(`.col-index-area-cab`).append(`<div class="col-index-zone">${col_index}</div>`);
     }
+
     //lay
     for(let m=lay_index_deck.length-1; m>=0; m--){
         let lay_index = lay_index_deck[m];
         $(`.bay-deck-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
         for(let n=0; n<col_index_deck_list.length; n++){
             let col_index = col_index_deck_list[n];
-            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            if(bay_layer_con_zone.length === 0) {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+            else {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
         }
     }
     for(let p=lay_index_cab.length-1; p>=0; p--){
@@ -281,8 +296,27 @@ function drawBayStruct(res) {
         $(`.bay-cab-lays`).append(`<div class="bay-cab-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
         for(let q=0; q<col_index_cab_list.length; q++){
             let col_index = col_index_cab_list[q];
-            $(`div[layer=${lay_index}]`).append(`<div class="con-zone" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            if(bay_layer_con_zone.length === 0) {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+            else {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
         }
+    }
+
+    // show real con-zone if exist
+    if(bay_layer_con_zone.length !== 0) {
+         for (let i = 0; i < bay_layer_con_zone.length; i++) {
+             let lay_index = bay_layer_con_zone[i].layer_index;
+             let con_list = bay_layer_con_zone[i].con_zone_list;
+             for (let j=0; j<con_list.length; j++){
+                 let pos_y = col_index_deck_list[j];
+                 if(con_list[j] === '1'){
+                     $(`div[class="con-zone-after"][pos_z=${lay_index}][pos_y=${pos_y}]`).addClass("con-zone-exist");
+                 }
+             }
+         }
     }
     // layer of bay
     let area_size = ['1000px', '650px'];
@@ -321,25 +355,67 @@ function drawBayStruct(res) {
         let data_cab = [];
         for(let i=0; i<lay_index_deck.length; i++) {
             data_deck.push(
-                {'layer_index': lay_index_deck[i],
-                 //
-            });
-            console.log(lay_index_deck[i]);
+                {   'layer_index':lay_index_deck[i],
+                    'data_list': [],
+                });
+            let parent = $(`div[pos_z=${lay_index_deck[i]}]`);
+            for (let m=0;m<parent.length; m++){
+                let child = parent[m];
+                if (child.className === 'con-zone-initial'){
+                    data_deck[i].data_list.push('1');
+                }
+                else {
+                    data_deck[i].data_list.push('0');
+                }
+            }
         }
         for(let j=0; j<lay_index_cab.length; j++) {
-            console.log(lay_index_cab[j]);
+            data_cab.push(
+                {   'layer_index':lay_index_cab[j],
+                    'data_list': [],
+                });
+            let parent = $(`div[pos_z=${lay_index_cab[j]}]`);
+            for (let k=0;k<parent.length; k++){
+                let child = parent[k];
+                if (child.className === 'con-zone-initial'){
+                    data_cab[j].data_list.push('1');
+                }
+                else {
+                    data_cab[j].data_list.push('0');
+                }
+            }
         }
-        let test = $(`div[class="con-zone"][pos_z="02"]`);
-        console.log(test);
+        let selected_ves = $(`#vesselSelect option:selected`).val();
+        let data = {
+            'vessel': selected_ves,
+            'bay_index': selected_bay,
+            'deck': data_deck,
+            'cab': data_cab,
+        };
+        $.ajax({
+            url: '/vesselStruct/bay_struct_define/',
+            type: 'POST',
+            data: JSON.stringify(data),
+            success: function (res) {
+                console.log(res);
+                alert(res);
+                // // reload page, update bay info
+                // location.reload();
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status);
+            },
+            dataType: "json",
+        });
     }
     // button func in layer
-    $(`.con-zone`).on('dblclick', function () {
+    $(`.con-zone-initial`).on('dblclick', function () {
         let pos_x = this.attributes[1].value;
         let pos_y = this.attributes[2].value;
         let pos_z = this.attributes[3].value;
         let test = $(this).attr("pos_x");
-        // console.log(test);
-        $(this).toggleClass("bay-struct-zone-discard");
+        console.log(test);
+        $(this).addClass("bay-struct-zone-discard").removeClass("con-zone-initial");
         // console.log(this.attributes[1].value);
     });
 }
@@ -366,9 +442,9 @@ function createBayCombinationInfo(newList) {
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bay">`+
+                    `<div class="newBay20InComLeft bay" bay_index=${bay20_left}>`+
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bay">`+
+                    `<div class="newBay20InComRight bay" bay_index=${bay20_right}>`+
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div>` +
                     `</div>` +
                     `</div>`);
@@ -383,9 +459,9 @@ function createBayCombinationInfo(newList) {
                     `<span class="newBay40IndexInCom">${bay40_index}</span>` +
                     `</div>` +
                     `<div class="newBay20InComParent">` +
-                    `<div class="newBay20InComLeft bay">`+
+                    `<div class="newBay20InComLeft bay" bay_index=${bay20_left}>`+
                     `<span class="newBay20IndexInCom">${bay20_left}</span></div>` +
-                    `<div class="newBay20InComRight bay">`+
+                    `<div class="newBay20InComRight bay" bay_index=${bay20_right}>`+
                     `<span class="newBay20IndexInCom">${bay20_right}</span></div></div>` +
                     `</div>`);
             }
@@ -394,6 +470,8 @@ function createBayCombinationInfo(newList) {
     let isInverse = true;
     directionDealer(newBay_num, dir, drawNewBay, isInverse);
     $(`.bay`).on('click', function () {
+        selected_bay = this.attributes['bay_index'].value;
+        console.log(selected_bay);
         // if bay-struct-table exist?
         if($(`#bay-define-area`)){
             $(`#bay-define-area`).empty();

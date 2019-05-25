@@ -7,8 +7,9 @@ from django.http import JsonResponse
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, \
     ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
 from django.db.models import Count,Min,Max,Sum
-from .methods import index_to_num, combined_bay_list, create_engine_index, \
-    create_index_list, num_to_index, bay_num_to_index_list
+from .methods import index_to_num, combined_bay_list,\
+    create_engine_index,create_index_list, num_to_index,\
+    bay_num_to_index_list, layer_con_list_to_db, db_layer_info_to_list, get_bay_width
 
 # TODO:
 # display value in choices
@@ -56,6 +57,31 @@ def bay_struct_define(request):
     if request.method == 'GET':
         all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
         return render(request, 'VESSEL/vessel.input.bayStructDefine.html', {'all_vessel': all_vessel})
+    elif request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        print(data)
+        ves_name = data['vessel']
+        ves_bay = data['bay_index']
+        data_deck = data['deck']
+        data_cab = data['cab']
+        for i in data_deck:
+            idx_list = layer_con_list_to_db(i['data_list'])
+            ves_bay_lay_struct.objects.create(Vessel=ves_name,
+                                              BayNo=ves_bay,
+                                              TireNo=i['layer_index'],
+                                              DeckCagSig='1',
+                                              BayWid=get_bay_width(idx_list),
+                                              BayTieCtnLay=idx_list),
+        for j in data_cab:
+            idx_list = layer_con_list_to_db(j['data_list'])
+            ves_bay_lay_struct.objects.create(Vessel=ves_name,
+                                              BayNo=ves_bay,
+                                              TireNo=j['layer_index'],
+                                              DeckCagSig='0',
+                                              BayWid=get_bay_width(idx_list),
+                                              BayTieCtnLay=idx_list)
+        res = {'bay_edit_status': 'success'}
+        return JsonResponse(res)
 
 
 @csrf_exempt
@@ -403,8 +429,11 @@ def add_vessel(request):
                                            ActBerPos=real_ber_pos,
                                            BerThgDir=ves_ber_dir)
             for i in bay_index_list:
-                con_pend_info.objects.create(Vessel=ves_name, BayNo=i['index'])
-                ves_bay_struct.objects.create(Vessel=ves_name, BayNo=i['index'], BaySiz=i['size'])
+                con_pend_info.objects.create(Vessel=ves_name,
+                                             BayNo=i['index'])
+                ves_bay_struct.objects.create(Vessel=ves_name,
+                                              BayNo=i['index'],
+                                              BaySiz=i['size'])
             return JsonResponse({'CREATE VESSEL': 'DONE!'})
         else:
             return JsonResponse({'WARNING': 'vessel_name is already exist'})
@@ -422,11 +451,19 @@ def define_bay_struct(request):
         deck_col_num_max = obj1.DeckColNumMax
         cab_col_num_max = obj1.CabColNumMax
         # get real
-        obj2 = ves_bay_struct.objects.filter(Vessel=ves_name, BayNo=bay_index)
+        obj2 = ves_bay_struct.objects.filter(Vessel=ves_name,
+                                             BayNo=bay_index)
         deck_lay_num_real = obj2[0].DeckHeg
         cab_lay_num_real = obj2[0].CabHeg
         deck_col_num_real = obj2[0].DeckWidMax
         cab_col_num_real = obj2[0].CabWidMax
+
+        bay_layers = ves_bay_lay_struct.objects.filter(Vessel=ves_name,
+                                                       BayNo=bay_index)
+        bay_layer_con_zone = [
+            {'layer_index': item.TireNo,
+             'con_zone_list': db_layer_info_to_list(item.BayTieCtnLay),
+            } for item in bay_layers]
         data = {
             'data_type': data_define_bay_struct,
             'ves_name': ves_name,
@@ -443,6 +480,7 @@ def define_bay_struct(request):
                 'deck_col_num_real': deck_col_num_real,
                 'cab_col_num_real': cab_col_num_real,
             },
+            'bay_layer_con_zone': bay_layer_con_zone,
         }
         return JsonResponse(data)
 
@@ -451,7 +489,9 @@ def define_bay_struct(request):
 def operation_basic(request):
     if request.method == 'GET':
         all_vessel = [item.Vessel for item in vessel_voy_info.objects.all()]
-        return render(request, 'OPERATION/operation.load.html', {'all_vessel': all_vessel})
+        return render(request,
+                      'OPERATION/operation.load.html',
+                      {'all_vessel': all_vessel})
 
 
 @csrf_exempt
@@ -471,6 +511,13 @@ def operation_load(request):
         cab_lay_num_real = obj2[0].CabHeg
         deck_col_num_real = obj2[0].DeckWidMax
         cab_col_num_real = obj2[0].CabWidMax
+
+        bay_layers = ves_bay_lay_struct.objects.filter(Vessel=ves_name,
+                                                       BayNo=bay_index)
+        bay_layer_con_zone = [
+            {'layer_index': item.TireNo,
+             'con_zone_list': db_layer_info_to_list(item.BayTieCtnLay),
+            } for item in bay_layers]
         data = {
             'data_type': data_operation_load,
             'ves_name': ves_name,
@@ -487,6 +534,7 @@ def operation_load(request):
                 'deck_col_num_real': deck_col_num_real,
                 'cab_col_num_real': cab_col_num_real,
             },
+            'bay_layer_con_zone': bay_layer_con_zone,
         }
         return JsonResponse(data)
 

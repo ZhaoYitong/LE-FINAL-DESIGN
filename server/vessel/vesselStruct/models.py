@@ -235,6 +235,7 @@ class qc_dis_plan_out(models.Model):
     ModCons = models.CharField(null=True, blank=True, max_length=500, verbose_name='模型约束')
 
 
+# abandone !!!!
 # 船舶积载（进口箱的积载）
 class con_stowage_import(models.Model):
     Vessel = models.CharField(max_length=50, verbose_name='船名')

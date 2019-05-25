@@ -651,6 +651,23 @@ function createStowageInfo() {
     if ($(`div[class="vesselStowageInfo"]`)) {
         $(`div[class="vesselStowageInfo"]`).empty();
     }
+    let selected_ves = $(`#vesselSelect option:selected`).val();
+    $.ajax({
+        url: '/vesselStruct/stowage_info/',
+        type: 'GET',
+        data: {
+            name: selected_ves,
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+        },
+    });
+
+
     let header = vesselStorageInfoAll.vessel_IMO;
     let bayNum = vesselStorageInfoAll.data.length;
     let ves_header = `<div class="vesselHeader">`+

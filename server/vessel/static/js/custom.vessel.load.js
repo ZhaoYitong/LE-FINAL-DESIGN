@@ -683,4 +683,8 @@ function getCombineInfo (){
 /**
 * OPERATION AREA
 */
-$(`.con`).draggable();
+$(`.con`).draggable({ revert: "invalid" });
+function confirmOperation() {
+    console.log("test done!");
+
+}

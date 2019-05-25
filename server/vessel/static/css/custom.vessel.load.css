@@ -709,8 +709,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
-    background-color: wheat;
+    border: 2px solid saddlebrown;
+    background-color: silver;
 }
 
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone-after,

@@ -539,6 +539,15 @@ def operation_load(request):
         return JsonResponse(data)
 
 
+@csrf_exempt
+def stowage_info(request):
+    if request.method == 'GET':
+        ves_name = request.GET['name']
+        
+        print(ves_name)
+        test = {'hhh':'stowage'}
+        return JsonResponse(test)
+
 # @csrf_exempt
 # def operation_load_yard(request):
 #     if request.method == 'POST':

@@ -191,8 +191,7 @@
 }
 
 .bay-struct-define {
-    margin-top: 50px;
-    margin-left: 50px;
+    margin: 50px;
     width: fit-content;
 }
 
@@ -236,7 +235,7 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     background-color: lightblue;
 }
 
@@ -293,6 +292,7 @@
 
 .bay-struct-content > .vessel-hat > .hat-area {
     grid-column: 2/13;
+    background-color: green;
 }
 
 .bay-struct-content > .vessel-hat > .hat-area > .hat-zone {
@@ -301,7 +301,7 @@
     background-color: #0c5460;
 }
 
-.bay-struct-zone-absolute {
+.bay-struct-zone-discard {
     width: 40px;
     height: 40px;
     display:flex;

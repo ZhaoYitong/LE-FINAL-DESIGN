@@ -246,8 +246,7 @@ function drawBayStruct(res) {
                         `<div class="col-index-area-cab"></div>`+
                     `</div>`+
                 `</div>`+
-                `</div>`+
-                `<div class="bay-struct-define-buttons col-lg-3"></div>`);
+                `</div>`);
 
     let lay_index_deck = getDeckLayIndex(deck_real_lay,deck_max_lay);
     let lay_index_cab = getCabLayIndex(cab_real_lay,cab_max_lay);
@@ -260,8 +259,7 @@ function drawBayStruct(res) {
     // from up to down
     $(`.bay-struct-header`).children()[0].innerText = '贝位号: '+ bay_index;
     // col-index on deck
-    let k;
-    for(k=0; k<col_index_deck_list.length; k++){
+    for(let k=0; k<col_index_deck_list.length; k++){
         let col_index = col_index_deck_list[k];
         $(`.col-index-area-deck`).append(`<div class="col-index-zone">${col_index}</div>`);
     }
@@ -303,11 +301,37 @@ function drawBayStruct(res) {
         closeBtn: 1,
         shadeClose: true,
         skin: '',
-        content: $(`.bay-struct-define`),
+        content: $(`#bay-define-area`),
+        btn: ['确认', '取消'],
+        btn1: function(){
+            // TODO:ajax
+            console.log("I am confirm");
+            createBayInfoAfterEdit();
+            layer.close(layer.index);
+        },
+        btn2: function(){
+            console.log("I am cancel");
+        },
         end: function () {
         document.getElementById('bay-define-area').style.display = "none";
         }
     });
+    function createBayInfoAfterEdit(){
+        let data_deck = [];
+        let data_cab = [];
+        for(let i=0; i<lay_index_deck.length; i++) {
+            data_deck.push(
+                {'layer_index': lay_index_deck[i],
+                 //
+            });
+            console.log(lay_index_deck[i]);
+        }
+        for(let j=0; j<lay_index_cab.length; j++) {
+            console.log(lay_index_cab[j]);
+        }
+        let test = $(`div[class="con-zone"][pos_z="02"]`);
+        console.log(test);
+    }
     // button func in layer
     $(`.con-zone`).on('dblclick', function () {
         let pos_x = this.attributes[1].value;
@@ -315,7 +339,7 @@ function drawBayStruct(res) {
         let pos_z = this.attributes[3].value;
         let test = $(this).attr("pos_x");
         // console.log(test);
-        $(this).addClass("bay-struct-zone-absolute");
+        $(this).toggleClass("bay-struct-zone-discard");
         // console.log(this.attributes[1].value);
     });
 }

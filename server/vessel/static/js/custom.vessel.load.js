@@ -474,7 +474,7 @@ function drawBayStruct(res) {
         let pos_z = this.attributes[3].value;
         let test = $(this).attr("pos_x");
         // console.log(test);
-        $(this).addClass("bay-struct-zone-absolute");
+        $(this).addClass("bay-struct-zone-discard");
         // console.log(this.attributes[1].value);
     });
 }

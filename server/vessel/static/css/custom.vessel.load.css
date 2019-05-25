@@ -736,7 +736,7 @@
     background-color: #0c5460;
 }
 
-.bay-struct-zone-absolute {
+.bay-struct-zone-discard {
     width: 40px;
     height: 40px;
     display: flex;

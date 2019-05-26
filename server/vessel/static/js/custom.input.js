@@ -338,7 +338,6 @@ function drawBayStruct(res) {
         content: $(`#bay-define-area`),
         btn: ['确认', '取消'],
         btn1: function(){
-            // TODO:ajax
             console.log("I am confirm");
             createBayInfoAfterEdit();
             layer.close(layer.index);
@@ -398,7 +397,7 @@ function drawBayStruct(res) {
             data: JSON.stringify(data),
             success: function (res) {
                 console.log(res);
-                alert(res);
+                alert("请求通过");
                 // // reload page, update bay info
                 // location.reload();
             },

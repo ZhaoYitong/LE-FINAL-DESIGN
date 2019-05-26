@@ -208,14 +208,14 @@
     align-items:center;
 }
 
-.allBaysStruct > .baysStructArea > .bayStruct > .content {
+.allBaysStruct > .baysStructArea > .bayStruct > .bay-struct-content {
     grid-column: 1/10;
     grid-row: 2;
-    background-color: #dda20a;
-    border: 2px solid black;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    /*background-color: #dda20a;*/
+    /*border: 2px solid black;*/
+    /*display:flex;*/
+    /*justify-content:center;*/
+    /*align-items:center;*/
 }
 
 /* bay */
@@ -225,7 +225,7 @@
 }
 
 .bay-struct-header {
-    height: 45px;
+    height: 20px;
     display:flex;
     justify-content:left;
     align-items:center;
@@ -233,7 +233,7 @@
 
 .bay-struct-content > .bay-col-index-deck,
 .bay-struct-content > .bay-col-index-cab {
-    height: 30px;
+    height: 20px;
     display: grid;
     grid-template-columns: repeat(12, minmax(0,1fr));
 }
@@ -252,7 +252,7 @@
 
 .bay-struct-content > .bay-col-index-deck > .col-index-area-deck > .col-index-zone,
 .bay-struct-content > .bay-col-index-cab > .col-index-area-cab > .col-index-zone {
-    width: 40px;
+    width: 15px;
     /*height: 50px;*/
     display:flex;
     justify-content:center;
@@ -270,7 +270,7 @@
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay >.bay-lay-index,
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay >.bay-lay-index {
     grid-column: 1;
-    width: 40px;
+    width: 15px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -287,8 +287,8 @@
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone-initial,
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone-exist,
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone-exist {
-    width: 40px;
-    height: 40px;
+    width: 15px;
+    height: 15px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -298,15 +298,15 @@
 
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone-after,
 .bay-struct-content > .bay-cab-lays > .bay-cab-single-lay > .bay-lay-zones > .con-zone-after {
-    width: 40px;
-    height: 40px;
+    width: 15px;
+    height: 15px;
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
 .bay-struct-content > .vessel-hat {
-    height: 20px;
+    height: 15px;
     display: grid;
     grid-template-columns: repeat(12, minmax(0,1fr));
 }
@@ -320,14 +320,14 @@
 }
 
 .bay-struct-content > .vessel-hat > .hat-area > .hat-zone {
-    width: 20px;
+    width: 15px;
     border: 2px solid white;
     background-color: #0c5460;
 }
 
 .bay-struct-zone-discard {
-    width: 40px;
-    height: 40px;
+    width: 15px;
+    height: 15px;
     display:flex;
     justify-content:center;
     align-items:center;

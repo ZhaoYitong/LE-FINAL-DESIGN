@@ -127,6 +127,16 @@ def bay_num_to_index_list(max_bay_num):
     return bay_list
 
 
+def bay20_num_index_list(max_bay_num):
+    index_list = []
+    if max_bay_num > 50:
+        return []
+    for c in range(0, max_bay_num, 1):
+        bay_index = num_to_index((c+1)*2-1)
+        index_list.append(bay_index)
+    return index_list
+
+
 def bay_index_to_bay_size(val):
     temp = single_index_to_num(val)
     if temp % 2 == 0:
@@ -180,3 +190,7 @@ def get_bay_width(items):
         if i == '1' or i == '*':
             count += 1
     return count
+
+
+# test area
+# print(bay20_num_index_list(0))

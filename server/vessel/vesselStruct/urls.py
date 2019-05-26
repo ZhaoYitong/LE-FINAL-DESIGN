@@ -20,4 +20,5 @@ urlpatterns = [
     path('vesselStruct/operation_basic/', views.operation_basic, name='operation_basic'),
     path('vesselStruct/operation_load/', views.operation_load, name='operation_load'),
     path('vesselStruct/stowage_info/', views.stowage_info, name='stowage_info'),
+    path('vesselStruct/all_bays_struct/', views.all_bays_struct, name='all_bays_struct'),
 ]

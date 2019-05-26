@@ -846,6 +846,189 @@ function getCombineInfo() {
     });
 }
 
+/**  all bays struct of vessel **/
+function createAllBaysStruct(){
+    if($(`.allBaysStruct`)){
+        $(`.allBaysStruct`).empty();
+    }
+    let selected_ves = $(`#vesselSelect option:selected`).val();
+    $.ajax({
+        url: '/vesselStruct/all_bays_struct/',
+        type: 'GET',
+        data: {
+            name: selected_ves,
+            type: 'bays_info',
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            drawAllBayStruct(res);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+        },
+    });
+}
+function drawAllBayStruct(res){
+    let header = res.ves_name;
+    let content = res.content;
+    let ves_header = `<div class="vesselHeader">`+
+        `<span class="baysStructInfoHeader">${VESSEL_IMO}${header}</span></div>`;
+    let ves_bay_stowage_area = `<div class="baysStructArea"></div>`;
+    $(`.allBaysStruct`).append(ves_header).append(ves_bay_stowage_area);
+    let item_bay_info = function (tip, bayIndex) {
+        return `<div id="${bayIndex}" class="bayStruct"><div class="header"><span>${tip}${bayIndex}</span></div><div class="content"></div></div>`
+    };
+    for (let i = 0; i < content.length; i++) {
+        let bay_index = content[i].bay_index;
+        $(`.baysStructArea`).append(item_bay_info(BAY_INDEX_TIP, bay_index));
+    }
+
+}
+
+
+
+function getDeckLayIndex(real, max) {
+    let temp=[];
+    for(let i=0; i<(real? real:max);i++){
+        temp.push(numToIdString((41+i)*2));
+    }
+    // console.log("deckBayIndex: " + temp);
+    return temp;
+}
+function getCabLayIndex(real, max) {
+    let temp =[];
+    for(let j=0; j<(real? real:max); j++) {
+        temp.push(numToIdString((j+1)*2));
+    }
+    // console.log("cabBayIndex: " + temp);
+    return temp;
+}
+function createColIndex(num_of_col) {
+    let temp_list = [];
+    if (num_of_col%2 === 0){
+        // 00 line
+        let sub = num_of_col/2;
+        for(let i=sub; i>0; i--){
+            temp_list.push(numToIdString(i*2));
+        }
+        for(let j=0; j<sub; j++){
+            temp_list.push(numToIdString((j+1)*2-1));
+        }
+    }
+    else {
+        let sub = (num_of_col-1)/2;
+        for(let i=sub; i>0; i--){
+            temp_list.push(numToIdString(i*2));
+        }
+        temp_list.push('00');
+        for(let j=0; j<sub; j++){
+            temp_list.push(numToIdString((j+1)*2-1));
+        }
+    }
+    // console.log("colIndex: " + temp_list);
+    return temp_list;
+}
+function drawBayStruct(res) {
+    let ves_name = res.ves_name;
+    let bay_index = res.bay_index;
+    let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
+    let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
+    let deck_max_col = res.bay_struct_max.deck_col_num_max;
+    let cab_max_col = res.bay_struct_max.cab_col_num_max;
+
+    let deck_real_lay = res.real_bay_struct.deck_lay_num_real;
+    let cab_real_lay = res.real_bay_struct.cab_lay_num_real;
+    let cab_real_col = res.real_bay_struct.cab_col_num_real;
+    let deck_real_col = res.real_bay_struct.deck_col_num_real;
+
+    let bay_layer_con_zone = res.bay_layer_con_zone;
+
+    // create bay-structure
+    $( `#bay-struct-vessel`).append(`<div class="bay-struct-define">`+
+    `<div class="bay-struct-header" name="bay-index">`+
+        `<span></span>`+
+    `</div>`+
+    `<div class="bay-struct-content" name="bay-struct-area">`+
+        `<div class="bay-col-index-deck">`+
+            `<div class="blank-index-deck"></div>`+
+            `<div class="col-index-area-deck"></div>`+
+        `</div>`+
+        `<div class="bay-deck-lays"></div>`+
+        `<div class="vessel-hat">`+
+            `<div class="blank-hat-area"></div>`+
+            `<div class="hat-area"></div>`+
+        `</div>`+
+        `<div class="bay-cab-lays"></div>`+
+        `<div class="bay-col-index-cab">`+
+            `<div class="blank-index-cab"></div>`+
+            `<div class="col-index-area-cab"></div>`+
+        `</div>`+
+    `</div>`+
+`</div>`);
+
+    let lay_index_deck = getDeckLayIndex(deck_real_lay,deck_max_lay);
+    let lay_index_cab = getCabLayIndex(cab_real_lay,cab_max_lay);
+
+    let col_index_deck_list = createColIndex(deck_real_col? deck_real_col:deck_max_col);
+    let col_index_cab_list = createColIndex(cab_real_col? cab_real_col:cab_max_col);
+
+    // console.log(col_index_deck_list);
+    // console.log(col_index_cab_list);
+    // from up to down
+    $(`.bay-struct-header`).children()[0].innerText = '贝位号: '+ bay_index;
+    // col-index on deck
+    let k;
+    for(k=0; k<col_index_deck_list.length; k++){
+        let col_index = col_index_deck_list[k];
+        $(`.col-index-area-deck`).append(`<div class="col-index-zone">${col_index}</div>`);
+    }
+    for(let r=0; r<col_index_cab_list.length; r++){
+        let col_index = col_index_cab_list[r];
+        $(`.col-index-area-cab`).append(`<div class="col-index-zone">${col_index}</div>`);
+    }
+    //lay
+    for(let m=lay_index_deck.length-1; m>=0; m--){
+        let lay_index = lay_index_deck[m];
+        $(`.bay-deck-lays`).append(`<div class="bay-deck-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
+        for(let n=0; n<col_index_deck_list.length; n++){
+            let col_index = col_index_deck_list[n];
+            if(bay_layer_con_zone.length === 0) {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+            else {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+        }
+    }
+    for(let p=lay_index_cab.length-1; p>=0; p--){
+        let lay_index = lay_index_cab[p];
+        $(`.bay-cab-lays`).append(`<div class="bay-cab-single-lay"><div class="bay-lay-index">${lay_index}</div><div class="bay-lay-zones" layer=${lay_index}></div></div>`);
+        for(let q=0; q<col_index_cab_list.length; q++){
+            let col_index = col_index_cab_list[q];
+            if(bay_layer_con_zone.length === 0) {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+            else {
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+            }
+        }
+    }
+    // show real con-zone if exist
+    if(bay_layer_con_zone.length !== 0) {
+         for (let i = 0; i < bay_layer_con_zone.length; i++) {
+             let lay_index = bay_layer_con_zone[i].layer_index;
+             let con_list = bay_layer_con_zone[i].con_zone_list;
+             for (let j=0; j<con_list.length; j++){
+                 let pos_y = col_index_deck_list[j];
+                 if(con_list[j] === '1'){
+                     $(`div[class="con-zone-after"][pos_z=${lay_index}][pos_y=${pos_y}]`).addClass("con-zone-exist");
+                 }
+             }
+         }
+    }
+}
+
 // TODO: add engine after combination of bay
 /**
  *  test area

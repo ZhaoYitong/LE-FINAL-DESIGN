@@ -12,7 +12,7 @@ from django.db.models import Count,Min,Max,Sum
 from .methods import index_to_num, combined_bay_list,\
     create_engine_index, create_index_list, num_to_index,\
     bay_num_to_index_list, layer_con_list_to_db, \
-    db_layer_info_to_list, get_bay_width
+    db_layer_info_to_list, get_bay_width, bay20_num_index_list
 
 # TODO:
 # display value in choices
@@ -25,6 +25,7 @@ con_pending_info = 'VESSEL_CONTAINER_PENDING_INFO'
 get_basic_bay_combine = 'GET_BASIC_BAY_COMBINE_INFO'
 data_operation_load = 'OPERATION_LOAD_BAY_STRUCT',
 data_define_bay_struct = 'DEFINE_BAY_STRUCT',
+all_bays_struct_info = 'ALL_BAYS_STRUCT_INFO',
 
 
 def index(request):
@@ -585,3 +586,53 @@ def stowage_info(request):
 # @csrf_exempt
 # def operation_load_yard(request):
 #     if request.method == 'POST':
+@csrf_exempt
+def all_bays_struct(request):
+    if request.method == 'GET':
+        ves_name = request.GET['name']
+        # get max of all from ves_struct
+        obj1 = ves_struct.objects.get(Vessel=ves_name)
+        ves_bay_20_num = obj1.TweBayNum
+        deck_lay_num_max = obj1.DeckLayNumMax
+        cab_lay_num_max = obj1.CabLayNumMax
+        deck_col_num_max = obj1.DeckColNumMax
+        cab_col_num_max = obj1.CabColNumMax
+
+        bay_index_list = bay20_num_index_list(ves_bay_20_num)
+        content = []
+        for bay_index in bay_index_list:
+            # get real
+            obj2 = ves_bay_struct.objects.filter(Vessel=ves_name,
+                                                 BayNo=bay_index)
+            deck_lay_num_real = obj2[0].DeckHeg
+            cab_lay_num_real = obj2[0].CabHeg
+            deck_col_num_real = obj2[0].DeckWidMax
+            cab_col_num_real = obj2[0].CabWidMax
+            bay_layers = ves_bay_lay_struct.objects.filter(Vessel=ves_name,
+                                                           BayNo=bay_index)
+            bay_layer_con_zone = [
+                {'layer_index': item.TireNo,
+                 'con_zone_list': db_layer_info_to_list(item.BayTieCtnLay),
+                 } for item in bay_layers]
+            content.append({
+                'bay_index': bay_index,
+                'bay_struct_max': {
+                    'deck_lay_num_max': deck_lay_num_max,
+                    'cab_lay_num_max': cab_lay_num_max,
+                    'deck_col_num_max': deck_col_num_max,
+                    'cab_col_num_max': cab_col_num_max,
+                },
+                'real_bay_struct': {
+                    'deck_lay_num_real': deck_lay_num_real,
+                    'cab_lay_num_real': cab_lay_num_real,
+                    'deck_col_num_real': deck_col_num_real,
+                    'cab_col_num_real': cab_col_num_real,
+                },
+                'bay_layer_con_zone': bay_layer_con_zone,
+            })
+        data = {
+            'data_type': all_bays_struct_info,
+            'ves_name': ves_name,
+            'content': content,
+        }
+        return JsonResponse(data)

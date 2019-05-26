@@ -4,12 +4,15 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import random
 from django.http import JsonResponse
+from django.apps import apps
 from .models import vessel_voy_info, ves_struct, ves_bay_struct, \
-    ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out
+    ves_bay_lay_struct, con_pend_info, qc_info, qc_dis_plan_out,\
+con_stowage_export, con_stowage_import
 from django.db.models import Count,Min,Max,Sum
 from .methods import index_to_num, combined_bay_list,\
-    create_engine_index,create_index_list, num_to_index,\
-    bay_num_to_index_list, layer_con_list_to_db, db_layer_info_to_list, get_bay_width
+    create_engine_index, create_index_list, num_to_index,\
+    bay_num_to_index_list, layer_con_list_to_db, \
+    db_layer_info_to_list, get_bay_width
 
 # TODO:
 # display value in choices
@@ -127,6 +130,8 @@ def edit_bay(request):
         obj_ves_struct.FotBayCom = fot_bay_com
         obj_ves_struct.FotBayNum = fot_bay_num
         obj_ves_struct.save()
+        # Update DB: clear bay_struct_layer info
+        ves_bay_lay_struct.objects.filter(Vessel=ves_name).delete()
         # Get From DB
         obj_bay_inch20 = ves_bay_struct.objects.filter(Vessel=ves_name, BaySiz='20')
         obj_temp_inch40 = ves_struct.objects.get(Vessel=ves_name)
@@ -537,6 +542,35 @@ def operation_load(request):
             'bay_layer_con_zone': bay_layer_con_zone,
         }
         return JsonResponse(data)
+    elif request.method == 'POST':
+        # data = json.loads(request.body.decode('utf-8'))
+        # ves_name = data['ves_name']
+        # yardCel = ''
+        # con_loaded = data['loaded']
+        # get model from another app
+        yard = apps.get_model('yardMon', 'yard')
+        # add container into
+        # for con in con_loaded:
+        #     ob = yard.objects.filter(YardCel=ob)
+        #
+        #     con_stowage_export.objects.create(Vessel=ves_name, )
+        # # delete container info in yard
+        # for item in con_loaded:
+        #     obj = yard.objects.filter(YardCel=item)
+        #     obj.Status = None
+        #     obj.CtnNo = None
+        #     obj.StrLoaUnlSig = None
+        #     obj.CtnTyp = None
+        #     obj.CtnWegt = None
+        #     obj.UnloadPort = None
+        #     obj.Size = None
+        #     obj.Owner = None
+        #     obj.LoaVesTim = None
+        #     obj.Color = 'wheat'
+        #     obj.save()
+        # print(test)
+        testa = {'operation': 'done'}
+        return JsonResponse(testa)
 
 
 @csrf_exempt

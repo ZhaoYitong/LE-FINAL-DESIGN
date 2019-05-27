@@ -284,10 +284,10 @@ function drawBayStruct(res) {
         for(let n=0; n<col_index_deck_list.length; n++){
             let col_index = col_index_deck_list[n];
             if(bay_layer_con_zone.length === 0) {
-                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pos_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
             }
             else {
-                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pos_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
             }
         }
     }
@@ -297,10 +297,10 @@ function drawBayStruct(res) {
         for(let q=0; q<col_index_cab_list.length; q++){
             let col_index = col_index_cab_list[q];
             if(bay_layer_con_zone.length === 0) {
-                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-initial" pos_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
             }
             else {
-                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pox_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
+                $(`div[layer=${lay_index}]`).append(`<div class="con-zone-after" pos_x=${bay_index} pos_y=${col_index} pos_z=${lay_index}></div>`);
             }
         }
     }

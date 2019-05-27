@@ -291,8 +291,8 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    border: 2px solid red;
-    background-color: wheat;
+    border: 2px solid #8a5c20;
+    background-color: gray;
 }
 
 .bay-struct-content > .bay-deck-lays > .bay-deck-single-lay > .bay-lay-zones > .con-zone-after,

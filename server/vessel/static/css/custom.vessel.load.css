@@ -582,18 +582,18 @@
 }
 
 /******* custom blink ***********/
-/*@-webkit-keyframes blinker {*/
-/*    from {opacity: 1.0;}*/
-/*    to {opacity: 0.0;}*/
-/*}*/
-/*.blink{*/
-/*    text-decoration: blink;*/
-/*    -webkit-animation-name: blinker;*/
-/*    -webkit-animation-duration: 0.6s;*/
-/*    -webkit-animation-iteration-count:infinite;*/
-/*    -webkit-animation-timing-function:ease-in-out;*/
-/*    -webkit-animation-direction: alternate;*/
-/*}*/
+@-webkit-keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+}
+.blink{
+    text-decoration: blink;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.6s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:ease-in-out;
+    -webkit-animation-direction: alternate;
+}
 /******* custom blink ***********/
 
 .engineBody {
@@ -749,14 +749,30 @@
     background-color: #0c5460;
 }
 
-.bay-struct-zone-discard {
+.container-exist-zone {
     width: 40px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid white !important;
-    background-color: white !important;
+    border: 2px solid saddlebrown;
+    background-color: white;
+}
+
+.container-red {
+    background-color: #c42018;
+}
+
+.container-green {
+    background-color: #45a417;
+}
+
+.container-blue {
+    background-color: #2b508b;
+}
+
+.container-yellow {
+    background-color: #d5db4f;
 }
 
 /******** BAY-STRUCT-LOAD-OPERATION *********/

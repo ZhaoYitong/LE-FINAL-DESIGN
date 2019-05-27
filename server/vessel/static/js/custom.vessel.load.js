@@ -45,6 +45,7 @@ function re_fun_infor(obj) {
 }
 
 function showYardInfo() {
+    // $(`.yardInfo`).disabled
     // initial basic div
     $(`.YARD-AREA`).append(`<div class="bay_blank">贝位</div>`)
         .append(`<div class="bay_Y"></div>`)
@@ -422,7 +423,7 @@ function createColIndex(num_of_col) {
     return temp_list;
 }
 function drawBayStruct(res) {
-    let ves_name = res.ves_name;
+    // let ves_name = res.ves_name;
     let bay_index = res.bay_index;
     let deck_max_lay = res.bay_struct_max.deck_lay_num_max;
     let cab_max_lay = res.bay_struct_max.cab_lay_num_max;
@@ -435,6 +436,8 @@ function drawBayStruct(res) {
     let deck_real_col = res.real_bay_struct.deck_col_num_real;
 
     let bay_layer_con_zone = res.bay_layer_con_zone;
+
+    let con_on_vessel = res.con_on_vessel;
 
     // create bay-structure
     $( `#bay-struct-vessel`).append(`<div class="bay-struct-define">`+
@@ -506,7 +509,6 @@ function drawBayStruct(res) {
             }
         }
     }
-
     // show real con-zone if exist
     if(bay_layer_con_zone.length !== 0) {
          for (let i = 0; i < bay_layer_con_zone.length; i++) {
@@ -521,6 +523,36 @@ function drawBayStruct(res) {
          }
     }
 
+    // add container to bay
+    for(let i=0;i<con_on_vessel.length;i++){
+        let pos_x = con_on_vessel[i].BayNo;
+        let pos_y = con_on_vessel[i].ColNo;
+        let pos_z = con_on_vessel[i].TireNo;
+        let container_type = con_on_vessel[i].CtnTyp;
+        let container_no = con_on_vessel[i].CtnNo;
+        let con_size = con_on_vessel[i].Size;
+        let yard_cel = con_on_vessel[i].YardCel;
+        let con_title_info = "箱型："+container_type + '\n' +
+                             "尺寸："+con_size + '\n' +
+                             "箱号"+container_no + '\n' +
+                             "堆场箱位："+yard_cel;
+        let obj = $(`div[pos_x=${pos_x}][pos_y=${pos_y}][pos_z=${pos_z}]`);
+        obj.prop("title", con_title_info);
+        obj.addClass("container-exist-zone").removeClass("con-zone-exist").removeClass("con-zone-initial");
+        // color set
+        if(container_type === "普通箱"){
+            obj.addClass("container-red");
+        }
+        else if (container_type === "危险箱"){
+            obj.addClass("container-yellow");
+        }
+        else if (container_type === "冷藏箱"){
+            obj.addClass("container-blue");
+        }
+        else {
+            obj.addClass("container-yellow");
+        }
+    }
     $(`.con-zone-initial, .con-zone-exist`).droppable({
         drop: function (event, ui) {
             // container position in yard
@@ -531,22 +563,41 @@ function drawBayStruct(res) {
             let val_x = $(this)[0].attributes.pos_x.value;
             let val_y = $(this)[0].attributes.pos_y.value;
             let val_z = $(this)[0].attributes.pos_z.value;
-            loaded_con.push({
-                'pos_yard': con_box + con_bay + con_col_lay,
-                'pos_vessel': val_x + val_y + val_z,
-            });
-            test_count += 1;
-            console.log("count: "+ test_count +'\n' + loaded_con);
+            let pos_yard = con_box + con_bay + con_col_lay;
+            let pos_vessel = val_x + val_y + val_z;
+
+            $(this).addClass("blink");
+            if(loaded_con.length === 0){
+                loaded_con.push({
+                    pos_yard: con_box + con_bay + con_col_lay,
+                    pos_vessel: val_x + val_y + val_z,
+                });
+            }
+            else {
+                let countDif = 0;
+                for(let i=0; i<loaded_con.length; i++){
+                    if (pos_yard === loaded_con[i].pos_yard && pos_vessel === loaded_con[i].pos_vessel){
+                        break;
+                    }
+                    else if (pos_yard === loaded_con[i].pos_yard && pos_vessel !== loaded_con[i].pos_vessel){
+                        loaded_con[i].pos_vessel = pos_vessel;
+                    }
+                    else if (pos_yard !== loaded_con[i].pos_yard){
+                        countDif += 1;
+                        if(countDif === loaded_con.length){
+                            loaded_con.push({
+                                pos_yard: pos_yard,
+                                pos_vessel: pos_vessel,
+                            });
+                        }
+                    }
+                }
+            }
+            console.log(loaded_con);
+        },
+        out: function (event, ui) {
+            $(this).removeClass("blink");
         }
-    });
-    $(`.con-zone-initial`).on('dblclick', function () {
-        let pos_x = this.attributes[1].value;
-        let pos_y = this.attributes[2].value;
-        let pos_z = this.attributes[3].value;
-        let test = $(this).attr("pos_x");
-        // console.log(test);
-        $(this).addClass("bay-struct-zone-discard");
-        // console.log(this.attributes[1].value);
     });
 }
 function createBayCombinationInfo(newList) {
@@ -616,7 +667,6 @@ function createBayCombinationInfo(newList) {
             success: function (res) {
                 console.log(res);
                 drawBayStruct(res);
-
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert(XMLHttpRequest.status);
@@ -729,6 +779,23 @@ function getCombineInfo (){
 */
 // $(`.con`).draggable({ revert: "invalid" });
 function confirmOperation() {
-    console.log("test done!");
-
+    let selected_ves = $(`#vesselSelect option:selected`).val();
+    let data = {
+        ves_name: selected_ves,
+        loaded: loaded_con,
+    };
+    $.ajax({
+        url: "/vesselStruct/operation_load/",
+        type: "POST",
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            alert(res);
+            location.reload();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+        },
+    });
 }

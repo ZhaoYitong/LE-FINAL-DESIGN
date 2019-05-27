@@ -524,6 +524,22 @@ def operation_load(request):
             {'layer_index': item.TireNo,
              'con_zone_list': db_layer_info_to_list(item.BayTieCtnLay),
             } for item in bay_layers]
+        # get vessel's stowage
+        obj3s = con_stowage_export.objects.filter(Vessel=ves_name,
+                                                 BayNo=bay_index)
+        container_on_vessel = []
+        for item in obj3s:
+            container_on_vessel.append({
+                'BayNo': item.BayNo,
+                'ColNo': item.ColNo,
+                'TireNo': item.TireNo,
+                'CtnNo': item.CtnNo,
+                'CtnTyp': item.CtnTyp,
+                'Size': item.Size,
+                'YardCel': item.YardCel,
+                'VesCellNo': item.VesCellNo,
+            })
+
         data = {
             'data_type': data_operation_load,
             'ves_name': ves_name,
@@ -541,37 +557,58 @@ def operation_load(request):
                 'cab_col_num_real': cab_col_num_real,
             },
             'bay_layer_con_zone': bay_layer_con_zone,
+            'con_on_vessel': container_on_vessel,
         }
         return JsonResponse(data)
     elif request.method == 'POST':
-        # data = json.loads(request.body.decode('utf-8'))
-        # ves_name = data['ves_name']
-        # yardCel = ''
-        # con_loaded = data['loaded']
+        data = json.loads(request.body.decode('utf-8'))
+        ves_name = data['ves_name']
+        con_loaded = data['loaded']
+        print(ves_name)
+        print(con_loaded)
         # get model from another app
         yard = apps.get_model('yardMon', 'yard')
         # add container into
-        # for con in con_loaded:
-        #     ob = yard.objects.filter(YardCel=ob)
-        #
-        #     con_stowage_export.objects.create(Vessel=ves_name, )
-        # # delete container info in yard
-        # for item in con_loaded:
-        #     obj = yard.objects.filter(YardCel=item)
-        #     obj.Status = None
-        #     obj.CtnNo = None
-        #     obj.StrLoaUnlSig = None
-        #     obj.CtnTyp = None
-        #     obj.CtnWegt = None
-        #     obj.UnloadPort = None
-        #     obj.Size = None
-        #     obj.Owner = None
-        #     obj.LoaVesTim = None
-        #     obj.Color = 'wheat'
-        #     obj.save()
-        # print(test)
-        testa = {'operation': 'done'}
-        return JsonResponse(testa)
+        for con in con_loaded:
+            obj1 = yard.objects.filter(YardCel=con['pos_yard'])
+            CtnNo = obj1[0].CtnNo
+            # StrLoaUnlSig = obj1[0].StrLoaUnlSig
+            CtnTyp = obj1[0].CtnTyp
+            # CtnWegt = obj1[0].CtnWegt
+            UnloadPort = obj1[0].UnloadPort
+            Size = obj1[0].Size
+            # Owner = obj1[0].Owner
+            # LoaVesTim = obj1[0].LoaVesTim
+
+            # get bay col
+            # add con info in stowage
+            con_stowage_export.objects.create(Vessel=ves_name,
+                                              CtnNo=CtnNo,
+                                              CtnTyp=CtnTyp,
+                                              # CtnWegt=CtnWegt,
+                                              UnloadPort=UnloadPort,
+                                              Size=Size,
+                                              VesCellNo=con['pos_vessel'],
+                                              BayNo=con['pos_vessel'][0:2],
+                                              ColNo=con['pos_vessel'][2:4],
+                                              TireNo=con['pos_vessel'][4:6],
+                                              YardCel=con['pos_yard'])
+        # delete container info in yard
+        for item in con_loaded:
+            yard.objects.filter(YardCel=item['pos_yard']).update(
+                Status=None,
+                CtnNo=None,
+                StrLoaUnlSig=None,
+                CtnTyp=None,
+                CtnWegt=None,
+                UnloadPort=None,
+                Size=None,
+                Owner=None,
+                LoaVesTim=None,
+                Color='wheat',
+            )
+        res = {'operation': 'done'}
+        return JsonResponse(res)
 
 
 @csrf_exempt

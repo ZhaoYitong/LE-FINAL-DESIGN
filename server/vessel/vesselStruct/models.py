@@ -265,7 +265,9 @@ class con_stowage_export(models.Model):
     Voyage = models.CharField(null=True, blank=True, max_length=50, verbose_name='航次')
     VesCellNo = models.CharField(null=True, blank=True, max_length=50, verbose_name='船箱位')
     # TODO: ColNo is tinyint?
+    BayNo = models.CharField(null=True, blank=True, max_length=50, verbose_name='贝号')
     ColNo = models.CharField(null=True, blank=True, max_length=50, verbose_name='列号') # tinyint
+    TireNo = models.CharField(null=True, blank=True, max_length=100, verbose_name='层号')
     DeckCagSig = models.CharField(null=True, blank=True, max_length=50, verbose_name='甲板or舱内')
     CtnNo = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱号')
     CtnTyp = models.CharField(null=True, blank=True, max_length=50, verbose_name='箱型')

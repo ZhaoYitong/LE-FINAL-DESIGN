@@ -972,8 +972,6 @@ function drawBayStruct(item) {
     let col_index_deck_list = createColIndex(deck_real_col? deck_real_col:deck_max_col);
     let col_index_cab_list = createColIndex(cab_real_col? cab_real_col:cab_max_col);
 
-    // console.log(col_index_deck_list);
-    // console.log(col_index_cab_list);
     // from up to down
     // $(`div[class="bay-struct-header"][bay_index=${bay_index}]`).children()[0].innerText = '贝位号: '+ bay_index;
     // col-index on deck

@@ -14,6 +14,16 @@ let yard_owner;
 let yard_loaVesTim;
 let yard_color;
 let color_old;
+
+// declare selected box and bay
+let selected_box = '';
+let selected_bay = '';
+
+// initial container_list for droppable
+let loaded_con = [];
+
+// test area
+let test_count = 0;
 // table
 function fun_infor(obj) {
     color_old = obj.style.backgroundColor;
@@ -98,6 +108,9 @@ function container_add(container_this) {
             yard_owner = yard_database["yard_owner"];
             yard_loaVesTim = yard_database["yard_loaVesTim"];
             yard_color = yard_database["yard_color"];
+            //selected box and bay
+            selected_box = yard_database["selected_box"];
+            selected_bay = yard_database["selected_bay"];
 
             //console.log(yard_database);
             // delete class con-exist
@@ -113,20 +126,26 @@ function container_add(container_this) {
                     document.getElementById(find_str).children[0].style.backgroundColor = yard_color[find_str];
                     // add border
                     if(yard_color[find_str] === "red"){
-                        $(`div[box_bay=${find_str}]`).addClass("con-exist");
+                        $(`div[col_lay=${find_str}]`).addClass("con-exist");
                     }
                     $(`td[id=${find_str}`).addClass("border2solid");
                 }
             }
             // register draggable func
-            $(`.con-exist`).draggable({ revert: "invalid" });
+            $(`.con-exist`).draggable
+            ({
+                revert: "invalid",
+                snap: '.con-zone-initial, .con-zone-exist',
+                snapMode: 'corner',
+                snapTolerance: '22',
+            });
 
             // add container_information_col > td : border
             let child_list = $(`tr[id="container_information_col"]`)[0].children;
             for(let i=1;i<child_list.length;i++){
                 child_list[i].style.border="2px solid blanchedalmond";
             }
-            console.log(child_list);
+            // console.log(child_list);
             con_tab.hidden = false;
         },
         error: function (msg) {
@@ -503,7 +522,22 @@ function drawBayStruct(res) {
     }
 
     $(`.con-zone-initial, .con-zone-exist`).droppable({
-
+        drop: function (event, ui) {
+            // container position in yard
+            let con_col_lay = ui.draggable[0].attributes.col_lay.value;
+            let con_box = selected_box;
+            let con_bay = selected_bay;
+            // loaded position in vessel
+            let val_x = $(this)[0].attributes.pos_x.value;
+            let val_y = $(this)[0].attributes.pos_y.value;
+            let val_z = $(this)[0].attributes.pos_z.value;
+            loaded_con.push({
+                'pos_yard': con_box + con_bay + con_col_lay,
+                'pos_vessel': val_x + val_y + val_z,
+            });
+            test_count += 1;
+            console.log("count: "+ test_count +'\n' + loaded_con);
+        }
     });
     $(`.con-zone-initial`).on('dblclick', function () {
         let pos_x = this.attributes[1].value;

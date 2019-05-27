@@ -111,5 +111,6 @@ def operation_load(request):
         yard_database["yard_owner"] = yard_owner
         yard_database["yard_loaVesTim"] = yard_loaVesTim
         yard_database["yard_color"] = yard_color
-
+        yard_database["selected_box"] = box
+        yard_database["selected_bay"] = bay
         return JsonResponse(yard_database)

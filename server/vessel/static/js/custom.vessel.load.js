@@ -100,6 +100,10 @@ function container_add(container_this) {
             yard_color = yard_database["yard_color"];
 
             //console.log(yard_database);
+            // delete class con-exist
+            if($(`.con-exist`)){
+                $(`.con-exist`).removeClass("con-exist");
+            }
 
             let col_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
             let lay_list = ["1", "2", "3", "4", "5"];
@@ -108,9 +112,15 @@ function container_add(container_this) {
                     let find_str = col_list[j] + lay_list[i];
                     document.getElementById(find_str).children[0].style.backgroundColor = yard_color[find_str];
                     // add border
+                    if(yard_color[find_str] === "red"){
+                        $(`div[box_bay=${find_str}]`).addClass("con-exist");
+                    }
                     $(`td[id=${find_str}`).addClass("border2solid");
                 }
             }
+            // register draggable func
+            $(`.con-exist`).draggable({ revert: "invalid" });
+
             // add container_information_col > td : border
             let child_list = $(`tr[id="container_information_col"]`)[0].children;
             for(let i=1;i<child_list.length;i++){
@@ -683,7 +693,7 @@ function getCombineInfo (){
 /**
 * OPERATION AREA
 */
-$(`.con`).draggable({ revert: "invalid" });
+// $(`.con`).draggable({ revert: "invalid" });
 function confirmOperation() {
     console.log("test done!");
 

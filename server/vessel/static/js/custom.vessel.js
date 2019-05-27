@@ -945,9 +945,9 @@ function drawBayStruct(item) {
 
     // create bay-structure
     $( `div[class="bay-struct-content"][bay_index=${bay_index}]`).append(`<div class="bay-struct-define">`+
-    `<div class="bay-struct-header" bay_index=${bay_index} name="bay-index">`+
-        `<span></span>`+
-    `</div>`+
+    // `<div class="bay-struct-header" bay_index=${bay_index} name="bay-index">`+
+    //     `<span></span>`+
+    // `</div>`+
     `<div class="bay-struct-content" name="bay-struct-area">`+
         `<div class="bay-col-index-deck">`+
             `<div class="blank-index-deck"></div>`+
@@ -975,7 +975,7 @@ function drawBayStruct(item) {
     // console.log(col_index_deck_list);
     // console.log(col_index_cab_list);
     // from up to down
-    $(`div[class="bay-struct-header"][bay_index=${bay_index}]`).children()[0].innerText = '贝位号: '+ bay_index;
+    // $(`div[class="bay-struct-header"][bay_index=${bay_index}]`).children()[0].innerText = '贝位号: '+ bay_index;
     // col-index on deck
     for(let k=0; k<col_index_deck_list.length; k++){
         let col_index = col_index_deck_list[k];

@@ -1,4 +1,4 @@
-# file: ~/.gitignore
+.vs
 .idea
 ~$*
 *.tmp
